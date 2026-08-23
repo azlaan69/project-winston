@@ -16,11 +16,10 @@ sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
-background_color = Color(0, 1, 1, 1)
-background_energy_multiplier = 0.0
+background_color = Color(0.2468968, 8.3242136e-05, 0.27432653, 1)
 sky = SubResource("Sky_pyidc")
 ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_color = Color(0.2159017, 0.21590173, 0.2159017, 1)
 ambient_light_energy = 0.0
 tonemap_mode = 3
 tonemap_exposure = 0.2
@@ -88,6 +87,22 @@ _surfaces = [{
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vbg00"]
 bounce = 0.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw3kd"]
+albedo_color = Color(0, 1, 1, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_gd4vy"]
+lightmap_size_hint = Vector2i(64, 8)
+material = SubResource("StandardMaterial3D_tw3kd")
+inner_radius = 1.5
+outer_radius = 2.0
+rings = 8
+ring_segments = 3
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28aoi"]
 albedo_color = Color(1, 0, 0.43137255, 1)
 metallic_specular = 0.0
@@ -105,11 +120,10 @@ rings = 8
 ring_segments = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bf3um"]
-albedo_color = Color(1, 0, 0.43137255, 1)
 metallic_specular = 0.0
 roughness = 0.0
 emission_enabled = true
-emission = Color(1, 0, 0.43137255, 1)
+emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 8.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_jnlp7"]
@@ -121,16 +135,30 @@ rings = 8
 ring_segments = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhb04"]
-albedo_color = Color(0, 1, 1, 1)
 metallic_specular = 0.0
 roughness = 0.0
 emission_enabled = true
-emission = Color(0, 1, 1, 1)
+emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 8.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_seyvw"]
 lightmap_size_hint = Vector2i(64, 8)
 material = SubResource("StandardMaterial3D_nhb04")
+inner_radius = 1.8
+outer_radius = 2.0
+rings = 8
+ring_segments = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huihk"]
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_tw3kd"]
+lightmap_size_hint = Vector2i(64, 8)
+material = SubResource("StandardMaterial3D_huihk")
 inner_radius = 1.8
 outer_radius = 2.0
 rings = 8
@@ -147,6 +175,7 @@ shadow_enabled = true
 environment = SubResource("Environment_vvh5c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=281922173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 visible = false
 
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1358775096]
@@ -173,22 +202,141 @@ physics_material_override = SubResource("PhysicsMaterial_vbg00")
 [node name="Spinny" type="Node3D" parent="." unique_id=2016679170]
 script = ExtResource("4_28aoi")
 
-[node name="MeshInstance3D1" type="MeshInstance3D" parent="Spinny" unique_id=1543483062]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 10, 0)
+[node name="Inner" type="MeshInstance3D" parent="Spinny" unique_id=1543483062]
+transform = Transform3D(2.5, 0, 0, 0, -1.09278474e-07, -2.5, 0, 2.5, -1.09278474e-07, 0, 8, 16)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_gd4vy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner" unique_id=1197409579]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner" unique_id=507731829]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="Inner2" type="MeshInstance3D" parent="Spinny" unique_id=729913747]
+transform = Transform3D(2.5, 0, 0, 0, -1.09278474e-07, -2.5, 0, 2.5, -1.09278474e-07, 0, 8, -16)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_gd4vy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner2" unique_id=1022016524]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner2" unique_id=1413720770]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="Inner3" type="MeshInstance3D" parent="Spinny" unique_id=647163640]
+transform = Transform3D(-1.09278474e-07, 2.5, 1.09278474e-07, 0, -1.09278474e-07, 2.5, 2.5, 1.09278474e-07, 4.7767136e-15, -16, 8, 0)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_gd4vy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner3" unique_id=478312700]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner3" unique_id=2145291865]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="Inner4" type="MeshInstance3D" parent="Spinny" unique_id=644116864]
+transform = Transform3D(-1.09278474e-07, -2.5, -1.09278474e-07, 0, -1.09278474e-07, 2.5, -2.5, 1.09278474e-07, 4.7767136e-15, 16, 8, 0)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_gd4vy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner4" unique_id=1920887845]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner4" unique_id=797027951]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="Inner5" type="MeshInstance3D" parent="Spinny" unique_id=566069882]
+transform = Transform3D(1.767767, -1.767767, 0, -7.727155e-08, -7.727155e-08, -2.5, 1.767767, 1.767767, -1.09278474e-07, 13, -10, -13)
 cast_shadow = 0
 mesh = SubResource("TorusMesh_28aoi")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/MeshInstance3D1" unique_id=1197409579]
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner5" unique_id=1597030237]
 transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
 light_color = Color(1, 0, 0.43137255, 1)
-light_energy = 8.0
-omni_range = 4096.0
+light_energy = 2.0
+omni_range = 32.0
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/MeshInstance3D1" unique_id=507731829]
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner5" unique_id=1647426240]
 transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
 light_color = Color(1, 0, 0.43137255, 1)
-light_energy = 8.0
-omni_range = 4096.0
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="Inner6" type="MeshInstance3D" parent="Spinny" unique_id=942202633]
+transform = Transform3D(-1.7677671, -1.7677667, 1.09278474e-07, -7.727155e-08, -7.727155e-08, -2.5, 1.7677667, -1.7677671, 4.7767136e-15, 13, -10, 13)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_28aoi")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner6" unique_id=268574]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
+light_color = Color(1, 0, 0.43137255, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner6" unique_id=102833644]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
+light_color = Color(1, 0, 0.43137255, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="Inner7" type="MeshInstance3D" parent="Spinny" unique_id=952700658]
+transform = Transform3D(1.767767, 1.767767, 0, 7.727155e-08, -7.727155e-08, -2.5, -1.767767, 1.767767, -1.09278474e-07, -13, -10, -13)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_28aoi")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner7" unique_id=187206768]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
+light_color = Color(1, 0, 0.43137255, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner7" unique_id=161996139]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
+light_color = Color(1, 0, 0.43137255, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="Inner8" type="MeshInstance3D" parent="Spinny" unique_id=300614378]
+transform = Transform3D(-7.727155e-08, 1.767767, 1.767767, -2.5, -1.09278474e-07, 0, 7.727155e-08, -1.767767, 1.767767, -13, -10, 13)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_28aoi")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/Inner8" unique_id=516499035]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, 1.7142859, 0, 0)
+light_color = Color(1, 0, 0.43137255, 1)
+light_energy = 2.0
+omni_range = 32.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/Inner8" unique_id=1714994854]
+transform = Transform3D(0.2857143, 0, 0, 0, 0.2857143, 0, 0, 0, 0.2857143, -1.7959181, 0, 0)
+light_color = Color(1, 0, 0.43137255, 1)
+light_energy = 2.0
+omni_range = 32.0
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Spinny" unique_id=804549794]
 transform = Transform3D(30, 0, 0, 0, -1.3113416e-06, -30, 0, 30, -1.3113416e-06, 0, 0, 0)
@@ -197,25 +345,21 @@ mesh = SubResource("TorusMesh_jnlp7")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Spinny/MeshInstance3D2" unique_id=511621667]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, 0, 0, 0, 0.03333333, 0, 1.8333333, -8.013754e-08)
-light_color = Color(1, 0, 0.43137255, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/MeshInstance3D2" unique_id=780307137]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, 0, 0, 0, 0.03333333, 0, -0.0055563203, -1.8999994)
-light_color = Color(1, 0, 0.43137255, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Spinny/MeshInstance3D2" unique_id=1546439056]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, 0, 0, 0, 0.03333333, 0, -1.9111115, 8.353733e-08)
-light_color = Color(1, 0, 0.43137255, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Spinny/MeshInstance3D2" unique_id=1119667099]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, 0, 0, 0, 0.03333333, 0, -0.016667726, 1.9333328)
-light_color = Color(1, 0, 0.43137255, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
@@ -226,24 +370,45 @@ mesh = SubResource("TorusMesh_seyvw")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3" unique_id=860751492]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -1.4570389e-09, 1.8666664, -8.159458e-08)
-light_color = Color(0, 1, 1, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3" unique_id=1546377982]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -3.2196468e-15, -0.0055561257, -1.899999)
-light_color = Color(0, 1, 1, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3" unique_id=2102768526]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -1.457046e-09, -1.8777777, 8.2080255e-08)
-light_color = Color(0, 1, 1, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3" unique_id=302548250]
 transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -9.547918e-15, -0.016667599, 1.9333326)
-light_color = Color(0, 1, 1, 1)
+light_energy = 16.0
+omni_range = 4096.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3" unique_id=2060864387]
+transform = Transform3D(0.99999994, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_tw3kd")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3/MeshInstance3D3" unique_id=1066622627]
+transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -1.4570389e-09, 1.8666664, -8.159458e-08)
+light_energy = 16.0
+omni_range = 4096.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3/MeshInstance3D3" unique_id=816121498]
+transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -3.2196468e-15, -0.0055561257, -1.899999)
+light_energy = 16.0
+omni_range = 4096.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3/MeshInstance3D3" unique_id=627349539]
+transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -1.457046e-09, -1.8777777, 8.2080255e-08)
+light_energy = 16.0
+omni_range = 4096.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Spinny/MeshInstance3D2/MeshInstance3D3/MeshInstance3D3" unique_id=99890097]
+transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, -2.783957e-24, 0, -2.783957e-24, 0.03333333, -9.547918e-15, -0.016667599, 1.9333326)
 light_energy = 16.0
 omni_range = 4096.0

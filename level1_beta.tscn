@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://36airr2ggf87"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qw60f"]
+metallic = 0.8
+metallic_specular = 0.8
+roughness = 0.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gw0fv"]
 albedo_color = Color(0.70796657, 0.7079665, 0.7079665, 1)
 
@@ -13,6 +18,7 @@ albedo_color = Color(0.7254902, 0.7254902, 0.7254902, 1)
 albedo_color = Color(0.7254902, 0.7254902, 0.7254902, 1)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" unique_id=2077071932]
+material_override = SubResource("StandardMaterial3D_qw60f")
 calculate_tangents = false
 use_collision = true
 collision_layer = 3
@@ -20,53 +26,63 @@ collision_mask = 3
 metadata/_edit_lock_ = true
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=895071962]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, -0.5, -14.746643)
 use_collision = true
-size = Vector3(50, 1.2, 50)
+size = Vector3(15, 1.2, 20.506714)
+
+[node name="Floor2" type="CSGBox3D" parent="." unique_id=1517278946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, -0.5, 14.749)
+use_collision = true
+size = Vector3(15, 1.2, 20.50293)
 
 [node name="RampWhole" type="CSGBox3D" parent="." unique_id=1146607772]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.5, 2.2, -10)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.5, 1.7973695, -10)
 use_collision = true
-size = Vector3(25, 5, 1)
+size = Vector3(25, 5.794739, 1)
 
 [node name="RampWall" type="CSGBox3D" parent="RampWhole" unique_id=1915740987]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7.5)
-size = Vector3(9, 5, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.999999, 0.003216505, 7.500001)
+size = Vector3(9, 5.798828, 14)
 metadata/_edit_lock_ = true
 
-[node name="Ramp" type="CSGPolygon3D" parent="RampWhole/RampWall" unique_id=1422326619]
-transform = Transform3D(-1.4999999, 0, 1.1802073e-07, 0, 1.4999999, 0, -1.3113416e-07, 0, -1.3499999, -6, -2, -7)
-polygon = PackedVector2Array(-1, -1, -1, 3, 12, -1, 0, -1)
+[node name="Ramp" type="CSGPolygon3D" parent="RampWhole" unique_id=1422326619]
+transform = Transform3D(-1.4999999, 0, 1.1802073e-07, 0, 1.4999999, 0, -1.3113416e-07, 0, -1.3499999, 1, -1.5973694, 0.5)
+polygon = PackedVector2Array(-1, -1, -1, 3, 9.3, -1, 0, -1)
 depth = 10.0
 metadata/_edit_lock_ = true
 
 [node name="Bound1" type="CSGBox3D" parent="." unique_id=429175950]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 24.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4519043, 24.5)
 use_collision = true
-size = Vector3(50, 10, 1)
+size = Vector3(50, 11.096191, 1)
 
 [node name="Ramp" type="CSGBox3D" parent="Bound1" unique_id=302545488]
-transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.922, -0.68, 3.501)
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.922, -0.13190413, 3.5009995)
 size = Vector3(21, 1, 6)
 
+[node name="FloorClearance4" type="CSGBox3D" parent="Bound1/Ramp" unique_id=934384056]
+transform = Transform3D(0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0, 1, -12.1, 0.854, 0)
+operation = 2
+size = Vector3(10, 1, 6)
+
 [node name="UpperPlatform" type="CSGBox3D" parent="Bound1" unique_id=1298019138]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 4.5, 3.499998)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 5.0480957, 3.499998)
 size = Vector3(4.2072754, 1, 6)
 
 [node name="Platform" type="CSGBox3D" parent="Bound1" unique_id=1053071878]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012670457, -5.5, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012670457, -4.9519043, 3.5)
 size = Vector3(7.774658, 1.5, 6)
 
 [node name="Ramp2" type="CSGBox3D" parent="Bound1" unique_id=802112416]
-transform = Transform3D(0.8660254, -0.5, 0, -0.5, -0.8660254, 8.742278e-08, -4.371139e-08, -7.5710346e-08, -1, -11.92, -0.6799998, 3.5)
+transform = Transform3D(0.8660254, -0.50000006, -8.742278e-08, -0.50000006, -0.8660254, 8.742278e-08, -1.1942174e-07, -3.1998955e-08, -1, -11.92, -0.13190413, 3.5)
 size = Vector3(21, 1, 6)
 
 [node name="UpperPlatform2" type="CSGBox3D" parent="Bound1" unique_id=1338015673]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 4.5, 3.500002)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 5.0480957, 3.500002)
 size = Vector3(4.207, 1, 6)
 
 [node name="Connector1" type="CSGPolygon3D" parent="Bound1" unique_id=1894000980]
-transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, -24.5, 5, 0)
+transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, -24.5, 5.5480957, 0)
 polygon = PackedVector2Array(0, 0, 0, 0, 0, -7, -7, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Bound1/Connector1" unique_id=769806239]
@@ -80,63 +96,63 @@ operation = 2
 size = Vector3(1, 1, 2)
 
 [node name="Cutout" type="CSGBox3D" parent="Bound1" unique_id=498945097]
-transform = Transform3D(0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0, 1, -17.75, -1.9330127, 0)
+transform = Transform3D(0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0, 1, -17.75, -1.384917, 0)
 operation = 2
 size = Vector3(10, 7, 1)
 
 [node name="OuterPlatform" type="CSGBox3D" parent="Bound1" unique_id=1276567455]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, -5.4, 4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, -4.8519044, 4.5)
 size = Vector3(6, 1, 8)
 
 [node name="OuterPlatform2" type="CSGBox3D" parent="Bound1" unique_id=2007941835]
-transform = Transform3D(0.99026334, -0.036029283, -0.13446301, -0.13920633, -0.2562992, -0.95652115, 3.8567047e-09, 0.965926, -0.25881922, 8.505126, -2.5, 14)
+transform = Transform3D(0.99999994, 0, 0, 0, -4.3711392e-08, -1.0000001, 0, 1.0000001, -4.3711392e-08, 8.505126, -1.9519043, 14)
 size = Vector3(35, 0.5, 5)
 
 [node name="Bound2" type="CSGBox3D" parent="." unique_id=1436352054]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -24.5, 5, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -24.5, 4.4506836, 0)
 use_collision = true
-size = Vector3(50, 10, 1)
+size = Vector3(50, 11.098633, 1)
 
 [node name="CutoutFrame" type="CSGPolygon3D" parent="Bound2" unique_id=1334579502]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1368684e-13, 0.5493164, 1)
 polygon = PackedVector2Array(-3.5, 1, 0, 2.5, 3.5, 1.5, 3.5, -3.5, 0, -4.5, -3.5, -3.5)
 depth = 2.0
 material = SubResource("StandardMaterial3D_gw0fv")
 
 [node name="BoundCutout1" type="CSGPolygon3D" parent="Bound2" unique_id=229017653]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5893193e-08, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5893079e-08, 0.5493164, 1)
 operation = 2
 polygon = PackedVector2Array(-3, 1, 0, 2, 3, 1, 3, -3, 0, -4, -3, -3)
 depth = 2.0
 
 [node name="Ramp" type="CSGBox3D" parent="Bound2" unique_id=1651045818]
-transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.922, -0.68, 3.501)
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.922, -0.13068342, 3.5009995)
 size = Vector3(21, 1, 6)
 
 [node name="UpperPlatform" type="CSGBox3D" parent="Bound2" unique_id=401521998]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 4.5, 3.499998)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 5.0493164, 3.499998)
 size = Vector3(4.2072754, 1, 6)
 
 [node name="Platform" type="CSGBox3D" parent="Bound2" unique_id=228070470]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14999986, -5.5, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14999986, -4.9506836, 3.5)
 size = Vector3(7.7000003, 1, 6)
 
 [node name="Ramp2" type="CSGBox3D" parent="Bound2" unique_id=1379988335]
-transform = Transform3D(0.8660254, -0.5, 0, -0.5, -0.8660254, 8.742278e-08, -4.371139e-08, -7.5710346e-08, -1, -11.959675, -0.6799998, 3.5)
+transform = Transform3D(0.8660254, -0.5, 0, -0.5, -0.8660254, 8.742278e-08, -4.371139e-08, -7.5710346e-08, -1, -11.959675, -0.13068342, 3.5)
 size = Vector3(21, 1, 6)
 
 [node name="UpperPlatform2" type="CSGBox3D" parent="Bound2" unique_id=2113991614]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 4.5, 3.500002)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 5.0493164, 3.500002)
 size = Vector3(4.207, 1, 6)
 
 [node name="BoundCutout2" type="CSGPolygon3D" parent="Bound2" unique_id=1383157817]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.5493164, 0.5)
 operation = 2
 polygon = PackedVector2Array(-5, 4, -9, 4, -8, -0.3, -3.5, -0.3)
 depth = 1.1
 
 [node name="Connector2" type="CSGPolygon3D" parent="Bound2" unique_id=2003515813]
-transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, -24.5, 5, 3.8146973e-06)
+transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, -24.5, 5.5493164, 3.8146973e-06)
 polygon = PackedVector2Array(0, 0, 0, 0, 0, -7, -7, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Bound2/Connector2" unique_id=720225911]
@@ -150,40 +166,40 @@ operation = 2
 size = Vector3(1, 1, 2)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Bound2" unique_id=2143902576]
-transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, -20.01, -1, 1.5)
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, -20.01, -0.4506836, 1.5)
 size = Vector3(5, 0.5, 3)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Bound2" unique_id=111654101]
-transform = Transform3D(1, -1.1313343e-08, -1.4894326e-09, 1.1313344e-08, 0.96592593, 0.25881907, -1.4894326e-09, -0.25881907, 0.96592593, -26, -2.129, -1.483)
+transform = Transform3D(1, -1.1313343e-08, -1.4894326e-09, 1.1313344e-08, 0.96592593, 0.25881907, -1.4894326e-09, -0.25881907, 0.96592593, -26, -1.5796835, -1.4829998)
 size = Vector3(2, 0.5, 3)
 
 [node name="Bound3" type="CSGBox3D" parent="." unique_id=930479527]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -24.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.452, -24.5)
 use_collision = true
-size = Vector3(50, 10, 1)
+size = Vector3(50, 11.096, 1)
 
 [node name="Ramp" type="CSGBox3D" parent="Bound3" unique_id=679881375]
-transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.921603, -0.6799998, -3.5)
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.921603, -0.13199997, -3.5)
 size = Vector3(21, 1, 6)
 
 [node name="UpperPlatform" type="CSGBox3D" parent="Bound3" unique_id=1265851603]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 4.5, -3.500002)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 5.048, -3.500002)
 size = Vector3(4.2072754, 1, 6)
 
 [node name="Platform" type="CSGBox3D" parent="Bound3" unique_id=123253766]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14999956, -5.5, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14999956, -4.952, -3.5)
 size = Vector3(7.7000003, 1, 6)
 
 [node name="Ramp2" type="CSGBox3D" parent="Bound3" unique_id=1241574494]
-transform = Transform3D(0.8660254, -0.5, 0, -0.5, -0.8660254, 8.742278e-08, -4.371139e-08, -7.5710346e-08, -1, -11.959675, -0.6799998, -3.5)
+transform = Transform3D(0.8660254, -0.5, 0, -0.5, -0.8660254, 8.742278e-08, -4.371139e-08, -7.5710346e-08, -1, -11.959675, -0.13199997, -3.5)
 size = Vector3(21, 1, 6)
 
 [node name="UpperPlatform2" type="CSGBox3D" parent="Bound3" unique_id=1562576052]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 4.5, -3.499998)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 5.048, -3.499998)
 size = Vector3(4.207, 1, 6)
 
 [node name="Connector1" type="CSGPolygon3D" parent="Bound3" unique_id=167296297]
-transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, 24.5, 5, 0)
+transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, 24.5, 5.548, 0)
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 7, 7, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Bound3/Connector1" unique_id=969717338]
@@ -197,57 +213,57 @@ operation = 2
 size = Vector3(1, 1, 2)
 
 [node name="Cutout" type="CSGBox3D" parent="Bound3" unique_id=1298354566]
-transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 17.7, -1.933, 0)
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 17.7, -1.3850002, 0)
 operation = 2
 size = Vector3(10, 7, 1)
 
 [node name="OuterPlatform" type="CSGBox3D" parent="Bound3" unique_id=383518979]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, -5.4, -4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, -4.852, -4.5)
 size = Vector3(6, 1, 8)
 
 [node name="OuterPlatform2" type="CSGBox3D" parent="Bound3" unique_id=902455393]
-transform = Transform3D(0.9898757, 0.043823306, -0.13500224, 0.14174455, -0.25571406, 0.9563049, 0.007386505, -0.96575886, -0.25933686, -8.505, -2.5, -14)
+transform = Transform3D(0.99999994, 0, 0, 0, -4.3711392e-08, -1.0000001, 0, 1.0000001, -4.3711392e-08, -8.505, -1.9520001, -14)
 size = Vector3(35, 0.5, 5)
 
 [node name="Bound4" type="CSGBox3D" parent="." unique_id=68787597]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24.5, 5, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24.5, 4.4487915, 0)
 use_collision = true
-size = Vector3(50, 10, 1)
+size = Vector3(50, 11.097, 1)
 
 [node name="CutoutFrame" type="CSGPolygon3D" parent="Bound4" unique_id=1492372016]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5498065e-08, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.549818e-08, 0.5512085, 1)
 polygon = PackedVector2Array(-3.5, 1, 0, 2.5, 3.5, 1.5, 3.5, -3.5, 0, -4.5, -3.5, -3.5)
 depth = 2.0
 material = SubResource("StandardMaterial3D_gw0fv")
 
 [node name="BoundCutout2" type="CSGPolygon3D" parent="Bound4" unique_id=1039852738]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5893306e-08, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5893306e-08, 0.5512085, 1)
 operation = 2
 polygon = PackedVector2Array(-3, 1, 0, 2, 3, 1, 3, -3, 0, -4, -3, -3)
 depth = 2.0
 
 [node name="Ramp" type="CSGBox3D" parent="Bound4" unique_id=543322271]
-transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.921603, -0.6799998, -3.5)
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 11.921603, -0.12879133, -3.5)
 size = Vector3(21, 1, 6)
 
 [node name="UpperPlatform" type="CSGBox3D" parent="Bound4" unique_id=1572180359]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 4.5, -3.500002)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8724, 5.0512085, -3.500002)
 size = Vector3(4.2072754, 1, 6)
 
 [node name="Platform" type="CSGBox3D" parent="Bound4" unique_id=1027627577]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14999956, -5.5, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14999956, -4.9487915, -3.5)
 size = Vector3(7.7000003, 1, 6)
 
 [node name="Ramp2" type="CSGBox3D" parent="Bound4" unique_id=894389065]
-transform = Transform3D(0.8660254, -0.5, 0, -0.5, -0.8660254, 8.742278e-08, -4.371139e-08, -7.5710346e-08, -1, -11.959675, -0.6799998, -3.5)
+transform = Transform3D(0.8660254, -0.5, 0, -0.5, -0.8660254, 8.742278e-08, -4.371139e-08, -7.5710346e-08, -1, -11.959675, -0.12879133, -3.5)
 size = Vector3(21, 1, 6)
 
 [node name="UpperPlatform2" type="CSGBox3D" parent="Bound4" unique_id=1775055487]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 4.5, -3.499998)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -22.894085, 5.0512085, -3.499998)
 size = Vector3(4.207, 1, 6)
 
 [node name="Connector2" type="CSGPolygon3D" parent="Bound4" unique_id=105896906]
-transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, 24.5, 5, 0)
+transform = Transform3D(0.9999999, -4.3711385e-08, -5.960464e-08, 5.9604645e-08, -4.371139e-08, 0.99999994, -4.3711385e-08, -0.99999994, -4.3711378e-08, 24.5, 5.5512085, 0)
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 7, 7, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Bound4/Connector2" unique_id=543548481]
@@ -261,32 +277,32 @@ operation = 2
 size = Vector3(1, 1, 2)
 
 [node name="BoundCutout3" type="CSGPolygon3D" parent="Bound4" unique_id=835664763]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.5512085, 0.5)
 operation = 2
 polygon = PackedVector2Array(5, 4, 9, 4, 8, -0.3, 3.5, -0.3)
 depth = 1.1
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Bound4" unique_id=1379373264]
-transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 20.017, -1, -1.5)
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 20.017, -0.4487915, -1.5)
 size = Vector3(5, 0.5, 3)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Bound4" unique_id=836095869]
-transform = Transform3D(1, -1.1313343e-08, -1.4894326e-09, 1.1313344e-08, 0.96592593, 0.25881907, -1.4894326e-09, -0.25881907, 0.96592593, 26, -2.1294096, 1.4829617)
+transform = Transform3D(1, -1.1313343e-08, -1.4894326e-09, 1.1313344e-08, 0.96592593, 0.25881907, -1.4894326e-09, -0.25881907, 0.96592593, 26, -1.578201, 1.4829617)
 size = Vector3(2, 0.5, 3)
 
 [node name="RampWhole2" type="CSGBox3D" parent="." unique_id=1813702093]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 2.2, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 1.8006806, 10)
 use_collision = true
-size = Vector3(25, 5, 1)
+size = Vector3(25, 5.801361, 1)
 material = SubResource("StandardMaterial3D_jnlp7")
 
 [node name="RampWall2" type="CSGBox3D" parent="RampWhole2" unique_id=2130796916]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7.5)
-size = Vector3(9, 5, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0060088634, 7.5)
+size = Vector3(9, 5.786621, 14)
 
-[node name="Ramp2" type="CSGPolygon3D" parent="RampWhole2/RampWall2" unique_id=1863437259]
-transform = Transform3D(-1.4999999, 0, 1.1802073e-07, 0, 1.4999999, 0, -1.3113416e-07, 0, -1.3499999, -6, -2, -7)
-polygon = PackedVector2Array(-1, -1, -1, 3, 12, -1, 0, -1)
+[node name="Ramp2" type="CSGPolygon3D" parent="RampWhole2" unique_id=1863437259]
+transform = Transform3D(-1.4999999, 0, 1.1802073e-07, 0, 1.4999999, 0, -1.3113416e-07, 0, -1.3499999, 1, -1.6006806, 0.5)
+polygon = PackedVector2Array(-1, -1, -1, 3, 9.3, -1, 0, -1)
 depth = 10.0
 
 [node name="Wall" type="CSGBox3D" parent="." unique_id=13547449]
@@ -310,13 +326,64 @@ operation = 2
 size = Vector3(2, 3, 13)
 
 [node name="Pillar1" type="CSGCylinder3D" parent="." unique_id=558762660]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.25, 0)
 radius = 1.5
-height = 12.5
+height = 38.0
+smooth_faces = false
+
+[node name="Pillar2" type="CSGCylinder3D" parent="." unique_id=42179436]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 8, 0.125)
+radius = 1.5
+height = 48.75
 sides = 6
 smooth_faces = false
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=777731084]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+[node name="Pillar3" type="CSGCylinder3D" parent="." unique_id=387339590]
+transform = Transform3D(-4.371139e-08, -1, 0, 0.8660254, -3.7855173e-08, -0.5, 0.5, -2.1855694e-08, 0.8660254, 0, 8, 0)
+radius = 1.5
+height = 48.75
+sides = 6
+smooth_faces = false
+
+[node name="FloorClearance" type="CSGBox3D" parent="." unique_id=777731084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, -1, 0)
 operation = 2
-size = Vector3(80, 1, 80)
+size = Vector3(6.1, 1, 10)
+
+[node name="FloorClearance2" type="CSGBox3D" parent="." unique_id=1093711984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -28)
+operation = 2
+size = Vector3(10, 1, 6.01)
+
+[node name="FloorClearance3" type="CSGBox3D" parent="." unique_id=591577409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.04074, -1, 0)
+operation = 2
+size = Vector3(6.1, 1, 10)
+
+[node name="FloorClearance4" type="CSGBox3D" parent="." unique_id=700066764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 28)
+operation = 2
+size = Vector3(10, 1, 6.1)
+
+[node name="FloorClearance5" type="CSGBox3D" parent="." unique_id=253635917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -1.35, 17)
+operation = 2
+size = Vector3(20, 0.5, 14)
+
+[node name="FloorClearance6" type="CSGBox3D" parent="." unique_id=198096784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -1.35, -17)
+operation = 2
+size = Vector3(20, 0.5, 15)
+
+[node name="Pillar4" type="CSGCylinder3D" parent="." unique_id=967101583]
+transform = Transform3D(0.7071067, -0.7071067, 3.090862e-08, 0, -4.3711385e-08, -1, 0.7071067, 0.7071067, -3.090862e-08, 0, -10, 0)
+radius = 1.5
+height = 48.75
+sides = 6
+smooth_faces = false
+
+[node name="Pillar5" type="CSGCylinder3D" parent="." unique_id=1027785459]
+transform = Transform3D(-0.3535534, -0.70710677, -0.6123724, 0.8660254, -3.7855173e-08, -0.5, 0.35355335, -0.70710677, 0.6123724, 0, -10, 0)
+radius = 1.5
+height = 48.75
+sides = 6
+smooth_faces = false

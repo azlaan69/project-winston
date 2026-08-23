@@ -34,8 +34,15 @@ var mouse_captured : bool = false
 var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
+var wall_running : bool = false
+var near_wall : bool = false
+
+var input_dir = 0.0
+var move_dir = 0.0
 
 var dash_charges = 3
+
+var camera_tilt_so_i_dont_go_insane: float = 0.0
 
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
@@ -44,9 +51,13 @@ var dash_charges = 3
 
 @onready var dash_timer: Timer = $Dash_Timer
 @onready var dash_cd: Timer = $Dash_CD
+@onready var lock: Timer = $Lock
+@onready var jump_coyote: Timer = $WallCoyote
 
 @onready var playback = $Head/SwordTree.get("parameters/Movements/playback")
 @onready var juice = $Head
+
+@onready var wallcheck: ShapeCast3D = $WallChecker
 
 func _ready() -> void:
 	
@@ -73,7 +84,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	debug.text = str(round(juice.position), " ", round(juice.camera.fov))
+	debug.text = str(round(velocity.length()))
+	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
 		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)
@@ -82,65 +94,90 @@ func _physics_process(delta: float) -> void:
 		move_and_collide(motion)
 		return
 	
-	# Apply gravity to velocity
-	if has_gravity:
-		if not is_on_floor():
+	input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
+	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	near_wall = (is_on_wall() and not is_on_floor())
+	if near_wall:
+		var wall_normal = wallcheck.get_collision_normal(0)
+		var side = (-transform.basis.z).cross(wall_normal).y
+		juice.shift(1.7, 70, 0.0, true)
+	else:
+		juice.shift(1.7, 90, 0.0, false)
+	
+	if can_dash and Input.is_action_just_pressed(input_dash) and dash_charges > 0:
+		dash_timer.start()
+		dash_charges -= 1
+	
+	else:
+		move_speed = lerp(move_speed, base_speed, 0.75)
+		
+	if dash_timer.time_left > 0: move_speed += dash_speed
+	if dash_charges < 3 and dash_cd.is_stopped(): dash_cd.start()
+	
+	if has_gravity and not is_on_floor():
+		if near_wall:
+			velocity.y = -0.5
+		else:
 			velocity += get_gravity() * delta
 
-	# Apply jumping
 	if can_jump:
 		if Input.is_action_just_pressed(input_jump):
-			if is_on_floor():
+			
+			if near_wall:
+				if wall_running: wall_running = false
+				
+				var wall_normal = get_wall_normal()
+				velocity.y = jump_velocity
+				
+				var jump_dir = (wall_normal * 1.0 + (-transform.basis.z)).normalized()
+				move_speed = base_speed
+				velocity.x = jump_dir.x * move_speed
+				velocity.z = jump_dir.z * move_speed
+				lock.start()
+				
+			elif is_on_floor():
 				
 				if dash_timer.time_left > 0.0:
 					velocity.y = jump_velocity
-					#move_speed / 1.5
 					velocity *= 2.0
-					can_move = false
-					await get_tree().create_timer(0.15).timeout
-					can_move = true
+					lock.start()
 					 
 				else:
 					velocity.y = jump_velocity
-				
-			elif is_on_wall() and not is_on_floor():
-				var wall_normal = get_wall_normal()
-				velocity.y = jump_velocity
-				velocity.x = wall_normal.x * move_speed
-				velocity.z = wall_normal.z * move_speed
-				can_move = false
-				get_tree().create_timer(0.15).timeout.connect(func(): can_move = true)
+
+	#if not is_on_floor() and lock.time_left <= 0.0:
+		#
+		#var wall_normal = get_wall_normal()
+		#
+		#if wall_normal == Vector3.ZERO:
+			#wall_normal = -transform.basis.z
+		#
+		#var parallel = wall_normal.cross(Vector3.UP)
+		#if -(transform.basis.z).dot(parallel) < 0:
+			#parallel = -parallel
+		#
+		#if input_dir.y < 0:
+			#var stick_force = -wall_normal * 2.0
+			#velocity.x = (parallel.x * move_speed) + stick_force.x
+			#velocity.z = (parallel.z * move_speed) + stick_force.z
+			#wall_running = true
 		
-	if Input.is_action_just_pressed(input_slide) and (is_on_floor() or is_on_wall()):
-		move_speed = slide_speed
+	if can_move and lock.time_left <= 0.0 and not wall_running:
+			
+		if move_dir:
+			velocity.x = move_dir.x * move_speed
+			velocity.z = move_dir.z * move_speed
+			
+		else:
+			velocity.x = lerp(velocity.x, 0.0, 0.2)
+			velocity.z = lerp(velocity.z, 0.0, 0.2)
 	
 	if Input.is_action_just_pressed("r") and hat.can_use:
 		hatstuff(delta)
 	
 	if Input.is_action_just_pressed("lmb"):
 		playback.travel("attack")
-	
-	
-	# Modify speed based on sprinting
-	if can_dash and Input.is_action_just_pressed(input_dash) and dash_charges > 0:
-		dash_timer.start()
-		dash_charges -= 1
-		
-	else:
-		move_speed = base_speed
-		
-	if dash_timer.time_left > 0: move_speed = dash_speed
-	if dash_charges < 3 and dash_cd.is_stopped(): dash_cd.start()
-
-	if can_move:
-		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)
-		var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		if move_dir:
-			velocity.x = move_dir.x * move_speed
-			velocity.z = move_dir.z * move_speed
-		else:
-			velocity.x = move_toward(velocity.x, 0, delta * 25.0)
-			velocity.z = move_toward(velocity.z, 0, delta * 25.0)
 	
 	move_and_slide()
 

@@ -486,11 +486,25 @@ shader_parameter/line_color = Color(0, 0, 0, 1)
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=500862226 groups=["player"]]
 script = ExtResource("1_4rah4")
+can_move = null
+has_gravity = null
+can_jump = null
 can_dash = true
 can_freefly = true
 look_speed = 0.001
+base_speed = null
 jump_velocity = 7.0
 dash_speed = 50.0
+freefly_speed = null
+slide_speed = null
+input_left = null
+input_right = null
+input_forward = null
+input_back = null
+input_jump = null
+input_dash = null
+input_freefly = null
+input_slide = null
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

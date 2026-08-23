@@ -17,11 +17,17 @@ func _process(delta: float) -> void:
 	var interp_speed = 25.0 if end_fov > camera.fov else 6.0
 	camera.fov = lerp(camera.fov, end_fov, delta * interp_speed)
 
-func shift(pos: float, fov: float, time: float = 1.0) -> void:
+func _physics_process(delta: float) -> void:
+	#var snap_speed = 8.0 if player.camera_tilt_so_i_dont_go_insane != 0 else 20.0
+	#rotation.z = lerp_angle(rotation.z, player.camera_tilt_so_i_dont_go_insane, delta * snap_speed)
+	pass
+
+func shift(pos: float, fov: float, time: float = 1.0, perm: bool = false) -> void:
 	position.y = pos
 	end_fov = fov
 	shift_allowed = false
-	await get_tree().create_timer(time).timeout
-	position.y = 1.7
-	end_fov = 90
-	shift_allowed = true
+	if not perm:
+		await get_tree().create_timer(time).timeout
+		position.y = 1.7
+		end_fov = 90
+		shift_allowed = true

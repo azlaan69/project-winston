@@ -22,15 +22,17 @@ func _physics_process(delta: float) -> void:
 	
 	elif current_state == state.LAUNCHED: rotation.y += 30
 	
-	if global_position.y < -10: reset()
+	if (global_position.y - player.global_position.y < -20): reset()
 	
 	if cd.time_left > 0.0: can_use = false
 	else: can_use = true
 	
 	visible = (current_state != state.EQUIPPED)
+	$CSGCombiner3D/CSGPolygon3D/OmniLight3D.visible = (current_state != state.EQUIPPED)
 
 func launch(dir: Vector3, speed: float) -> void:
-	global_position = player.global_position + Vector3(0, 2, 0)
+	print(dir)
+	global_position = player.global_position + dir + Vector3(0, 2, 0)
 	current_state = state.LAUNCHED
 	freeze = false
 	$CollisionShape3D.disabled = false
