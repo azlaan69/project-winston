@@ -1,8 +1,8 @@
 extends Node3D
 
-@onready var ring_1 = $MeshInstance3D2
-@onready var ring_2 = $MeshInstance3D2/MeshInstance3D3
-@onready var ring_3 = $MeshInstance3D2/MeshInstance3D3/MeshInstance3D3
+@onready var ring_1 = $Ring1
+@onready var ring_2 = $Ring1/Ring2
+@onready var ring_3 = $Ring1/Ring2/Ring3
 
 func _process(delta: float) -> void:
 	ring_1.rotate_object_local(Vector3.RIGHT, 1.5 * delta)

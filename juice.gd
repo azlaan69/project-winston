@@ -14,13 +14,10 @@ func _process(delta: float) -> void:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
 		end_fov = remap(speed, 7.0, 30.0, 90.0, 110.0)
 		end_fov = clamp(end_fov, 90.0, 110.0)
+		if player.is_on_wall(): end_fov /= 1.15
+	
 	var interp_speed = 25.0 if end_fov > camera.fov else 6.0
 	camera.fov = lerp(camera.fov, end_fov, delta * interp_speed)
-
-func _physics_process(delta: float) -> void:
-	#var snap_speed = 8.0 if player.camera_tilt_so_i_dont_go_insane != 0 else 20.0
-	#rotation.z = lerp_angle(rotation.z, player.camera_tilt_so_i_dont_go_insane, delta * snap_speed)
-	pass
 
 func shift(pos: float, fov: float, time: float = 1.0, perm: bool = false) -> void:
 	position.y = pos

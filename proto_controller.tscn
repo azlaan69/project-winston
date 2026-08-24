@@ -478,11 +478,11 @@ colors = PackedColorArray(0, 0.6431373, 1, 1, 0, 0.87058824, 1, 1, 0, 1, 1, 1)
 gradient = SubResource("Gradient_qeb3f")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_seyvw"]
+render_priority = 0
 shader = ExtResource("3_jfawc")
-shader_parameter/edge_threshold = 0.15
-shader_parameter/line_smoothness = 0.12
-shader_parameter/line_thickness = 1.0
-shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/color_a = Color(0, 0.8, 1, 1)
+shader_parameter/color_b = Color(1, 0, 0.4, 1)
+shader_parameter/emission_energy = 5.0
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=500862226 groups=["player"]]
 script = ExtResource("1_4rah4")

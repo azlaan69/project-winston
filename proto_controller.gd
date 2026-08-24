@@ -27,7 +27,6 @@ extends CharacterBody3D
 @export var input_jump : String = "ui_accept"
 @export var input_dash : String = "shift"
 @export var input_freefly : String = "freefly"
-
 @export var input_slide : String = "ctrl"
 
 var mouse_captured : bool = false
@@ -36,6 +35,7 @@ var move_speed : float = 0.0
 var freeflying : bool = false
 var wall_running : bool = false
 var near_wall : bool = false
+var decel_locked : bool = false
 
 var input_dir = 0.0
 var move_dir = 0.0
@@ -84,7 +84,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	debug.text = str(round(velocity.length()))
+	debug.text = str(juice.shift_allowed)
 	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
@@ -98,12 +98,6 @@ func _physics_process(delta: float) -> void:
 	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	near_wall = (is_on_wall() and not is_on_floor())
-	if near_wall:
-		var wall_normal = wallcheck.get_collision_normal(0)
-		var side = (-transform.basis.z).cross(wall_normal).y
-		juice.shift(1.7, 70, 0.0, true)
-	else:
-		juice.shift(1.7, 90, 0.0, false)
 	
 	if can_dash and Input.is_action_just_pressed(input_dash) and dash_charges > 0:
 		dash_timer.start()
@@ -112,12 +106,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		move_speed = lerp(move_speed, base_speed, 0.75)
 		
-	if dash_timer.time_left > 0: move_speed += dash_speed
+	if dash_timer.time_left > 0: 
+		move_speed += dash_speed
+		velocity.y = 0
 	if dash_charges < 3 and dash_cd.is_stopped(): dash_cd.start()
 	
 	if has_gravity and not is_on_floor():
 		if near_wall:
 			velocity.y = -0.5
+			move_speed *= 1.5
 		else:
 			velocity += get_gravity() * delta
 
@@ -128,7 +125,7 @@ func _physics_process(delta: float) -> void:
 				if wall_running: wall_running = false
 				
 				var wall_normal = get_wall_normal()
-				velocity.y = jump_velocity
+				velocity.y += jump_velocity * 1.5
 				
 				var jump_dir = (wall_normal * 1.0 + (-transform.basis.z)).normalized()
 				move_speed = base_speed
@@ -146,6 +143,13 @@ func _physics_process(delta: float) -> void:
 				else:
 					velocity.y = jump_velocity
 
+	if Input.is_action_pressed(input_slide) and is_on_floor():
+		juice.shift(0.7, 100, 0.0, true)
+		if move_dir:
+			velocity += -transform.basis.z * 10.0 * delta
+			lock.start()
+	if Input.is_action_just_released(input_slide):
+		juice.shift(1.7, 90, 0.0, true)
 	#if not is_on_floor() and lock.time_left <= 0.0:
 		#
 		#var wall_normal = get_wall_normal()
@@ -163,13 +167,13 @@ func _physics_process(delta: float) -> void:
 			#velocity.z = (parallel.z * move_speed) + stick_force.z
 			#wall_running = true
 		
-	if can_move and lock.time_left <= 0.0 and not wall_running:
-			
+	if can_move and lock.time_left <= 0.0:
+		
 		if move_dir:
 			velocity.x = move_dir.x * move_speed
 			velocity.z = move_dir.z * move_speed
 			
-		else:
+		elif not decel_locked:
 			velocity.x = lerp(velocity.x, 0.0, 0.2)
 			velocity.z = lerp(velocity.z, 0.0, 0.2)
 	
@@ -226,7 +230,8 @@ func hatstuff(delta) -> void:
 		
 		hat.state.LAUNCHED:
 			hat.used = true
-			can_move = false
+			lock.start()
+			decel_locked = true
 			var pull_dir : Vector3 = (hat.global_position - global_position).normalized()
 			velocity = pull_dir * 25.0
 	

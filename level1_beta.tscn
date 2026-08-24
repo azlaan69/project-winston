@@ -331,14 +331,14 @@ height = 38.0
 smooth_faces = false
 
 [node name="Pillar2" type="CSGCylinder3D" parent="." unique_id=42179436]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 8, 0.125)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 8.5, 0.125)
 radius = 1.5
 height = 48.75
 sides = 6
 smooth_faces = false
 
 [node name="Pillar3" type="CSGCylinder3D" parent="." unique_id=387339590]
-transform = Transform3D(-4.371139e-08, -1, 0, 0.8660254, -3.7855173e-08, -0.5, 0.5, -2.1855694e-08, 0.8660254, 0, 8, 0)
+transform = Transform3D(-4.371139e-08, -1, 0, 0.8660254, -3.7855173e-08, -0.5, 0.5, -2.1855694e-08, 0.8660254, 0, 8.5, 0)
 radius = 1.5
 height = 48.75
 sides = 6
@@ -375,14 +375,14 @@ operation = 2
 size = Vector3(20, 0.5, 15)
 
 [node name="Pillar4" type="CSGCylinder3D" parent="." unique_id=967101583]
-transform = Transform3D(0.7071067, -0.7071067, 3.090862e-08, 0, -4.3711385e-08, -1, 0.7071067, 0.7071067, -3.090862e-08, 0, -10, 0)
+transform = Transform3D(0.7071067, -0.7071067, 3.090862e-08, 0, -4.3711385e-08, -1, 0.7071067, 0.7071067, -3.090862e-08, 0, -2.5, 0)
 radius = 1.5
 height = 48.75
 sides = 6
 smooth_faces = false
 
 [node name="Pillar5" type="CSGCylinder3D" parent="." unique_id=1027785459]
-transform = Transform3D(-0.3535534, -0.70710677, -0.6123724, 0.8660254, -3.7855173e-08, -0.5, 0.35355335, -0.70710677, 0.6123724, 0, -10, 0)
+transform = Transform3D(-0.3535534, -0.70710677, -0.6123724, 0.8660254, -3.7855173e-08, -0.5, 0.35355335, -0.70710677, 0.6123724, 0, -2.5, 0)
 radius = 1.5
 height = 48.75
 sides = 6
