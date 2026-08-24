@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=4
+window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -87,7 +87,7 @@ r={
 [physics]
 
 3d/physics_engine="Jolt Physics"
-3d/default_gravity=12.799999999999995
+3d/default_gravity=14.0
 common/physics_interpolation=true
 
 [rendering]
