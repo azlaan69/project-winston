@@ -4,6 +4,7 @@ extends Node3D
 
 var shift_allowed = true
 var end_fov = 90
+var end_tilt: float = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -14,10 +15,22 @@ func _process(delta: float) -> void:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
 		end_fov = remap(speed, 7.0, 30.0, 90.0, 110.0)
 		end_fov = clamp(end_fov, 90.0, 110.0)
-		if player.is_on_wall(): end_fov /= 1.15
+		if player.near_wall and not player.is_on_floor() and player.move_dir.length() > 0:
+			end_fov /= 1.15
+			var wall_normal: Vector3 = player.wallcheck.get_collision_normal(0)
+			var right_dir: Vector3 = player.global_transform.basis.x
+			if wall_normal.dot(right_dir) > 0.5:
+				end_tilt = deg_to_rad(-10.0) 
+			elif wall_normal.dot(right_dir) < -0.5:
+				end_tilt = deg_to_rad(10.0)
+			else:
+				end_tilt = 0.0
+	else:
+		end_tilt = 0.0
 	
 	var interp_speed = 25.0 if end_fov > camera.fov else 6.0
 	camera.fov = lerp(camera.fov, end_fov, delta * interp_speed)
+	rotation.z = lerp(rotation.z, end_tilt, delta * 12.0)
 
 func shift(pos: float, fov: float, time: float = 1.0, perm: bool = false) -> void:
 	position.y = pos

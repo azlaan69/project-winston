@@ -46,7 +46,6 @@ func reset() -> void:
 	$CollisionShape3D.disabled = true
 	global_position = player.global_position + Vector3(0, 2, 0)
 	used = false
-	player.decel_locked = false
 	cd.start()
 
 func _on_body_entered(body: Node) -> void:

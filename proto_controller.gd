@@ -28,9 +28,7 @@ var mouse_captured : bool = false
 var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
-var wall_running : bool = false
 var near_wall : bool = false
-var decel_locked : bool = false
 
 var move_velocity: Vector3
 var jump_velocity: Vector3
@@ -43,6 +41,8 @@ var input_dir = 0.0
 var move_dir = 0.0
 
 var dash_charges = 3
+var jump_buffer: float = 0.0
+var slide_buffer: float = 0.0
 
 var camera_tilt_so_i_dont_go_insane: float = 0.0
 
@@ -87,11 +87,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	debug.text = """Raw Speed: %.1f
-Near Wall: %s
 Slide: %s
+Hat: %s
 Gravity: %s
 Jump: %s
-Pos: %s""" % [round(velocity.length()), near_wall, round(slide_velocity), round(grav_velocity), round(jump_velocity), round(global_position)]
+Pos: %s""" % [wallcheck.get_collision_normal(0).dot(transform.basis.x), round(slide_velocity), round(external_velocity), round(grav_velocity), round(jump_velocity), round(global_position)]
 	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
@@ -103,11 +103,20 @@ Pos: %s""" % [round(velocity.length()), near_wall, round(slide_velocity), round(
 	
 	input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
 	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	near_wall = (wallcheck.is_colliding())
+	
+	if Input.is_action_just_pressed(input_jump): jump_buffer = 0.2
+	if jump_buffer > 0.0: jump_buffer -= delta
+	
+	if Input.is_action_just_pressed(input_slide): slide_buffer = 0.5
+	if slide_buffer > 0.5: slide_buffer -= delta
+	
 	movestuff(delta)
 	dash(delta)
 	slide(delta)
 	jump(delta)
 	grav(delta)
+	hatstuff(delta)
 	
 	if Input.is_action_just_pressed("rmb"):
 		global_position = Vector3.ZERO
@@ -116,7 +125,6 @@ Pos: %s""" % [round(velocity.length()), near_wall, round(slide_velocity), round(
 		rotation = Vector3.ZERO
 	
 	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity + grav_velocity
-	near_wall = (wallcheck.is_colliding())
 	
 	#if can_dash and Input.is_action_just_pressed(input_dash) and dash_charges > 0:
 		#dash_timer.start()
@@ -198,12 +206,11 @@ Pos: %s""" % [round(velocity.length()), near_wall, round(slide_velocity), round(
 			#velocity.x = lerp(velocity.x, 0.0, 0.2)
 			#velocity.z = lerp(velocity.z, 0.0, 0.2)
 	
-	if Input.is_action_just_pressed("r") and hat.can_use:
-		hatstuff(delta)
+
 	
 	if Input.is_action_just_pressed("lmb"):
 		playback.travel("attack")
-	
+	 
 	move_and_slide()
 
 
@@ -252,50 +259,69 @@ func dash(delta) -> void:
 		grav_velocity = Vector3.ZERO
 		jump_velocity = Vector3.ZERO
 		dash_velocity = (dash_velocity + move_dir * 50.0).limit_length(60.0)
-		dash_timer.start()
 		dash_charges -= 1
 	dash_velocity = dash_velocity.move_toward(Vector3.ZERO, 250.0 * delta)
 
 func slide(delta) -> void:
-	if slide_velocity.length() <= 0.0 and Input.is_action_just_pressed(input_slide) and is_on_floor():
-		slide_velocity += (velocity.length() + 8 ) * move_dir
+	if slide_buffer > 0.0 and slide_velocity.length() <= 0.0 and is_on_floor():
+		slide_buffer = 0.0
+		if move_dir:
+			slide_velocity += (velocity.length() + 8 ) * move_dir
+		else:
+			slide_velocity += (velocity.length() + 8 ) * -transform.basis.z
 	else:
 		slide_velocity = slide_velocity.move_toward(Vector3.ZERO, 35.0 * delta)
 
 func jump(delta) -> void:
-	if Input.is_action_just_pressed(input_jump) and is_on_floor():
-		jump_velocity.y = 9
-	elif is_on_floor(): jump_velocity = Vector3.ZERO
+	if jump_buffer > 0.0 and (is_on_floor() or near_wall):
+		jump_velocity.y = 12
+		jump_buffer = 0.0
+		if near_wall and not is_on_floor():
+			var wall_normal = wallcheck.get_collision_normal(0)
+			jump_velocity.x = wall_normal.x * 12
+			jump_velocity.z = wall_normal.z * 12
+	elif is_on_floor():
+		jump_velocity = Vector3.ZERO
+	else:
+		jump_velocity = jump_velocity.move_toward(Vector3.ZERO, 25.0 * delta)
 
 func grav(delta) -> void:
-	if (not is_on_floor() or jump_velocity.length() > 0.0) and dash_velocity.length() <= 0.0 :
+	var rising = jump_velocity.y > 1.0
+	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 0.0 :
 		grav_velocity += get_gravity() * delta
+	elif near_wall:
+		if grav_velocity.length() > 1.0: grav_velocity /= 20
+		grav_velocity += get_gravity() / 20 * delta
 	else:
 		grav_velocity = Vector3.ZERO
 
 func hatstuff(delta) -> void:
-	match hat.current_state:
+	if Input.is_action_just_pressed("r") and hat.can_use:
+		match hat.current_state:
+			
+			hat.state.EQUIPPED:
+				juice.shift(1.7, 70, 0.2)
+				await get_tree().create_timer(0.2).timeout
+				var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
+				hat.launch(facing, 30.0)
+			
+			hat.state.LAUNCHED:
+				hat.used = true
+				var pull_dir : Vector3 = (hat.global_position - global_position).normalized()
+				external_velocity = pull_dir * 25.0
 		
-		hat.state.EQUIPPED:
-			juice.shift(1.7, 70, 0.2)
-			await get_tree().create_timer(0.2).timeout
-			var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-			hat.launch(facing, 30.0)
-		
-		hat.state.LAUNCHED:
-			hat.used = true
-			lock.start()
-			decel_locked = true
-			var pull_dir : Vector3 = (hat.global_position - global_position).normalized()
-			velocity = pull_dir * 25.0
+			hat.state.LANDED:
+				if not hat.used:
+					juice.shift(1.7, 60, 0.4)
+					await get_tree().create_timer(0.4).timeout
+					global_position = hat.global_position + Vector3(0, 0.5, 0)
+					hat.reset()
+					juice.shift(1.7, 110, 0.1)
 	
-		hat.state.LANDED:
-			if not hat.used:
-				juice.shift(1.7, 60, 0.4)
-				await get_tree().create_timer(0.4).timeout
-				global_position = hat.global_position + Vector3(0, 0.5, 0)
-				hat.reset()
-				juice.shift(1.7, 110, 0.1)
+	if not Input.is_action_pressed("r"):
+		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
+	elif hat.current_state == hat.state.EQUIPPED:
+		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 
 func _on_dash_cd_timeout() -> void:
 	if dash_charges < 3: dash_charges += 1
