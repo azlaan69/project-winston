@@ -37,6 +37,7 @@ var jump_velocity: Vector3
 var slide_velocity: Vector3
 var dash_velocity: Vector3
 var external_velocity: Vector3
+var grav_velocity: Vector3
 
 var input_dir = 0.0
 var move_dir = 0.0
@@ -86,11 +87,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	debug.text = """Raw Speed: %.1f
-Vel: %s
+Near Wall: %s
 Slide: %s
-Dash: %s
+Gravity: %s
 Jump: %s
-Pos: %s""" % [round(velocity.length()), round(velocity), round(slide_velocity), round(dash_velocity), round(jump_velocity), round(global_position)]
+Pos: %s""" % [round(velocity.length()), near_wall, round(slide_velocity), round(grav_velocity), round(jump_velocity), round(global_position)]
 	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
@@ -105,10 +106,17 @@ Pos: %s""" % [round(velocity.length()), round(velocity), round(slide_velocity), 
 	movestuff(delta)
 	dash(delta)
 	slide(delta)
-	vertical(delta)
+	jump(delta)
+	grav(delta)
 	
-	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity
-	near_wall = (is_on_wall() and not is_on_floor())
+	if Input.is_action_just_pressed("rmb"):
+		global_position = Vector3.ZERO
+		velocity = Vector3.ZERO
+		dash_charges = 3
+		rotation = Vector3.ZERO
+	
+	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity + grav_velocity
+	near_wall = (wallcheck.is_colliding())
 	
 	#if can_dash and Input.is_action_just_pressed(input_dash) and dash_charges > 0:
 		#dash_timer.start()
@@ -241,28 +249,29 @@ func movestuff(delta) -> void:
 func dash(delta) -> void:
 	if dash_charges < 3 and dash_cd.is_stopped(): dash_cd.start()
 	if Input.is_action_just_pressed(input_dash) and dash_charges > 0:
+		grav_velocity = Vector3.ZERO
 		jump_velocity = Vector3.ZERO
 		dash_velocity = (dash_velocity + move_dir * 50.0).limit_length(60.0)
 		dash_timer.start()
 		dash_charges -= 1
-	dash_velocity = dash_velocity.move_toward(Vector3.ZERO, 150.0 * delta)
+	dash_velocity = dash_velocity.move_toward(Vector3.ZERO, 250.0 * delta)
 
 func slide(delta) -> void:
-	if Input.is_action_just_pressed(input_slide) and is_on_floor():
-		slide_velocity = transform.basis.z * 5.0
+	if slide_velocity.length() <= 0.0 and Input.is_action_just_pressed(input_slide) and is_on_floor():
+		slide_velocity += (velocity.length() + 8 ) * move_dir
 	else:
-		slide_velocity = slide_velocity.move_toward(Vector3.ZERO, 10.0 * delta)
+		slide_velocity = slide_velocity.move_toward(Vector3.ZERO, 35.0 * delta)
 
-func vertical(delta) -> void:
+func jump(delta) -> void:
 	if Input.is_action_just_pressed(input_jump) and is_on_floor():
 		jump_velocity.y = 9
-	if not is_on_floor():
-		jump_velocity += get_gravity() * delta
-	if is_on_floor() and jump_velocity.y < 0:
-		jump_velocity = jump_velocity.move_toward(Vector3.ZERO, 100 * delta)
-	
-	if Input.is_action_pressed(input_slide) and is_on_floor():
-		jump_velocity = -transform.basis.z * 5.0
+	elif is_on_floor(): jump_velocity = Vector3.ZERO
+
+func grav(delta) -> void:
+	if (not is_on_floor() or jump_velocity.length() > 0.0) and dash_velocity.length() <= 0.0 :
+		grav_velocity += get_gravity() * delta
+	else:
+		grav_velocity = Vector3.ZERO
 
 func hatstuff(delta) -> void:
 	match hat.current_state:
