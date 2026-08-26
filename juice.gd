@@ -13,18 +13,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if shift_allowed:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
-		end_fov = remap(speed, 7.0, 30.0, 90.0, 110.0)
+		end_fov = remap(speed, 0.0, 50.0, 90.0, 110.0)
 		end_fov = clamp(end_fov, 90.0, 110.0)
-		if player.near_wall and not player.is_on_floor() and player.move_dir.length() > 0:
+		if player.near_wall and not player.is_on_floor():
 			end_fov /= 1.15
-			var wall_normal: Vector3 = player.wallcheck.get_collision_normal(0)
-			var right_dir: Vector3 = player.global_transform.basis.x
-			if wall_normal.dot(right_dir) > 0.5:
-				end_tilt = deg_to_rad(-10.0) 
-			elif wall_normal.dot(right_dir) < -0.5:
+			if player.wallcheck_l.is_colliding():
+				end_tilt = deg_to_rad(-10.0)
+			elif player.wallcheck_r.is_colliding():
 				end_tilt = deg_to_rad(10.0)
 			else:
 				end_tilt = 0.0
+		else:
+			end_tilt = 0.0
 	else:
 		end_tilt = 0.0
 	

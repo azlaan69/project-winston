@@ -185,7 +185,7 @@ uv1_scale = Vector3(150, 150, 150)
 [node name="Root" type="Node3D" unique_id=1696301327]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=675200441]
-transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 200, 0)
+transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1699014821]

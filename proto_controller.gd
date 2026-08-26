@@ -29,6 +29,7 @@ var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
 var near_wall : bool = false
+var was_near_wall : bool = false
 
 var move_velocity: Vector3
 var jump_velocity: Vector3
@@ -60,6 +61,9 @@ var camera_tilt_so_i_dont_go_insane: float = 0.0
 @onready var juice = $Head
 
 @onready var wallcheck: ShapeCast3D = $WallChecker
+@onready var wallcheck_r: RayCast3D = $WallCheckRight
+@onready var wallcheck_l: RayCast3D = $WallCheckLeft
+
 
 func _ready() -> void:
 	
@@ -109,7 +113,7 @@ Pos: %s""" % [wallcheck.get_collision_normal(0).dot(transform.basis.x), round(sl
 	if jump_buffer > 0.0: jump_buffer -= delta
 	
 	if Input.is_action_just_pressed(input_slide): slide_buffer = 0.5
-	if slide_buffer > 0.5: slide_buffer -= delta
+	if slide_buffer > 0.0: slide_buffer -= delta
 	
 	movestuff(delta)
 	dash(delta)
@@ -223,8 +227,7 @@ func rotate_look(rot_input : Vector2):
 	look_rotation.y -= rot_input.x * look_speed
 	transform.basis = Basis()
 	rotate_y(look_rotation.y)
-	head.transform.basis = Basis()
-	head.rotate_x(look_rotation.x)
+	head.rotation.x = look_rotation.x
 
 
 func enable_freefly():
@@ -289,8 +292,12 @@ func grav(delta) -> void:
 	var rising = jump_velocity.y > 1.0
 	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 0.0 :
 		grav_velocity += get_gravity() * delta
+		was_near_wall = false
 	elif near_wall:
-		if grav_velocity.length() > 1.0: grav_velocity /= 20
+		if not was_near_wall:
+			if grav_velocity.y < -2.0:
+				grav_velocity.y = -2.0
+				was_near_wall = true
 		grav_velocity += get_gravity() / 20 * delta
 	else:
 		grav_velocity = Vector3.ZERO
