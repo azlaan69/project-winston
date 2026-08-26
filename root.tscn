@@ -17,7 +17,7 @@ sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
-background_color = Color(1, 1, 1, 1)
+background_color = Color(0.2755264, 5.1150957e-05, 0.2755243, 1)
 sky = SubResource("Sky_pyidc")
 ambient_light_source = 2
 ambient_light_color = Color(0.2159017, 0.21590173, 0.2159017, 1)
@@ -186,6 +186,7 @@ uv1_scale = Vector3(150, 150, 150)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=675200441]
 transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
+visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1699014821]
@@ -202,20 +203,16 @@ shape = SubResource("ConcavePolygonShape3D_28aoi")
 mesh = SubResource("ArrayMesh_jnlp7")
 
 [node name="CSGCombiner3D" parent="." unique_id=2077071932 instance=ExtResource("1_vvh5c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 0)
-visible = false
 
 [node name="ProtoController" parent="." unique_id=39359754 instance=ExtResource("1_pq8q7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 18)
 input_jump = "space"
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_pyidc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 18)
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Spinny" type="Node3D" parent="." unique_id=2016679170]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 0)
-visible = false
 script = ExtResource("4_28aoi")
 
 [node name="Inner" type="MeshInstance3D" parent="Spinny" unique_id=1543483062]
@@ -471,6 +468,8 @@ light_energy = 16.0
 omni_range = 4096.0
 
 [node name="CSGCombiner3D2" type="CSGCombiner3D" parent="." unique_id=505870455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_seyvw")
 use_collision = true
 

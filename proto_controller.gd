@@ -30,6 +30,7 @@ var move_speed : float = 0.0
 var freeflying : bool = false
 var near_wall : bool = false
 var was_near_wall : bool = false
+var crouching : bool = false
 
 var move_velocity: Vector3
 var jump_velocity: Vector3
@@ -268,12 +269,15 @@ func dash(delta) -> void:
 func slide(delta) -> void:
 	if slide_buffer > 0.0 and slide_velocity.length() <= 0.0 and is_on_floor():
 		slide_buffer = 0.0
+		crouch_start()
 		if move_dir:
 			slide_velocity += (velocity.length() + 8 ) * move_dir
 		else:
 			slide_velocity += (velocity.length() + 8 ) * -transform.basis.z
 	else:
 		slide_velocity = slide_velocity.move_toward(Vector3.ZERO, 35.0 * delta)
+	if slide_velocity == Vector3.ZERO:
+		crouch_end()
 
 func jump(delta) -> void:
 	if jump_buffer > 0.0 and (is_on_floor() or near_wall):
@@ -298,7 +302,7 @@ func grav(delta) -> void:
 			if grav_velocity.y < -2.0:
 				grav_velocity.y = -2.0
 				was_near_wall = true
-		grav_velocity += get_gravity() / 20 * delta
+		grav_velocity += get_gravity() / 30 * delta
 	else:
 		grav_velocity = Vector3.ZERO
 
@@ -329,6 +333,16 @@ func hatstuff(delta) -> void:
 		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 	elif hat.current_state == hat.state.EQUIPPED:
 		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
+
+func crouch_start() -> void:
+	crouching = true
+	collider.shape.height = 0.9
+	collider.position.y = 0.45
+
+func crouch_end() -> void:
+	crouching = false
+	collider.shape.height = 1.8
+	collider.position.y = 0.9
 
 func _on_dash_cd_timeout() -> void:
 	if dash_charges < 3: dash_charges += 1

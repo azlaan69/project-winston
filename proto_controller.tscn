@@ -453,7 +453,7 @@ gradient = SubResource("Gradient_omksk")
 
 [sub_resource type="Gradient" id="Gradient_g20y1"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0.87058824, 1, 1)
+colors = PackedColorArray(0, 0.76862746, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_g83mg"]
 gradient = SubResource("Gradient_g20y1")
@@ -470,6 +470,13 @@ shader = ExtResource("4_omksk")
 shader_parameter/rect_size = Vector2(300, 30)
 shader_parameter/border_color = Color(0, 0, 0, 1)
 shader_parameter/border_thickness_px = 2.0
+
+[sub_resource type="Gradient" id="Gradient_g83mg"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0.43137255, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_df3o5"]
+gradient = SubResource("Gradient_g83mg")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_omksk"]
 
@@ -508,17 +515,16 @@ mesh = SubResource("CapsuleMesh_ucva2")
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=2059166067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_iof21")
+debug_color = Color(0, 1, 1, 1)
 
 [node name="WallChecker" type="ShapeCast3D" parent="." unique_id=1572026001]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-visible = false
 shape = SubResource("CylinderShape3D_seyvw")
 target_position = Vector3(0, 0, 0)
 debug_shape_custom_color = Color(1, 1, 1, 1)
 
 [node name="CeilingChecker" type="ShapeCast3D" parent="." unique_id=1193824407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-visible = false
 shape = SubResource("CylinderShape3D_nhb04")
 target_position = Vector3(0, -1.5, 0)
 margin = 1.5
@@ -546,7 +552,6 @@ fov = 90.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D" unique_id=1827838936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
-visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_seyvw")
 
@@ -601,7 +606,7 @@ label_settings = SubResource("LabelSettings_4rah4")
 
 [node name="DashHud" type="Node2D" parent="CanvasLayer/HUD" unique_id=1682618283]
 position = Vector2(48.999935, 1032)
-skew = 0.7853982
+skew = 0.9599311
 
 [node name="DashBG" type="TextureRect" parent="CanvasLayer/HUD/DashHud" unique_id=195107279]
 offset_right = 484.68054
@@ -650,6 +655,58 @@ offset_right = 484.68054
 offset_bottom = 64.0
 scale = Vector2(0.99034303, 0.8011409)
 texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="HealthHud" type="Node2D" parent="CanvasLayer/HUD" unique_id=2007344961]
+position = Vector2(90.99994, 1000.00006)
+skew = 0.959931
+
+[node name="HealthBG" type="TextureRect" parent="CanvasLayer/HUD/HealthHud" unique_id=635992089]
+offset_left = 3.2554774
+offset_top = 1.4141855
+offset_right = 487.936
+offset_bottom = 65.414185
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/HealthHud" unique_id=2015236321]
+custom_minimum_size = Vector2(150, 0)
+offset_left = 8.856201
+offset_top = 6.973755
+offset_right = 477.13184
+offset_bottom = 47.072876
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_df3o5")
+
+[node name="HealthOverlay" type="TextureRect" parent="CanvasLayer/HUD/HealthHud" unique_id=864935046]
+z_index = 5
+material = SubResource("ShaderMaterial_nhb04")
+offset_left = 3.2554774
+offset_top = 1.4141855
+offset_right = 487.936
+offset_bottom = 65.414185
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="Speedometer" type="Node2D" parent="CanvasLayer/HUD" unique_id=1909683790]
+position = Vector2(545.9998, 1001.99994)
+skew = 0.9599311
+
+[node name="SpeedBG" type="TextureRect" parent="CanvasLayer/HUD/Speedometer" unique_id=1912036192]
+offset_left = 33.00023
+offset_top = 1.7436942
+offset_right = 97.02269
+offset_bottom = 123.61088
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="SpeedOverlay" type="Polygon2D" parent="CanvasLayer/HUD/Speedometer" unique_id=1104609299]
+color = Color(0, 0, 0, 1)
+invert_enabled = true
+invert_border = 4.0
+polygon = PackedVector2Array(33.428467, 1.7435303, 96.42847, 1.7435303, 96.40454, 99.376465, 33.40454, 99.376465)
 
 [node name="HatHud" type="Node2D" parent="CanvasLayer/HUD" unique_id=1781007636]
 position = Vector2(1654, 119)
@@ -913,6 +970,17 @@ color = Color(0, 0, 0, 1)
 offset = Vector2(-195.31604, -49.981857)
 polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
 
+[node name="Crosshair" type="Node2D" parent="CanvasLayer/HUD" unique_id=631150793]
+position = Vector2(960, 540)
+
+[node name="Outline" type="Polygon2D" parent="CanvasLayer/HUD/Crosshair" unique_id=2077892146]
+position = Vector2(0, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -12.5, -13, 6, 0, -3, 13, 6)
+
+[node name="Polygon2D" type="Polygon2D" parent="CanvasLayer/HUD/Crosshair" unique_id=1906039281]
+polygon = PackedVector2Array(0, -9, -11, 5, 0, -4, 11, 5)
+
 [node name="Filter" type="ColorRect" parent="CanvasLayer/HUD" unique_id=388580622]
 visible = false
 material = SubResource("ShaderMaterial_seyvw")
@@ -969,7 +1037,6 @@ material = SubResource("StandardMaterial3D_omksk")
 
 [node name="DebugCam" type="Camera3D" parent="." unique_id=627743738]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 3, 3)
-visible = false
 fov = 90.0
 size = 5.0
 
