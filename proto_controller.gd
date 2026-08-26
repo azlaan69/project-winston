@@ -264,10 +264,11 @@ func dash(delta) -> void:
 		jump_velocity = Vector3.ZERO
 		dash_velocity = (dash_velocity + move_dir * 50.0).limit_length(60.0)
 		dash_charges -= 1
-	dash_velocity = dash_velocity.move_toward(Vector3.ZERO, 250.0 * delta)
+	dash_velocity = dash_velocity.lerp(Vector3.ZERO, 6.0 * delta)
+	if dash_velocity.length_squared() < 0.5: dash_velocity = Vector3.ZERO
 
 func slide(delta) -> void:
-	if slide_buffer > 0.0 and slide_velocity.length() <= 0.0 and is_on_floor():
+	if slide_buffer > 0.0 and is_on_floor():
 		slide_buffer = 0.0
 		crouch_start()
 		if move_dir:
@@ -275,7 +276,8 @@ func slide(delta) -> void:
 		else:
 			slide_velocity += (velocity.length() + 8 ) * -transform.basis.z
 	else:
-		slide_velocity = slide_velocity.move_toward(Vector3.ZERO, 35.0 * delta)
+		slide_velocity = slide_velocity.lerp(Vector3.ZERO, 3.0 * delta)
+		if slide_velocity.length_squared() < 0.5: slide_velocity = Vector3.ZERO
 	if slide_velocity == Vector3.ZERO:
 		crouch_end()
 

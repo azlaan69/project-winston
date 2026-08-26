@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dllew3uk4ian2" path="res://juice.gd" id="2_qeb3f"]
 [ext_resource type="Shader" uid="uid://pjeiipxng585" path="res://toon.gdshader" id="3_jfawc"]
 [ext_resource type="Shader" uid="uid://boafba55hdap6" path="res://hud_outline.gdshader" id="4_omksk"]
+[ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://PressStart2P.ttf" id="6_g20y1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -478,6 +479,12 @@ colors = PackedColorArray(1, 0, 0.43137255, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_df3o5"]
 gradient = SubResource("Gradient_g83mg")
 
+[sub_resource type="LabelSettings" id="LabelSettings_seyvw"]
+font = ExtResource("6_g20y1")
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_omksk"]
 
 [sub_resource type="Gradient" id="Gradient_qeb3f"]
@@ -707,6 +714,15 @@ color = Color(0, 0, 0, 1)
 invert_enabled = true
 invert_border = 4.0
 polygon = PackedVector2Array(33.428467, 1.7435303, 96.42847, 1.7435303, 96.40454, 99.376465, 33.40454, 99.376465)
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/Speedometer" unique_id=2033039336]
+offset_left = 32.428345
+offset_right = 97.832886
+offset_bottom = 101.119995
+text = "24 m/s"
+label_settings = SubResource("LabelSettings_seyvw")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HatHud" type="Node2D" parent="CanvasLayer/HUD" unique_id=1781007636]
 position = Vector2(1654, 119)

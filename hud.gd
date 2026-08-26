@@ -29,3 +29,4 @@ func _process(delta: float) -> void:
 	$HatHud/CD.visible = (not player.hat.can_use)
 
 	$HatHud/HatBG/CD.value = 1.0 - (player.hat.cd.time_left / player.hat.cd.wait_time)
+	
