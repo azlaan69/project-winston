@@ -109,6 +109,15 @@ _surfaces = [{
 "vertex_data": PackedByteArray("MzOzPgrg0r5JDaO/ZmbmPlpy1r54SJa/ZmbmPtoy7r4sHZ2/MzOzPgrg0r5JDaO/ZmbmPpQfu76VOJy/ZmbmPlpy1r54SJa/AAAAP3q+D78nZKS/MzOzPgrg0r5JDaO/ZmbmPtoy7r4sHZ2/AAAAP3q+D78nZKS/AAAAP5KEzb6DNLa/MzOzPgrg0r5JDaO/AAAAP3q+D78nZKS/ZmbmPtoy7r4sHZ2/AAAAPwL8777Dupa/MzOzPgrg0r5JDaO/AAAAP5KEzb6DNLa/AAAAPyFDhr5rtqG/MzOzPgrg0r5JDaO/AAAAPyFDhr5rtqG/ZmbmPpQfu76VOJy/ZmbmPpQfu76VOJy/AAAAPyFDhr5rtqG/AAAAP7zovL4t1pW/AAAAP3q+D78nZKS/AAAAPwL8777Dupa/zcwMP9oy7r4sHZ2/AAAAP3q+D78nZKS/zcwMP9oy7r4sHZ2/ZmYmPwrg0r5JDaO/AAAAP3q+D78nZKS/ZmYmPwrg0r5JDaO/AAAAP5KEzb6DNLa/AAAAP5KEzb6DNLa/ZmYmPwrg0r5JDaO/AAAAPyFDhr5rtqG/zcwMP9oy7r4sHZ2/zcwMP1py1r54SJa/ZmYmPwrg0r5JDaO/zcwMP1py1r54SJa/zcwMP5Qfu76VOJy/ZmYmPwrg0r5JDaO/AAAAP7zovL4t1pW/AAAAPyFDhr5rtqG/zcwMP5Qfu76VOJy/AAAAPyFDhr5rtqG/ZmYmPwrg0r5JDaO/zcwMP5Qfu76VOJy/Q1ViUum91r1DVWJS6b3WvUNVYlLpvda9Q1Wlp+m91r1DVaWn6b3WvUNVpafpvda9Q1ViUum91r1DVWJS6b3WvUNVYlLpvda9pie8KhVC1r2mJ7wqFULWvaYnvCoVQta9Q1ViUum91r1DVWJS6b3WvUNVYlLpvda9nC1C1RVC1r2cLULVFULWvZwtQtUVQta9Q1Wlp+m91r1DVaWn6b3WvUNVpafpvda9Q1Wlp+m91r1DVaWn6b3WvUNVpafpvda9u6piUq37CeG7qmJSrfsJ4buqYlKt+wnhu6piUq37CeG7qmJSrfsJ4buqYlKt+wnhWNi8KlEECeFY2LwqUQQJ4VjYvCpRBAnhYtJC1VEECeFi0kLVUQQJ4WLSQtVRBAnhu6piUq37CeG7qmJSrfsJ4buqYlKt+wnhu6qlp637CeG7qqWnrfsJ4buqpaet+wnhu6qlp637CeG7qqWnrfsJ4buqpaet+wnhu6qlp637CeG7qqWnrfsJ4buqpaet+wnh")
 }]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g20y1"]
+diffuse_mode = 3
+specular_mode = 2
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+metallic_specular = 0.0
+disable_receive_shadows = true
+
 [sub_resource type="Animation" id="Animation_d85cr"]
 length = 0.001
 tracks/0/type = "value"
@@ -481,7 +490,7 @@ gradient = SubResource("Gradient_g83mg")
 
 [sub_resource type="LabelSettings" id="LabelSettings_seyvw"]
 font = ExtResource("6_g20y1")
-font_size = 8
+font_size = 30
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
@@ -502,6 +511,7 @@ shader_parameter/color_b = Color(1, 0, 0.4, 1)
 shader_parameter/emission_energy = 5.0
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=500862226 groups=["player"]]
+floor_snap_length = 0.8
 script = ExtResource("1_4rah4")
 can_dash = true
 can_freefly = true
@@ -563,8 +573,74 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_seyvw")
 
 [node name="Sword" type="MeshInstance3D" parent="Head" unique_id=1852221792]
-transform = Transform3D(1, 0, 0, 0, 0.8660253, -0.49999997, 0, 0.49999997, 0.8660253, 0, -0.70000005, -0.5)
+transform = Transform3D(1, 0, 0, 0, 0.8660253, -0.49999997, 0, 0.49999997, 0.8660253, 0, -0.5, -0.5)
 mesh = SubResource("ArrayMesh_d85cr")
+
+[node name="SniperCSG" type="CSGCombiner3D" parent="Head" unique_id=888082542]
+transform = Transform3D(0.9659258, -0.25881904, 0, 0.2574012, 0.9606344, 0.104528464, -0.027053958, -0.100966744, 0.9945219, 0, -0.70000005, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_g20y1")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Head/SniperCSG" unique_id=807759538]
+transform = Transform3D(0.99999917, 1.07102096e-07, -1.8626451e-09, -4.0896703e-07, 0.9848077, -0.17364816, -1.3038516e-08, 0.17364816, 0.98480767, 0.79999995, 0.22984248, -1.8015908)
+size = Vector3(0.2, 0.2, 2.1662598)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Head/SniperCSG" unique_id=146370872]
+transform = Transform3D(1, -2.5820918e-07, 0, 3.259629e-09, 0.9848081, -0.17364827, 0, 0.17364818, 0.9848102, 0.79999983, 0.4296214, -1.4947768)
+size = Vector3(0.1, 0.13984375, 1)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Head/SniperCSG/CSGBox3D2" unique_id=1357812277]
+transform = Transform3D(0.99999547, -4.400499e-08, 0, -1.6065314e-08, 0.9999976, 0, 1.3038516e-08, 1.4901161e-08, 0.99999654, 0.0042614937, -0.15519416, 0.011520624)
+size = Vector3(0.05, 0.2, 0.6)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Head/SniperCSG" unique_id=1819232087]
+transform = Transform3D(0.99999917, 2.849847e-07, -1.8626451e-09, -4.0896703e-07, 0.8660247, -0.49999958, -1.3038516e-08, 0.49999973, 0.8660244, 0.7810918, -0.22202432, -0.4160774)
+visible = false
+size = Vector3(0.1, 0.2, 1.1767578)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Head/SniperCSG" unique_id=1858477375]
+transform = Transform3D(0.99999917, 3.7252903e-09, 0, -4.0861778e-07, 0.9848071, -0.17364806, -1.6763806e-08, 0.17364806, 0.984807, 0.7990587, -0.017927468, -0.29799113)
+size = Vector3(0.1, 0.2, 1.1660461)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Head/SniperCSG" unique_id=910049902]
+transform = Transform3D(0.99999756, -1.3969839e-08, -8.381903e-08, -1.6298145e-09, 0.8660245, -0.49999815, -2.0489097e-08, 0.49999812, 0.86602145, 0.8002863, -0.2381267, -0.15663084)
+size = Vector3(0.1, 0.2, 1.1582775)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Head/SniperCSG" unique_id=1675825696]
+transform = Transform3D(0.99999917, 5.5879354e-09, 6.146729e-08, -2.0046718e-07, -0.17364821, 0.9848072, 5.5879354e-09, -0.9848073, -0.17364822, 0.8129127, -0.15197188, -1.2557187)
+size = Vector3(0.1, 0.2, 0.685791)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Head/SniperCSG" unique_id=1029745157]
+transform = Transform3D(0.9999981, 6.123446e-08, -7.450581e-09, -1.1280645e-07, 0.9848073, -0.17364815, 1.1175871e-08, 0.17364818, 0.9848074, 0.7941501, 0.08882707, -2.1630256)
+size = Vector3(0.1, 0.2, 0.4)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Head/SniperCSG/CSGBox3D10" unique_id=2138035537]
+transform = Transform3D(0.99999917, 3.259629e-09, 2.0489097e-08, 9.546056e-09, 0.999999, 2.9802322e-08, 0, 7.450581e-09, 0.99999946, 0.00033152103, -0.11486703, -0.0016139746)
+size = Vector3(0.2, 0.2, 0.808)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Head/SniperCSG" unique_id=1404140072]
+transform = Transform3D(0.9999979, -1.8626451e-09, 9.313226e-10, -3.5087578e-07, -0.34202003, 0.9396923, -1.8626451e-08, -0.9396924, -0.34202003, 0.80094886, -0.3180954, 0.2958931)
+size = Vector3(0.1, 0.2, 0.5597229)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Head/SniperCSG" unique_id=785519020]
+transform = Transform3D(0.99999917, 2.7939677e-09, -1.8626451e-09, -4.0896703e-07, 0.98480755, -0.17364815, -1.3038516e-08, 0.17364815, 0.98480755, 0.79999995, 0.67435354, -4.3214064)
+size = Vector3(0.1, 0.15, 4)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Head/SniperCSG/CSGBox3D5" unique_id=1471989824]
+transform = Transform3D(1.0000012, 1.8626451e-09, -1.0244548e-07, 3.4621917e-07, 1.0000002, 3.5762787e-07, 8.754432e-08, 2.0861626e-07, 1.0000098, 0, -5.9604645e-08, 1.0325499)
+size = Vector3(0.18, 0.1, 0.5717926)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Head/SniperCSG/CSGBox3D5" unique_id=934513643]
+transform = Transform3D(1.0000036, -1.3038516e-08, -7.264316e-08, 2.4258625e-06, 1.0000008, 5.1409006e-07, -8.940697e-08, 1.6391277e-07, 1.00003, -2.3841858e-07, -4.7683716e-07, 0.1282363)
+size = Vector3(0.18, 0.1, 0.5794716)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Head/SniperCSG/CSGBox3D5" unique_id=2142146499]
+transform = Transform3D(1.0000044, -2.5029294e-07, -4.9360096e-07, 4.0743034e-06, 1.0000008, 1.6540289e-06, 1.4156103e-07, 1.2218952e-06, 1.0000428, 2.3841858e-07, -7.748604e-07, -0.7388482)
+size = Vector3(0.18, 0.1, 0.42663956)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Head/SniperCSG" unique_id=1819026070]
+transform = Transform3D(1.0000001, -4.656613e-10, -2.6263297e-07, -2.216082e-06, 0.9848077, -0.17364919, 7.9348683e-07, 0.1736483, 0.98481774, 0.8000003, 0.9299019, -5.799486)
+size = Vector3(0.2, 0.2, 1)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head" unique_id=89143693]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 0.5, -0.6830127, -1.1830127)
@@ -573,11 +649,9 @@ light_color = Color(0, 1, 1, 1)
 light_energy = 3.0
 
 [node name="SwordPlayer" type="AnimationPlayer" parent="Head" unique_id=689845586]
-active = false
 libraries/ = SubResource("AnimationLibrary_et5jn")
 
 [node name="SwordTree" type="AnimationTree" parent="Head" unique_id=485909259]
-active = false
 tree_root = SubResource("AnimationNodeBlendTree_nhb04")
 anim_player = NodePath("../SwordPlayer")
 
@@ -587,6 +661,13 @@ one_shot = true
 
 [node name="JumpCoyote" type="Timer" parent="." unique_id=1328356660]
 wait_time = 0.1
+one_shot = true
+
+[node name="Dash_Timer" type="Timer" parent="." unique_id=538364347]
+wait_time = 0.2
+
+[node name="Lock" type="Timer" parent="." unique_id=1612454182]
+wait_time = 0.15
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1855008216]
@@ -704,7 +785,7 @@ skew = 0.9599311
 [node name="SpeedBG" type="TextureRect" parent="CanvasLayer/HUD/Speedometer" unique_id=1912036192]
 offset_left = 33.00023
 offset_top = 1.7436942
-offset_right = 97.02269
+offset_right = 142.0266
 offset_bottom = 123.61088
 scale = Vector2(0.99034303, 0.8011409)
 texture = SubResource("GradientTexture2D_nhb04")
@@ -713,13 +794,15 @@ texture = SubResource("GradientTexture2D_nhb04")
 color = Color(0, 0, 0, 1)
 invert_enabled = true
 invert_border = 4.0
-polygon = PackedVector2Array(33.428467, 1.7435303, 96.42847, 1.7435303, 96.40454, 99.376465, 33.40454, 99.376465)
+polygon = PackedVector2Array(33.428467, 1.7435303, 141.42847, 1.7435303, 141.40479, 99.37659, 33.40454, 99.376465)
 
-[node name="Label" type="Label" parent="CanvasLayer/HUD/Speedometer" unique_id=2033039336]
-offset_left = 32.428345
-offset_right = 97.832886
-offset_bottom = 101.119995
-text = "24 m/s"
+[node name="SpeedText" type="Label" parent="CanvasLayer/HUD" unique_id=2033039336]
+layout_mode = 0
+offset_left = 564.0
+offset_top = 981.0
+offset_right = 629.40454
+offset_bottom = 1082.1199
+text = "24"
 label_settings = SubResource("LabelSettings_seyvw")
 horizontal_alignment = 1
 vertical_alignment = 1

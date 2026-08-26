@@ -31,6 +31,7 @@ var freeflying : bool = false
 var near_wall : bool = false
 var was_near_wall : bool = false
 var crouching : bool = false
+var downhill : bool = false
 
 var move_velocity: Vector3
 var jump_velocity: Vector3
@@ -91,12 +92,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	debug.text = """Raw Speed: %.1f
+	debug.text = """Downhill: %s
 Slide: %s
 Hat: %s
 Gravity: %s
 Jump: %s
-Pos: %s""" % [wallcheck.get_collision_normal(0).dot(transform.basis.x), round(slide_velocity), round(external_velocity), round(grav_velocity), round(jump_velocity), round(global_position)]
+Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(grav_velocity), round(jump_velocity), round(global_position)]
 	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
@@ -123,11 +124,11 @@ Pos: %s""" % [wallcheck.get_collision_normal(0).dot(transform.basis.x), round(sl
 	grav(delta)
 	hatstuff(delta)
 	
-	if Input.is_action_just_pressed("rmb"):
-		global_position = Vector3.ZERO
-		velocity = Vector3.ZERO
-		dash_charges = 3
-		rotation = Vector3.ZERO
+	#if Input.is_action_just_pressed("rmb"):
+		#global_position = Vector3.ZERO
+		#velocity = Vector3.ZERO
+		#dash_charges = 3
+		#rotation = Vector3.ZERO
 	
 	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity + grav_velocity
 	
@@ -215,6 +216,9 @@ Pos: %s""" % [wallcheck.get_collision_normal(0).dot(transform.basis.x), round(sl
 	
 	if Input.is_action_just_pressed("lmb"):
 		playback.travel("attack")
+	
+	if Input.is_action_just_pressed("rmb"):
+		playback.travel("swing")
 	 
 	move_and_slide()
 
@@ -265,18 +269,31 @@ func dash(delta) -> void:
 		dash_velocity = (dash_velocity + move_dir * 50.0).limit_length(60.0)
 		dash_charges -= 1
 	dash_velocity = dash_velocity.lerp(Vector3.ZERO, 6.0 * delta)
-	if dash_velocity.length_squared() < 0.5: dash_velocity = Vector3.ZERO
+	if dash_velocity.length_squared() < 1.0: dash_velocity = Vector3.ZERO
 
 func slide(delta) -> void:
 	if slide_buffer > 0.0 and is_on_floor():
 		slide_buffer = 0.0
 		crouch_start()
-		if move_dir:
-			slide_velocity += (velocity.length() + 8 ) * move_dir
-		else:
-			slide_velocity += (velocity.length() + 8 ) * -transform.basis.z
+		var dir = move_dir if move_dir else -transform.basis.z
+		slide_velocity = ((velocity.length() + 8) * dir).slide(get_floor_normal())
 	else:
-		slide_velocity = slide_velocity.lerp(Vector3.ZERO, 3.0 * delta)
+		var lerp_weight = 3.0
+		
+		var floor_normal = get_floor_normal()
+		var floor_angle = get_floor_angle()
+		var slide_dir = slide_velocity.normalized()
+		downhill = slide_dir.dot(Vector3.DOWN) > 0.0
+		if is_on_floor() and floor_angle > 0.05:
+			if downhill:
+				var slope_accel = floor_angle * 30.0
+				slide_velocity += slide_dir * (slope_accel * delta)
+		if downhill or not is_on_floor():
+			lerp_weight = 1.0
+		else:
+			lerp_weight = 4.0 + (floor_angle * 6.0)
+		
+		slide_velocity = slide_velocity.lerp(Vector3.ZERO, lerp_weight * delta)
 		if slide_velocity.length_squared() < 0.5: slide_velocity = Vector3.ZERO
 	if slide_velocity == Vector3.ZERO:
 		crouch_end()
@@ -296,7 +313,7 @@ func jump(delta) -> void:
 
 func grav(delta) -> void:
 	var rising = jump_velocity.y > 1.0
-	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 0.0 :
+	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 5.0 :
 		grav_velocity += get_gravity() * delta
 		was_near_wall = false
 	elif near_wall:
