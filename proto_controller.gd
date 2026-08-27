@@ -31,6 +31,7 @@ var freeflying : bool = false
 var near_wall : bool = false
 var was_near_wall : bool = false
 var crouching : bool = false
+var crouch_end_requested : bool = false
 var downhill : bool = false
 
 var move_velocity: Vector3
@@ -59,13 +60,12 @@ var camera_tilt_so_i_dont_go_insane: float = 0.0
 @onready var lock: Timer = $Lock
 @onready var jump_coyote: Timer = $WallCoyote
 
-@onready var playback = $Head/SwordTree.get("parameters/Movements/playback")
 @onready var juice = $Head
 
 @onready var wallcheck: ShapeCast3D = $WallChecker
 @onready var wallcheck_r: RayCast3D = $WallCheckRight
 @onready var wallcheck_l: RayCast3D = $WallCheckLeft
-
+@onready var ceilingcheck: ShapeCast3D = $CeilingChecker
 
 func _ready() -> void:
 	
@@ -123,6 +123,8 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 	jump(delta)
 	grav(delta)
 	hatstuff(delta)
+	
+	if crouch_end_requested: crouch_end()
 	
 	#if Input.is_action_just_pressed("rmb"):
 		#global_position = Vector3.ZERO
@@ -211,14 +213,6 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 		#elif not decel_locked:
 			#velocity.x = lerp(velocity.x, 0.0, 0.2)
 			#velocity.z = lerp(velocity.z, 0.0, 0.2)
-	
-
-	
-	if Input.is_action_just_pressed("lmb"):
-		playback.travel("attack")
-	
-	if Input.is_action_just_pressed("rmb"):
-		playback.travel("swing")
 	 
 	move_and_slide()
 
@@ -354,14 +348,19 @@ func hatstuff(delta) -> void:
 		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 
 func crouch_start() -> void:
+	crouch_end_requested = false
 	crouching = true
 	collider.shape.height = 0.9
 	collider.position.y = 0.45
 
 func crouch_end() -> void:
-	crouching = false
-	collider.shape.height = 1.8
-	collider.position.y = 0.9
+	if ceilingcheck.is_colliding():
+		crouch_end_requested = true
+	else:
+		crouching = false
+		collider.shape.height = 1.8
+		collider.position.y = 0.9
+		crouch_end_requested = false
 
 func _on_dash_cd_timeout() -> void:
 	if dash_charges < 3: dash_charges += 1

@@ -5,7 +5,6 @@
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://loml.gdshader" id="2_omksk"]
 [ext_resource type="Script" uid="uid://dllew3uk4ian2" path="res://juice.gd" id="2_qeb3f"]
 [ext_resource type="Shader" uid="uid://pjeiipxng585" path="res://toon.gdshader" id="3_jfawc"]
-[ext_resource type="Shader" uid="uid://coh61dro5mmrj" path="res://outline.gdshader" id="4_g83mg"]
 [ext_resource type="Shader" uid="uid://boafba55hdap6" path="res://hud_outline.gdshader" id="4_omksk"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://PressStart2P.ttf" id="6_g20y1"]
 
@@ -37,15 +36,9 @@ shader_parameter/line_color = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_jfawc")
 size = Vector2(3, 2)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0w33"]
-shader = ExtResource("4_g83mg")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/width = 2.0
-
 [sub_resource type="Environment" id="Environment_g20y1"]
 background_mode = 1
-background_color = Color(0.24556798, 4.059829e-05, 0.24556604, 1)
-ambient_light_color = Color(1, 1, 1, 1)
+background_color = Color(0.7218587, 0.7218587, 0.72185856, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfawc"]
 albedo_color = Color(0, 0, 0, 1)
@@ -199,6 +192,171 @@ _surfaces = [{
 "vertex_data": PackedByteArray("wI7UvcT/SD9eLWC/sdkgvgv4Oj9oRlW/uKsLvjqKOj88o1u/iOzIvZKESz/9elW/NOgWvp4cOz/wJ1O/sdkgvgv4Oj9oRlW/iOzIvZKESz/9elW/U+sJvmNMOz9gY1C/NOgWvp4cOz/wJ1O/wI7UvcT/SD9eLWC/uKsLvjqKOj88o1u/U+sJvmNMOz9gY1C/wI7UvcT/SD9eLWC/5OfPvTKbUz+YAl2/sdkgvgv4Oj9oRlW/5OfPvTKbUz+YAl2/iOzIvZKESz/9elW/sdkgvgv4Oj9oRlW/wI7UvcT/SD9eLWC/U+sJvmNMOz9gY1C/iOzIvZKESz/9elW/wI7UvcT/SD9eLWC/yrvQvR0zSD/QDWC/CBTQvcVXSD+39V+/wI7UvcT/SD9eLWC/CBTQvcVXSD+39V+/0szMvSkPST8sfV+/wI7UvcT/SD9eLWC/EOvMvXcTST/hcFy/yrvQvR0zSD/QDWC/wI7UvcT/SD9eLWC/iOzIvZKESz/9elW/EOvMvXcTST/hcFy/wI7UvcT/SD9eLWC/0szMvSkPST8sfV+/5OfPvTKbUz+YAl2/iOzIvZKESz/9elW/0szMvWkaST8+VFy/EOvMvXcTST/hcFy/5OfPvTKbUz+YAl2/0szMvSkPST8sfV+/95cxvcy0Oj/JK1m/iOzIvZKESz/9elW/pAV1vR4gOz/681K/0szMvWkaST8+VFy/0szMvWkaST8+VFy/pAV1vR4gOz/681K/ibuJveKYOj/lLVu/0szMvSkPST8sfV+/w5u7vRJYRT9o916/95cxvcy0Oj/JK1m/5OfPvTKbUz+YAl2/95cxvcy0Oj/JK1m/iOzIvZKESz/9elW/ibuJveKYOj/lLVu/pAV1vR4gOz/681K/gZyJvSySOj9dLVu/BCuJvZFxOj/vbl2//A2JvUtrOj8Nbl2/T/JjvXOOOj+WZFu/BCuJvZFxOj/vbl2/T/JjvXOOOj+WZFu/w5u7vRJYRT9o916/95cxvcy0Oj/JK1m/w5u7vRJYRT9o916/T/JjvXOOOj+WZFu/iOzIvZKESz/9elW/95cxvcy0Oj/JK1m/pAV1vR4gOz/681K/URLOxFG8iRNREs7EUbyJE1ESzsRRvIkT2VUIp1G8dezZVQinUbx17NlVCKdRvHXs2VUIp1G8dezZVQinUbx17NlVCKdRvHXsJdElUVG8dewl0SVRUbx17CXRJVFRvHXsURLOxFG8iRNREs7EUbyJE1ESzsRRvIkT2VUIp1G8dezZVQinUbx17NlVCKdRvHXsJdElUVG8dewl0SVRUbx17CXRJVFRvHXs7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq7u6Q0g1JJ+ru7pDSDUkn6u7ukNINSSfq0TnsWA1J1xXROexYDUnXFdE57FgNSdcV0DnsWA1J1xXQOexYDUnXFdA57FgNSdcV7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq0DntWBJJ1xXQOe1YEknXFdA57VgSSdcV7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq0TnsWA1J1xXROexYDUnXFdE57FgNSdcV0TnsWA1J1xXROexYDUnXFdE57FgNSdcV7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfqBrdApg1J1xUGt0CmDUnXFQa3QKYNSdcV0TnrWA1J1xXROetYDUnXFdE561gNSdcV7u6Q0gxJJ+ru7pDSDEkn6u7ukNIMSSfq7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfqBrdApg1J1xUGt0CmDUnXFQa3QKYNSdcV")
 }]
 
+[sub_resource type="Animation" id="Animation_g20y1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightPistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.3, 1, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightPistol:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftPistol:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.3, 1, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftPistol:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g83mg"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightPistol:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.3, 1, -1), Vector3(1.3, 1.05, -1.05), Vector3(1.3, 1, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightPistol:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.034906585, 0, 0.034906585), Vector3(0.034906585, 0, 0.034906585), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftPistol:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.3, 1, -1), Vector3(-1.3, 1.05, -1.05), Vector3(-1.3, 1, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftPistol:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.034906585, 0, -0.034906585), Vector3(0.034906585, 0, -0.034906585), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_df3o5"]
+resource_name = "walk"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightPistol:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.3, 1, -1), Vector3(1.4, 1, -1), Vector3(1.3, 1, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightPistol:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftPistol:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.3, 1, -1), Vector3(-1.2, 1, -1), Vector3(-1.3, 1, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftPistol:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_df3o5"]
+_data = {
+&"RESET": SubResource("Animation_g20y1"),
+&"idle": SubResource("Animation_g83mg"),
+&"walk": SubResource("Animation_df3o5")
+}
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g20y1"]
 diffuse_mode = 3
 specular_mode = 2
@@ -207,328 +365,6 @@ disable_fog = true
 disable_specular_occlusion = true
 metallic_specular = 0.0
 disable_receive_shadows = true
-
-[sub_resource type="Animation" id="Animation_d85cr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.5, -0.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.5235988, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_g83mg"]
-resource_name = "attack"
-length = 0.6
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.40000004, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.14, 0.135, -0.23), Vector3(0.085, 0.195, -0.18), Vector3(0.085, 0.195, -0.18), Vector3(0.365, 0.195, -1.41)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.40000004, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(3.0194197, 1.5149457, 1.3962634), Vector3(2.8448868, 1.9338248, 1.3962634), Vector3(2.8448868, 1.9338248, 1.3962634), Vector3(3.7175512, -1.3683381, 1.3962634)]
-}
-
-[sub_resource type="Animation" id="Animation_df3o5"]
-resource_name = "attack_2"
-length = 0.7
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.365, 0.195, -1.41), Vector3(0.365, 0.195, -1.41), Vector3(0.365, 0.195, -1.41), Vector3(0.11, 0.095, -0.065)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(3.7175512, -1.3683381, 1.3962634), Vector3(4.0002947, -1.3683381, 1.3962634), Vector3(4.0002947, -1.3683381, 1.3962634), Vector3(3.1625366, 2.401573, 1.3962634)]
-}
-
-[sub_resource type="Animation" id="Animation_jfawc"]
-resource_name = "swing"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.5, -0.5), Vector3(-0.415, -0.63, -0.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.5235988, 0, 0), Vector3(-0.5846853, 1.017527, 1.3962634)]
-}
-
-[sub_resource type="Animation" id="Animation_et5jn"]
-resource_name = "swing_2"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.415, -0.63, -0.5), Vector3(0.01, -0.375, -0.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.5846853, 1.017527, 1.3962634), Vector3(0.5061455, 1.8640116, 1.3962634)]
-}
-
-[sub_resource type="Animation" id="Animation_omksk"]
-resource_name = "swing_3"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.01, -0.375, -0.5), Vector3(-0.4, 0.135, -0.46)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.5061455, 1.8640116, 1.3962634), Vector3(2.3911011, 1.0960667, 1.3962634)]
-}
-
-[sub_resource type="Animation" id="Animation_qeb3f"]
-resource_name = "swing_4"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.4, 0.135, -0.46), Vector3(-0.775, 0.135, -0.46)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(2.3911011, 1.0960667, 1.3962634), Vector3(1.134464, 1.0960667, 1.3962634)]
-}
-
-[sub_resource type="Animation" id="Animation_g20y1"]
-resource_name = "swing_5"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.775, 0.135, -0.46), Vector3(0.14, 0.135, -0.23)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot/Camera3D/SubViewportContainer/SubViewport/Sword:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(1.134464, 1.0960667, 1.3962634), Vector3(3.0194197, 1.5149457, 1.3962634)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_et5jn"]
-_data = {
-&"RESET": SubResource("Animation_d85cr"),
-&"attack": SubResource("Animation_g83mg"),
-&"attack_2": SubResource("Animation_df3o5"),
-&"swing": SubResource("Animation_jfawc"),
-&"swing_2": SubResource("Animation_et5jn"),
-&"swing_3": SubResource("Animation_omksk"),
-&"swing_4": SubResource("Animation_qeb3f"),
-&"swing_5": SubResource("Animation_g20y1")
-}
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_omksk"]
-animation = &"attack"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qeb3f"]
-animation = &"attack_2"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d85cr"]
-animation = &"swing"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jfawc"]
-animation = &"swing_2"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_et5jn"]
-animation = &"swing_3"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g20y1"]
-animation = &"swing_4"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g83mg"]
-animation = &"swing_5"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qeb3f"]
-advance_mode = 0
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g20y1"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g83mg"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_df3o5"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tqngf"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3xod3"]
-advance_mode = 0
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jwpt3"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ryfec"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jfawc"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3xod3"]
-states/End/position = Vector2(1072, 100)
-states/Start/position = Vector2(199, 100)
-states/attack/node = SubResource("AnimationNodeAnimation_omksk")
-states/attack/position = Vector2(358, 153)
-states/attack_2/node = SubResource("AnimationNodeAnimation_qeb3f")
-states/attack_2/position = Vector2(570, 153)
-states/swing/node = SubResource("AnimationNodeAnimation_d85cr")
-states/swing/position = Vector2(348, -15)
-states/swing2/node = SubResource("AnimationNodeAnimation_jfawc")
-states/swing2/position = Vector2(519, -15)
-states/swing3/node = SubResource("AnimationNodeAnimation_et5jn")
-states/swing3/position = Vector2(654, -15)
-states/swing_4/node = SubResource("AnimationNodeAnimation_g20y1")
-states/swing_4/position = Vector2(783, -15)
-states/swing_5/node = SubResource("AnimationNodeAnimation_g83mg")
-states/swing_5/position = Vector2(922, -15)
-transitions = ["Start", "swing", SubResource("AnimationNodeStateMachineTransition_qeb3f"), "swing", "swing2", SubResource("AnimationNodeStateMachineTransition_g20y1"), "swing2", "swing3", SubResource("AnimationNodeStateMachineTransition_g83mg"), "attack", "attack_2", SubResource("AnimationNodeStateMachineTransition_df3o5"), "attack_2", "End", SubResource("AnimationNodeStateMachineTransition_tqngf"), "Start", "attack", SubResource("AnimationNodeStateMachineTransition_3xod3"), "swing3", "swing_4", SubResource("AnimationNodeStateMachineTransition_jwpt3"), "swing_4", "swing_5", SubResource("AnimationNodeStateMachineTransition_ryfec"), "swing_5", "End", SubResource("AnimationNodeStateMachineTransition_jfawc")]
-graph_offset = Vector2(-19, -19)
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nhb04"]
-nodes/Movements/node = SubResource("AnimationNodeStateMachine_3xod3")
-nodes/Movements/position = Vector2(0, 80)
-node_connections = [&"output", 0, &"Movements"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4rah4"]
 font_size = 32
@@ -663,8 +499,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_seyvw")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Head/CameraPivot/Camera3D" unique_id=1651043335]
-material = SubResource("ShaderMaterial_l0w33")
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Head/CameraPivot" unique_id=1651043335]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -672,109 +507,127 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="Head/CameraPivot/Camera3D/SubViewportContainer" unique_id=1572848522]
+[node name="SubViewport" type="SubViewport" parent="Head/CameraPivot/SubViewportContainer" unique_id=1572848522]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(1920, 1080)
+render_target_update_mode = 4
 
-[node name="WpnCam" type="Camera3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport" unique_id=1777410787]
+[node name="WpnCam" type="Camera3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=1777410787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 cull_mask = 524288
 environment = SubResource("Environment_g20y1")
 fov = 70.0
 
-[node name="Sword" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport" unique_id=1852221792]
-transform = Transform3D(1, 0, 0, 0, 0.8660253, -0.49999997, 0, 0.49999997, 0.8660253, 0, 1, -0.5)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/WpnCam" unique_id=761401695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+layers = 524288
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_seyvw")
+
+[node name="Sword" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=443423592]
+transform = Transform3D(0.99575454, 0.044670977, 0.08048215, 0, 0.8743478, -0.4852998, -0.092048205, 0.48323947, 0.8706358, 0.08808589, 1.1201602, -1.5870181)
 visible = false
+
+[node name="SwordMesh" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/Sword" unique_id=1852221792]
+transform = Transform3D(1.0000001, -3.7252903e-09, -7.450581e-09, 0, 1.0000001, -2.9802322e-08, 0, -2.9802322e-08, 1, -0.09204821, 0.48323953, 0.870636)
 layers = 524288
 mesh = SubResource("ArrayMesh_d85cr")
 
-[node name="PistolsParent" type="Node3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport" unique_id=2032388247]
+[node name="PistolsParent" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=2032388247]
 
-[node name="RightPistol" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/PistolsParent" unique_id=229661458]
-transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 1.3, 0.5, -1.5677483)
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=1727527250]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.1414638)
+layers = 524288
+light_energy = 3.0
+light_cull_mask = 4294443008
+omni_attenuation = 10.0
+
+[node name="RightPistol" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=1895704673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 1, -1)
+
+[node name="RightPistolMesh" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent/RightPistol" unique_id=229661458]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, -0.5, -0.5)
 layers = 524288
 mesh = SubResource("ArrayMesh_df3o5")
 
-[node name="LeftPistol" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/PistolsParent" unique_id=1283735736]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0.5, -1.5677483)
+[node name="LeftPistol" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=294142682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 1, -1)
+
+[node name="LeftPistolMEsh" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent/LeftPistol" unique_id=175706137]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.5)
 layers = 524288
 mesh = SubResource("ArrayMesh_df3o5")
 
-[node name="SniperCSG" type="CSGCombiner3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport" unique_id=888082542]
+[node name="PistolPlayer" type="AnimationPlayer" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=1623714697]
+libraries/ = SubResource("AnimationLibrary_df3o5")
+
+[node name="SniperCSG" type="CSGCombiner3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=888082542]
 transform = Transform3D(0.9659258, -0.25881904, 0, 0.2574012, 0.9606344, 0.104528464, -0.027053958, -0.100966744, 0.9945219, 0, 1, 0)
 visible = false
 layers = 524288
 material_override = SubResource("StandardMaterial3D_g20y1")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=807759538]
+[node name="CSGBox3D" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=807759538]
 transform = Transform3D(0.99999917, 1.07102096e-07, -1.8626451e-09, -4.0896703e-07, 0.9848077, -0.17364816, -1.3038516e-08, 0.17364816, 0.98480767, 0.79999995, 0.22984248, -1.8015908)
 size = Vector3(0.2, 0.2, 2.1662598)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=146370872]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=146370872]
 transform = Transform3D(1, -2.5820918e-07, 0, 3.259629e-09, 0.9848081, -0.17364827, 0, 0.17364818, 0.9848102, 0.79999983, 0.4296214, -1.4947768)
 size = Vector3(0.1, 0.13984375, 1)
 
-[node name="CSGBox3D12" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D2" unique_id=1357812277]
+[node name="CSGBox3D12" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D2" unique_id=1357812277]
 transform = Transform3D(0.99999547, -4.400499e-08, 0, -1.6065314e-08, 0.9999976, 0, 1.3038516e-08, 1.4901161e-08, 0.99999654, 0.0042614937, -0.15519416, 0.011520624)
 size = Vector3(0.05, 0.2, 0.6)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=1819232087]
+[node name="CSGBox3D3" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=1819232087]
 transform = Transform3D(0.99999917, 2.849847e-07, -1.8626451e-09, -4.0896703e-07, 0.8660247, -0.49999958, -1.3038516e-08, 0.49999973, 0.8660244, 0.7810918, -0.22202432, -0.4160774)
 visible = false
 size = Vector3(0.1, 0.2, 1.1767578)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=1858477375]
+[node name="CSGBox3D7" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=1858477375]
 transform = Transform3D(0.99999917, 3.7252903e-09, 0, -4.0861778e-07, 0.9848071, -0.17364806, -1.6763806e-08, 0.17364806, 0.984807, 0.7990587, -0.017927468, -0.29799113)
 size = Vector3(0.1, 0.2, 1.1660461)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=910049902]
+[node name="CSGBox3D8" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=910049902]
 transform = Transform3D(0.99999756, -1.3969839e-08, -8.381903e-08, -1.6298145e-09, 0.8660245, -0.49999815, -2.0489097e-08, 0.49999812, 0.86602145, 0.8002863, -0.2381267, -0.15663084)
 size = Vector3(0.1, 0.2, 1.1582775)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=1675825696]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=1675825696]
 transform = Transform3D(0.99999917, 5.5879354e-09, 6.146729e-08, -2.0046718e-07, -0.17364821, 0.9848072, 5.5879354e-09, -0.9848073, -0.17364822, 0.8129127, -0.15197188, -1.2557187)
 size = Vector3(0.1, 0.2, 0.685791)
 
-[node name="CSGBox3D10" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=1029745157]
+[node name="CSGBox3D10" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=1029745157]
 transform = Transform3D(0.9999981, 6.123446e-08, -7.450581e-09, -1.1280645e-07, 0.9848073, -0.17364815, 1.1175871e-08, 0.17364818, 0.9848074, 0.7941501, 0.08882707, -2.1630256)
 size = Vector3(0.1, 0.2, 0.4)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D10" unique_id=2138035537]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D10" unique_id=2138035537]
 transform = Transform3D(0.99999917, 3.259629e-09, 2.0489097e-08, 9.546056e-09, 0.999999, 2.9802322e-08, 0, 7.450581e-09, 0.99999946, 0.00033152103, -0.11486703, -0.0016139746)
 size = Vector3(0.2, 0.2, 0.808)
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=1404140072]
+[node name="CSGBox3D9" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=1404140072]
 transform = Transform3D(0.9999979, -1.8626451e-09, 9.313226e-10, -3.5087578e-07, -0.34202003, 0.9396923, -1.8626451e-08, -0.9396924, -0.34202003, 0.80094886, -0.3180954, 0.2958931)
 size = Vector3(0.1, 0.2, 0.5597229)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=785519020]
+[node name="CSGBox3D5" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=785519020]
 transform = Transform3D(0.99999917, 2.7939677e-09, -1.8626451e-09, -4.0896703e-07, 0.98480755, -0.17364815, -1.3038516e-08, 0.17364815, 0.98480755, 0.79999995, 0.67435354, -4.3214064)
 size = Vector3(0.1, 0.15, 4)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D5" unique_id=1471989824]
+[node name="CSGBox3D" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D5" unique_id=1471989824]
 transform = Transform3D(1.0000012, 1.8626451e-09, -1.0244548e-07, 3.4621917e-07, 1.0000002, 3.5762787e-07, 8.754432e-08, 2.0861626e-07, 1.0000098, 0, -5.9604645e-08, 1.0325499)
 size = Vector3(0.18, 0.1, 0.5717926)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D5" unique_id=934513643]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D5" unique_id=934513643]
 transform = Transform3D(1.0000036, -1.3038516e-08, -7.264316e-08, 2.4258625e-06, 1.0000008, 5.1409006e-07, -8.940697e-08, 1.6391277e-07, 1.00003, -2.3841858e-07, -4.7683716e-07, 0.1282363)
 size = Vector3(0.18, 0.1, 0.5794716)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D5" unique_id=2142146499]
+[node name="CSGBox3D3" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG/CSGBox3D5" unique_id=2142146499]
 transform = Transform3D(1.0000044, -2.5029294e-07, -4.9360096e-07, 4.0743034e-06, 1.0000008, 1.6540289e-06, 1.4156103e-07, 1.2218952e-06, 1.0000428, 2.3841858e-07, -7.748604e-07, -0.7388482)
 size = Vector3(0.18, 0.1, 0.42663956)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="Head/CameraPivot/Camera3D/SubViewportContainer/SubViewport/SniperCSG" unique_id=1819026070]
+[node name="CSGBox3D6" type="CSGBox3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/SniperCSG" unique_id=1819026070]
 transform = Transform3D(1.0000001, -4.656613e-10, -2.6263297e-07, -2.216082e-06, 0.9848077, -0.17364919, 7.9348683e-07, 0.1736483, 0.98481774, 0.8000003, 0.9299019, -5.799486)
 size = Vector3(0.2, 0.2, 1)
-
-[node name="SwordPlayer" type="AnimationPlayer" parent="Head" unique_id=689845586]
-active = false
-libraries/ = SubResource("AnimationLibrary_et5jn")
-
-[node name="SwordTree" type="AnimationTree" parent="Head" unique_id=485909259]
-active = false
-tree_root = SubResource("AnimationNodeBlendTree_nhb04")
-anim_player = NodePath("../SwordPlayer")
 
 [node name="Dash_CD" type="Timer" parent="." unique_id=606288445]
 wait_time = 0.8
@@ -1197,10 +1050,10 @@ position = Vector2(960, 540)
 [node name="Outline" type="Polygon2D" parent="CanvasLayer/HUD/Crosshair" unique_id=2077892146]
 position = Vector2(0, 1)
 color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(0, -12.5, -13, 6, 0, -3, 13, 6)
+polygon = PackedVector2Array(0, -12.5, -14, 6, 0, -4, 14, 6)
 
 [node name="Polygon2D" type="Polygon2D" parent="CanvasLayer/HUD/Crosshair" unique_id=1906039281]
-polygon = PackedVector2Array(0, -9, -11, 5, 0, -4, 11, 5)
+polygon = PackedVector2Array(0, -9, -12, 5, 0, -5, 12, 5)
 
 [node name="Filter" type="ColorRect" parent="CanvasLayer/HUD" unique_id=388580622]
 visible = false

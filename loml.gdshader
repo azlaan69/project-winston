@@ -1,7 +1,6 @@
 shader_type spatial;
 render_mode unshaded, depth_test_disabled, depth_draw_never, cull_disabled, blend_mix;
 
-uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear;
 uniform sampler2D normal_texture : hint_normal_roughness_texture, repeat_disable, filter_nearest;
 
 uniform float line_thickness : hint_range(0.5, 3.0) = 1.5;
@@ -26,7 +25,11 @@ void fragment() {
 
 	float is_edge = step(normal_threshold, diff);
 
-	vec4 scene = texture(screen_texture, uv);
-	ALBEDO = mix(scene.rgb, line_color.rgb, is_edge);
-	ALPHA = 1.0;
+	// If it's an edge, draw the black line. If not, discard the quad pixel entirely!
+	if (is_edge > 0.5) {
+		ALBEDO = line_color.rgb;
+		ALPHA = line_color.a;
+	} else {
+		discard;
+	}
 }
