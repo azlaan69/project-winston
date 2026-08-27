@@ -192,6 +192,35 @@ _surfaces = [{
 "vertex_data": PackedByteArray("wI7UvcT/SD9eLWC/sdkgvgv4Oj9oRlW/uKsLvjqKOj88o1u/iOzIvZKESz/9elW/NOgWvp4cOz/wJ1O/sdkgvgv4Oj9oRlW/iOzIvZKESz/9elW/U+sJvmNMOz9gY1C/NOgWvp4cOz/wJ1O/wI7UvcT/SD9eLWC/uKsLvjqKOj88o1u/U+sJvmNMOz9gY1C/wI7UvcT/SD9eLWC/5OfPvTKbUz+YAl2/sdkgvgv4Oj9oRlW/5OfPvTKbUz+YAl2/iOzIvZKESz/9elW/sdkgvgv4Oj9oRlW/wI7UvcT/SD9eLWC/U+sJvmNMOz9gY1C/iOzIvZKESz/9elW/wI7UvcT/SD9eLWC/yrvQvR0zSD/QDWC/CBTQvcVXSD+39V+/wI7UvcT/SD9eLWC/CBTQvcVXSD+39V+/0szMvSkPST8sfV+/wI7UvcT/SD9eLWC/EOvMvXcTST/hcFy/yrvQvR0zSD/QDWC/wI7UvcT/SD9eLWC/iOzIvZKESz/9elW/EOvMvXcTST/hcFy/wI7UvcT/SD9eLWC/0szMvSkPST8sfV+/5OfPvTKbUz+YAl2/iOzIvZKESz/9elW/0szMvWkaST8+VFy/EOvMvXcTST/hcFy/5OfPvTKbUz+YAl2/0szMvSkPST8sfV+/95cxvcy0Oj/JK1m/iOzIvZKESz/9elW/pAV1vR4gOz/681K/0szMvWkaST8+VFy/0szMvWkaST8+VFy/pAV1vR4gOz/681K/ibuJveKYOj/lLVu/0szMvSkPST8sfV+/w5u7vRJYRT9o916/95cxvcy0Oj/JK1m/5OfPvTKbUz+YAl2/95cxvcy0Oj/JK1m/iOzIvZKESz/9elW/ibuJveKYOj/lLVu/pAV1vR4gOz/681K/gZyJvSySOj9dLVu/BCuJvZFxOj/vbl2//A2JvUtrOj8Nbl2/T/JjvXOOOj+WZFu/BCuJvZFxOj/vbl2/T/JjvXOOOj+WZFu/w5u7vRJYRT9o916/95cxvcy0Oj/JK1m/w5u7vRJYRT9o916/T/JjvXOOOj+WZFu/iOzIvZKESz/9elW/95cxvcy0Oj/JK1m/pAV1vR4gOz/681K/URLOxFG8iRNREs7EUbyJE1ESzsRRvIkT2VUIp1G8dezZVQinUbx17NlVCKdRvHXs2VUIp1G8dezZVQinUbx17NlVCKdRvHXsJdElUVG8dewl0SVRUbx17CXRJVFRvHXsURLOxFG8iRNREs7EUbyJE1ESzsRRvIkT2VUIp1G8dezZVQinUbx17NlVCKdRvHXsJdElUVG8dewl0SVRUbx17CXRJVFRvHXs7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq7u6Q0g1JJ+ru7pDSDUkn6u7ukNINSSfq0TnsWA1J1xXROexYDUnXFdE57FgNSdcV0DnsWA1J1xXQOexYDUnXFdA57FgNSdcV7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq0DntWBJJ1xXQOe1YEknXFdA57VgSSdcV7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq0TnsWA1J1xXROexYDUnXFdE57FgNSdcV0TnsWA1J1xXROexYDUnXFdE57FgNSdcV7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfqBrdApg1J1xUGt0CmDUnXFQa3QKYNSdcV0TnrWA1J1xXROetYDUnXFdE561gNSdcV7u6Q0gxJJ+ru7pDSDEkn6u7ukNIMSSfq7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfq7e6Q0g1JJ+rt7pDSDUkn6u3ukNINSSfqBrdApg1J1xUGt0CmDUnXFQa3QKYNSdcV")
 }]
 
+[sub_resource type="Animation" id="Animation_3xod3"]
+resource_name = "L_shoot"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftPistol:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.3, 1.022, -1.022), Vector3(-1.3, 1.022, -0.84), Vector3(-1.3, 1.022, -0.84), Vector3(-1.3, 1.022, -1.022)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftPistol:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.033065837, 0, 0.033065837), Vector3(0.81846404, 1.5562494e-09, 0.033065844), Vector3(0.81846404, 1.5562494e-09, 0.033065844), Vector3(0.033065837, 0, 0.033065837)]
+}
+
 [sub_resource type="Animation" id="Animation_g20y1"]
 length = 0.001
 tracks/0/type = "value"
@@ -241,6 +270,42 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "position_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_tqngf"]
+resource_name = "R_shoot"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightPistol:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.050000012, 0.19999999, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.3, 1.022, -1.022), Vector3(1.3, 1.022, -0.84), Vector3(1.3, 1.022, -0.84), Vector3(1.3, 1.022, -1.022)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightPistol:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.050000012, 0.19999999, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.033065837, 0, 0.033065837), Vector3(0.81846404, 1.5562494e-09, 0.033065844), Vector3(0.81846404, 1.5562494e-09, 0.033065844), Vector3(0.033065837, 0, 0.033065837)]
 }
 
 [sub_resource type="Animation" id="Animation_g83mg"]
@@ -301,61 +366,50 @@ tracks/3/keys = {
 resource_name = "walk"
 loop_mode = 1
 step = 0.05
-tracks/0/type = "value"
+tracks/0/type = "position_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RightPistol:position")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(1.3, 1, -1), Vector3(1.4, 1, -1), Vector3(1.3, 1, -1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightPistol:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LeftPistol:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-1.3, 1, -1), Vector3(-1.2, 1, -1), Vector3(-1.3, 1, -1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("LeftPistol:rotation")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
-}
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.33, 1, 0.05, 0, 0, 0.66, 1, -0.05, 0, 0, 1, 1, 0, 0, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_df3o5"]
 _data = {
+&"L_shoot": SubResource("Animation_3xod3"),
 &"RESET": SubResource("Animation_g20y1"),
+&"R_shoot": SubResource("Animation_tqngf"),
 &"idle": SubResource("Animation_g83mg"),
 &"walk": SubResource("Animation_df3o5")
 }
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_g20y1"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g83mg"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_df3o5"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_tqngf"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3xod3"]
+graph_offset = Vector2(-327, -188)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_seyvw"]
+graph_offset = Vector2(-864.1296, 10.944946)
+nodes/output/position = Vector2(453.33334, 133.33333)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_g20y1")
+nodes/Add2/position = Vector2(53.333332, 80)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_df3o5")
+nodes/Idle/position = Vector2(-160, 53.333332)
+nodes/Bob/node = SubResource("AnimationNodeAnimation_g83mg")
+nodes/Bob/position = Vector2(-160, 266.66666)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_tqngf")
+nodes/OneShot/position = Vector2(266.66666, 53.333332)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_3xod3")
+nodes/StateMachine/position = Vector2(0, 426.66666)
+node_connections = [&"output", 0, &"OneShot", &"Add2", 0, &"Idle", &"Add2", 1, &"Bob", &"OneShot", 0, &"Add2", &"OneShot", 1, &"StateMachine"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g20y1"]
 diffuse_mode = 3
@@ -544,7 +598,7 @@ light_cull_mask = 4294443008
 omni_attenuation = 10.0
 
 [node name="RightPistol" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=1895704673]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 1, -1)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 1.3, 1, -1)
 
 [node name="RightPistolMesh" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent/RightPistol" unique_id=229661458]
 transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, -0.5, -0.5)
@@ -560,7 +614,17 @@ layers = 524288
 mesh = SubResource("ArrayMesh_df3o5")
 
 [node name="PistolPlayer" type="AnimationPlayer" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=1623714697]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_df3o5")
+
+[node name="AnimationTree" type="AnimationTree" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=1299443149]
+active = false
+tree_root = SubResource("AnimationNodeBlendTree_seyvw")
+anim_player = NodePath("../PistolPlayer")
+parameters/Add2/add_amount = 1.0
+parameters/OneShot/active = false
+parameters/OneShot/internal_active = false
+parameters/OneShot/request = 0
 
 [node name="SniperCSG" type="CSGCombiner3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=888082542]
 transform = Transform3D(0.9659258, -0.25881904, 0, 0.2574012, 0.9606344, 0.104528464, -0.027053958, -0.100966744, 0.9945219, 0, 1, 0)

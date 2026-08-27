@@ -67,6 +67,8 @@ var camera_tilt_so_i_dont_go_insane: float = 0.0
 @onready var wallcheck_l: RayCast3D = $WallCheckLeft
 @onready var ceilingcheck: ShapeCast3D = $CeilingChecker
 
+@onready var anim_p: AnimationPlayer = %PistolPlayer
+
 func _ready() -> void:
 	
 	check_input_mappings()
@@ -214,6 +216,13 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 			#velocity.x = lerp(velocity.x, 0.0, 0.2)
 			#velocity.z = lerp(velocity.z, 0.0, 0.2)
 	 
+	if Input.is_action_just_pressed("lmb"):
+		juice.shift(1.7, 100, 0.2, false)
+		anim_p.play("L_shoot")
+	if Input.is_action_just_pressed("rmb"):
+		juice.shift(1.7, 100, 0.2, false)
+		anim_p.play("R_shoot")
+	
 	move_and_slide()
 
 
