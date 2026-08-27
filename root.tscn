@@ -27,11 +27,13 @@ tonemap_exposure = 0.2
 tonemap_white = 5.0
 tonemap_agx_white = 16.5
 tonemap_agx_contrast = 2.0
+ssr_enabled = true
 sdfgi_read_sky_light = false
 sdfgi_cascades = 1
 sdfgi_min_cell_size = 3.0
 glow_enabled = true
 glow_bloom = 1.0
+glow_blend_mode = 0
 volumetric_fog_density = 0.152
 adjustment_contrast = 1.25
 
@@ -471,6 +473,7 @@ light_energy = 16.0
 omni_range = 4096.0
 
 [node name="CSGCombiner3D2" type="CSGCombiner3D" parent="." unique_id=505870455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 material_override = SubResource("StandardMaterial3D_seyvw")
 use_collision = true
 
