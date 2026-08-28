@@ -56,6 +56,7 @@ var shoot_buffer: float = 0.0
 enum wpn { GUNS, SWORD }
 var current_wpn = wpn.SWORD
 var shoot_l : bool = false
+var combo_step : int = 1
 
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
@@ -63,6 +64,7 @@ var shoot_l : bool = false
 @onready var hat: RigidBody3D = get_node("../Hat")
 
 @onready var dash_cd: Timer = $Dash_CD
+@onready var combo: Timer = $Head/CameraPivot/SubViewportContainer/SubViewport/ComboTimer
 
 @onready var juice = $Head
 
@@ -73,7 +75,11 @@ var shoot_l : bool = false
 @onready var hit_ray: RayCast3D = %HitCheck
 
 @onready var anim_gun: AnimationPlayer = %PistolPlayer
-@onready var anim_sword: AnimationTree = %SwordTree
+@onready var anim_sword_tree: AnimationTree = %SwordTree
+@onready var anim_sword = %SwordPlayer #anim_sword_tree.get("parameters/StateMachine/playback")
+
+@onready var guns: Node3D = %PistolsParent
+@onready var sword: Node3D = %Sword
 
 func _ready() -> void:
 	
@@ -302,13 +308,30 @@ func combatstuff(delta) -> void:
 					shoot_buffer = 0.05
 					
 		wpn.SWORD:
-			if Input.is_action_pressed(input_attack):
-				anim_sword.play("swing1")
-				shoot_l = !shoot_l
-				shoot_buffer = 0.05
-
-func _on_dash_cd_timeout() -> void:
-	if dash_charges < 3: dash_charges += 1
+			if Input.is_action_just_pressed(input_attack):
+				match combo_step:
+					0:
+						combo_step = 1
+						anim_sword.play("swing1")
+					1:
+						combo_step = 2
+						anim_sword.play("swing2")
+					2:
+						combo_step = 3
+						anim_sword.play("swing3")
+					3:
+						pass
+		
+	if Input.is_action_just_pressed(input_switch):
+		match current_wpn:
+			wpn.GUNS:
+				guns.visible = false
+				sword.visible = true
+				current_wpn = wpn.SWORD
+			wpn.SWORD:
+				sword.visible = false
+				guns.visible = true
+				current_wpn = wpn.GUNS
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0
@@ -331,3 +354,20 @@ func deal_shot() -> void:
 		var body = result.collider
 		if body and body.has_method("hit"):
 			body.hit(hit_data)
+
+func _on_dash_cd_timeout() -> void:
+	if dash_charges < 3: dash_charges += 1
+
+func _on_combo_timer_timeout() -> void:
+	combo_step = 0
+	anim_sword.play("sheath", 0.15)
+
+func _on_sword_player_animation_finished(anim_name: StringName) -> void:
+	print(anim_name)
+	match anim_name:
+		"swing1", "swing2":
+			combo.start()
+		"swing3":
+			combo.start()
+		"sheath":
+			combo_step = 0

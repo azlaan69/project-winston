@@ -137,9 +137,10 @@ tracks/1/keys = {
 "values": [Vector3(0.506706, 0.092178695, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ryfec"]
-resource_name = "swing1"
-length = 0.5
+[sub_resource type="Animation" id="Animation_lokl3"]
+resource_name = "sheath"
+length = 0.3
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -147,10 +148,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.13333334, 0.16666667, 0.3, 0.33333334, 0.46666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.08808589, 1.1201602, -1.5870181), Vector3(-0.862, 0.805, -1.587), Vector3(-0.862, 0.805, -1.587), Vector3(-0.862, 0.805, -1.587), Vector3(-0.862, 0.805, -1.587), Vector3(0.08808589, 1.1201602, -1.5870181)]
+"values": [Vector3(0.08808589, 1.1201602, -1.5870181)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -159,15 +160,44 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.13333334, 0.16666667, 0.3, 0.33333334, 0.46666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.506706, 0.092178695, 0), Vector3(-0.41887903, 2.178171, 1.6057029), Vector3(-0.41887903, 2.178171, 1.6057029), Vector3(-0.41887903, 2.178171, 1.6057029), Vector3(-0.41887903, 2.178171, 1.6057029), Vector3(0.506706, 0.092178695, 0)]
+"values": [Vector3(0.506706, 0.092178695, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ryfec"]
+resource_name = "swing1"
+length = 0.26666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.08808589, 1.1201602, -1.5870181), Vector3(-0.862, 0.805, -1.587), Vector3(-0.862, 0.805, -1.587)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13423975, 0.16757308),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.506706, 0.092178695, 0), Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.66497046, 4.438372, 1.6057029)]
 }
 
 [sub_resource type="Animation" id="Animation_i6fpi"]
 resource_name = "swing2"
-length = 0.5
+length = 0.2
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -175,10 +205,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(-0.862, 0.805, -1.587), Vector3(1.183, 1.43, -1.292)]
+"values": [Vector3(-0.862, 0.805, -1.587), Vector3(-0.492, 0.98, -1.587), Vector3(1.603, 1.005, -1.587)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -187,18 +217,52 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.00090640783, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(-0.41887903, 2.178171, 1.6057029), Vector3(-2.6092672, 0.2932153, 1.3264502)]
+"values": [Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(0.43458697, 5.599016, 1.9809487), Vector3(-0.44680429, 1.8989183, 1.134464)]
+}
+
+[sub_resource type="Animation" id="Animation_ts1cr"]
+resource_name = "swing3"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.603, 1.005, -1.587), Vector3(0.938, 1.75, -1.587), Vector3(0.893, 1.005, -1.587)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.44680429, 1.8989183, 1.134464), Vector3(-2.2968533, 3.2428217, -0.04363323), Vector3(0.33859387, 3.5831609, -0.04363323)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i6fpi"]
 _data = {
 &"RESET": SubResource("Animation_jwpt3"),
+&"sheath": SubResource("Animation_lokl3"),
 &"swing1": SubResource("Animation_ryfec"),
-&"swing2": SubResource("Animation_i6fpi")
+&"swing2": SubResource("Animation_i6fpi"),
+&"swing3": SubResource("Animation_ts1cr")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jwpt3"]
+animation = &"sheath"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g20y1"]
 animation = &"swing1"
@@ -206,30 +270,46 @@ animation = &"swing1"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tqngf"]
 animation = &"swing2"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g83mg"]
-advance_mode = 0
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_df3o5"]
-switch_mode = 2
-advance_mode = 2
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3xod3"]
+animation = &"swing3"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3xod3"]
+switch_mode = 2
 advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ryfec"]
+switch_mode = 2
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g83mg"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g20y1"]
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jwpt3"]
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_df3o5"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tqngf"]
+states/End/position = Vector2(1181.3333, 99.58847)
+states/sheath/node = SubResource("AnimationNodeAnimation_jwpt3")
+states/sheath/position = Vector2(599.37036, 127.72839)
 states/swing1/node = SubResource("AnimationNodeAnimation_g20y1")
-states/swing1/position = Vector2(554.3333, 12.666667)
+states/swing1/position = Vector2(362.3333, 12.222219)
 states/swing2/node = SubResource("AnimationNodeAnimation_tqngf")
-states/swing2/position = Vector2(770, 12.666664)
-transitions = ["Start", "swing1", SubResource("AnimationNodeStateMachineTransition_g83mg"), "swing1", "End", SubResource("AnimationNodeStateMachineTransition_df3o5"), "swing1", "swing2", SubResource("AnimationNodeStateMachineTransition_3xod3"), "swing2", "End", SubResource("AnimationNodeStateMachineTransition_jwpt3")]
-graph_offset = Vector2(-310, -48)
+states/swing2/position = Vector2(599.3333, 13.555542)
+states/swing3/node = SubResource("AnimationNodeAnimation_3xod3")
+states/swing3/position = Vector2(801.3333, 21.111101)
+transitions = ["swing1", "swing2", SubResource("AnimationNodeStateMachineTransition_3xod3"), "swing2", "swing3", SubResource("AnimationNodeStateMachineTransition_ryfec"), "Start", "sheath", SubResource("AnimationNodeStateMachineTransition_g83mg"), "sheath", "swing3", SubResource("AnimationNodeStateMachineTransition_g20y1"), "sheath", "swing2", SubResource("AnimationNodeStateMachineTransition_jwpt3"), "sheath", "swing1", SubResource("AnimationNodeStateMachineTransition_df3o5")]
+graph_offset = Vector2(-295, -134)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5pvhp"]
-graph_offset = Vector2(-745.3333, 93.333336)
+graph_offset = Vector2(-760, -33.333332)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_tqngf")
 nodes/StateMachine/position = Vector2(-53.333332, 133.33333)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -704,7 +784,7 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 cull_mask = 524288
 environment = SubResource("Environment_g20y1")
-fov = 70.0
+size = 0.765
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/WpnCam" unique_id=761401695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
@@ -713,12 +793,17 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_seyvw")
 
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=443423592]
+unique_name_in_owner = true
 transform = Transform3D(0.9957545, 0.04467098, 0.08048215, 0, 0.8743478, -0.48529977, -0.092048205, 0.48323947, 0.87063575, 0.08808589, 1.1201602, -1.5870181)
 
 [node name="SwordMesh" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/Sword" unique_id=1852221792]
 transform = Transform3D(1.0000001, -3.7252903e-09, -7.450581e-09, 0, 1.0000001, -2.9802322e-08, 0, -2.9802322e-08, 1, -0.09204821, 0.48323953, 0.870636)
 layers = 524288
 mesh = SubResource("ArrayMesh_d85cr")
+
+[node name="ComboTimer" type="Timer" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=939605875]
+wait_time = 0.6
+one_shot = true
 
 [node name="SwordPlayer" type="AnimationPlayer" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=455760476]
 unique_name_in_owner = true
@@ -728,11 +813,12 @@ libraries/ = SubResource("AnimationLibrary_i6fpi")
 [node name="SwordTree" type="AnimationTree" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=773866010]
 unique_name_in_owner = true
 active = false
-root_node = NodePath("../Sword")
+root_node = NodePath("%SwordTree/../Sword")
 tree_root = SubResource("AnimationNodeBlendTree_5pvhp")
 anim_player = NodePath("../SwordPlayer")
 
 [node name="PistolsParent" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=2032388247]
+unique_name_in_owner = true
 visible = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/PistolsParent" unique_id=1727527250]
@@ -1356,3 +1442,5 @@ fov = 90.0
 size = 5.0
 
 [connection signal="timeout" from="Dash_CD" to="." method="_on_dash_cd_timeout"]
+[connection signal="timeout" from="Head/CameraPivot/SubViewportContainer/SubViewport/ComboTimer" to="." method="_on_combo_timer_timeout"]
+[connection signal="animation_finished" from="Head/CameraPivot/SubViewportContainer/SubViewport/SwordPlayer" to="." method="_on_sword_player_animation_finished"]
