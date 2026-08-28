@@ -4,8 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://36airr2ggf87" path="res://level1_beta.tscn" id="1_vvh5c"]
 [ext_resource type="PackedScene" uid="uid://ciyrn5mm6l4y6" path="res://player_hat.tscn" id="2_pyidc"]
 [ext_resource type="Script" uid="uid://jc1tcva0kq8" path="res://spinny.gd" id="4_28aoi"]
-[ext_resource type="Texture2D" uid="uid://c4ig8d8gyhh7b" path="res://icon.svg" id="5_jnlp7"]
-[ext_resource type="Script" uid="uid://cmf1lu5ric0jv" path="res://dummy.gd" id="6_l8v81"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
 sky_top_color = Color(0.588884, 0.86057085, 0.9975019, 1)
@@ -18,7 +16,7 @@ sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
-background_color = Color(1, 1, 1, 1)
+background_color = Color(0.2468968, 8.3242136e-05, 0.27432653, 1)
 sky = SubResource("Sky_pyidc")
 ambient_light_source = 2
 ambient_light_color = Color(0.2159017, 0.21590173, 0.2159017, 1)
@@ -28,13 +26,11 @@ tonemap_exposure = 0.2
 tonemap_white = 5.0
 tonemap_agx_white = 16.5
 tonemap_agx_contrast = 2.0
-ssr_enabled = true
 sdfgi_read_sky_light = false
 sdfgi_cascades = 1
 sdfgi_min_cell_size = 3.0
 glow_enabled = true
 glow_bloom = 1.0
-glow_blend_mode = 0
 volumetric_fog_density = 0.152
 adjustment_contrast = 1.25
 
@@ -180,66 +176,11 @@ ring_segments = 3
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vyht1"]
 data = PackedVector3Array(-1.2728, 0, -1.2728, 0, 0.0866, -1.9499999, 0, 0, -1.8, -1.2728, 0, -1.2728, -1.3788999, 0.0866, -1.3788999, 0, 0.0866, -1.9499999, -1.3788999, 0.0866, -1.3788999, 0, -0.0866, -1.9499999, 0, 0.0866, -1.9499999, -1.3788999, 0.0866, -1.3788999, -1.3788999, -0.0866, -1.3788999, 0, -0.0866, -1.9499999, -1.3788999, -0.0866, -1.3788999, 0, 0, -1.8, 0, -0.0866, -1.9499999, -1.3788999, -0.0866, -1.3788999, -1.2728, 0, -1.2728, 0, 0, -1.8, -1.8, 0, 0, -1.3788999, 0.0866, -1.3788999, -1.2728, 0, -1.2728, -1.8, 0, 0, -1.9499999, 0.0866, 0, -1.3788999, 0.0866, -1.3788999, -1.9499999, 0.0866, 0, -1.3788999, -0.0866, -1.3788999, -1.3788999, 0.0866, -1.3788999, -1.9499999, 0.0866, 0, -1.9499999, -0.0866, 0, -1.3788999, -0.0866, -1.3788999, -1.9499999, -0.0866, 0, -1.2728, 0, -1.2728, -1.3788999, -0.0866, -1.3788999, -1.9499999, -0.0866, 0, -1.8, 0, 0, -1.2728, 0, -1.2728, -1.2728, 0, 1.2728, -1.9499999, 0.0866, 0, -1.8, 0, 0, -1.2728, 0, 1.2728, -1.3788999, 0.0866, 1.3788999, -1.9499999, 0.0866, 0, -1.3788999, 0.0866, 1.3788999, -1.9499999, -0.0866, 0, -1.9499999, 0.0866, 0, -1.3788999, 0.0866, 1.3788999, -1.3788999, -0.0866, 1.3788999, -1.9499999, -0.0866, 0, -1.3788999, -0.0866, 1.3788999, -1.8, 0, 0, -1.9499999, -0.0866, 0, -1.3788999, -0.0866, 1.3788999, -1.2728, 0, 1.2728, -1.8, 0, 0, 0, 0, 1.8, -1.3788999, 0.0866, 1.3788999, -1.2728, 0, 1.2728, 0, 0, 1.8, 0, 0.0866, 1.9499999, -1.3788999, 0.0866, 1.3788999, 0, 0.0866, 1.9499999, -1.3788999, -0.0866, 1.3788999, -1.3788999, 0.0866, 1.3788999, 0, 0.0866, 1.9499999, 0, -0.0866, 1.9499999, -1.3788999, -0.0866, 1.3788999, 0, -0.0866, 1.9499999, -1.2728, 0, 1.2728, -1.3788999, -0.0866, 1.3788999, 0, -0.0866, 1.9499999, 0, 0, 1.8, -1.2728, 0, 1.2728, 1.2728, 0, 1.2728, 0, 0.0866, 1.9499999, 0, 0, 1.8, 1.2728, 0, 1.2728, 1.3788999, 0.0866, 1.3788999, 0, 0.0866, 1.9499999, 1.3788999, 0.0866, 1.3788999, 0, -0.0866, 1.9499999, 0, 0.0866, 1.9499999, 1.3788999, 0.0866, 1.3788999, 1.3788999, -0.0866, 1.3788999, 0, -0.0866, 1.9499999, 1.3788999, -0.0866, 1.3788999, 0, 0, 1.8, 0, -0.0866, 1.9499999, 1.3788999, -0.0866, 1.3788999, 1.2728, 0, 1.2728, 0, 0, 1.8, 1.8, 0, 0, 1.3788999, 0.0866, 1.3788999, 1.2728, 0, 1.2728, 1.8, 0, 0, 1.9499999, 0.0866, 0, 1.3788999, 0.0866, 1.3788999, 1.9499999, 0.0866, 0, 1.3788999, -0.0866, 1.3788999, 1.3788999, 0.0866, 1.3788999, 1.9499999, 0.0866, 0, 1.9499999, -0.0866, 0, 1.3788999, -0.0866, 1.3788999, 1.9499999, -0.0866, 0, 1.2728, 0, 1.2728, 1.3788999, -0.0866, 1.3788999, 1.9499999, -0.0866, 0, 1.8, 0, 0, 1.2728, 0, 1.2728, 1.2728, 0, -1.2728, 1.9499999, 0.0866, 0, 1.8, 0, 0, 1.2728, 0, -1.2728, 1.3788999, 0.0866, -1.3788999, 1.9499999, 0.0866, 0, 1.3788999, 0.0866, -1.3788999, 1.9499999, -0.0866, 0, 1.9499999, 0.0866, 0, 1.3788999, 0.0866, -1.3788999, 1.3788999, -0.0866, -1.3788999, 1.9499999, -0.0866, 0, 1.3788999, -0.0866, -1.3788999, 1.8, 0, 0, 1.9499999, -0.0866, 0, 1.3788999, -0.0866, -1.3788999, 1.2728, 0, -1.2728, 1.8, 0, 0, 0, 0, -1.8, 1.3788999, 0.0866, -1.3788999, 1.2728, 0, -1.2728, 0, 0, -1.8, 0, 0.0866, -1.9499999, 1.3788999, 0.0866, -1.3788999, 0, 0.0866, -1.9499999, 1.3788999, -0.0866, -1.3788999, 1.3788999, 0.0866, -1.3788999, 0, 0.0866, -1.9499999, 0, -0.0866, -1.9499999, 1.3788999, -0.0866, -1.3788999, 0, -0.0866, -1.9499999, 1.2728, 0, -1.2728, 1.3788999, -0.0866, -1.3788999, 0, -0.0866, -1.9499999, 0, 0, -1.8, 1.2728, 0, -1.2728)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seyvw"]
-albedo_texture = ExtResource("5_jnlp7")
-metallic_specular = 0.0
-uv1_scale = Vector3(150, 150, 150)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_seyvw"]
-radius = 0.75
-height = 2.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pvhp"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(1, 0, 0, 1)
-emission_enabled = true
-emission = Color(1, 0, 0, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_seyvw"]
-
-[sub_resource type="Animation" id="Animation_l8v81"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_override:albedo_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_vyht1"]
-resource_name = "hit"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_override:albedo_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.255, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 0.9659363),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bf3um"]
-_data = {
-&"RESET": SubResource("Animation_l8v81"),
-&"hit": SubResource("Animation_vyht1")
-}
-
 [node name="Root" type="Node3D" unique_id=1696301327]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=675200441]
-transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 200, 0)
+visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1699014821]
@@ -256,20 +197,30 @@ shape = SubResource("ConcavePolygonShape3D_28aoi")
 mesh = SubResource("ArrayMesh_jnlp7")
 
 [node name="CSGCombiner3D" parent="." unique_id=2077071932 instance=ExtResource("1_vvh5c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 0)
-visible = false
 
 [node name="ProtoController" parent="." unique_id=39359754 instance=ExtResource("1_pq8q7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 15)
+can_move = null
+has_gravity = null
+can_jump = null
+base_speed = null
+jump = null
+freefly_speed = null
+slide_speed = null
+input_left = "a"
+input_right = "d"
+input_forward = "w"
+input_back = "s"
 input_jump = "space"
+input_dash = null
+input_freefly = null
+input_slide = null
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_pyidc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, 15)
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Spinny" type="Node3D" parent="." unique_id=2016679170]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 0)
-visible = false
 script = ExtResource("4_28aoi")
 
 [node name="Inner" type="MeshInstance3D" parent="Spinny" unique_id=1543483062]
@@ -523,39 +474,3 @@ transform = Transform3D(0.03333334, -6.3689486e-17, 0, 3.970467e-23, 0.03333334,
 light_color = Color(1, 0.5254902, 1, 1)
 light_energy = 16.0
 omni_range = 4096.0
-
-[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="." unique_id=505870455]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_seyvw")
-use_collision = true
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=1485550477]
-use_collision = true
-size = Vector3(300, 1, 300)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=1132856664]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -37, 25.5, -4.9999995)
-size = Vector3(20, 50, 1)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=1198487749]
-transform = Transform3D(1.0000001, 0, 2.9802322e-08, 0, 1, 0, -2.9802322e-08, 0, 1.0000001, -37, 25.5, 4.9999995)
-size = Vector3(20, 50, 1)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=1344912894]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 12, -36)
-size = Vector3(50, 1, 50)
-
-[node name="dummy" type="CharacterBody3D" parent="." unique_id=1683529979]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)
-script = ExtResource("6_l8v81")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="dummy" unique_id=1718597670]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-shape = SubResource("CapsuleShape3D_seyvw")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="dummy" unique_id=2088383971]
-material_override = SubResource("StandardMaterial3D_5pvhp")
-mesh = SubResource("CapsuleMesh_seyvw")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="dummy" unique_id=1993330372]
-libraries/ = SubResource("AnimationLibrary_bf3um")

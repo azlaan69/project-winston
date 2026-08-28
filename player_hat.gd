@@ -46,7 +46,6 @@ func reset() -> void:
 	$CollisionShape3D.disabled = true
 	global_position = player.global_position + Vector3(0, 2, 0)
 	used = false
-	player.decel_locked = false
 	cd.start()
 
 func _on_body_entered(body: Node) -> void:
@@ -60,5 +59,5 @@ func _on_body_entered(body: Node) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if current_state == state.LANDED and (body.is_in_group("player") or body == player):
-		player.velocity.y = 20.0
+		player.external_velocity.y = 40.0
 		get_tree().create_timer(0.2).timeout.connect(func(): reset())
