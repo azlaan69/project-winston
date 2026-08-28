@@ -15,14 +15,17 @@ extends CharacterBody3D
 @export var slide_speed : float = 10.0
 
 @export_group("Input Actions")
-@export var input_left : String = "ui_left"
-@export var input_right : String = "ui_right"
-@export var input_forward : String = "ui_up"
-@export var input_back : String = "ui_down"
-@export var input_jump : String = "ui_accept"
+@export var input_left : String = "a"
+@export var input_right : String = "d"
+@export var input_forward : String = "w"
+@export var input_back : String = "s"
+@export var input_jump : String = "space"
 @export var input_dash : String = "shift"
 @export var input_freefly : String = "freefly"
 @export var input_slide : String = "ctrl"
+@export var input_attack : String = "lmb"
+@export var input_secondary : String = "rmb"
+@export var input_switch : String = "q"
 
 var mouse_captured : bool = false
 var look_rotation : Vector2
@@ -47,18 +50,19 @@ var move_dir = 0.0
 var dash_charges = 3
 var jump_buffer: float = 0.0
 var slide_buffer: float = 0.0
+var dash_buffer: float = 0.0
+var shoot_buffer: float = 0.0
 
-var camera_tilt_so_i_dont_go_insane: float = 0.0
+enum wpn { GUNS, SWORD }
+var current_wpn = wpn.SWORD
+var shoot_l : bool = false
 
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
-@onready var debug: Label = $CanvasLayer/HUD/Label
+@onready var debug: Label = $Overlay/HUD/Label
 @onready var hat: RigidBody3D = get_node("../Hat")
 
-@onready var dash_timer: Timer = $Dash_Timer
 @onready var dash_cd: Timer = $Dash_CD
-@onready var lock: Timer = $Lock
-@onready var jump_coyote: Timer = $WallCoyote
 
 @onready var juice = $Head
 
@@ -66,12 +70,13 @@ var camera_tilt_so_i_dont_go_insane: float = 0.0
 @onready var wallcheck_r: RayCast3D = $WallCheckRight
 @onready var wallcheck_l: RayCast3D = $WallCheckLeft
 @onready var ceilingcheck: ShapeCast3D = $CeilingChecker
+@onready var hit_ray: RayCast3D = %HitCheck
 
-@onready var anim_p: AnimationPlayer = %PistolPlayer
+@onready var anim_gun: AnimationPlayer = %PistolPlayer
+@onready var anim_sword: AnimationTree = %SwordTree
 
 func _ready() -> void:
 	
-	check_input_mappings()
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
 
@@ -119,116 +124,28 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 	if Input.is_action_just_pressed(input_slide): slide_buffer = 0.5
 	if slide_buffer > 0.0: slide_buffer -= delta
 	
+	if Input.is_action_just_pressed(input_dash): dash_buffer = 0.2
+	if dash_buffer > 0.0: dash_buffer -= delta
+	
+	if shoot_buffer > 0.0: shoot_buffer -= delta
+	
 	movestuff(delta)
 	dash(delta)
 	slide(delta)
 	jump(delta)
 	grav(delta)
 	hatstuff(delta)
-	
-	if crouch_end_requested: crouch_end()
-	
-	#if Input.is_action_just_pressed("rmb"):
-		#global_position = Vector3.ZERO
-		#velocity = Vector3.ZERO
-		#dash_charges = 3
-		#rotation = Vector3.ZERO
+	combatstuff(delta)
 	
 	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity + grav_velocity
+	if shoot_buffer > 0.0: deal_shot()
 	
-	#if can_dash and Input.is_action_just_pressed(input_dash) and dash_charges > 0:
-		#dash_timer.start()
-		#dash_charges -= 1
-	#
-	#else:
-		#move_speed = lerp(move_speed, base_speed, 0.75)
-		#
-	#if dash_timer.time_left > 0: 
-		#move_speed += dash_speed
-		#velocity.y = 0
+	if Input.is_action_pressed(input_switch):
+		#switch()
+		pass
 
-	#
-	#if has_gravity and not is_on_floor():
-		#if near_wall:
-			#velocity.y = -0.5
-			#move_speed *= 1.5
-		#else:
-			#velocity += get_gravity() * delta
-#
-	#if can_jump:
-		#if Input.is_action_just_pressed(input_jump):
-			#
-			#if near_wall:
-				#if wall_running: wall_running = false
-				#
-				#var wall_normal = get_wall_normal()
-				#velocity.y += jump_velocity * 1.5
-				#
-				#var jump_dir = (wall_normal * 1.0 + (-transform.basis.z)).normalized()
-				#move_speed = base_speed
-				#velocity.x = jump_dir.x * move_speed
-				#velocity.z = jump_dir.z * move_speed
-				#lock.start()
-				#
-			#elif is_on_floor():
-				#
-				#if dash_timer.time_left > 0.0:
-					#velocity.y = jump_velocity
-					#velocity *= 2.0
-					#lock.start()
-					 #
-				#else:
-					#velocity.y = jump_velocity
-#
-	#if Input.is_action_pressed(input_slide) and is_on_floor():
-		#juice.shift(0.7, 100, 0.0, true)
-		#if move_dir:
-			#velocity += -transform.basis.z * 10.0 * delta
-			#lock.start()
-	#if Input.is_action_just_released(input_slide):
-		#juice.shift(1.7, 90, 0.0, true)
-		
-		
-	#if not is_on_floor() and lock.time_left <= 0.0:
-		#
-		#var wall_normal = get_wall_normal()
-		#
-		#if wall_normal == Vector3.ZERO:
-			#wall_normal = -transform.basis.z
-		#
-		#var parallel = wall_normal.cross(Vector3.UP)
-		#if -(transform.basis.z).dot(parallel) < 0:
-			#parallel = -parallel
-		#
-		#if input_dir.y < 0:
-			#var stick_force = -wall_normal * 2.0
-			#velocity.x = (parallel.x * move_speed) + stick_force.x
-			#velocity.z = (parallel.z * move_speed) + stick_force.z
-			#wall_running = true
-		
-	#if can_move and lock.time_left <= 0.0:
-		#
-		#if move_dir:
-			#velocity.x = move_dir.x * move_speed
-			#velocity.z = move_dir.z * move_speed
-			#
-		#elif not decel_locked:
-			#velocity.x = lerp(velocity.x, 0.0, 0.2)
-			#velocity.z = lerp(velocity.z, 0.0, 0.2)
-	 
-	if Input.is_action_just_pressed("lmb"):
-		juice.shift(1.7, 100, 0.2, false)
-		anim_p.play("L_shoot")
-	if Input.is_action_just_pressed("rmb"):
-		juice.shift(1.7, 100, 0.2, false)
-		anim_p.play("R_shoot")
-	
 	move_and_slide()
 
-
-## Rotate us to look around.
-## Base of controller rotates around y (left/right). Head rotates around x (up/down).
-## Modifies look_rotation based on rot_input, then resets basis and rotates by look_rotation.
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * look_speed
 	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-85), deg_to_rad(85))
@@ -252,10 +169,10 @@ func capture_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	mouse_captured = true
 
-
 func release_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
+
 
 func movestuff(delta) -> void:
 	if move_dir:
@@ -266,7 +183,7 @@ func movestuff(delta) -> void:
 
 func dash(delta) -> void:
 	if dash_charges < 3 and dash_cd.is_stopped(): dash_cd.start()
-	if Input.is_action_just_pressed(input_dash) and dash_charges > 0:
+	if dash_buffer > 0.0 and dash_charges > 0:
 		grav_velocity = Vector3.ZERO
 		jump_velocity = Vector3.ZERO
 		dash_velocity = (dash_velocity + move_dir * 50.0).limit_length(60.0)
@@ -279,7 +196,7 @@ func slide(delta) -> void:
 		slide_buffer = 0.0
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
-		slide_velocity = ((velocity.length() + 8) * dir).slide(get_floor_normal())
+		slide_velocity = ((velocity.length() + 8 + abs(grav_velocity.y * 0.5)) * dir).slide(get_floor_normal())
 	else:
 		var lerp_weight = 3.0
 		
@@ -294,12 +211,13 @@ func slide(delta) -> void:
 		if downhill or not is_on_floor():
 			lerp_weight = 1.0
 		else:
-			lerp_weight = 4.0 + (floor_angle * 6.0)
+			lerp_weight = 1.5
 		
 		slide_velocity = slide_velocity.lerp(Vector3.ZERO, lerp_weight * delta)
 		if slide_velocity.length_squared() < 0.5: slide_velocity = Vector3.ZERO
-	if slide_velocity == Vector3.ZERO:
+	if slide_velocity.length() <= 2.0:
 		crouch_end()
+	if crouch_end_requested: crouch_end()
 
 func jump(delta) -> void:
 	if jump_buffer > 0.0 and (is_on_floor() or near_wall):
@@ -328,6 +246,23 @@ func grav(delta) -> void:
 	else:
 		grav_velocity = Vector3.ZERO
 
+
+func crouch_start() -> void:
+	crouch_end_requested = false
+	crouching = true
+	collider.shape.height = 0.9
+	collider.position.y = 0.45
+
+func crouch_end() -> void:
+	if ceilingcheck.is_colliding():
+		crouch_end_requested = true
+	else:
+		crouching = false
+		collider.shape.height = 1.8
+		collider.position.y = 0.9
+		crouch_end_requested = false
+
+
 func hatstuff(delta) -> void:
 	if Input.is_action_just_pressed("r") and hat.can_use:
 		match hat.current_state:
@@ -350,51 +285,49 @@ func hatstuff(delta) -> void:
 					global_position = hat.global_position + Vector3(0, 0.5, 0)
 					hat.reset()
 					juice.shift(1.7, 110, 0.1)
-	
+
 	if not Input.is_action_pressed("r"):
 		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 	elif hat.current_state == hat.state.EQUIPPED:
 		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 
-func crouch_start() -> void:
-	crouch_end_requested = false
-	crouching = true
-	collider.shape.height = 0.9
-	collider.position.y = 0.45
-
-func crouch_end() -> void:
-	if ceilingcheck.is_colliding():
-		crouch_end_requested = true
-	else:
-		crouching = false
-		collider.shape.height = 1.8
-		collider.position.y = 0.9
-		crouch_end_requested = false
+func combatstuff(delta) -> void:
+	match current_wpn:
+		wpn.GUNS:
+			if Input.is_action_pressed(input_attack):
+				if !anim_gun.is_playing():
+					if shoot_l: anim_gun.play("L_shoot")
+					else: anim_gun.play("R_shoot")
+					shoot_l = !shoot_l
+					shoot_buffer = 0.05
+					
+		wpn.SWORD:
+			if Input.is_action_pressed(input_attack):
+				anim_sword.play("swing1")
+				shoot_l = !shoot_l
+				shoot_buffer = 0.05
 
 func _on_dash_cd_timeout() -> void:
 	if dash_charges < 3: dash_charges += 1
 
-## Checks if some Input Actions haven't been created.
-## Disables functionality accordingly.
-func check_input_mappings():
-	if can_move and not InputMap.has_action(input_left):
-		push_error("Movement disabled. No InputAction found for input_left: " + input_left)
-		can_move = false
-	if can_move and not InputMap.has_action(input_right):
-		push_error("Movement disabled. No InputAction found for input_right: " + input_right)
-		can_move = false
-	if can_move and not InputMap.has_action(input_forward):
-		push_error("Movement disabled. No InputAction found for input_forward: " + input_forward)
-		can_move = false
-	if can_move and not InputMap.has_action(input_back):
-		push_error("Movement disabled. No InputAction found for input_back: " + input_back)
-		can_move = false
-	if can_jump and not InputMap.has_action(input_jump):
-		push_error("Jumping disabled. No InputAction found for input_jump: " + input_jump)
-		can_jump = false
-	if can_dash and not InputMap.has_action(input_dash):
-		push_error("Sprinting disabled. No InputAction found for input_dash: " + input_dash)
-		can_dash = false
-	if can_freefly and not InputMap.has_action(input_freefly):
-		push_error("Freefly disabled. No InputAction found for input_freefly: " + input_freefly)
-		can_freefly = false
+func deal_shot() -> void:
+	shoot_buffer = 0.0
+	var cam = %Camera3D
+	var space_state = get_world_3d().direct_space_state
+	var origin = cam.global_position
+	var end = origin + (-cam.global_transform.basis.z * 1000.0)
+	
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	query.exclude = [self.get_rid()]
+	var result = space_state.intersect_ray(query)
+	if result:
+		
+		var hit_data = {
+			"damage": 1.0, # replace with function bichazz
+			"type": "GUN"
+		}
+		
+		print(result.collider, result.position)
+		var body = result.collider
+		if body and body.has_method("hit"):
+			body.hit(hit_data)
