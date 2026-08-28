@@ -36,6 +36,8 @@ var was_near_wall : bool = false
 var crouching : bool = false
 var crouch_end_requested : bool = false
 var downhill : bool = false
+var is_switching : bool = false
+
 
 var move_velocity: Vector3
 var jump_velocity: Vector3
@@ -52,6 +54,7 @@ var jump_buffer: float = 0.0
 var slide_buffer: float = 0.0
 var dash_buffer: float = 0.0
 var shoot_buffer: float = 0.0
+var switch_buffer: float = 0.0
 
 enum wpn { GUNS, SWORD }
 var current_wpn = wpn.SWORD
@@ -77,6 +80,7 @@ var combo_step : int = 1
 @onready var anim_gun: AnimationPlayer = %PistolPlayer
 @onready var anim_sword_tree: AnimationTree = %SwordTree
 @onready var anim_sword = %SwordPlayer #anim_sword_tree.get("parameters/StateMachine/playback")
+@onready var sword_hitbox = %SwordHitbox
 
 @onready var guns: Node3D = %PistolsParent
 @onready var sword: Node3D = %Sword
@@ -85,6 +89,8 @@ func _ready() -> void:
 	
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
+	
+	weapon_setup()
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
@@ -93,11 +99,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_ESCAPE):
 		release_mouse()
 	
-	# Look around
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
 	
-	# Toggle freefly mode
 	if can_freefly and Input.is_action_just_pressed(input_freefly):
 		if not freeflying:
 			enable_freefly()
@@ -114,7 +118,7 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
-		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)
+		input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
 		var motion := (head.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		motion *= freefly_speed * delta
 		move_and_collide(motion)
@@ -133,7 +137,12 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 	if Input.is_action_just_pressed(input_dash): dash_buffer = 0.2
 	if dash_buffer > 0.0: dash_buffer -= delta
 	
-	if shoot_buffer > 0.0: shoot_buffer -= delta
+	if Input.is_action_just_pressed(input_switch): switch_buffer = 0.5
+	if switch_buffer > 0.0: switch_buffer -= delta
+	
+	if shoot_buffer > 0.0:
+		shoot_buffer -= delta
+		deal_shot()
 	
 	movestuff(delta)
 	dash(delta)
@@ -144,7 +153,6 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 	combatstuff(delta)
 	
 	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity + grav_velocity
-	if shoot_buffer > 0.0: deal_shot()
 	
 	if Input.is_action_pressed(input_switch):
 		#switch()
@@ -206,7 +214,6 @@ func slide(delta) -> void:
 	else:
 		var lerp_weight = 3.0
 		
-		var floor_normal = get_floor_normal()
 		var floor_angle = get_floor_angle()
 		var slide_dir = slide_velocity.normalized()
 		downhill = slide_dir.dot(Vector3.DOWN) > 0.0
@@ -217,7 +224,7 @@ func slide(delta) -> void:
 		if downhill or not is_on_floor():
 			lerp_weight = 1.0
 		else:
-			lerp_weight = 1.5
+			lerp_weight = 3.0
 		
 		slide_velocity = slide_velocity.lerp(Vector3.ZERO, lerp_weight * delta)
 		if slide_velocity.length_squared() < 0.5: slide_velocity = Vector3.ZERO
@@ -298,9 +305,40 @@ func hatstuff(delta) -> void:
 		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 
 func combatstuff(delta) -> void:
+	
+	if switch_buffer > 0.0:
+		switch_buffer = 0.0
+		
+		is_switching = true
+		combo_step = 0
+		shoot_buffer = 0.0
+		anim_sword.stop()
+		anim_gun.stop()
+		combo.stop()
+		
+		match current_wpn:
+			wpn.GUNS:
+				anim_gun.play("drop")
+				anim_sword.play("ready")
+				await anim_gun.animation_finished
+				
+				guns.visible = false
+				sword.visible = true
+				current_wpn = wpn.SWORD
+			wpn.SWORD:
+				anim_sword.play("drop")
+				anim_gun.play("ready")
+				await anim_sword.animation_finished
+				
+				sword.visible = false
+				guns.visible = true
+				current_wpn = wpn.GUNS
+		is_switching = false
+		return
+	
 	match current_wpn:
 		wpn.GUNS:
-			if Input.is_action_pressed(input_attack):
+			if Input.is_action_pressed(input_attack) and !is_switching:
 				if !anim_gun.is_playing():
 					if shoot_l: anim_gun.play("L_shoot")
 					else: anim_gun.play("R_shoot")
@@ -308,7 +346,7 @@ func combatstuff(delta) -> void:
 					shoot_buffer = 0.05
 					
 		wpn.SWORD:
-			if Input.is_action_just_pressed(input_attack):
+			if Input.is_action_just_pressed(input_attack) and !is_switching:
 				match combo_step:
 					0:
 						combo_step = 1
@@ -321,39 +359,52 @@ func combatstuff(delta) -> void:
 						anim_sword.play("swing3")
 					3:
 						pass
-		
-	if Input.is_action_just_pressed(input_switch):
-		match current_wpn:
-			wpn.GUNS:
-				guns.visible = false
-				sword.visible = true
-				current_wpn = wpn.SWORD
-			wpn.SWORD:
-				sword.visible = false
-				guns.visible = true
-				current_wpn = wpn.GUNS
+				shoot_buffer = 0.05
+
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0
-	var cam = %Camera3D
-	var space_state = get_world_3d().direct_space_state
-	var origin = cam.global_position
-	var end = origin + (-cam.global_transform.basis.z * 1000.0)
-	
-	var query = PhysicsRayQueryParameters3D.create(origin, end)
-	query.exclude = [self.get_rid()]
-	var result = space_state.intersect_ray(query)
-	if result:
-		
-		var hit_data = {
-			"damage": 1.0, # replace with function bichazz
-			"type": "GUN"
-		}
-		
-		print(result.collider, result.position)
-		var body = result.collider
-		if body and body.has_method("hit"):
-			body.hit(hit_data)
+	match current_wpn:
+		wpn.GUNS:
+			var cam = %Camera3D
+			var space_state = get_world_3d().direct_space_state
+			var origin = cam.global_position
+			var end = origin + (-cam.global_transform.basis.z * 1000.0)
+			
+			var query = PhysicsRayQueryParameters3D.create(origin, end)
+			query.exclude = [self.get_rid()]
+			var result = space_state.intersect_ray(query)
+			if result:
+				
+				var hit_data = {
+					"damage": 1.0, # replace with function bichazz
+					"type": "GUN"
+				}
+				
+				var body = result.collider
+				if body and body.has_method("hit"):
+					body.hit(hit_data)
+		wpn.SWORD:
+			for body in sword_hitbox.get_overlapping_bodies():
+				print(body)
+				if body != self and body.has_method("hit"):
+					var hit_data = {
+						"damage": 30.0,
+						"type": "SWORD"
+					}
+					body.hit(hit_data)
+
+func weapon_setup() -> void:
+	match current_wpn:
+		wpn.SWORD:
+			guns.visible = false
+			sword.visible = true
+			anim_sword.play("ready")
+			combo_step = 0
+		wpn.GUNS:
+			sword.visible = false
+			guns.visible = true
+			anim_gun.play("ready")
 
 func _on_dash_cd_timeout() -> void:
 	if dash_charges < 3: dash_charges += 1
@@ -363,7 +414,6 @@ func _on_combo_timer_timeout() -> void:
 	anim_sword.play("sheath", 0.15)
 
 func _on_sword_player_animation_finished(anim_name: StringName) -> void:
-	print(anim_name)
 	match anim_name:
 		"swing1", "swing2":
 			combo.start()
@@ -371,3 +421,14 @@ func _on_sword_player_animation_finished(anim_name: StringName) -> void:
 			combo.start()
 		"sheath":
 			combo_step = 0
+
+#func _on_sword_hitbox_body_entered(body: Node3D) -> void:
+	#if body == self or body is StaticBody3D or body is CSGShape3D:
+		#return
+	#if body.has_method("hit"):
+		#print(body)
+		#var hit_data = {
+			#"damage": 35,
+			#"type": "SWORD"
+		#}
+		#body.hit(hit_data)
