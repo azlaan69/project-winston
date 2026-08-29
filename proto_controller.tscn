@@ -141,7 +141,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -153,7 +153,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -218,7 +218,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -230,7 +230,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -295,7 +295,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -307,7 +307,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -372,7 +372,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -384,7 +384,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -448,7 +448,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -460,7 +460,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -525,7 +525,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -537,7 +537,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -574,7 +574,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_ts1cr"]
 resource_name = "swing3"
-length = 0.3
+length = 0.25
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -602,24 +602,24 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
+"times": PackedFloat32Array(0, 0.1, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
+"times": PackedFloat32Array(0, 0.1, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -708,7 +708,6 @@ transitions = ["swing1", "swing2", SubResource("AnimationNodeStateMachineTransit
 graph_offset = Vector2(-295, -134)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5pvhp"]
-graph_offset = Vector2(-780.24243, 109.39394)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_tqngf")
 nodes/StateMachine/position = Vector2(-53.333332, 133.33333)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -891,7 +890,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_88571"]
 resource_name = "drop"
-length = 0.19999999999999998
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1273,13 +1272,12 @@ mesh = SubResource("QuadMesh_seyvw")
 
 [node name="SwordHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=470632088]
 unique_name_in_owner = true
-transform = Transform3D(0.9957247, 0.044782154, 0.08078914, 0, 0.8746197, -0.48480958, -0.0923706, 0.4827369, 0.87088037, 0.086, -0.58, -1.58)
+transform = Transform3D(0.9957247, 0.044782154, 0.08078914, 0, 0.8746197, -0.48480955, -0.0923706, 0.4827369, 0.8708803, 0.086, -0.58, -1.58)
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/SwordHitbox" unique_id=1994545392]
 transform = Transform3D(0.9999955, -1.0728836e-06, -1.0244548e-07, -7.1525574e-07, 1.0000004, 8.940697e-08, -1.2440607e-05, -2.3245811e-06, 1.0000002, 0.39999965, 2.3841858e-07, 1.1786101)
 shape = SubResource("BoxShape3D_seyvw")
-disabled = true
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Head/CameraPivot" unique_id=1651043335]
 anchors_preset = 15
@@ -1309,7 +1307,7 @@ mesh = SubResource("QuadMesh_seyvw")
 
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport" unique_id=443423592]
 unique_name_in_owner = true
-transform = Transform3D(0.9957544, 0.04467098, 0.08048215, 0, 0.8743478, -0.48529977, -0.092048205, 0.48323947, 0.87063575, 0.08808589, 1.1201602, -1.5870181)
+transform = Transform3D(0.99575436, 0.04467098, 0.08048215, 0, 0.8743478, -0.48529977, -0.0920482, 0.48323947, 0.87063575, 0.08808589, 1.1201602, -1.5870181)
 
 [node name="SwordMesh" type="MeshInstance3D" parent="Head/CameraPivot/SubViewportContainer/SubViewport/Sword" unique_id=1852221792]
 transform = Transform3D(1.0000001, -3.7252903e-09, -7.450581e-09, 0, 1.0000001, -2.9802322e-08, 0, -2.9802322e-08, 1, -0.09204821, 0.48323953, 0.870636)
@@ -1455,6 +1453,7 @@ script = ExtResource("2_d85cr")
 player = NodePath("../..")
 
 [node name="Label" type="Label" parent="Overlay/HUD" unique_id=1065309724]
+visible = false
 layout_mode = 0
 offset_left = 25.0
 offset_top = 10.0

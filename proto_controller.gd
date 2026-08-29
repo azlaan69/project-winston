@@ -55,6 +55,7 @@ var slide_buffer: float = 0.0
 var dash_buffer: float = 0.0
 var shoot_buffer: float = 0.0
 var switch_buffer: float = 0.0
+var sword_logging : bool = true
 
 enum wpn { GUNS, SWORD }
 var current_wpn = wpn.SWORD
@@ -124,6 +125,8 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 		move_and_collide(motion)
 		return
 	
+	if Input.is_action_just_pressed("reset"): get_tree().reload_current_scene()
+	
 	input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
 	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	near_wall = (wallcheck.is_colliding())
@@ -143,6 +146,8 @@ Pos: %s""" % [downhill, round(slide_velocity), round(external_velocity), round(g
 	if shoot_buffer > 0.0:
 		shoot_buffer -= delta
 		deal_shot()
+	
+	if sword_hitbox.monitoring: deal_swing()
 	
 	movestuff(delta)
 	dash(delta)
@@ -359,40 +364,38 @@ func combatstuff(delta) -> void:
 						anim_sword.play("swing3")
 					3:
 						pass
-				shoot_buffer = 0.05
 
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0
-	match current_wpn:
-		wpn.GUNS:
-			var cam = %Camera3D
-			var space_state = get_world_3d().direct_space_state
-			var origin = cam.global_position
-			var end = origin + (-cam.global_transform.basis.z * 1000.0)
-			
-			var query = PhysicsRayQueryParameters3D.create(origin, end)
-			query.exclude = [self.get_rid()]
-			var result = space_state.intersect_ray(query)
-			if result:
-				
-				var hit_data = {
-					"damage": 1.0, # replace with function bichazz
-					"type": "GUN"
-				}
-				
-				var body = result.collider
-				if body and body.has_method("hit"):
-					body.hit(hit_data)
-		wpn.SWORD:
-			for body in sword_hitbox.get_overlapping_bodies():
-				print(body)
-				if body != self and body.has_method("hit"):
-					var hit_data = {
-						"damage": 30.0,
-						"type": "SWORD"
-					}
-					body.hit(hit_data)
+	var cam = %Camera3D
+	var space_state = get_world_3d().direct_space_state
+	var origin = cam.global_position
+	var end = origin + (-cam.global_transform.basis.z * 1000.0)
+	
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	query.exclude = [self.get_rid()]
+	var result = space_state.intersect_ray(query)
+	if result:
+		
+		var hit_data = {
+			"damage": 1.0, # replace with function bichazz
+			"type": "GUN"
+		}
+		
+		var body = result.collider
+		if body and body.has_method("hit"):
+			body.hit(hit_data)
+
+func deal_swing() -> void:
+	for body in sword_hitbox.get_overlapping_bodies():
+		print(body)
+		if body != self and body.has_method("hit") and not body.iframe_timer > 0.0:
+			var hit_data = {
+				"damage": 1.0,
+				"type": "SWORD"
+			}
+			body.hit(hit_data)
 
 func weapon_setup() -> void:
 	match current_wpn:
@@ -418,7 +421,7 @@ func _on_sword_player_animation_finished(anim_name: StringName) -> void:
 		"swing1", "swing2":
 			combo.start()
 		"swing3":
-			combo.start()
+			combo.start(0.15)
 		"sheath":
 			combo_step = 0
 
@@ -428,7 +431,7 @@ func _on_sword_player_animation_finished(anim_name: StringName) -> void:
 	#if body.has_method("hit"):
 		#print(body)
 		#var hit_data = {
-			#"damage": 35,
+			#"damage": 35, 
 			#"type": "SWORD"
 		#}
 		#body.hit(hit_data)
