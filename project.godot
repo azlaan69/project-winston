@@ -14,7 +14,7 @@ config/name="what can you do, user? what is it you can do?"
 run/main_scene="uid://cbtryemnmgoy2"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://assets/textures/icon.svg"
 
 [display]
 
