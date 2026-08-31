@@ -1242,7 +1242,6 @@ script = ExtResource("4_5v77c")
 player = NodePath("../..")
 
 [node name="Label" type="Label" parent="Overlay/HUD" unique_id=1065309724]
-visible = false
 layout_mode = 0
 offset_left = 25.0
 offset_top = 10.0

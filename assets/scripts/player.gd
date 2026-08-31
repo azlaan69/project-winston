@@ -157,6 +157,11 @@ Speed: %s""" % [round(global_position), round(velocity.length())]
 	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity + grav_velocity
 
 	move_and_slide()
+	
+	if is_on_wall():
+		var wall_normal = get_wall_normal()
+		dash_velocity = dash_velocity.slide(wall_normal)
+		slide_velocity = slide_velocity.slide(wall_normal)
 
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * look_speed
@@ -200,10 +205,22 @@ func dash(delta) -> void:
 		dash_buffer = 0
 		grav_velocity = Vector3.ZERO
 		jump_velocity = Vector3.ZERO
+		slide_velocity = Vector3.ZERO
 		var dash_dir = -head.global_transform.basis.z
-		dash_velocity = (dash_dir * 150.0)
+		var dash_impulse = 150.0
+		var forward_only = (input_dir.x == 0 and input_dir.y <= 0)
+		if forward_only:
+			dash_dir = -head.global_transform.basis.z
+			dash_impulse = 150.0
+		else:
+			dash_dir = move_dir
+			dash_impulse = 100.0
+		print(dash_impulse)
+		dash_velocity = (dash_dir * dash_impulse)
 		dash_charges -= 1
-	dash_velocity = dash_velocity * exp(-3.0 * delta)
+	var speed_ratio = clamp(dash_velocity.length() / 150.0, 0.0, 1.0)
+	var decay = lerp(16.0, 2.0, speed_ratio)
+	dash_velocity = dash_velocity * exp(-decay * delta)
 	if dash_velocity.length_squared() < 1.0: dash_velocity = Vector3.ZERO
 
 func slide(delta) -> void:
@@ -211,7 +228,7 @@ func slide(delta) -> void:
 		slide_buffer = 0.0
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
-		slide_velocity = ((velocity.length() + 8 + abs(grav_velocity.y * 0.5)) * dir).slide(get_floor_normal())
+		slide_velocity = ((Vector3(velocity.x, grav_velocity.y * 1.5, velocity.z).length() * dir)).slide(get_floor_normal())
 	else:
 		var decay = 3.0
 		
@@ -220,14 +237,14 @@ func slide(delta) -> void:
 		downhill = slide_dir.dot(Vector3.DOWN) > 0.0
 		if is_on_floor() and floor_angle > 0.15:
 			if downhill:
-				var slope_accel = floor_angle * 100.0
+				var slope_accel = floor_angle * 150.0
 				slide_velocity += slide_dir * (slope_accel * delta)
 		if downhill:
 			decay = 1.0
-		elif not is_on_floor():
+		elif not is_on_floor() and not is_on_wall() or near_wall:
 			decay = 0.2
 		else:
-			decay = 6.0
+			decay = 8.0
 		
 		slide_velocity = slide_velocity * exp(-decay * delta)
 		if slide_velocity.length_squared() < 4.0: slide_velocity = Vector3.ZERO
@@ -237,11 +254,24 @@ func slide(delta) -> void:
 
 func jump(delta) -> void:
 	if jump_buffer > 0.0 and (is_on_floor() or near_wall):
-		jump_velocity.y = 12
+		grav_velocity.y = 0.0
+		var jump_force = 12.0
 		jump_buffer = 0.0
+		
+		if slide_velocity.length() > 10.0 and downhill:
+			jump_force += slide_velocity.length() * 0.4
+			slide_velocity *= 0.6
+		
+		elif dash_velocity.length() > 5.0:
+			jump_force += dash_velocity.length() * 0.1
+			dash_velocity.y = 0.0
+		
+		jump_velocity.y = jump_force
+		
 		if near_wall and not is_on_floor():
 			var wall_normal = wallcheck.get_collision_normal(0)
 			jump_velocity += wall_normal * 12.0 + Vector3(0, 6, 0)
+		
 	elif is_on_floor() or is_on_ceiling():
 		jump_velocity = Vector3.ZERO
 	else:

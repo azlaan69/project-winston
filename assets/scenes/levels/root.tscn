@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ciyrn5mm6l4y6" path="res://assets/scenes/player/player_hat.tscn" id="2_1jmg1"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="4_uum53"]
 [ext_resource type="PackedScene" uid="uid://c6srnxmgg4tu5" path="res://assets/scenes/levels/playground.tscn" id="5_7qu1s"]
+[ext_resource type="PackedScene" uid="uid://bfp16fplvf7ap" path="res://assets/scenes/enemies/dummy.tscn" id="6_1jmg1"]
 [ext_resource type="Script" uid="uid://jc1tcva0kq8" path="res://assets/scripts/spinny.gd" id="6_y2pyw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
@@ -145,8 +146,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77, 2, 0)
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=890364319]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26, 0)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 40, -69)
 pixel_size = 0.001
 billboard = 1
 fixed_size = true
@@ -424,3 +424,12 @@ light_energy = 16.0
 omni_range = 4096.0
 
 [node name="playground" parent="." unique_id=1184370340 instance=ExtResource("5_7qu1s")]
+
+[node name="dummy" parent="." unique_id=826447682 instance=ExtResource("6_1jmg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 2, 0)
+
+[node name="dummy2" parent="." unique_id=1591450657 instance=ExtResource("6_1jmg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 44, 4)
+
+[node name="dummy3" parent="." unique_id=704054988 instance=ExtResource("6_1jmg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 44, -4)
