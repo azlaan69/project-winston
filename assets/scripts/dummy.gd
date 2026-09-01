@@ -20,16 +20,22 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
 	if player:
 		dir = (player.global_position - global_position).normalized()
+		var flat_dir = Vector3(dir.x, 0, dir.z).normalized()
+		if flat_dir.length_squared() > 0.01:
+			var target = Basis.looking_at(-flat_dir, Vector3.UP)
+			transform.basis = transform.basis.slerp(target, 5.0 * delta)
 	
 	if iframe_timer > 0.0: iframe_timer -= delta
 	
-	velocity.x = dir.x * SPEED
-	velocity.z = dir.z * SPEED
+	var movement = transform.basis.z * SPEED
+	velocity.x = movement.x
+	velocity.z = movement.z
 	
 	if hp <= 0:
 		die()
@@ -37,6 +43,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func hit(hit_data: Dictionary) -> void:
+	if iframe_timer > 0.0: return
 	var dmg: float = float(hit_data.get("damage", 0.0))
 	hp -= dmg
 	iframe_timer = 0.2

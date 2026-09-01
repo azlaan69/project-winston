@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 	$Trails/Right/two.visible = (player.shoot_l and hit_time > 0.0 and hit_time <= 0.15)
 
 	var local_vel := player.transform.basis.inverse() * -player.velocity * (1.0 if player.is_on_floor() else 0.5)
-	$Crosshair.rotation = lerp($Crosshair.rotation, local_vel.normalized().x * 0.5, 16.0 * delta)
+	$Crosshair.rotation = lerp($Crosshair.rotation, local_vel.normalized().x * 0.5, 8.0 * delta)
 	var crosshair_ypos = 540.0 
 	if player.crouching and player.is_on_floor(): crosshair_ypos = 550.0
 	$Crosshair.position.y = lerp($Crosshair.position.y, crosshair_ypos, 4.0 * delta)

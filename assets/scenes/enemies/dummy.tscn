@@ -15,6 +15,9 @@ emission = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_seyvw"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_seyvw"]
+size = Vector3(0.5, 0.5, 0.1)
+
 [sub_resource type="Animation" id="Animation_l8v81"]
 resource_local_to_scene = true
 length = 0.001
@@ -79,6 +82,10 @@ _data = {
 &"hit": SubResource("Animation_vyht1")
 }
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nhb04"]
+radius = 0.1
+height = 1.0
+
 [node name="dummy" type="CharacterBody3D" unique_id=826447682]
 script = ExtResource("1_gtj52")
 
@@ -90,5 +97,15 @@ shape = SubResource("CapsuleShape3D_seyvw")
 material_override = SubResource("StandardMaterial3D_5pvhp")
 mesh = SubResource("CapsuleMesh_seyvw")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1380386945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+mesh = SubResource("BoxMesh_seyvw")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1694724096]
 libraries/ = SubResource("AnimationLibrary_bf3um")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1063320374]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1952962249]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.5, 1)
+shape = SubResource("CapsuleShape3D_nhb04")

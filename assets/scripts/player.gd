@@ -228,17 +228,24 @@ func slide(delta) -> void:
 		slide_buffer = 0.0
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
-		slide_velocity = ((Vector3(velocity.x, grav_velocity.y * 1.5, velocity.z).length() * dir)).slide(get_floor_normal())
+		var speed = maxf(40.0, Vector3(velocity.x, grav_velocity.y * 1.5, velocity.z).length())
+		slide_velocity = (speed * dir).slide(get_floor_normal())
 	else:
+		if slide_velocity.length() > 0.0:
+			var target_dir = -transform.basis.z if not move_dir else move_dir
+			var current_dir = slide_velocity.normalized()
+			var dir = current_dir.lerp(target_dir, 10.0 * delta)
+			slide_velocity = dir * slide_velocity.length()
+		
 		var decay = 3.0
 		
 		var floor_angle = get_floor_angle()
 		var slide_dir = slide_velocity.normalized()
 		downhill = slide_dir.dot(Vector3.DOWN) > 0.0
-		if is_on_floor() and floor_angle > 0.15:
-			if downhill:
-				var slope_accel = floor_angle * 150.0
-				slide_velocity += slide_dir * (slope_accel * delta)
+		if is_on_floor() and floor_angle > 0.15 and downhill:
+			var slope_accel = floor_angle * 150.0
+			slide_velocity += slide_dir * (slope_accel * delta)
+				
 		if downhill:
 			decay = 1.0
 		elif not is_on_floor() and not is_on_wall() or near_wall:
@@ -270,7 +277,7 @@ func jump(delta) -> void:
 		
 		if near_wall and not is_on_floor():
 			var wall_normal = wallcheck.get_collision_normal(0)
-			jump_velocity += wall_normal * 12.0 + Vector3(0, 6, 0)
+			jump_velocity += wall_normal * (velocity.length()) + Vector3(0, 6, 0)
 		
 	elif is_on_floor() or is_on_ceiling():
 		jump_velocity = Vector3.ZERO
@@ -403,17 +410,24 @@ func deal_shot() -> void:
 	var origin = cam.global_position
 	var end = origin + (-cam.global_transform.basis.z * 1000.0)
 	
-	var query = PhysicsRayQueryParameters3D.create(origin, end)
-	query.exclude = [self.get_rid()]
-	var result = space_state.intersect_ray(query)
-	if result:
-		var body = result.collider
-		if body and body.has_method("hit"):
-			var hit_data = {
-				"damage": 1.0, # replace with function bichazz
-				"type": "GUN"
-			}
-			body.hit(hit_data)
+	var offsets = [
+		Vector3.ZERO,
+		cam.global_transform.basis.x * 0.35, cam.global_transform.basis.x * -0.35,
+		cam.global_transform.basis.y * 0.35, cam.global_transform.basis.y * -0.35
+	]
+	for offset in offsets:
+		var query = PhysicsRayQueryParameters3D.create(origin + offset, end + offset)
+		query.exclude = [self.get_rid()]
+		var result = space_state.intersect_ray(query)
+		if result:
+			var body = result.collider
+			if body and body.has_method("hit"):
+				var hit_data = {
+					"damage": 1.0, # replace with function bichazz
+					"type": "GUN"
+				}
+				body.hit(hit_data)
+				break
 
 func deal_swing() -> void:
 	for body in sword_hitbox.get_overlapping_bodies():

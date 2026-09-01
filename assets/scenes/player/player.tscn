@@ -1169,7 +1169,7 @@ mesh = SubResource("QuadMesh_seyvw")
 
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=443423592]
 unique_name_in_owner = true
-transform = Transform3D(0.9957538, 0.04467098, 0.08048215, 0, 0.8743478, -0.48529977, -0.092048146, 0.48323947, 0.87063575, 0.08808589, 1.1201602, -1.5870181)
+transform = Transform3D(0.99575377, 0.04467098, 0.08048215, 0, 0.8743478, -0.48529977, -0.09204814, 0.48323947, 0.87063575, 0.08808589, 1.1201602, -1.5870181)
 
 [node name="Node3D" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=913439823]
 transform = Transform3D(1.0000002, -7.450581e-09, -1.4901161e-08, 0, 1.0000002, -5.9604645e-08, 7.450581e-09, -5.9604645e-08, 1, -0.09204821, 0.4832396, 0.8706362)

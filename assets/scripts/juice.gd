@@ -7,15 +7,11 @@ var shift_allowed: bool = true
 var end_fov: float = 90
 var end_tilt: float = 0.0
 var end_y: float = 1.7
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	print("JUICE PLAYER PARENT PATH: ", player.get_path() if player else "NULL")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if shift_allowed:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
-		end_fov = remap(speed, 0.0, 50.0, 90.0, 110.0)
+		end_fov = remap(speed * 2, 0.0, 50.0, 90.0, 110.0)
 		end_fov = clamp(end_fov, 90.0, 110.0)
 		
 		if player.crouching and player.is_on_floor():
