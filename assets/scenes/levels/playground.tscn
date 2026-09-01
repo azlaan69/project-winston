@@ -107,6 +107,11 @@ height = 34.8125
 sides = 16
 smooth_faces = false
 
+[node name="randomsewer1cutout21" type="CSGBox3D" parent="." unique_id=174285648]
+transform = Transform3D(1, 0, 0, 0, 0.25881934, -0.9659268, 0, 0.9659268, 0.25881934, -98, 12.430202, 16.389816)
+operation = 2
+size = Vector3(13, 12, 8.151855)
+
 [node name="randomsewer1cutout3" type="CSGBox3D" parent="." unique_id=1569891023]
 transform = Transform3D(-0.6678827, -0.7442658, 7.376075e-06, 0.74426585, -0.66788256, 1.7285347e-06, 2.95043e-06, 7.4505806e-07, 0.99999976, 77.293045, 66.2598, 33.00004)
 operation = 2

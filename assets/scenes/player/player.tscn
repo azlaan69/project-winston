@@ -547,7 +547,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector3(-0.862, 0.805, -1.587), Vector3(-0.84764093, 0.86070025, -1.587), Vector3(-0.6620579, 0.955463, -1.587), Vector3(0.008663997, 0.9979688, -1.587), Vector3(1.1511481, 1.0059259, -1.587)]
+"values": [Vector3(-0.862, 0.805, -1.587), Vector3(-0.848, 1.521, -1.587), Vector3(-0.662, 1.5, -1.587), Vector3(0.009, 1.5, -1.587), Vector3(1.151, 1.686, -1.587)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -559,7 +559,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.26241094, 5.003546, 1.7707163), Vector3(0.34051293, 5.660002, 1.9804235), Vector3(0.3122094, 4.8423204, 1.8155515), Vector3(-0.21021515, 2.7641494, 1.3364698)]
+"values": [Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.2617994, 5.003859, -1.7715092), Vector3(0.3403392, 5.660103, -1.9809487), Vector3(0.31241393, 4.841543, -1.8151424), Vector3(-0.20943952, 2.7646015, -1.3264502)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1242,7 +1242,6 @@ script = ExtResource("4_5v77c")
 player = NodePath("../..")
 
 [node name="Label" type="Label" parent="Overlay/HUD" unique_id=1065309724]
-visible = false
 layout_mode = 0
 offset_left = 25.0
 offset_top = 10.0

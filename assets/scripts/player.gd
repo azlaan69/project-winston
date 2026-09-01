@@ -126,7 +126,7 @@ Speed: %s""" % [round(global_position), round(velocity.length())]
 	
 	input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
 	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	near_wall = (wallcheck.is_colliding() or wallcheck_r.is_colliding() or wallcheck_l.is_colliding())
+	near_wall = (wallcheck.is_colliding())
 	
 	if Input.is_action_just_pressed(input_jump): jump_buffer = 0.2
 	if jump_buffer > 0.0: jump_buffer -= delta
@@ -247,11 +247,11 @@ func slide(delta) -> void:
 			slide_velocity += slide_dir * (slope_accel * delta)
 				
 		if downhill:
-			decay = 1.0
+			decay = 0.5
 		elif not is_on_floor() and not is_on_wall() or near_wall:
-			decay = 0.2
+			decay = 0.5
 		else:
-			decay = 8.0
+			decay = 6.0
 		
 		slide_velocity = slide_velocity * exp(-decay * delta)
 		if slide_velocity.length_squared() < 4.0: slide_velocity = Vector3.ZERO
@@ -278,6 +278,7 @@ func jump(delta) -> void:
 		if near_wall and not is_on_floor():
 			var wall_normal = wallcheck.get_collision_normal(0)
 			jump_velocity += wall_normal * (velocity.length()) + Vector3(0, 6, 0)
+			move_velocity = Vector3.ZERO
 		
 	elif is_on_floor() or is_on_ceiling():
 		jump_velocity = Vector3.ZERO
