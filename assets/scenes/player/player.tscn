@@ -1071,6 +1071,7 @@ disable_receive_shadows = true
 slide_on_ceiling = false
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
+base_speed = 10.0
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

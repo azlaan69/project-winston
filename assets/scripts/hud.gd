@@ -25,6 +25,8 @@ func _process(delta: float) -> void:
 			else: bar.value = 1.0 - (time_left / total_time)
 		else: bar.value = 0.0
 	
+	$HealthHud/TextureProgressBar.value = (player.hp / 100)
+	
 	speed = lerp(speed, player.velocity.length(), 6.0 * delta)
 	
 	if hit_time > 0.0: hit_time -= delta

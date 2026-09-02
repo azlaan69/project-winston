@@ -49,6 +49,7 @@ var grav_velocity: Vector3
 var input_dir = 0.0
 var move_dir = 0.0
 
+var hp = 100
 var dash_charges = 3
 var jump_buffer: float = 0.0
 var slide_buffer: float = 0.0
@@ -262,7 +263,7 @@ func slide(delta) -> void:
 func jump(delta) -> void:
 	if jump_buffer > 0.0 and (is_on_floor() or near_wall):
 		grav_velocity.y = 0.0
-		var jump_force = 12.0
+		var jump_force = 14.0
 		jump_buffer = 0.0
 		
 		if slide_velocity.length() > 10.0 and downhill:
@@ -403,6 +404,10 @@ func combatstuff(delta) -> void:
 					3:
 						pass
 
+
+func hit(hit_data: Dictionary) -> void:
+	hp -= hit_data["damage"]
+	external_velocity += hit_data["knockback"]
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0
