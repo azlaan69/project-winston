@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bfp16fplvf7ap"]
 
 [ext_resource type="Script" uid="uid://cv33jmekl326q" path="res://assets/scenes/enemies/dummy.gd" id="1_7wuf0"]
+[ext_resource type="PackedScene" uid="uid://m4d02sqt5om8" path="res://assets/models/enemy1.gltf" id="2_nh27i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_seyvw"]
 radius = 0.75
@@ -96,11 +97,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("CapsuleShape3D_seyvw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1658689628]
+visible = false
 material_override = SubResource("StandardMaterial3D_5pvhp")
 mesh = SubResource("CapsuleMesh_seyvw")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2074773430]
 transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0.5, 0, -1)
+visible = false
 material_override = SubResource("StandardMaterial3D_7wuf0")
 mesh = SubResource("BoxMesh_seyvw")
 
@@ -108,3 +111,6 @@ mesh = SubResource("BoxMesh_seyvw")
 libraries/ = SubResource("AnimationLibrary_bf3um")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1984416654]
+
+[node name="blockbench_export" parent="." unique_id=1932935955 instance=ExtResource("2_nh27i")]
+transform = Transform3D(-1.5, 0, -2.2649371e-07, 0, 1.5, 0, 2.2649371e-07, 0, -1.5, 0, -1, 0)
