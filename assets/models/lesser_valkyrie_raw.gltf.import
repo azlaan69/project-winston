@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://m4d02sqt5om8"
-path="res://.godot/imported/enemy1.gltf-0dd43a77aed1a2cf5cd9c9dff0424d4e.scn"
+uid="uid://cxdvnmx6vv3ls"
+path="res://.godot/imported/lesser_valkyrie_raw.gltf-e56a221702450027c2bb0a258a823a13.scn"
 
 [deps]
 
-source_file="res://assets/models/enemy1.gltf"
-dest_files=["res://.godot/imported/enemy1.gltf-0dd43a77aed1a2cf5cd9c9dff0424d4e.scn"]
+source_file="res://assets/models/lesser_valkyrie_raw.gltf"
+dest_files=["res://.godot/imported/lesser_valkyrie_raw.gltf-e56a221702450027c2bb0a258a823a13.scn"]
 
 [params]
 

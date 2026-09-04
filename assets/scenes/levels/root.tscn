@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c6srnxmgg4tu5" path="res://assets/scenes/levels/playground.tscn" id="5_7qu1s"]
 [ext_resource type="PackedScene" uid="uid://bfp16fplvf7ap" path="res://assets/scenes/enemies/dummy.tscn" id="6_1jmg1"]
 [ext_resource type="Script" uid="uid://jc1tcva0kq8" path="res://assets/scripts/spinny.gd" id="6_y2pyw"]
+[ext_resource type="PackedScene" uid="uid://bwlnqi7ycc0k2" path="res://assets/models/lesser_valkyrie.tscn" id="7_1jmg1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
 sky_top_color = Color(0.588884, 0.86057085, 0.9975019, 1)
@@ -13,15 +14,15 @@ sky_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
 ground_bottom_color = Color(0.15904948, 0.17961928, 0.17665055, 1)
 ground_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
 
-[sub_resource type="Sky" id="Sky_pyidc"]
+[sub_resource type="Sky" id="Sky_1jmg1"]
 sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
-background_color = Color(1, 1, 1, 1)
-sky = SubResource("Sky_pyidc")
+background_color = Color(1, 0, 0.43137255, 1)
+sky = SubResource("Sky_1jmg1")
 ambient_light_source = 2
-ambient_light_color = Color(0.7204674, 0.72046757, 0.7204672, 1)
+ambient_light_color = Color(0.7607843, 1, 1, 1)
 tonemap_mode = 3
 tonemap_exposure = 0.2
 tonemap_white = 5.0
@@ -444,3 +445,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 44, -4)
 navigation_mesh = SubResource("NavigationMesh_seyvw")
 
 [node name="playground" parent="NavigationRegion3D" unique_id=1184370340 instance=ExtResource("5_7qu1s")]
+
+[node name="blockbench_export" parent="." unique_id=1979071613 instance=ExtResource("7_1jmg1")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -180, 2, 0)

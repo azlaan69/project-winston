@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c6srnxmgg4tu5"]
 
 [ext_resource type="Texture2D" uid="uid://bqt11g52ks31h" path="res://assets/textures/texture1.png" id="1_vtfwl"]
+[ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_6i8gc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtj52"]
-albedo_color = Color(0.56763506, 0.5676352, 0.5676351, 1)
 albedo_texture = ExtResource("1_vtfwl")
 uv1_scale = Vector3(0.05, 0.05, 0.05)
 uv1_triplanar = true
@@ -15,6 +15,46 @@ texture_filter = 0
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nhb04"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k8k4s"]
+sky_top_color = Color(0.588884, 0.86057085, 0.9975019, 1)
+sky_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
+ground_bottom_color = Color(0.15904948, 0.17961928, 0.17665055, 1)
+ground_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
+
+[sub_resource type="Sky" id="Sky_pyidc"]
+sky_material = SubResource("ProceduralSkyMaterial_k8k4s")
+
+[sub_resource type="Environment" id="Environment_qqdek"]
+background_mode = 1
+background_color = Color(1, 0, 0.43137255, 1)
+sky = SubResource("Sky_pyidc")
+ambient_light_source = 2
+ambient_light_color = Color(0.7204674, 0.72046757, 0.7204672, 1)
+tonemap_mode = 3
+tonemap_exposure = 0.2
+tonemap_white = 5.0
+tonemap_agx_white = 16.5
+tonemap_agx_contrast = 2.0
+sdfgi_read_sky_light = false
+sdfgi_cascades = 1
+sdfgi_min_cell_size = 3.0
+glow_enabled = true
+glow_bloom = 1.0
+glow_blend_mode = 0
+volumetric_fog_density = 0.152
+adjustment_contrast = 1.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfawc"]
+render_priority = 1
+shader = ExtResource("2_6i8gc")
+shader_parameter/line_thickness = 1.5
+shader_parameter/normal_threshold = 0.4
+shader_parameter/line_color = Color(0, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_r13t7"]
+material = SubResource("ShaderMaterial_jfawc")
+size = Vector2(3, 2)
 
 [node name="playground" type="CSGCombiner3D" unique_id=1184370340]
 material_override = SubResource("StandardMaterial3D_gtj52")
@@ -202,3 +242,24 @@ smooth_faces = false
 [node name="b9" type="CSGBox3D" parent="." unique_id=82657023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, 60, -80)
 size = Vector3(20, 40, 20)
+
+[node name="beautifier" type="Node3D" parent="." unique_id=1815244724]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="beautifier" unique_id=805125469]
+transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
+shadow_enabled = true
+editor_only = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="beautifier" unique_id=1173756354]
+environment = SubResource("Environment_qqdek")
+
+[node name="Camera3D" type="Camera3D" parent="beautifier" unique_id=326014998]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+cull_mask = 524287
+fov = 90.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="beautifier/Camera3D" unique_id=60616864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_r13t7")
