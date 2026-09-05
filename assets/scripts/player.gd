@@ -78,10 +78,8 @@ var combo_step : int = 1
 @onready var wallcheck_r: RayCast3D = $WallCheckRight
 @onready var wallcheck_l: RayCast3D = $WallCheckLeft
 @onready var ceilingcheck: ShapeCast3D = $CeilingChecker
-@onready var hit_ray: RayCast3D = %HitCheck
 
 @onready var anim_gun: AnimationPlayer = %PistolPlayer
-@onready var anim_sword_tree: AnimationTree = %SwordTree
 @onready var anim_sword = %SwordPlayer
 @onready var sword_hitbox = %SwordHitbox
 
@@ -229,11 +227,11 @@ func slide(delta) -> void:
 		slide_buffer = 0.0
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
-		var speed = maxf(40.0, Vector3(velocity.x, grav_velocity.y * 1.5, velocity.z).length())
+		var speed = maxf(25.0, Vector3(velocity.x, grav_velocity.y * 1.5, velocity.z).length())
 		slide_velocity = (speed * dir).slide(get_floor_normal())
 	else:
 		if slide_velocity.length() > 0.0:
-			var target_dir = -transform.basis.z if not move_dir else move_dir
+			var target_dir = -transform.basis.z if (not move_dir and is_on_floor()) else move_dir
 			var current_dir = slide_velocity.normalized()
 			var dir = current_dir.lerp(target_dir, 10.0 * delta)
 			slide_velocity = dir * slide_velocity.length()
@@ -252,7 +250,7 @@ func slide(delta) -> void:
 		elif not is_on_floor() and not is_on_wall() or near_wall:
 			decay = 0.5
 		else:
-			decay = 6.0
+			decay = 5.0
 		
 		slide_velocity = slide_velocity * exp(-decay * delta)
 		if slide_velocity.length_squared() < 4.0: slide_velocity = Vector3.ZERO

@@ -1,15 +1,19 @@
-shader_type spatial;
-render_mode unshaded;
-
-uniform vec4 color_a : source_color = vec4(0.0, 0.8, 1.0, 1.0); // Cyan
-uniform vec4 color_b : source_color = vec4(1.0, 0.0, 0.4, 1.0); // Pink/Crimson
-uniform float emission_energy : hint_range(1.0, 20.0) = 5.0;
+shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform float amount : hint_range(0.0, 5.0) = 0.8; // Controlled by your GDScript speed
 
 void fragment() {
-    // Splits color 50/50 along the ring's local UV layout
-    float split = step(0.5, UV.x); 
-    vec3 final_color = mix(color_a.rgb, color_b.rgb, split);
+    // Calculate distance from the center of the screen to create a vignette effect
+    vec2 center = vec2(0.5, 0.5);
+    vec2 uv = SCREEN_UV;
+    vec2 dist = uv - center;
     
-    ALBEDO = final_color;
-    EMISSION = final_color * emission_energy;
+    // Offset the color channels based on distance from center and speed amount
+    vec4 color = vec4(0.0);
+    color.r = texture(SCREEN_TEXTURE, uv - dist * amount * 0.02).r;
+    color.g = texture(SCREEN_TEXTURE, uv).g;
+    color.b = texture(SCREEN_TEXTURE, uv + dist * amount * 0.02).b;
+    color.a = 1.0;
+    
+    COLOR = color;
 }

@@ -4,8 +4,10 @@
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_6i8gc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtj52"]
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("1_vtfwl")
-uv1_scale = Vector3(0.05, 0.05, 0.05)
+uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_triplanar = true
 uv1_triplanar_sharpness = 150.0
 uv1_world_triplanar = true
@@ -22,13 +24,13 @@ sky_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
 ground_bottom_color = Color(0.15904948, 0.17961928, 0.17665055, 1)
 ground_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
 
-[sub_resource type="Sky" id="Sky_pyidc"]
+[sub_resource type="Sky" id="Sky_6i8gc"]
 sky_material = SubResource("ProceduralSkyMaterial_k8k4s")
 
 [sub_resource type="Environment" id="Environment_qqdek"]
 background_mode = 1
 background_color = Color(1, 0, 0.43137255, 1)
-sky = SubResource("Sky_pyidc")
+sky = SubResource("Sky_6i8gc")
 ambient_light_source = 2
 ambient_light_color = Color(0.7204674, 0.72046757, 0.7204672, 1)
 tonemap_mode = 3
@@ -45,7 +47,7 @@ glow_blend_mode = 0
 volumetric_fog_density = 0.152
 adjustment_contrast = 1.25
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfawc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8k4s"]
 render_priority = 1
 shader = ExtResource("2_6i8gc")
 shader_parameter/line_thickness = 1.5
@@ -53,7 +55,7 @@ shader_parameter/normal_threshold = 0.4
 shader_parameter/line_color = Color(0, 0, 0, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_r13t7"]
-material = SubResource("ShaderMaterial_jfawc")
+material = SubResource("ShaderMaterial_k8k4s")
 size = Vector2(3, 2)
 
 [node name="playground" type="CSGCombiner3D" unique_id=1184370340]

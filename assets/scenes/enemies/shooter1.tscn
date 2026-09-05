@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://wpc7vvjgbotd"]
+
+[ext_resource type="Script" uid="uid://crtl3c135qupk" path="res://assets/scripts/shooter1.gd" id="1_yknt1"]
+[ext_resource type="PackedScene" uid="uid://c14w2r6atrydk" path="res://assets/models/shooter.tscn" id="2_xoxhl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qok5"]
+radius = 0.75
+height = 2.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xoxhl"]
+
+[node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "bulletpos") groups=["enemy"]]
+script = ExtResource("1_yknt1")
+armhinge = NodePath("shooter/root/pelvis/torso/arms")
+bulletpos = NodePath("shooter/root/pelvis/torso/arms/armL/fofrontmR/gun/Marker3D")
+socialdistance = 40.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=941452281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CapsuleShape3D_7qok5")
+
+[node name="shooter" parent="." unique_id=999382663 instance=ExtResource("2_xoxhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="armR" parent="shooter/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(999382663, 939260004) index="0" unique_id=470227708]
+transform = Transform3D(0.96592563, 0.24999997, -0.06698728, -0.25881898, 0.93301255, -0.24999999, -1.49011585e-08, 0.25881904, 0.96592563, -0.0010466765, 0.01171875, -0.2349074)
+
+[node name="forearmR" parent="shooter/root/pelvis/torso/arms/armR" index="2" unique_id=1639213656]
+transform = Transform3D(0.819152, -0.5540323, 0.14845248, 0.5540323, 0.8312665, 0.045211993, -0.1484525, 0.04521199, 0.9878853, 0.019514259, -0.37838385, 0.0009066957)
+
+[node name="armL" parent="shooter/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(999382663, 939260004) index="1" unique_id=1436495761]
+transform = Transform3D(0.96592563, 0.24999997, 0.06698728, -0.25881898, 0.93301255, 0.24999999, 1.49011585e-08, -0.25881904, 0.96592563, -0.0010466765, 0.01171875, 0.2349074)
+
+[node name="fofrontmR" parent="shooter/root/pelvis/torso/arms/armL" index="2" unique_id=2101002415]
+transform = Transform3D(0.819152, -0.5540323, -0.14845248, 0.5540323, 0.8312665, -0.045211993, 0.1484525, -0.04521199, 0.9878853, 0.019514259, -0.37838385, -0.0009066957)
+
+[node name="Marker3D" type="Marker3D" parent="shooter/root/pelvis/torso/arms/armL/fofrontmR/gun" parent_id_path=PackedInt32Array(999382663, 2136666657) index="0" unique_id=2145853329]
+transform = Transform3D(-0.15274577, 0.17527682, 0.9725985, -0.070633665, -0.98356533, 0.1661602, 0.9857378, -0.04331787, 0.16261624, 0.2298035, -0.50287247, -0.04009384)
+
+[node name="thighL" parent="shooter/root/pelvis/legs" parent_id_path=PackedInt32Array(999382663, 1025111949) index="0" unique_id=1819529140]
+transform = Transform3D(0.96592563, -0.24999997, -0.06698728, 0.25881895, 0.9330126, 0.25000003, -2.2351738e-08, -0.25881907, 0.96592575, 0.015625, 0.029596722, 0.10013917)
+
+[node name="kneeL" parent="shooter/root/pelvis/legs/thighL" index="2" unique_id=2062228924]
+transform = Transform3D(0.8660254, 0.48296297, 0.12940952, -0.482963, 0.875, -0.033493657, -0.12940955, -0.03349366, 0.9910252, -0.04148457, -0.56381005, -0.018114116)
+
+[node name="thighR" parent="shooter/root/pelvis/legs" parent_id_path=PackedInt32Array(999382663, 1025111949) index="1" unique_id=1262049012]
+transform = Transform3D(0.96592563, -0.24999997, 0.06698728, 0.25881898, 0.93301255, -0.24999999, 1.49011585e-08, 0.25881904, 0.96592563, 0.015625, 0.029596722, -0.10013917)
+
+[node name="kneeR" parent="shooter/root/pelvis/legs/thighR" index="2" unique_id=1849032130]
+transform = Transform3D(0.8660254, 0.48296297, -0.12940952, -0.482963, 0.875, 0.033493657, 0.12940955, 0.03349366, 0.9910252, -0.04148457, -0.56381005, 0.018114116)
+
+[node name="hitfx" type="Sprite3D" parent="." unique_id=490919260]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0, 0, 0)
+no_depth_test = true
+
+[node name="los" type="ShapeCast3D" parent="." unique_id=1168150727]
+shape = SubResource("SphereShape3D_xoxhl")
+target_position = Vector3(0, 0, 0)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1683912790]
+
+[editable path="shooter"]

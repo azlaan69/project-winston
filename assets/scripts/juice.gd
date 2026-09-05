@@ -11,8 +11,8 @@ var end_y: float = 1.7
 func _process(delta: float) -> void:
 	if shift_allowed:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
-		end_fov = remap(speed * 2, 0.0, 50.0, 90.0, 110.0)
-		end_fov = clamp(end_fov, 90.0, 110.0)
+		end_fov = remap(clamp(speed, 0.0, 150.0), 0.0, 50.0, 80.0, 110.0)
+		end_fov = clamp(end_fov, 80.0, 110.0)
 		
 		if player.crouching and player.is_on_floor():
 			end_y = 1.0

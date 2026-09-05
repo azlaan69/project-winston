@@ -4,38 +4,23 @@
 [ext_resource type="PackedScene" uid="uid://ciyrn5mm6l4y6" path="res://assets/scenes/player/player_hat.tscn" id="2_1jmg1"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="4_uum53"]
 [ext_resource type="PackedScene" uid="uid://c6srnxmgg4tu5" path="res://assets/scenes/levels/playground.tscn" id="5_7qu1s"]
-[ext_resource type="PackedScene" uid="uid://bfp16fplvf7ap" path="res://assets/scenes/enemies/dummy.tscn" id="6_1jmg1"]
 [ext_resource type="Script" uid="uid://jc1tcva0kq8" path="res://assets/scripts/spinny.gd" id="6_y2pyw"]
 [ext_resource type="PackedScene" uid="uid://bwlnqi7ycc0k2" path="res://assets/models/lesser_valkyrie.tscn" id="7_1jmg1"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
-sky_top_color = Color(0.588884, 0.86057085, 0.9975019, 1)
-sky_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
-ground_bottom_color = Color(0.15904948, 0.17961928, 0.17665055, 1)
-ground_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
-
-[sub_resource type="Sky" id="Sky_1jmg1"]
-sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
+[ext_resource type="PackedScene" uid="uid://wpc7vvjgbotd" path="res://assets/scenes/enemies/shooter1.tscn" id="7_vsmvd"]
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
 background_color = Color(1, 0, 0.43137255, 1)
-sky = SubResource("Sky_1jmg1")
 ambient_light_source = 2
-ambient_light_color = Color(0.7607843, 1, 1, 1)
+ambient_light_color = Color(0, 0.68649316, 0.6864933, 1)
 tonemap_mode = 3
 tonemap_exposure = 0.2
-tonemap_white = 5.0
-tonemap_agx_white = 16.5
-tonemap_agx_contrast = 2.0
-sdfgi_read_sky_light = false
-sdfgi_cascades = 1
-sdfgi_min_cell_size = 3.0
+tonemap_white = 16.0
 glow_enabled = true
 glow_bloom = 1.0
 glow_blend_mode = 0
-volumetric_fog_density = 0.152
-adjustment_contrast = 1.25
+adjustment_contrast = 500.0
+adjustment_saturation = 0.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vbg00"]
 bounce = 0.1
@@ -156,6 +141,7 @@ physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=890364319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 40, -69)
+visible = false
 pixel_size = 0.001
 billboard = 1
 fixed_size = true
@@ -432,19 +418,19 @@ light_color = Color(1, 0.5254902, 1, 1)
 light_energy = 16.0
 omni_range = 4096.0
 
-[node name="dummy" parent="." unique_id=826447682 instance=ExtResource("6_1jmg1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 2, 0)
-
-[node name="dummy2" parent="." unique_id=1591450657 instance=ExtResource("6_1jmg1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 44, 4)
-
-[node name="dummy3" parent="." unique_id=704054988 instance=ExtResource("6_1jmg1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 44, -4)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")
 
 [node name="playground" parent="NavigationRegion3D" unique_id=1184370340 instance=ExtResource("5_7qu1s")]
 
-[node name="blockbench_export" parent="." unique_id=1979071613 instance=ExtResource("7_1jmg1")]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -180, 2, 0)
+[node name="tease" parent="." unique_id=1979071613 instance=ExtResource("7_1jmg1")]
+transform = Transform3D(-1.3113416e-07, 0, 3, 0, 3, 0, -3, 0, -1.3113416e-07, -180, 2, 0)
+
+[node name="shooter1" parent="." unique_id=733271003 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+hp = null
+speed = null
+has_gravity = null
+use_nav = null
+look_speed = null
+accel = null

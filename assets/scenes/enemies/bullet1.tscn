@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://b6wpnveghg6nh"]
 
-[ext_resource type="Script" uid="uid://c3lndmc2vaefx" path="res://assets/scenes/player/bullet1.gd" id="1_ttmfr"]
+[ext_resource type="Script" uid="uid://c3lndmc2vaefx" path="res://assets/scripts/bullet1.gd" id="1_ttmfr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wuf0"]
-emission_energy_multiplier = 8.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xoxhl"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(18.892157, 18.892157, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_seyvw"]
 size = Vector3(0.2, 0.2, 1)
@@ -14,10 +16,11 @@ height = 1.0
 
 [node name="Bullet" type="Area3D" unique_id=106936963]
 script = ExtResource("1_ttmfr")
+lifetime = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1646085975]
 transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_7wuf0")
+material_override = SubResource("StandardMaterial3D_xoxhl")
 mesh = SubResource("BoxMesh_seyvw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2064245688]

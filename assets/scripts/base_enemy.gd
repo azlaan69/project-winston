@@ -1,19 +1,19 @@
 class_name BaseEnemy
 extends CharacterBody3D
 
-@export var hp = 100.0
-@export var speed = 5.0
-@export var has_gravity = true
-@export var use_nav = true
+@export var hp: float = 10.0
+@export var speed: float = 10.0
+@export var has_gravity: bool = true
+@export var use_nav: bool = true
 
-@export var look_speed = 10.0
-@export var accel = 20.0
-@export var socialdistance = 10.0
+@export var look_speed: float = 10.0
+@export var accel: float = 20.0
+@export var socialdistance: float = 10.0
 
 var player = null
 
-var iframe_timer = 0.0
-var distance = Vector3.ZERO
+var iframe_timer: float = 0.0
+var distance: Vector3 = Vector3.ZERO
 var dir = distance.normalized()
 
 enum state { IDLE, CHASE, TELEGRAPH, ATTACK, COOLDOWN }
@@ -25,6 +25,8 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 
 func _physics_process(delta: float) -> void:
+	
+	if $hitfx: $hitfx.visible = (iframe_timer > 0.0)
 	
 	if has_gravity and not is_on_floor():
 		velocity += get_gravity() * delta
@@ -56,6 +58,15 @@ func hit(hit_data: Dictionary) -> void:
 	var dmg: float = float(hit_data.get("damage", 0.0))
 	hp -= dmg
 	iframe_timer = 0.2
+
+func check_los() -> bool: # optional
+	if not player:
+		return false
+	$los.target_position = to_local(player.global_position + Vector3(0, 1, 0))
+	$los.force_shapecast_update()
+	if $los.is_colliding():
+		return $los.get_collider(0).is_in_group("player")
+	return false
 
 func die() -> void:
 	queue_free()
