@@ -16,9 +16,6 @@ var iframe_timer: float = 0.0
 var distance: Vector3 = Vector3.ZERO
 var dir = distance.normalized()
 
-enum state { IDLE, CHASE, TELEGRAPH, ATTACK, COOLDOWN }
-var current_state = state.IDLE
-
 @onready var nav = get_node_or_null("NavigationAgent3D")
 
 func _ready() -> void:
@@ -62,7 +59,7 @@ func hit(hit_data: Dictionary) -> void:
 func check_los() -> bool: # optional
 	if not player:
 		return false
-	$los.target_position = to_local(player.global_position + Vector3(0, 1, 0))
+	$los.target_position = to_local(player.global_position + Vector3(0, 1.5, 0))
 	$los.force_shapecast_update()
 	if $los.is_colliding():
 		return $los.get_collider(0).is_in_group("player")

@@ -5,13 +5,15 @@ var max_lifetime: float = 0.0
 @export var lifetime: float = 5.0
 @export var hit_data: Dictionary = {
 	"damage": 10.0,
-	"knockback": Vector3(1, 0, 1)
+	"knockback": 10,
+	"dir": -transform.basis.z
 }
 
 func _ready() -> void:
 	max_lifetime = lifetime
 
 func _physics_process(delta: float) -> void:
+	hit_data["dir"] = -transform.basis.z
 	lifetime -= delta
 	if lifetime <= 0.0: queue_free()
 	global_position += -global_transform.basis.z * speed * delta

@@ -16,6 +16,7 @@ height = 1.0
 
 [node name="Bullet" type="Area3D" unique_id=106936963]
 script = ExtResource("1_ttmfr")
+speed = 60.0
 lifetime = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1646085975]

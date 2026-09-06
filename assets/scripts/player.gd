@@ -43,8 +43,9 @@ var move_velocity: Vector3
 var jump_velocity: Vector3
 var slide_velocity: Vector3
 var dash_velocity: Vector3
-var external_velocity: Vector3
+var hat_velocity: Vector3
 var grav_velocity: Vector3
+var external_velocity: Vector3
 
 var input_dir = 0.0
 var move_dir = 0.0
@@ -153,7 +154,7 @@ Speed: %s""" % [round(global_position), round(velocity.length())]
 	hatstuff(delta)
 	combatstuff(delta)
 	
-	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + external_velocity + grav_velocity
+	velocity = move_velocity + jump_velocity + dash_velocity + slide_velocity + hat_velocity + grav_velocity + external_velocity
 
 	move_and_slide()
 	
@@ -288,7 +289,7 @@ func grav(delta) -> void:
 	var rising = jump_velocity.y > 1.0
 	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 5.0 :
 		grav_velocity += get_gravity() * delta
-		grav_velocity *= pow(1.127, delta)
+		grav_velocity *= pow(1.2, delta)
 		was_near_wall = false
 	elif near_wall:
 		if not was_near_wall:
@@ -332,7 +333,7 @@ func hatstuff(delta) -> void:
 				grav_velocity.y /= 5
 				hat.used = true
 				var pull_dir : Vector3 = (hat.global_position - global_position).normalized()
-				external_velocity = pull_dir * 25.0
+				hat_velocity = pull_dir * 25.0
 		
 			hat.state.LANDED:
 				if not hat.used:
@@ -343,11 +344,13 @@ func hatstuff(delta) -> void:
 					juice.shift(1.7, 110, 0.1)
 
 	if not Input.is_action_pressed("r"):
-		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
+		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 	elif hat.current_state == hat.state.EQUIPPED:
-		external_velocity = external_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
+		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 
 func combatstuff(delta) -> void:
+	
+	external_velocity = external_velocity.lerp(Vector3.ZERO, 4.0 * delta)
 	
 	if switch_buffer > 0.0 and not is_switching:
 		switch_buffer = 0.0
@@ -405,7 +408,8 @@ func combatstuff(delta) -> void:
 
 func hit(hit_data: Dictionary) -> void:
 	hp -= hit_data["damage"]
-	external_velocity += hit_data["knockback"]
+	var modifier = 1.0 if is_on_floor() else 2.0
+	external_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0

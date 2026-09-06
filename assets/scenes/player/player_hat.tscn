@@ -27,6 +27,7 @@ script = ExtResource("1_ht0oc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=572414648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+visible = false
 shape = SubResource("BoxShape3D_nhb04")
 debug_color = Color(0.43137255, 1, 1, 1)
 
@@ -49,6 +50,7 @@ light_specular = 1.0
 omni_range = 20.0
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1493100362]
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=566005512]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

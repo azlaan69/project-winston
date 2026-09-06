@@ -1,12 +1,21 @@
 extends BaseEnemy
 
+enum state { IDLE, CHASE, TELEGRAPH, ATTACK, KICK, RETREAT, REPOSITION }
+var current_state = state.IDLE
+
 var telegraph_timer: float
 var cooldown: float = 0.0
 var movement: Vector3
 var los: bool
+var shots: int = 0
+
+var strafe: Vector3
+var side: float
 
 @export var armhinge: Node3D
 @export var bulletpos: Marker3D
+@export var anim: AnimationPlayer
+@export var hitanim: AnimationPlayer
 const BULLET = preload("res://assets/scenes/enemies/bullet1.tscn")
 
 func _physics_process(delta: float) -> void:
@@ -21,54 +30,134 @@ func _physics_process(delta: float) -> void:
 	
 	if cooldown > 0.0: cooldown -= delta
 	
-	if current_state != state.TELEGRAPH and current_state != state.ATTACK:
-		if not los:
-			current_state = state.CHASE
-		else:
-			if dist > 30.0:
-				current_state = state.CHASE
-			elif dist < 10.0:
-				current_state = state.IDLE
-			else:
-				if cooldown <= 0.0 and los:
-					current_state = state.TELEGRAPH
-					telegraph_timer = 0.5
-				else:
-					current_state = state.IDLE
-	
 	match current_state:
 		state.IDLE:
+			
+			rotate_towards(dir, look_speed, delta)
 			movement = movement.lerp(Vector3.ZERO, accel * delta)
+			anim.play("idle", 0.6)
+			
+			if not los or dist > 70.0:
+				pass
+			elif dist < 2.0:
+				change_state(state.KICK)
+			elif dist < 8.0:
+				change_state(state.CHASE)
+			elif cooldown <= 0.0 and dist <= 30.0:
+				change_state(state.TELEGRAPH)
+			elif dist > 30.0:
+				change_state(state.CHASE)
+				
+			
 		state.CHASE:
-			var path_dir = get_next_path_dir(delta)
+			
+			var path_dir = get_next_path_dir(delta) if (!los or dist > 8.0) else dir
 			var has_path = path_dir != Vector3.ZERO
 			rotate_towards(path_dir, look_speed, delta)
-			var move_speed = speed
-			var target = -transform.basis.z * move_speed if has_path else Vector3.ZERO
+			var target = -transform.basis.z * speed if has_path else Vector3.ZERO
 			movement = movement.lerp(target, accel * delta)
+			
+			if los:
+				if dist < 2.0:
+					change_state(state.KICK)
+				elif dist <= 30.0 and dist > 2.0 and cooldown <= 0.0:
+					change_state(state.TELEGRAPH)
+			
 		state.TELEGRAPH:
-			var path_dir = get_next_path_dir(delta)
-			rotate_towards(path_dir, look_speed * 2, delta)
+			
+			var path_dir = get_next_path_dir(delta) 
+			rotate_towards(dir, look_speed * 1.5, delta)
 			telegraph_timer -= delta
 			if telegraph_timer <= 0.0:
-				movement = Vector3.ZERO
-				current_state = state.ATTACK
+				if los:
+					change_state(state.ATTACK)
+				else:
+					change_state(state.CHASE)
+				
 		state.ATTACK:
-			var bullet = BULLET.instantiate()
-			get_parent().add_child(bullet)
-			bullet.global_position = bulletpos.global_position
-			bullet.global_transform.basis = global_transform.basis.rotated(global_transform.basis.x.normalized(), armhinge.rotation.z)
+			
+			shots += 1
+			shoot()
 			cooldown = 1.0
-			current_state = state.IDLE
+			if shots >= 3 and cooldown > 0.0:
+				shots = 0
+				change_state(state.REPOSITION)
+			else:
+				change_state(state.IDLE)
+			
+		state.KICK:
+			rotate_towards(dir, look_speed, delta * 2)
+			movement = movement.lerp(Vector3.ZERO, accel * 2 * delta)
+		
+		state.RETREAT:
+			rotate_towards(dir, look_speed, delta)
+			var target = -Vector3(dir.x, 0, dir.z).normalized()
+			movement = movement.lerp(target * speed * 0.6, accel * delta)
+			if cooldown <= 0.0:
+				change_state(state.IDLE)
+		
+		state.REPOSITION:
+			rotate_towards(dir, look_speed, delta)
+			var flat_dir = Vector3(dir.x, 0, dir.z).normalized()
+			strafe = flat_dir.cross(Vector3.UP) * side
+			movement = movement.lerp(strafe * speed * 0.6, accel * delta)
+			if cooldown <= 0.0: change_state(state.IDLE)
+
+	if movement.length() > 0.0 and current_state in [state.CHASE, state.RETREAT, state.REPOSITION] and iframe_timer <= 0.0:
+		anim.play("walk", 0.25, movement.length() / 10)
 	
 	velocity.x = movement.x
 	velocity.z = movement.z
+	$Label3D.text = str(round(dist))
 	
 	move_and_slide()
+
+func change_state(new_state: state) -> void:
+	if current_state == new_state:
+		return
+	current_state = new_state
 	
+	match current_state:
+		state.IDLE:
+			anim.play("idle", 0.25)
+		state.CHASE, state.RETREAT:
+			anim.play("walk", 0.25)
+		state.TELEGRAPH:
+			anim.play("idle", 0.25)
+			telegraph_timer = 0.2
+		state.KICK:
+			cooldown = 2.0
+			anim.play("kick", 0.1)
+		state.REPOSITION:
+			side = -1.0 if randf() > 0.5 else 1.0
+
 func aim(delta) -> void:
 	var target = (player.global_position + Vector3(0, 1.5, 0)) - armhinge.global_position
 	var flat_dist = Vector2(target.x, target.z).length()
 	var angle = Vector2(flat_dist, target.y).angle()
 	armhinge.rotation.z = lerp_angle(armhinge.rotation.z, angle, 16.0 * delta)
 	
+func shoot() -> void:
+	var bullet = BULLET.instantiate()
+	get_parent().add_child(bullet)
+	bullet.global_position = bulletpos.global_position
+	bullet.global_transform.basis = global_transform.basis.rotated(global_transform.basis.x.normalized(), armhinge.rotation.z)
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"kick":
+			change_state(state.RETREAT)
+
+
+func _on_kick_connected(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		var hit_data: Dictionary = {
+		"damage": 25.0,
+		"knockback": 20,
+		"dir": -transform.basis.z
+		}
+		body.hit(hit_data)
+
+func hit(hit_data) -> void:
+	super(hit_data)
+	hitanim.play("hit")
