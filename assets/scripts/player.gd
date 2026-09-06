@@ -112,7 +112,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	debug.text = """Pos: %s
-Speed: %s""" % [round(global_position), round(velocity.length())]
+Speed: %s""" % [round(global_position), round(hat_velocity)]
 	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
@@ -147,10 +147,10 @@ Speed: %s""" % [round(global_position), round(velocity.length())]
 	if sword_hitbox.monitoring: deal_swing()
 	
 	movestuff(delta)
+	grav(delta)
 	dash(delta)
 	slide(delta)
 	jump(delta)
-	grav(delta)
 	hatstuff(delta)
 	combatstuff(delta)
 	
@@ -308,6 +308,7 @@ func crouch_start() -> void:
 	crouching = true
 	collider.shape.height = 0.9
 	collider.position.y = 0.45
+	floor_snap_length = 0.0
 
 func crouch_end() -> void:
 	if ceilingcheck.is_colliding():
@@ -317,6 +318,7 @@ func crouch_end() -> void:
 		collider.shape.height = 1.8
 		collider.position.y = 0.9
 		crouch_end_requested = false
+		floor_snap_length = 0.8
 
 
 func hatstuff(delta) -> void:
@@ -332,8 +334,9 @@ func hatstuff(delta) -> void:
 			hat.state.LAUNCHED:
 				grav_velocity.y /= 5
 				hat.used = true
-				var pull_dir : Vector3 = (hat.global_position - global_position).normalized()
+				var pull_dir: Vector3 = (hat.global_position - global_position).normalized()
 				hat_velocity = pull_dir * 25.0
+				
 		
 			hat.state.LANDED:
 				if not hat.used:
@@ -347,10 +350,13 @@ func hatstuff(delta) -> void:
 		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
 	elif hat.current_state == hat.state.EQUIPPED:
 		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
+	if hat_velocity.length_squared() < 0.5: hat_velocity = Vector3.ZERO
+	if is_on_floor() and hat_velocity.y <= 0: hat_velocity.y = 0
 
 func combatstuff(delta) -> void:
 	
 	external_velocity = external_velocity.lerp(Vector3.ZERO, 4.0 * delta)
+	if external_velocity.length_squared() < 0.5: external_velocity = Vector3.ZERO
 	
 	if switch_buffer > 0.0 and not is_switching:
 		switch_buffer = 0.0

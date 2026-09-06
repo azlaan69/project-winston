@@ -50,7 +50,7 @@ visible = false
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Instructions" type="Label3D" parent="." unique_id=890364319]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 40, -69)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 38, -112)
 pixel_size = 0.001
 billboard = 1
 fixed_size = true
@@ -67,6 +67,7 @@ HAT LANDED + R: WARP TO HAT
 HAT LANDED ALSO ACTS AS A JUMP PAD
 F12: RESET"
 font = ExtResource("4_uum53")
+font_size = 48
 line_spacing = 8.0
 
 [node name="enemies" type="Node3D" parent="." unique_id=1039829579]
@@ -79,6 +80,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49, 40)
 
 [node name="shooter3" parent="enemies" unique_id=2127880107 instance=ExtResource("7_vsmvd")]
 transform = Transform3D(0, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 0, -57, 2, 0)
+
+[node name="shooter4" parent="enemies" unique_id=384094617 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68, 41, 0)
+
+[node name="shooter5" parent="enemies" unique_id=1437205413 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68, 41, -24)
+
+[node name="shooter6" parent="enemies" unique_id=716613697 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(-0.9659258, 0, 0.25881913, 0, 1, 0, -0.25881913, 0, -0.9659258, 104, 71, -49)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")
@@ -104,4 +114,10 @@ start_position = Vector3(2, -4, -4)
 end_position = Vector3(-2, 6, -4)
 
 [node name="tease" parent="." unique_id=1979071613 instance=ExtResource("7_1jmg1")]
-transform = Transform3D(-1.5298986e-07, 0, 3.5, 0, 3.5, 0, -3.5, 0, -1.5298986e-07, -180, 2, 0)
+transform = Transform3D(-1.5298986e-07, 0, 3.5, 0, 3.5, 0, -3.5, 0, -1.5298986e-07, -184, 0, 0)
+
+[node name="Label3D" type="Label3D" parent="tease" unique_id=492402929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3199399, 0.5714286, -1.3428993)
+text = "SOON"
+font = ExtResource("4_uum53")
+font_size = 128

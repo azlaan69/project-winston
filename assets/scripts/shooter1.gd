@@ -104,7 +104,7 @@ func _physics_process(delta: float) -> void:
 			if cooldown <= 0.0: change_state(state.IDLE)
 
 	if movement.length() > 0.0 and current_state in [state.CHASE, state.RETREAT, state.REPOSITION] and iframe_timer <= 0.0:
-		anim.play("walk", 0.25, movement.length() / 10)
+		anim.play("walk", 0.0, movement.length() / 10)
 	
 	velocity.x = movement.x
 	velocity.z = movement.z
@@ -119,15 +119,15 @@ func change_state(new_state: state) -> void:
 	
 	match current_state:
 		state.IDLE:
-			anim.play("idle", 0.25)
+			anim.play("idle")
 		state.CHASE, state.RETREAT:
-			anim.play("walk", 0.25)
+			anim.play("walk")
 		state.TELEGRAPH:
-			anim.play("idle", 0.25)
+			anim.play("idle")
 			telegraph_timer = 0.2
 		state.KICK:
 			cooldown = 2.0
-			anim.play("kick", 0.1)
+			anim.play("kick")
 		state.REPOSITION:
 			side = -1.0 if randf() > 0.5 else 1.0
 

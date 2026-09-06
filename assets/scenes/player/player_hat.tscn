@@ -5,14 +5,21 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
 size = Vector3(1.5, 0.5, 1.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq8os"]
+no_depth_test = true
+albedo_color = Color(0, 0.87058824, 1, 1)
+emission_enabled = true
+emission = Color(0, 0.87058824, 1, 1)
+emission_energy_multiplier = 16.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq8q7"]
+transparency = 1
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0, 1, 1, 1)
+albedo_color = Color(0, 1, 1, 0)
 roughness = 0.0
 emission_enabled = true
 emission = Color(0, 1, 1, 1)
-emission_energy_multiplier = 2.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 2, 1)
@@ -23,6 +30,8 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 gravity_scale = 2.0
+contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("1_ht0oc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=572414648]
@@ -33,6 +42,7 @@ debug_color = Color(0.43137255, 1, 1, 1)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1406943292]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.39999962, 0)
+material_override = SubResource("StandardMaterial3D_pq8os")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D" unique_id=921216218]
 polygon = PackedVector2Array(0, 0, 0, 0.5, 1, 0.1, 1, 0)
@@ -42,6 +52,7 @@ spin_sides = 4
 material = SubResource("StandardMaterial3D_pq8q7")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/CSGPolygon3D" unique_id=371698944]
+visible = false
 light_color = Color(0, 1, 1, 1)
 light_energy = 8.0
 light_indirect_energy = 16.0

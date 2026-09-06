@@ -20,10 +20,11 @@ func _physics_process(delta: float) -> void:
 		$CollisionShape3D.disabled = true
 		global_position = player.global_position + Vector3(0, 2, 0)
 	
-	elif current_state == state.LAUNCHED: rotation.y += 30
+	elif current_state == state.LAUNCHED:
+		rotation.y += 30
+		$CollisionShape3D.disabled = false
 	
 	if global_position.y < -35 and global_position.y - player.global_position.y < -20: reset()
-	if current_state == state.LAUNCHED: $CollisionShape3D.disabled = false
 	
 	if cd.time_left > 0.0: can_use = false
 	else: can_use = true
@@ -60,5 +61,7 @@ func _on_body_entered(body: Node) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if current_state == state.LANDED and (body.is_in_group("player") or body == player):
-		player.external_velocity.y = 40.0
-		get_tree().create_timer(0.2).timeout.connect(func(): reset())
+		player.hat_velocity.y = 40.0
+		await get_tree().create_timer(0.2).timeout
+		if current_state == state.LANDED:
+			reset()
