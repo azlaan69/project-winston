@@ -13,6 +13,7 @@ var strafe: Vector3
 var side: float
 
 @export var armhinge: Node3D
+@export var head: Node3D
 @export var bulletpos: Marker3D
 @export var anim: AnimationPlayer
 @export var hitanim: AnimationPlayer
@@ -64,8 +65,7 @@ func _physics_process(delta: float) -> void:
 					change_state(state.TELEGRAPH)
 			
 		state.TELEGRAPH:
-			
-			var path_dir = get_next_path_dir(delta) 
+			 
 			rotate_towards(dir, look_speed * 1.5, delta)
 			telegraph_timer -= delta
 			if telegraph_timer <= 0.0:
@@ -136,6 +136,7 @@ func aim(delta) -> void:
 	var flat_dist = Vector2(target.x, target.z).length()
 	var angle = Vector2(flat_dist, target.y).angle()
 	armhinge.rotation.z = lerp_angle(armhinge.rotation.z, angle, 16.0 * delta)
+	head.rotation.z = lerp_angle(head.rotation.z, angle, 16.0 * delta)
 	
 func shoot() -> void:
 	var bullet = BULLET.instantiate()

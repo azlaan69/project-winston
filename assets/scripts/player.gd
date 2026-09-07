@@ -47,8 +47,10 @@ var hat_velocity: Vector3
 var grav_velocity: Vector3
 var external_velocity: Vector3
 
+
 var input_dir = 0.0
 var move_dir = 0.0
+
 
 var hp = 100
 var dash_charges = 3
@@ -57,12 +59,18 @@ var slide_buffer: float = 0.0
 var dash_buffer: float = 0.0
 var shoot_buffer: float = 0.0
 var switch_buffer: float = 0.0
+var iframe_timer: float = 0.0
 var sword_logging : bool = true
+
 
 enum wpn { GUNS, SWORD }
 var current_wpn = wpn.SWORD
 var shoot_l : bool = false
 var combo_step : int = 1
+
+
+const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
+
 
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
@@ -93,6 +101,8 @@ func _ready() -> void:
 	look_rotation.x = head.rotation.x
 	
 	weapon_setup()
+	
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
@@ -111,8 +121,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	debug.text = """Pos: %s
-Speed: %s""" % [round(global_position), round(hat_velocity)]
+	debug.text = str(Engine.get_frames_per_second())
 	
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
@@ -143,6 +152,8 @@ Speed: %s""" % [round(global_position), round(hat_velocity)]
 	if shoot_buffer > 0.0:
 		shoot_buffer -= delta
 		deal_shot()
+	
+	if iframe_timer > 0.0: iframe_timer -= delta
 	
 	if sword_hitbox.monitoring: deal_swing()
 	
@@ -308,7 +319,6 @@ func crouch_start() -> void:
 	crouching = true
 	collider.shape.height = 0.9
 	collider.position.y = 0.45
-	floor_snap_length = 0.0
 
 func crouch_end() -> void:
 	if ceilingcheck.is_colliding():
@@ -318,7 +328,6 @@ func crouch_end() -> void:
 		collider.shape.height = 1.8
 		collider.position.y = 0.9
 		crouch_end_requested = false
-		floor_snap_length = 0.8
 
 
 func hatstuff(delta) -> void:
@@ -413,9 +422,13 @@ func combatstuff(delta) -> void:
 
 
 func hit(hit_data: Dictionary) -> void:
-	hp -= hit_data["damage"]
-	var modifier = 1.0 if is_on_floor() else 2.0
-	external_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
+	if iframe_timer <= 0.0:
+		hp -= hit_data["damage"]
+		var modifier = 1.0 if is_on_floor() else 2.0
+		external_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
+		iframe_timer = 0.5
+		var trauma = hit_data["damage"] / 50.0
+		juice.add_trauma(trauma)
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0
@@ -436,6 +449,10 @@ func deal_shot() -> void:
 		if result:
 			var body = result.collider
 			if body and body.has_method("hit"):
+				var fx = hitfx.instantiate()
+				get_parent().add_child(fx)
+				fx.global_position = result.position
+				
 				var hit_data = {
 					"damage": 1.0, # replace with function bichazz
 					"type": "GUN"

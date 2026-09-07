@@ -2,20 +2,37 @@ extends Node3D
 
 @export var player: CharacterBody3D
 @export var camera: Camera3D
+@export var shake: Node3D
 
 var shift_allowed: bool = true
 var end_fov: float = 90
 var end_tilt: float = 0.0
 var end_y: float = 1.7
 
+var trauma: float
+var noise = FastNoiseLite.new()
+var noise_offset: float = 0.0
+
+var max_offset = Vector3(1.0, 1.0, 1.0)
+var max_roll = deg_to_rad(12.0)
+var max_pitch = deg_to_rad(15.0)
+var max_yaw = deg_to_rad(18.0)
+var decay = 3.0
+var noise_speed = 35.0
+
+func _ready() -> void:
+	noise.seed = randi()
+	noise.frequency = 0.005
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+
 func _process(delta: float) -> void:
 	if shift_allowed:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
-		end_fov = remap(clamp(speed, 0.0, 150.0), 0.0, 50.0, 80.0, 110.0)
+		end_fov = remap(clamp(speed, 0.0, 70.0), 0.0, 70.0, 80.0, 110.0)
 		end_fov = clamp(end_fov, 80.0, 110.0)
 		
 		if player.crouching and player.is_on_floor():
-			end_y = 1.0
+			end_y = 0.8
 		else:
 			end_y = 1.7
 		
@@ -29,15 +46,35 @@ func _process(delta: float) -> void:
 				end_tilt = 0.0
 		else:
 			var strafe_input := Input.get_axis(player.input_left, player.input_right)
+			var strafe_factor = 2.0 if player.is_on_floor() else 5.0
 			if strafe_input != 0:
-				end_tilt = deg_to_rad(strafe_input * 2.0)
+				end_tilt = deg_to_rad(strafe_input * strafe_factor)
 			else:
 				end_tilt = 0.0
+	if trauma > 0.0:
+		trauma = max(trauma - decay * delta, 0.0)
+		noise_offset += delta * noise_speed
+		apply_shake()
+	else:
+		camera.h_offset = 0
+		shake.position = Vector3.ZERO
+		shake.rotation = Vector3.ZERO
 	
 	var interp_speed = 25.0 if end_fov > camera.fov else 6.0
-	camera.fov = lerp(camera.fov, end_fov, delta * interp_speed)
-	rotation.z = lerp(rotation.z, end_tilt, delta * 12.0)
-	position.y = lerp(position.y, end_y, delta * 12.0)
+	camera.fov = lerp(camera.fov, end_fov, 1.0 - exp(delta * -interp_speed))
+	rotation.z = lerp(rotation.z, end_tilt, 1.0 - exp(delta * -12.0))
+	position.y = lerp(position.y, end_y, 1.0 - exp(delta * -12.0))
+
+func add_trauma(amount: float) -> void:
+	trauma = clamp(trauma + amount, 0.0, 1.0)
+
+func apply_shake() -> void:
+	var amount = pow(trauma, 2.0)
+	
+	camera.h_offset = max_offset.x * amount * noise.get_noise_2d(noise_offset, 0.0)
+	shake.rotation.x = max_pitch * amount * noise.get_noise_2d(noise_offset + 100.0, 0.0)
+	shake.rotation.z = max_roll * amount * noise.get_noise_2d(noise_offset + 200.0, 0.0)
+	shake.rotation.y = max_yaw * amount * noise.get_noise_2d(noise_offset + 300.0, 0.0)
 
 func shift(pos: float, fov: float, time: float = 1.0, perm: bool = false) -> void:
 	position.y = pos

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://blcy5n0k46xm2"]
+
+[ext_resource type="Texture2D" uid="uid://wbce8375ih0u" path="res://assets/textures/drawin251g.png" id="1_vcsxp"]
+[ext_resource type="Script" uid="uid://dap4hh1kakj6b" path="res://assets/scripts/hitfx.gd" id="1_yh36u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g25m"]
+atlas = ExtResource("1_vcsxp")
+region = Rect2(0, 0, 794, 1123)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_seyvw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g25m")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="hitfx" type="Node3D" unique_id=2022318758]
+script = ExtResource("1_yh36u")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1341018182]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_seyvw")

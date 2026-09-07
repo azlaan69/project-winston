@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://sykghv0lbrf6" path="res://assets/scripts/hud.gd" id="4_5v77c"]
 [ext_resource type="Shader" uid="uid://boafba55hdap6" path="res://assets/shaders/hud_outline.gdshader" id="4_omksk"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="6_g20y1"]
+[ext_resource type="PackedScene" uid="uid://blcy5n0k46xm2" path="res://assets/scenes/player/hitfx.tscn" id="8_n7aby"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -1062,11 +1063,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 target_position = Vector3(1, 0, 0)
 
-[node name="Head" type="Node3D" parent="." unique_id=243913613 node_paths=PackedStringArray("player", "camera")]
+[node name="Head" type="Node3D" parent="." unique_id=243913613 node_paths=PackedStringArray("player", "camera", "shake")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 script = ExtResource("2_5v77c")
 player = NodePath("..")
 camera = NodePath("CameraPivot/Camera3D")
+shake = NodePath("CameraPivot")
 
 [node name="CameraPivot" type="Node3D" parent="Head" unique_id=2116535625]
 
@@ -1839,6 +1841,9 @@ libraries/ = SubResource("AnimationLibrary_df3o5")
 [node name="SwordPlayerOld" type="AnimationPlayer" parent="Archive" unique_id=1718135825]
 root_node = NodePath("../../Head/CameraPivot/WeaponLayer/SubViewport/Sword")
 libraries/ = SubResource("AnimationLibrary_i6fpi")
+
+[node name="hitfx" parent="." unique_id=2022318758 instance=ExtResource("8_n7aby")]
+visible = false
 
 [connection signal="timeout" from="Dash_CD" to="." method="_on_dash_cd_timeout"]
 [connection signal="body_entered" from="Head/CameraPivot/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
