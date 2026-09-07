@@ -1,6 +1,6 @@
 extends BaseEnemy
 
-enum state { IDLE, CHASE, TELEGRAPH, ATTACK, KICK, RETREAT, REPOSITION }
+enum state { IDLE, CHASE, TELEGRAPH, ATTACK, KICK, RETREAT, REPOSITION, STAGGER }
 var current_state = state.IDLE
 
 var telegraph_timer: float
@@ -102,13 +102,19 @@ func _physics_process(delta: float) -> void:
 			strafe = flat_dir.cross(Vector3.UP) * side
 			movement = movement.lerp(strafe * speed * 0.6, accel * delta)
 			if cooldown <= 0.0: change_state(state.IDLE)
+		
+		state.STAGGER:
+			movement = Vector3.ZERO
+			if cooldown <= 0.0: change_state(state.IDLE)
 
 	if movement.length() > 0.0 and current_state in [state.CHASE, state.RETREAT, state.REPOSITION] and iframe_timer <= 0.0:
 		anim.play("walk", 0.0, movement.length() / 10)
 	
 	velocity.x = movement.x
 	velocity.z = movement.z
-	$Label3D.text = str(round(dist))
+	velocity += kb_velocity
+	#$Label3D.text = str(state.find_key(current_state))
+	$Label3D.text = str(round(kb_velocity))
 	
 	move_and_slide()
 
@@ -130,6 +136,8 @@ func change_state(new_state: state) -> void:
 			anim.play("kick")
 		state.REPOSITION:
 			side = -1.0 if randf() > 0.5 else 1.0
+		state.STAGGER:
+			cooldown = 2.0
 
 func aim(delta) -> void:
 	var target = (player.global_position + Vector3(0, 1.5, 0)) - armhinge.global_position
@@ -153,7 +161,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func _on_kick_connected(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		var hit_data: Dictionary = {
-		"damage": 25.0,
+		"damage": 20.0,
 		"knockback": 20,
 		"dir": -transform.basis.z
 		}
@@ -162,3 +170,4 @@ func _on_kick_connected(body: Node3D) -> void:
 func hit(hit_data) -> void:
 	super(hit_data)
 	hitanim.play("hit")
+	if hit_data["damage"] >= 2.0: change_state(state.STAGGER)

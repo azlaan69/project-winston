@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dwoiv7psmj8uo" path="res://assets/scripts/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://dllew3uk4ian2" path="res://assets/scripts/juice.gd" id="2_5v77c"]
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_omksk"]
-[ext_resource type="Shader" uid="uid://pjeiipxng585" path="res://assets/shaders/toon.gdshader" id="3_jfawc"]
 [ext_resource type="Script" uid="uid://sykghv0lbrf6" path="res://assets/scripts/hud.gd" id="4_5v77c"]
 [ext_resource type="Shader" uid="uid://boafba55hdap6" path="res://assets/shaders/hud_outline.gdshader" id="4_omksk"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="6_g20y1"]
@@ -30,7 +29,8 @@ height = 1.0
 render_priority = 1
 shader = ExtResource("2_omksk")
 shader_parameter/line_thickness = 1.5
-shader_parameter/normal_threshold = 0.4
+shader_parameter/normal_threshold = 0.35
+shader_parameter/depth_threshold = 0.002
 shader_parameter/line_color = Color(0, 0, 0, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_seyvw"]
@@ -1005,10 +1005,6 @@ colors = PackedColorArray(0, 0.6431373, 1, 1, 0, 0.87058824, 1, 1, 0, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_g20y1"]
 gradient = SubResource("Gradient_qeb3f")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_seyvw"]
-shader = ExtResource("3_jfawc")
-shader_parameter/amount = 0.0
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g20y1"]
 diffuse_mode = 3
 specular_mode = 2
@@ -1189,6 +1185,7 @@ script = ExtResource("4_5v77c")
 player = NodePath("../..")
 
 [node name="Label" type="Label" parent="Overlay/HUD" unique_id=1065309724]
+visible = false
 layout_mode = 0
 offset_left = 25.0
 offset_top = 10.0
@@ -1659,7 +1656,7 @@ color = Color(0, 1, 1, 1)
 polygon = PackedVector2Array(-114, 24, -216, 55, -110, 28, -1, 0)
 
 [node name="Filter" type="ColorRect" parent="Overlay/HUD" unique_id=388580622]
-material = SubResource("ShaderMaterial_seyvw")
+visible = false
 layout_mode = 0
 offset_top = 5.0
 offset_right = 1918.0

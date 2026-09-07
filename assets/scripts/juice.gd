@@ -18,7 +18,7 @@ var max_roll = deg_to_rad(12.0)
 var max_pitch = deg_to_rad(15.0)
 var max_yaw = deg_to_rad(18.0)
 var decay = 3.0
-var noise_speed = 35.0
+var noise_speed = 350.0
 
 func _ready() -> void:
 	noise.seed = randi()
@@ -51,6 +51,9 @@ func _process(delta: float) -> void:
 				end_tilt = deg_to_rad(strafe_input * strafe_factor)
 			else:
 				end_tilt = 0.0
+				
+	noise_speed = lerp(300, 2500, trauma)
+	
 	if trauma > 0.0:
 		trauma = max(trauma - decay * delta, 0.0)
 		noise_offset += delta * noise_speed
@@ -69,7 +72,7 @@ func add_trauma(amount: float) -> void:
 	trauma = clamp(trauma + amount, 0.0, 1.0)
 
 func apply_shake() -> void:
-	var amount = pow(trauma, 2.0)
+	var amount = pow(trauma, 0.5)
 	
 	camera.h_offset = max_offset.x * amount * noise.get_noise_2d(noise_offset, 0.0)
 	shake.rotation.x = max_pitch * amount * noise.get_noise_2d(noise_offset + 100.0, 0.0)

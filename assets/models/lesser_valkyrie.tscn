@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bwlnqi7ycc0k2"]
 
 [ext_resource type="PackedScene" uid="uid://cxdvnmx6vv3ls" path="res://assets/models/lesser_valkyrie_raw.gltf" id="1_q0fj2"]
-[ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_jpath"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y70v5"]
 cull_mode = 2
@@ -18,46 +17,6 @@ albedo_color = Color(1, 0, 0.43529412, 0.08235294)
 emission_enabled = true
 emission = Color(10.5787325, 0, 4.8473277, 1)
 emission_energy_multiplier = 16.0
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dmy4m"]
-sky_top_color = Color(0.588884, 0.86057085, 0.9975019, 1)
-sky_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
-ground_bottom_color = Color(0.15904948, 0.17961928, 0.17665055, 1)
-ground_horizon_color = Color(1.0100081, 1.0830722, 1.1165628, 1)
-
-[sub_resource type="Sky" id="Sky_q0fj2"]
-sky_material = SubResource("ProceduralSkyMaterial_dmy4m")
-
-[sub_resource type="Environment" id="Environment_0m1ak"]
-background_mode = 1
-background_color = Color(1, 1, 1, 1)
-sky = SubResource("Sky_q0fj2")
-ambient_light_source = 2
-ambient_light_color = Color(0.7204674, 0.72046757, 0.7204672, 1)
-tonemap_mode = 3
-tonemap_exposure = 0.2
-tonemap_white = 5.0
-tonemap_agx_white = 16.5
-tonemap_agx_contrast = 2.0
-sdfgi_read_sky_light = false
-sdfgi_cascades = 1
-sdfgi_min_cell_size = 3.0
-glow_enabled = true
-glow_bloom = 1.0
-glow_blend_mode = 0
-volumetric_fog_density = 0.152
-adjustment_contrast = 1.25
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jpath"]
-render_priority = 1
-shader = ExtResource("2_jpath")
-shader_parameter/line_thickness = 1.5
-shader_parameter/normal_threshold = 0.4
-shader_parameter/line_color = Color(0, 0, 0, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_v4n18"]
-material = SubResource("ShaderMaterial_jpath")
-size = Vector2(3, 2)
 
 [node name="blockbench_export" unique_id=1979071613 instance=ExtResource("1_q0fj2")]
 
@@ -129,24 +88,3 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
 
 [node name="mesh16" parent="wingR1" parent_id_path=PackedInt32Array(1196917650) index="0" unique_id=1038787184]
 surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
-
-[node name="beautifier" type="Node3D" parent="." index="21" unique_id=1313406106]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="beautifier" index="0" unique_id=1406400502]
-transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
-shadow_enabled = true
-editor_only = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="beautifier" index="1" unique_id=883814708]
-environment = SubResource("Environment_0m1ak")
-
-[node name="Camera3D" type="Camera3D" parent="beautifier" index="2" unique_id=1217071160]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
-cull_mask = 524287
-fov = 90.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="beautifier/Camera3D" index="0" unique_id=1042999581]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_v4n18")

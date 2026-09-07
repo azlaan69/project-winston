@@ -1,19 +1,22 @@
-shader_type canvas_item;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
-uniform float amount : hint_range(0.0, 5.0) = 0.8; // Controlled by your GDScript speed
+shader_type spatial;
+render_mode depth_draw_always, cull_front, unshaded;
+
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float outline_thickness : hint_range(0.5, 10.0) = 2.0; // Screen-space pixel thickness
+
+void vertex() {
+
+	vec4 clip_position = PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+	vec3 clip_normal = mat3(PROJECTION_MATRIX * MODELVIEW_MATRIX) * NORMAL;
+
+	vec2 offset = normalize(clip_normal.xy) * outline_thickness * 0.002 * clip_position.w;
+	
+	clip_position.xy += offset;
+	POSITION = clip_position;
+}
 
 void fragment() {
-    // Calculate distance from the center of the screen to create a vignette effect
-    vec2 center = vec2(0.5, 0.5);
-    vec2 uv = SCREEN_UV;
-    vec2 dist = uv - center;
-    
-    // Offset the color channels based on distance from center and speed amount
-    vec4 color = vec4(0.0);
-    color.r = texture(SCREEN_TEXTURE, uv - dist * amount * 0.02).r;
-    color.g = texture(SCREEN_TEXTURE, uv).g;
-    color.b = texture(SCREEN_TEXTURE, uv + dist * amount * 0.02).b;
-    color.a = 1.0;
-    
-    COLOR = color;
+	ALBEDO = outline_color.rgb;
+	ALPHA = outline_color.a;
+	//DEPTH = 0.9999;
 }

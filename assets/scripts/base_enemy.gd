@@ -15,6 +15,7 @@ var player = null
 var iframe_timer: float = 0.0
 var distance: Vector3 = Vector3.ZERO
 var dir = distance.normalized()
+var kb_velocity = Vector3.ZERO
 
 @onready var nav = get_node_or_null("NavigationAgent3D")
 
@@ -27,6 +28,8 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	if iframe_timer > 0.0: iframe_timer -= delta
+	if kb_velocity.length() > 0.5: kb_velocity = kb_velocity * exp(-4 * delta)
+	if kb_velocity.length() <= 0.5: kb_velocity = Vector3.ZERO
 	
 	if hp <= 0:
 		die()
@@ -50,9 +53,9 @@ func rotate_towards(target: Vector3, turn_speed: float, delta: float) -> void:
 
 func hit(hit_data: Dictionary) -> void:
 	if iframe_timer > 0.0: return
-	var dmg: float = float(hit_data.get("damage", 0.0))
-	hp -= dmg
+	hp -= hit_data["damage"]
 	iframe_timer = 0.2
+	kb_velocity = hit_data["dir"] * hit_data["knockback"]
 
 func check_los() -> bool: # optional
 	if not player:

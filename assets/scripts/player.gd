@@ -422,13 +422,15 @@ func combatstuff(delta) -> void:
 
 
 func hit(hit_data: Dictionary) -> void:
-	if iframe_timer <= 0.0:
-		hp -= hit_data["damage"]
-		var modifier = 1.0 if is_on_floor() else 2.0
-		external_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
-		iframe_timer = 0.5
-		var trauma = hit_data["damage"] / 50.0
-		juice.add_trauma(trauma)
+	if iframe_timer > 0.0: return
+	
+	hp -= hit_data["damage"]
+	var modifier = 1.0 if is_on_floor() else 2.0
+	external_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
+	iframe_timer = 0.5
+	
+	var trauma = hit_data["damage"] / 50.0
+	juice.add_trauma(trauma)
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0
@@ -450,23 +452,32 @@ func deal_shot() -> void:
 			var body = result.collider
 			if body and body.has_method("hit"):
 				var fx = hitfx.instantiate()
-				get_parent().add_child(fx)
-				fx.global_position = result.position
+				body.add_child(fx)
+				fx.global_position = result.position.lerp(body.global_position + (-body.transform.basis.z * 2), 0.2)
+				fx.anim = "pistol"
 				
 				var hit_data = {
 					"damage": 1.0, # replace with function bichazz
-					"type": "GUN"
+					"type": "GUN",
+					"knockback": 1.0,
+					"dir": -global_transform.basis.z
 				}
 				body.hit(hit_data)
 				break
 
 func deal_swing() -> void:
 	for body in sword_hitbox.get_overlapping_bodies():
-		print(body)
 		if body != self and body.has_method("hit") and not body.iframe_timer > 0.0:
+			var fx = hitfx.instantiate()
+			body.add_child(fx)
+			fx.global_position = body.global_position + (-body.transform.basis.z * 1.0)
+			fx.anim = "sword"
+			
 			var hit_data = {
 				"damage": 1.0,
-				"type": "SWORD"
+				"type": "SWORD",
+				"knockback": 10.0,
+				"dir": -global_transform.basis.z
 			}
 			body.hit(hit_data)
 

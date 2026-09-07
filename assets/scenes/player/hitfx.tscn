@@ -1,27 +1,79 @@
 [gd_scene format=3 uid="uid://blcy5n0k46xm2"]
 
-[ext_resource type="Texture2D" uid="uid://wbce8375ih0u" path="res://assets/textures/drawin251g.png" id="1_vcsxp"]
 [ext_resource type="Script" uid="uid://dap4hh1kakj6b" path="res://assets/scripts/hitfx.gd" id="1_yh36u"]
+[ext_resource type="Texture2D" uid="uid://dc27ncq4b11gx" path="res://assets/textures/hitfx/drawin251g_frame 1.png" id="2_q4j80"]
+[ext_resource type="Texture2D" uid="uid://dne8j8jx26ccr" path="res://assets/textures/hitfx/drawin251g_frame 2.png" id="3_gcgvq"]
+[ext_resource type="Texture2D" uid="uid://b7e4ikwdi7f7g" path="res://assets/textures/hitfx/drawin251g_frame 3.png" id="4_23whd"]
+[ext_resource type="Texture2D" uid="uid://yh7vt0kevy1b" path="res://assets/textures/hitfx/drawin251g_frame 4.png" id="5_vrkvf"]
+[ext_resource type="Texture2D" uid="uid://dvqiobdvliu3k" path="res://assets/textures/slashfx.png" id="6_gcgvq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0g25m"]
-atlas = ExtResource("1_vcsxp")
-region = Rect2(0, 0, 794, 1123)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcgvq"]
+atlas = ExtResource("6_gcgvq")
+region = Rect2(945, 945, 945, 945)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23whd"]
+atlas = ExtResource("6_gcgvq")
+region = Rect2(945, 0, 945, 945)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrkvf"]
+atlas = ExtResource("6_gcgvq")
+region = Rect2(0, 0, 945, 945)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxwsm"]
+atlas = ExtResource("6_gcgvq")
+region = Rect2(0, 945, 945, 945)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_seyvw"]
 animations = [{
 "frames": [{
+"duration": 2.0,
+"texture": ExtResource("2_q4j80")
+}, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0g25m")
+"texture": ExtResource("3_gcgvq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_23whd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vrkvf")
 }],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
+"loop": 0,
+"name": &"pistol",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcgvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23whd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrkvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxwsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23whd")
+}],
+"loop": 0,
+"name": &"sword",
+"speed": 15.0
 }]
 
 [node name="hitfx" type="Node3D" unique_id=2022318758]
 script = ExtResource("1_yh36u")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1341018182]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
+modulate = Color(18.892, 18.892, 18.892, 1)
 billboard = 1
+alpha_cut = 1
+render_priority = 1
 sprite_frames = SubResource("SpriteFrames_seyvw")
+animation = &"sword"
