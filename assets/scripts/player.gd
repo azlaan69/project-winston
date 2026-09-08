@@ -231,7 +231,8 @@ func dash(delta) -> void:
 		dash_charges -= 1
 	var speed_ratio = clamp(dash_velocity.length() / 150.0, 0.0, 1.0)
 	var decay = lerp(16.0, 2.0, speed_ratio)
-	dash_velocity = dash_velocity * exp(-decay * delta)
+	#dash_velocity = dash_velocity * exp(-decay * delta)
+	dash_velocity = dash_velocity.move_toward(Vector3.ZERO, 350.0 * delta)
 	if dash_velocity.length_squared() < 1.0: dash_velocity = Vector3.ZERO
 
 func slide(delta) -> void:

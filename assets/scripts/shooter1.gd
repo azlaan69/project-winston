@@ -126,7 +126,7 @@ func change_state(new_state: state) -> void:
 	match current_state:
 		state.IDLE:
 			anim.play("idle")
-		state.CHASE, state.RETREAT:
+		state.CHASE, state.RETREAT, state.REPOSITION:
 			anim.play("walk")
 		state.TELEGRAPH:
 			anim.play("idle")
