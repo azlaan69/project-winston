@@ -78,7 +78,8 @@ func _physics_process(delta: float) -> void:
 			
 			shots += 1
 			shoot()
-			cooldown = 1.0
+			
+			cooldown = 0.5
 			if shots >= 3 and cooldown > 0.0:
 				shots = 0
 				change_state(state.REPOSITION)

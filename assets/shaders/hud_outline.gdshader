@@ -7,10 +7,7 @@ uniform float border_thickness_px : hint_range(0.0, 20.0) = 2.0;
 void fragment() {
 	vec2 uv = UV;
 	
-	// Convert exact pixel thickness using the real node dimensions
 	vec2 b = border_thickness_px / rect_size;
-
-	// Equalized edge check on all 4 sides
 	bool is_border = uv.x < b.x || uv.x > (1.0 - b.x) ||
 	                 uv.y < b.y || uv.y > (1.0 - b.y);
 
