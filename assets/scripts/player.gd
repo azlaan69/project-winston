@@ -41,6 +41,7 @@ var is_switching : bool = false
 
 var move_velocity: Vector3
 var jump_velocity: Vector3
+var wall_velocity: Vector3
 var slide_velocity: Vector3
 var dash_velocity: Vector3
 var hat_velocity: Vector3
@@ -50,6 +51,8 @@ var external_velocity: Vector3
 
 var input_dir = 0.0
 var move_dir = 0.0
+var wall_normal: Vector3
+var wall_run_speed = 0.0
 
 
 var hp = 100
@@ -121,9 +124,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	debug.text = str(Engine.get_frames_per_second())
+	debug.text = str(wall_velocity)
 	
-	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
 		input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
 		var motion := (head.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -162,6 +164,7 @@ func _physics_process(delta: float) -> void:
 	dash(delta)
 	slide(delta)
 	jump(delta)
+	wall(delta)
 	hatstuff(delta)
 	combatstuff(delta)
 	
@@ -170,7 +173,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	if is_on_wall():
-		var wall_normal = get_wall_normal()
+		wall_normal = wallcheck.get_collision_normal(0)
 		dash_velocity = dash_velocity.slide(wall_normal)
 		slide_velocity = slide_velocity.slide(wall_normal)
 
@@ -246,7 +249,7 @@ func slide(delta) -> void:
 		if slide_velocity.length() > 0.0:
 			var target_dir = -transform.basis.z if (not move_dir and is_on_floor()) else move_dir
 			var current_dir = slide_velocity.normalized()
-			var dir = current_dir.lerp(target_dir, 10.0 * delta)
+			var dir = current_dir.lerp(target_dir, 8.0 * delta)
 			slide_velocity = dir * slide_velocity.length()
 		
 		var decay = 3.0
@@ -274,8 +277,12 @@ func slide(delta) -> void:
 func jump(delta) -> void:
 	if jump_buffer > 0.0 and (is_on_floor() or near_wall):
 		grav_velocity.y = 0.0
-		var jump_force = 14.0
+		var jump_force = wall_velocity.length() if (not is_on_floor() and near_wall) else 14.0
 		jump_buffer = 0.0
+		
+		if near_wall and not is_on_floor():
+			jump_velocity += wall_normal * (wall_velocity.length() / 1.5) + Vector3(0.0, 6.0, 0.0)
+			move_velocity = Vector3.ZERO
 		
 		if slide_velocity.length() > 10.0 and downhill:
 			jump_force += slide_velocity.length() * 0.4
@@ -287,15 +294,29 @@ func jump(delta) -> void:
 		
 		jump_velocity.y = jump_force
 		
-		if near_wall and not is_on_floor():
-			var wall_normal = wallcheck.get_collision_normal(0)
-			jump_velocity += wall_normal * (velocity.length()) + Vector3(0, 6, 0)
-			move_velocity = Vector3.ZERO
 		
 	elif is_on_floor() or is_on_ceiling():
 		jump_velocity = Vector3.ZERO
 	else:
 		jump_velocity = jump_velocity.move_toward(Vector3.ZERO, 25.0 * delta)
+
+func wall(delta) -> void:
+	if near_wall and not is_on_floor():
+		var forward = -transform.basis.z
+		if move_dir and abs(forward.dot(wall_normal)) < 0.6:
+			if wall_run_speed == 0:
+				var entry_speed = velocity.length()
+				wall_run_speed = maxf(base_speed * 1.5, entry_speed)
+			
+			wall_run_speed = move_toward(wall_run_speed, base_speed, 5.0 * delta)
+			var run_dir = forward.slide(wall_normal).normalized()
+			wall_velocity = run_dir * wall_run_speed
+			grav_velocity = Vector3.ZERO
+			return
+	
+	wall_run_speed = 0.0
+	wall_velocity = wall_velocity.move_toward(Vector3.ZERO, 25.0 * delta)
+
 
 func grav(delta) -> void:
 	var rising = jump_velocity.y > 1.0

@@ -4,19 +4,35 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y70v5"]
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(0.3254902, 0.18039216, 0.22745098, 1)
 metallic = 1.0
+stencil_mode = 3
+stencil_flags = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41bhd"]
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(1, 0, 0.43137255, 1)
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2gas"]
+diffuse_mode = 3
+specular_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxk3g"]
 transparency = 1
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(1, 0, 0.43529412, 0.08235294)
 emission_enabled = true
 emission = Color(10.5787325, 0, 4.8473277, 1)
 emission_energy_multiplier = 16.0
+stencil_mode = 3
+stencil_flags = 2
 
 [node name="blockbench_export" unique_id=1979071613 instance=ExtResource("1_q0fj2")]
 
@@ -41,6 +57,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 [node name="pelvis4" parent="pelvis" parent_id_path=PackedInt32Array(105267935) index="3" unique_id=163938909]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
+[node name="thighR" parent="thighL" parent_id_path=PackedInt32Array(31885470) index="0" unique_id=148659956]
+surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
+
+[node name="thighR2" parent="thighR3" parent_id_path=PackedInt32Array(456183100) index="0" unique_id=1840451202]
+surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
+
 [node name="mesh" parent="kneeL" parent_id_path=PackedInt32Array(1901676579) index="0" unique_id=268606743]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
@@ -52,6 +74,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
 [node name="mesh4" parent="shoulderR" parent_id_path=PackedInt32Array(1812098163) index="0" unique_id=491198889]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
+
+[node name="mesh5" parent="armL" parent_id_path=PackedInt32Array(1964223762) index="0" unique_id=319493586]
+surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
+
+[node name="mesh6" parent="armR" parent_id_path=PackedInt32Array(1725853401) index="0" unique_id=32354801]
+surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
 
 [node name="mesh7" parent="forearmL" parent_id_path=PackedInt32Array(1498409717) index="0" unique_id=1320943872]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")

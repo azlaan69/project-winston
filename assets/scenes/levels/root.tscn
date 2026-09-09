@@ -36,6 +36,7 @@ agent_max_climb = 0.1
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=675200441]
 transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
 shadow_enabled = true
+directional_shadow_max_distance = 500.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1699014821]
 environment = SubResource("Environment_vvh5c")
