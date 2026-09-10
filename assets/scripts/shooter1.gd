@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 	dir = distance.normalized()
 	var dist = distance.length()
 	los = check_los()
-	#player.debug.text = str(los)
 	
 	if cooldown > 0.0: cooldown -= delta
 	

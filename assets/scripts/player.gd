@@ -124,15 +124,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	#debug.text = "TOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nNEAR WALL: %.s" % [
-	#str(velocity.round()),
-	#str(wall_velocity.round()),
-	#str(jump_velocity.round()),
-	#str(slide_velocity.round()),
-	#str(grav_velocity.round()),
-	#str(wall_normal.snapped(Vector3(0.01, 0.01, 0.01))),
-	#was_near_wall
-#]
+	debug.text = "TOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nNEAR WALL: %.s" % [
+	str(velocity.round()),
+	str(wall_velocity.round()),
+	str(jump_velocity.round()),
+	str(slide_velocity.round()),
+	str(grav_velocity.round()),
+	str(wall_normal.snapped(Vector3(0.01, 0.01, 0.01))),
+	was_near_wall
+]
 	
 	if can_freefly and freeflying:
 		input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
@@ -181,7 +181,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	#wall_normal = wallcheck.get_collision_normal(0)
-	wall_normal = get_wall_normal()
+	if wallcheck.is_colliding: wall_normal = wallcheck.get_collision_normal(0)
+	else: wall_normal = Vector3.ZERO
 	if is_on_wall():
 		dash_velocity = dash_velocity.slide(wall_normal)
 		slide_velocity = slide_velocity.slide(wall_normal)
@@ -293,7 +294,7 @@ func jump(delta) -> void:
 			wall_velocity = Vector3.ZERO
 			#move_velocity = Vector3.ZERO
 			var launch_speed = clamp(velocity.length() * 0.8, 15.0, 30.0)
-			var eject_dir = (wall_normal * 1.2 + -transform.basis.z * 0.5).normalized()
+			var eject_dir = (wall_normal * 1.2 + -transform.basis.z * 0.9).normalized()
 			jump_velocity = (eject_dir * launch_speed) + Vector3(0.0, 12.0, 0.0)
 			return
 		
@@ -318,7 +319,7 @@ func wall(delta) -> void:
 		var forward = -transform.basis.z
 		if move_dir and abs(forward.dot(wall_normal)) < 0.6:
 			if wall_run_speed == 0:
-				var entry_speed = velocity.length()
+				var entry_speed = velocity.length() / 2
 				wall_run_speed = maxf(base_speed * 1.5, entry_speed)
 			
 			wall_run_speed = move_toward(wall_run_speed, base_speed, 10.0 * delta)
@@ -454,6 +455,11 @@ func combatstuff(delta) -> void:
 						anim_sword.play("swing3")
 					3:
 						pass
+			
+			elif Input.is_action_just_pressed("rmb") and !is_switching:
+				anim_sword.stop()
+				combo.stop()
+				anim_sword.play("parry")
 
 
 func hit(hit_data: Dictionary) -> void:
