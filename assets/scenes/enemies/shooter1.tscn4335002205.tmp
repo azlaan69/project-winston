@@ -8,7 +8,7 @@ radius = 0.75
 height = 2.9995117
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xoxhl"]
-radius = 0.4
+radius = 0.2
 
 [node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim") groups=["enemy"]]
 script = ExtResource("1_yknt1")
@@ -17,6 +17,12 @@ head = NodePath("shooter/root/pelvis/torso/head")
 bulletpos = NodePath("shooter/root/pelvis/torso/arms/armL/fofrontmR/gun/Marker3D")
 anim = NodePath("shooter/AnimationPlayer")
 hitanim = NodePath("shooter/hitanim")
+hp = null
+speed = null
+has_gravity = null
+use_nav = null
+look_speed = null
+accel = null
 socialdistance = 40.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=941452281]
@@ -54,7 +60,6 @@ transform = Transform3D(0.96592546, -0.24999988, 0.066987276, 0.25881895, 0.9330
 transform = Transform3D(0.8660253, 0.48296297, -0.12940946, -0.48296297, 0.875, 0.03349364, 0.12940954, 0.03349366, 0.9910247, -0.04148457, -0.56381005, 0.018114116)
 
 [node name="los" type="ShapeCast3D" parent="." unique_id=1168150727]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.412114, 0)
 shape = SubResource("SphereShape3D_xoxhl")
 target_position = Vector3(0, 0, 0)
 

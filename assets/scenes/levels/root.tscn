@@ -76,20 +76,17 @@ line_spacing = 8.0
 [node name="shooter1" parent="enemies" unique_id=733271003 instance=ExtResource("7_vsmvd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -56.705307, 2, -8)
 
-[node name="shooter2" parent="enemies" unique_id=927586640 instance=ExtResource("7_vsmvd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49, 40)
+[node name="shooter2" parent="enemies" unique_id=816785027 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 41, 0)
 
 [node name="shooter3" parent="enemies" unique_id=2127880107 instance=ExtResource("7_vsmvd")]
 transform = Transform3D(0, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 0, -57, 2, 0)
 
-[node name="shooter4" parent="enemies" unique_id=384094617 instance=ExtResource("7_vsmvd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68, 41, 0)
+[node name="shooter4" parent="enemies" unique_id=1923780596 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 41, -28)
 
-[node name="shooter5" parent="enemies" unique_id=1437205413 instance=ExtResource("7_vsmvd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68, 41, -24)
-
-[node name="shooter6" parent="enemies" unique_id=716613697 instance=ExtResource("7_vsmvd")]
-transform = Transform3D(-0.9659258, 0, 0.25881913, 0, 1, 0, -0.25881913, 0, -0.9659258, 104, 71, -49)
+[node name="shooter5" parent="enemies" unique_id=364209728 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 42, 29)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")

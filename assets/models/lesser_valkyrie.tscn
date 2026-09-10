@@ -27,12 +27,26 @@ specular_mode = 1
 transparency = 1
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(1, 0, 0.43529412, 0.08235294)
+albedo_color = Color(1, 0, 0.43529412, 0.39215687)
 emission_enabled = true
-emission = Color(10.5787325, 0, 4.8473277, 1)
+emission = Color(1.8247963, 0, 0.8116174, 1)
 emission_energy_multiplier = 16.0
 stencil_mode = 3
 stencil_flags = 2
+
+[sub_resource type="Environment" id="Environment_l2gas"]
+background_mode = 1
+background_color = Color(1, 0, 0.43137255, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0, 0.68649316, 0.6864933, 1)
+tonemap_mode = 3
+tonemap_exposure = 0.2
+tonemap_white = 16.0
+glow_enabled = true
+glow_bloom = 1.0
+glow_hdr_threshold = 1.5
+adjustment_contrast = 500.0
+adjustment_saturation = 0.0
 
 [node name="blockbench_export" unique_id=1979071613 instance=ExtResource("1_q0fj2")]
 
@@ -116,3 +130,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
 
 [node name="mesh16" parent="wingR1" parent_id_path=PackedInt32Array(1196917650) index="0" unique_id=1038787184]
 surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="21" unique_id=1520655968]
+environment = SubResource("Environment_l2gas")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="22" unique_id=1195503717]
+transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
+shadow_enabled = true
+editor_only = true
+directional_shadow_max_distance = 500.0

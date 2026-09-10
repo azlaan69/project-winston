@@ -23,7 +23,6 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 
 func _physics_process(delta: float) -> void:
-	
 	if has_gravity and not is_on_floor():
 		velocity += get_gravity() * delta
 	
@@ -60,7 +59,7 @@ func hit(hit_data: Dictionary) -> void:
 func check_los() -> bool: # optional
 	if not player:
 		return false
-	$los.target_position = to_local(player.global_position + Vector3(0, 1.5, 0))
+	$los.target_position = to_local(player.global_position + Vector3(0, -0.5, 0))
 	$los.force_shapecast_update()
 	if $los.is_colliding():
 		return $los.get_collider(0).is_in_group("player")

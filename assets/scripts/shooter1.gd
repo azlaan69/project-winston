@@ -28,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	dir = distance.normalized()
 	var dist = distance.length()
 	los = check_los()
+	#player.debug.text = str(los)
 	
 	if cooldown > 0.0: cooldown -= delta
 	
@@ -38,7 +39,7 @@ func _physics_process(delta: float) -> void:
 			movement = movement.lerp(Vector3.ZERO, accel * delta)
 			anim.play("idle", 0.6)
 			
-			if not los or dist > 70.0:
+			if dist > 70.0:
 				pass
 			elif dist < 2.0:
 				change_state(state.KICK)
@@ -78,9 +79,8 @@ func _physics_process(delta: float) -> void:
 			
 			shots += 1
 			shoot()
-			
 			cooldown = 0.5
-			if shots >= 3 and cooldown > 0.0:
+			if shots >= 3:
 				shots = 0
 				change_state(state.REPOSITION)
 			else:
@@ -114,8 +114,7 @@ func _physics_process(delta: float) -> void:
 	velocity.x = movement.x
 	velocity.z = movement.z
 	velocity += kb_velocity
-	#$Label3D.text = str(state.find_key(current_state))
-	$Label3D.text = str(round(kb_velocity))
+	#$Label3D.text = str(los, state.find_key(current_state))
 	
 	move_and_slide()
 
@@ -127,7 +126,7 @@ func change_state(new_state: state) -> void:
 	match current_state:
 		state.IDLE:
 			anim.play("idle")
-		state.CHASE, state.RETREAT, state.REPOSITION:
+		state.CHASE, state.RETREAT:
 			anim.play("walk")
 		state.TELEGRAPH:
 			anim.play("idle")
@@ -136,6 +135,7 @@ func change_state(new_state: state) -> void:
 			cooldown = 2.0
 			anim.play("kick")
 		state.REPOSITION:
+			anim.play("walk")
 			side = -1.0 if randf() > 0.5 else 1.0
 		state.STAGGER:
 			cooldown = 2.0

@@ -60,8 +60,14 @@ func _on_body_entered(body: Node) -> void:
 			reset()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if current_state == state.LANDED and (body.is_in_group("player") or body == player):
-		player.hat_velocity.y = 40.0
+	if current_state == state.LANDED:
+		if (body.is_in_group("player") or body == player):
+			player.hat_velocity.y = 40.0
+		elif body.has_method("hit"):
+			body.velocity.y *= -1
+			if body.movement: body.movement.y *= -1
+		else:
+			return
 		await get_tree().create_timer(0.2).timeout
 		if current_state == state.LANDED:
 			reset()

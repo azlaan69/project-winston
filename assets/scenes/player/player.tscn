@@ -1038,7 +1038,7 @@ mesh = SubResource("CapsuleMesh_ucva2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 visible = false
 shape = SubResource("CapsuleShape3D_iof21")
-debug_color = Color(0, 1, 1, 1)
+debug_color = Color(18.892157, 0, 18.892157, 1)
 
 [node name="Dash_CD" type="Timer" parent="." unique_id=606288445]
 one_shot = true
@@ -1074,6 +1074,13 @@ camera = NodePath("CameraPivot/Camera3D")
 shake = NodePath("CameraPivot")
 
 [node name="CameraPivot" type="Node3D" parent="Head" unique_id=2116535625]
+
+[node name="DebugCam" type="Camera3D" parent="Head/CameraPivot" unique_id=2044831973]
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 2.9999998, 3)
+visible = false
+current = true
+fov = 90.0
+size = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="Head/CameraPivot" unique_id=74809103]
 unique_name_in_owner = true
@@ -1664,12 +1671,6 @@ offset_top = 5.0
 offset_right = 1918.0
 offset_bottom = 1081.0
 mouse_filter = 2
-
-[node name="DebugCam" type="Camera3D" parent="." unique_id=627743738]
-transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 3, 3)
-visible = false
-fov = 90.0
-size = 5.0
 
 [node name="Archive" type="Node3D" parent="." unique_id=441660175]
 
