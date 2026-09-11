@@ -7,11 +7,21 @@ var speed: float = 0.0
 var hit_time: float = 0.0
 
 func _ready() -> void:
-	pass # Replace with function body.
-
+	player = get_tree().get_first_node_in_group("player") as CharacterBody3D
+	player.hud = self
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	$Label.text = "TOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nNEAR WALL: %.s" % [
+	str(player.velocity.round()),
+	str(player.wall_velocity.round()),
+	str(player.jump_velocity.round()),
+	str(player.slide_velocity.round()),
+	str(player.grav_velocity.round()),
+	str(player.wall_normal.snapped(Vector3(0.01, 0.01, 0.01))),
+	player.was_near_wall
+	]
 	var dash_charges = player.dash_charges
 	var time_left = player.dash_cd.time_left
 	var total_time = player.dash_cd.wait_time
@@ -52,3 +62,5 @@ func _process(delta: float) -> void:
 	
 	$Crosshair/Gun.visible = (player.current_wpn == player.wpn.GUNS)
 	$Crosshair/Sword.visible = (!$Crosshair/Gun.visible)
+	
+	#$Filter.visible = ((player.iframe_timer / 2) > 0.1)

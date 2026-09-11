@@ -32,3 +32,8 @@ func get_target_in_cone(from: Vector3, dir: Vector3, distance: float = 80.0, rad
 			return (body.global_position + Vector3(0, 0.9, 0) - from).normalized()
 	
 	return norm_dir
+
+func hitstop(dur: float = 0.1) -> void:
+	Engine.time_scale = 0.0
+	await get_tree().create_timer(dur, true, false, true).timeout
+	Engine.time_scale = 1.0

@@ -21,6 +21,7 @@ var decay = 3.0
 var noise_speed = 350.0
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	noise.seed = randi()
 	noise.frequency = 0.005
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX

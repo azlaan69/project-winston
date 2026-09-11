@@ -1,0 +1,568 @@
+[gd_scene format=3 uid="uid://bu0wdb3r6xfqs"]
+
+[ext_resource type="Script" uid="uid://sykghv0lbrf6" path="res://assets/scripts/hud.gd" id="1_lnytp"]
+[ext_resource type="Shader" uid="uid://boafba55hdap6" path="res://assets/shaders/hud_outline.gdshader" id="2_dw83o"]
+[ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="3_5kx6n"]
+[ext_resource type="Shader" uid="uid://cvqw2xccf733i" path="res://assets/shaders/filter1.gdshader" id="4_dw83o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4rah4"]
+font_size = 32
+font_color = Color(0, 1, 0, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_jfawc"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0.39215687)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nhb04"]
+gradient = SubResource("Gradient_jfawc")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_omksk"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.6431373, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qeb3f"]
+gradient = SubResource("Gradient_omksk")
+
+[sub_resource type="Gradient" id="Gradient_g20y1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.76862746, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g83mg"]
+gradient = SubResource("Gradient_g20y1")
+
+[sub_resource type="Gradient" id="Gradient_d85cr"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_omksk"]
+gradient = SubResource("Gradient_d85cr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nhb04"]
+shader = ExtResource("2_dw83o")
+shader_parameter/rect_size = Vector2(300, 30)
+shader_parameter/border_color = Color(0, 0, 0, 1)
+shader_parameter/border_thickness_px = 2.0
+
+[sub_resource type="Gradient" id="Gradient_g83mg"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0.43137255, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_df3o5"]
+gradient = SubResource("Gradient_g83mg")
+
+[sub_resource type="LabelSettings" id="LabelSettings_seyvw"]
+font = ExtResource("3_5kx6n")
+font_size = 30
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_omksk"]
+
+[sub_resource type="Gradient" id="Gradient_qeb3f"]
+offsets = PackedFloat32Array(0, 0.5337838, 1)
+colors = PackedColorArray(0, 0.6431373, 1, 1, 0, 0.87058824, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g20y1"]
+gradient = SubResource("Gradient_qeb3f")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnytp"]
+shader = ExtResource("4_dw83o")
+shader_parameter/threshold = 0.50000002375
+shader_parameter/effect_strength = 1.0
+
+[node name="Overlay" type="CanvasLayer" unique_id=320630329]
+
+[node name="HUD" type="Control" parent="." unique_id=174345578]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_lnytp")
+
+[node name="Label" type="Label" parent="HUD" unique_id=1129181077]
+visible = false
+layout_mode = 0
+offset_left = 25.0
+offset_top = 10.0
+offset_right = 97.0
+offset_bottom = 55.0
+text = "0,0,0"
+label_settings = SubResource("LabelSettings_4rah4")
+
+[node name="DashHud" type="Node2D" parent="HUD" unique_id=1460663545]
+position = Vector2(48.999935, 1032)
+skew = 0.9599311
+
+[node name="DashBG" type="TextureRect" parent="HUD/DashHud" unique_id=436055299]
+offset_right = 484.68054
+offset_bottom = 64.0
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="DashMeter" type="HBoxContainer" parent="HUD/DashHud" unique_id=1043812375]
+offset_left = 6.999998
+offset_top = 6.0
+offset_right = 473.0
+offset_bottom = 44.0
+theme_override_constants/separation = 8
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HUD/DashHud/DashMeter" unique_id=1874072763]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_qeb3f")
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="HUD/DashHud/DashMeter" unique_id=481958721]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_g83mg")
+
+[node name="TextureProgressBar3" type="TextureProgressBar" parent="HUD/DashHud/DashMeter" unique_id=584272656]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_omksk")
+
+[node name="DashOverlay" type="TextureRect" parent="HUD/DashHud" unique_id=246371526]
+z_index = 5
+material = SubResource("ShaderMaterial_nhb04")
+offset_right = 484.68054
+offset_bottom = 64.0
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="HealthHud" type="Node2D" parent="HUD" unique_id=484129998]
+position = Vector2(90.99994, 1000.00006)
+skew = 0.959931
+
+[node name="HealthBG" type="TextureRect" parent="HUD/HealthHud" unique_id=491423221]
+offset_left = 3.2554774
+offset_top = 1.4141855
+offset_right = 487.936
+offset_bottom = 65.414185
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HUD/HealthHud" unique_id=1426747509]
+custom_minimum_size = Vector2(150, 0)
+offset_left = 8.856201
+offset_top = 6.973755
+offset_right = 477.13184
+offset_bottom = 47.072876
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_df3o5")
+
+[node name="HealthOverlay" type="TextureRect" parent="HUD/HealthHud" unique_id=310879150]
+z_index = 5
+material = SubResource("ShaderMaterial_nhb04")
+offset_left = 3.2554774
+offset_top = 1.4141855
+offset_right = 487.936
+offset_bottom = 65.414185
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="Speedometer" type="Node2D" parent="HUD" unique_id=1252673063]
+position = Vector2(545.9998, 1001.99994)
+skew = 0.9599311
+
+[node name="SpeedBG" type="TextureRect" parent="HUD/Speedometer" unique_id=951009884]
+offset_left = 33.00023
+offset_top = 1.7436942
+offset_right = 142.0266
+offset_bottom = 123.61088
+scale = Vector2(0.99034303, 0.8011409)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="SpeedOverlay" type="Polygon2D" parent="HUD/Speedometer" unique_id=1290097151]
+color = Color(0, 0, 0, 1)
+invert_enabled = true
+invert_border = 4.0
+polygon = PackedVector2Array(33.428467, 1.7435303, 141.42847, 1.7435303, 141.40479, 99.37659, 33.40454, 99.376465)
+
+[node name="SpeedText" type="Label" parent="HUD" unique_id=1763459783]
+layout_mode = 0
+offset_left = 564.0
+offset_top = 981.0
+offset_right = 629.40454
+offset_bottom = 1082.1199
+text = "24"
+label_settings = SubResource("LabelSettings_seyvw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HatHud" type="Node2D" parent="HUD" unique_id=1806891142]
+position = Vector2(1654, 119)
+
+[node name="HatBG" type="TextureRect" parent="HUD/HatHud" unique_id=1250321414]
+material = SubResource("ShaderMaterial_omksk")
+offset_left = -166.28088
+offset_top = -65.02613
+offset_right = 218.59216
+offset_bottom = 96.1618
+rotation = 0.0676482
+scale = Vector2(0.989, 0.8)
+texture = SubResource("GradientTexture2D_nhb04")
+
+[node name="CD" type="TextureProgressBar" parent="HUD/HatHud/HatBG" unique_id=2306506]
+layout_mode = 0
+offset_left = -0.19519901
+offset_top = 165.69016
+offset_right = 382.94104
+offset_bottom = 180.71408
+max_value = 1.0
+step = 0.01
+value = 1.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_g20y1")
+
+[node name="Polygon2D" type="Polygon2D" parent="HUD/HatHud/HatBG" unique_id=311547058]
+color = Color(0, 0, 0, 1)
+antialiased = true
+invert_enabled = true
+invert_border = 4.0
+polygon = PackedVector2Array(0.29614258, 166.63907, -0.029174805, 179.19496, 383.14636, 180.92838, 382.32617, 165.96268)
+
+[node name="HatBGOutine" type="Polygon2D" parent="HUD/HatHud" unique_id=366710027]
+position = Vector2(23.999863, -12.000011)
+rotation = 0.0676482
+scale = Vector2(0.989, 0.8)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-195.5813, -50.053123)
+antialiased = true
+invert_enabled = true
+invert_border = 4.0
+polygon = PackedVector2Array(1.7531738, 161.2427, 383.19678, 159.3219, 382.65613, 1.7309189, 0.00012207031, -1.5258789e-05)
+
+[node name="Equipped" type="Node2D" parent="HUD/HatHud" unique_id=2033476757]
+visible = false
+
+[node name="Hat1" type="Polygon2D" parent="HUD/HatHud/Equipped" unique_id=144633]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat2" type="Polygon2D" parent="HUD/HatHud/Equipped" unique_id=1456883770]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat3" type="Polygon2D" parent="HUD/HatHud/Equipped" unique_id=1816622134]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="HatOutline" type="Polygon2D" parent="HUD/HatHud/Equipped" unique_id=1480597172]
+position = Vector2(23.999878, -12)
+rotation = 0.067648195
+scale = Vector2(0.9903432, 0.8011409)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-195.31604, -49.981857)
+polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
+
+[node name="Launched" type="Node2D" parent="HUD/HatHud" unique_id=568576138]
+visible = false
+position = Vector2(-7, 7)
+rotation = -0.61420125
+
+[node name="Hat1" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=515842919]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat2" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=2109197586]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat3" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=1701657713]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="Hat4" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=1501052571]
+self_modulate = Color(1, 1, 1, 0.49019608)
+position = Vector2(73.085205, 12.692917)
+rotation = -0.2705972
+scale = Vector2(0.817, 1.072)
+skew = 0.04182422
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat5" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=1768753290]
+self_modulate = Color(1, 1, 1, 0.49019608)
+position = Vector2(73.085205, 12.692917)
+rotation = -0.2705972
+scale = Vector2(0.817, 1.072)
+skew = 0.04182422
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat6" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=823490360]
+self_modulate = Color(1, 1, 1, 0.49019608)
+position = Vector2(73.085205, 12.692917)
+rotation = -0.2705972
+scale = Vector2(0.817, 1.072)
+skew = 0.04182422
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="Hat7" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=837600373]
+self_modulate = Color(1, 1, 1, 0.27450982)
+position = Vector2(143.1405, 52.9832)
+rotation = -0.27059722
+scale = Vector2(0.6970001, 0.9060001)
+skew = 0.04182422
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat8" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=896136232]
+self_modulate = Color(1, 1, 1, 0.27450982)
+position = Vector2(143.1405, 52.9832)
+rotation = -0.27059722
+scale = Vector2(0.6970001, 0.9060001)
+skew = 0.04182422
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat9" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=1298338021]
+self_modulate = Color(1, 1, 1, 0.27450982)
+position = Vector2(143.1405, 52.9832)
+rotation = -0.27059722
+scale = Vector2(0.6970001, 0.9060001)
+skew = 0.04182422
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="HatOutline" type="Polygon2D" parent="HUD/HatHud/Launched" unique_id=1703533550]
+position = Vector2(23.999878, -12)
+rotation = 0.06764819
+scale = Vector2(0.9903433, 0.8011409)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-195.31604, -49.981857)
+polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
+
+[node name="Landed" type="Node2D" parent="HUD/HatHud" unique_id=1851789400]
+visible = false
+
+[node name="Hat1" type="Polygon2D" parent="HUD/HatHud/Landed" unique_id=1576150514]
+position = Vector2(-4.9398193, 3.357514)
+rotation = -1.646332
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat2" type="Polygon2D" parent="HUD/HatHud/Landed" unique_id=749083739]
+position = Vector2(-4.9398193, 3.357514)
+rotation = -1.646332
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat3" type="Polygon2D" parent="HUD/HatHud/Landed" unique_id=1350985260]
+position = Vector2(-4.9398193, 3.357514)
+rotation = -1.646332
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="HatOutline" type="Polygon2D" parent="HUD/HatHud/Landed" unique_id=1782438276]
+position = Vector2(-4.939947, 3.3575163)
+rotation = -1.3080866
+scale = Vector2(0.9903432, 0.8011409)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-195.31604, -49.981857)
+polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
+
+[node name="CD" type="Node2D" parent="HUD/HatHud" unique_id=767369058]
+
+[node name="Hat1" type="Polygon2D" parent="HUD/HatHud/CD" unique_id=1712782819]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0.31431624, 0.31431603, 0.3143162, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat2" type="Polygon2D" parent="HUD/HatHud/CD" unique_id=2120213068]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0.15487596, 0.154876, 0.15487596, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat3" type="Polygon2D" parent="HUD/HatHud/CD" unique_id=1791147525]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0.19793734, 0.19793719, 0.19793722, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="HatOutline" type="Polygon2D" parent="HUD/HatHud/CD" unique_id=2039158947]
+position = Vector2(23.999878, -12)
+rotation = 0.067648195
+scale = Vector2(0.9903432, 0.8011409)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-195.31604, -49.981857)
+polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
+
+[node name="Crosshair" type="Node2D" parent="HUD" unique_id=189026448]
+position = Vector2(960, 540)
+
+[node name="Sword" type="Node2D" parent="HUD/Crosshair" unique_id=1486879620]
+visible = false
+
+[node name="Outline" type="Polygon2D" parent="HUD/Crosshair/Sword" unique_id=418265388]
+position = Vector2(0, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -12.5, -14, 6, 0, -4, 14, 6)
+
+[node name="Polygon2D" type="Polygon2D" parent="HUD/Crosshair/Sword" unique_id=1708286807]
+polygon = PackedVector2Array(0, -9, -12, 5, 0, -5, 12, 5)
+
+[node name="Gun" type="Node2D" parent="HUD/Crosshair" unique_id=1238142218]
+
+[node name="Polygon2D5" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=1105548581]
+rotation = 3.1415925
+color = Color(0, 0, 0, 1)
+antialiased = true
+polygon = PackedVector2Array(-13, -2, -3, -2, -3, 2, -13, 2)
+
+[node name="Polygon2D6" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=902498835]
+rotation = -1.5707964
+color = Color(0, 0, 0, 1)
+antialiased = true
+polygon = PackedVector2Array(-13, -2, -3, -2, -3, 2, -13, 2)
+
+[node name="Polygon2D7" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=701970753]
+rotation = 1.5707964
+color = Color(0, 0, 0, 1)
+antialiased = true
+polygon = PackedVector2Array(-13, -2, -3, -2, -3, 2, -13, 2)
+
+[node name="Polygon2D8" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=1373879775]
+color = Color(0, 0, 0, 1)
+antialiased = true
+polygon = PackedVector2Array(-13, -2, -3, -2, -3, 2, -13, 2)
+
+[node name="Polygon2D" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=1665750262]
+antialiased = true
+polygon = PackedVector2Array(4, -1, 12, -1, 12, 1, 4, 1)
+
+[node name="Polygon2D2" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=2086487162]
+antialiased = true
+polygon = PackedVector2Array(-12, -1, -4, -1, -4, 1, -12, 1)
+
+[node name="Polygon2D3" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=796028681]
+rotation = 1.5707964
+antialiased = true
+polygon = PackedVector2Array(-12, -1, -4, -1, -4, 1, -12, 1)
+
+[node name="Polygon2D4" type="Polygon2D" parent="HUD/Crosshair/Gun" unique_id=1726372824]
+rotation = -1.5707964
+antialiased = true
+polygon = PackedVector2Array(-12, -1, -4, -1, -4, 1, -12, 1)
+
+[node name="Trails" type="Node2D" parent="HUD" unique_id=1151220504]
+position = Vector2(960, 540)
+
+[node name="Left" type="Node2D" parent="HUD/Trails" unique_id=307385811]
+
+[node name="one" type="Polygon2D" parent="HUD/Trails/Left" unique_id=239841664]
+rotation = 3.1415927
+color = Color(0, 0.6431373, 1, 1)
+polygon = PackedVector2Array(284, -26, 305, -82, 247, -113, 258, -81, 186, -47, 272, -56)
+
+[node name="two" type="Polygon2D" parent="HUD/Trails/Left" unique_id=1050594884]
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(-114, 24, -216, 55, -110, 28, -1, 0)
+
+[node name="Right" type="Node2D" parent="HUD/Trails" unique_id=1065887964]
+
+[node name="one" type="Polygon2D" parent="HUD/Trails/Right" unique_id=2010544345]
+rotation = -3.1415925
+scale = Vector2(-1, 1)
+color = Color(0, 0.6431373, 1, 1)
+polygon = PackedVector2Array(284, -26, 305, -82, 247, -113, 258, -81, 186, -47, 272, -56)
+
+[node name="two" type="Polygon2D" parent="HUD/Trails/Right" unique_id=847699377]
+scale = Vector2(-1, 1)
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(-114, 24, -216, 55, -110, 28, -1, 0)
+
+[node name="Filter" type="ColorRect" parent="HUD" unique_id=833829134]
+visible = false
+material = SubResource("ShaderMaterial_lnytp")
+layout_mode = 0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 1960.0
+offset_bottom = 1120.0
+mouse_filter = 2
+color = Color(1, 1, 0, 1)

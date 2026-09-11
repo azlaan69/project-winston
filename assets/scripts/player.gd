@@ -7,7 +7,6 @@ extends CharacterBody3D
 @export var can_freefly : bool = true
 
 @export_group("Speeds")
-@export var look_speed : float = 0.002
 @export var base_speed : float = 7.0
 @export var jump_speed : float = 6.0
 @export var dash_speed : float = 20.0
@@ -27,7 +26,6 @@ extends CharacterBody3D
 @export var input_secondary : String = "rmb"
 @export var input_switch : String = "q"
 
-var mouse_captured : bool = false
 var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
@@ -77,14 +75,13 @@ const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
-@onready var debug: Label = $Overlay/HUD/Label
 @onready var hat: RigidBody3D = get_node("../Hat")
 
 @onready var dash_cd: Timer = $Dash_CD
 @onready var combo: Timer = %ComboTimer
 
 @onready var juice = $Head
-@onready var hud = $Overlay/HUD
+@onready var hud: Control
 
 @onready var wallcheck: ShapeCast3D = $WallChecker
 @onready var wallcheck_r: RayCast3D = $WallCheckRight
@@ -106,16 +103,9 @@ func _ready() -> void:
 	
 	weapon_setup()
 	
-	
-
 func _unhandled_input(event: InputEvent) -> void:
-	# Mouse capturing
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		capture_mouse()
-	if Input.is_key_pressed(KEY_ESCAPE):
-		release_mouse()
 	
-	if mouse_captured and event is InputEventMouseMotion:
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
 		rotate_look(event.relative)
 	
 	if can_freefly and Input.is_action_just_pressed(input_freefly):
@@ -125,15 +115,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	debug.text = "TOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nNEAR WALL: %.s" % [
-	str(velocity.round()),
-	str(wall_velocity.round()),
-	str(jump_velocity.round()),
-	str(slide_velocity.round()),
-	str(grav_velocity.round()),
-	str(wall_normal.snapped(Vector3(0.01, 0.01, 0.01))),
-	was_near_wall
-]
 	
 	if can_freefly and freeflying:
 		input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
@@ -183,14 +164,14 @@ func _physics_process(delta: float) -> void:
 
 	if wallcheck.is_colliding(): wall_normal = wallcheck.get_collision_normal(0)
 	else: wall_normal = Vector3.ZERO
-	if is_on_wall():
+	if is_on_wall() and wall_normal.length() > 0.1:
 		dash_velocity = dash_velocity.slide(wall_normal)
 		slide_velocity = slide_velocity.slide(wall_normal)
 
 func rotate_look(rot_input : Vector2):
-	look_rotation.x -= rot_input.y * look_speed
+	look_rotation.x -= rot_input.y * Settings.sens
 	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-85), deg_to_rad(85))
-	look_rotation.y -= rot_input.x * look_speed
+	look_rotation.y -= rot_input.x * Settings.sens
 	transform.basis = Basis()
 	rotate_y(look_rotation.y)
 	head.rotation.x = look_rotation.x
@@ -204,15 +185,6 @@ func enable_freefly():
 func disable_freefly():
 	collider.disabled = false
 	freeflying = false
-
-
-func capture_mouse():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	mouse_captured = true
-
-func release_mouse():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	mouse_captured = false
 
 
 func movestuff(delta) -> void:
@@ -506,6 +478,10 @@ func deal_swing() -> void:
 		if proj.is_in_group("projectile") and proj.parriable:
 			var angle = -%Camera3D.global_transform.basis.z
 			proj.deflect(angle)
+			var trauma = proj.hit_data["damage"] / 100.0
+			juice.add_trauma(trauma)
+			var hitstop_time = trauma / 2
+			PhysUtil.hitstop(hitstop_time)
 	
 	for body in sword_hitbox.get_overlapping_bodies():
 		

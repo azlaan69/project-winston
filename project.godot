@@ -19,6 +19,7 @@ config/icon="res://assets/textures/icon.svg"
 [autoload]
 
 PhysUtil="*uid://b8k5kp85hm5oi"
+Settings="*uid://85nh55tega2x"
 
 [display]
 
