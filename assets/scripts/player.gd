@@ -94,6 +94,7 @@ const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 @onready var anim_gun: AnimationPlayer = %PistolPlayer
 @onready var anim_sword = %SwordPlayer
 @onready var sword_hitbox = %SwordHitbox
+@onready var parry_hitbox = %ParryHitbox
 
 @onready var guns: Node3D = %PistolsParent
 @onready var sword: Node3D = %Sword
@@ -180,8 +181,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	#wall_normal = wallcheck.get_collision_normal(0)
-	if wallcheck.is_colliding: wall_normal = wallcheck.get_collision_normal(0)
+	if wallcheck.is_colliding(): wall_normal = wallcheck.get_collision_normal(0)
 	else: wall_normal = Vector3.ZERO
 	if is_on_wall():
 		dash_velocity = dash_velocity.slide(wall_normal)
@@ -476,9 +476,6 @@ func hit(hit_data: Dictionary) -> void:
 func deal_shot() -> void:
 	shoot_buffer = 0.0
 	var cam = %Camera3D
-	var space_state = get_world_3d().direct_space_state
-	var origin = cam.global_position
-	var end = origin + (-cam.global_transform.basis.z * 1000.0)
 	
 	var offsets = [
 		Vector3.ZERO,
@@ -486,9 +483,7 @@ func deal_shot() -> void:
 		cam.global_transform.basis.y * 0.35, cam.global_transform.basis.y * -0.35
 	]
 	for offset in offsets:
-		var query = PhysicsRayQueryParameters3D.create(origin + offset, end + offset)
-		query.exclude = [self.get_rid()]
-		var result = space_state.intersect_ray(query)
+		var result = PhysUtil.raycast_from_cam(%Camera3D, 1000.0, [get_rid()], offset)
 		if result:
 			var body = result.collider
 			if body and body.has_method("hit"):
@@ -507,7 +502,13 @@ func deal_shot() -> void:
 				break
 
 func deal_swing() -> void:
+	for proj in parry_hitbox.get_overlapping_areas():
+		if proj.is_in_group("projectile") and proj.parriable:
+			var angle = -%Camera3D.global_transform.basis.z
+			proj.deflect(angle)
+	
 	for body in sword_hitbox.get_overlapping_bodies():
+		
 		if body != self and body.has_method("hit") and not body.iframe_timer > 0.0:
 			var fx = hitfx.instantiate()
 			body.add_child(fx)

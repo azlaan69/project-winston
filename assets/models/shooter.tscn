@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c14w2r6atrydk"]
 
 [ext_resource type="PackedScene" uid="uid://styj31cx5pi0" path="res://assets/models/shooter_raw.gltf" id="1_n42nq"]
-[ext_resource type="Script" uid="uid://toacpq84dsr1" path="res://assets/models/shaderhelper.gd" id="2_hrg67"]
+[ext_resource type="Script" uid="uid://toacpq84dsr1" path="res://assets/scripts/helper/shaderhelper.gd" id="2_hrg67"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bkg1h"]
 diffuse_mode = 3
@@ -669,7 +669,7 @@ material_overlay = SubResource("StandardMaterial3D_bkg1h")
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
 
 [node name="forearmR" parent="root/pelvis/torso/arms/armR" index="2" unique_id=1639213656]
-transform = Transform3D(0.66424656, -0.32139173, -0.6748942, 0.4720639, 0.8803958, 0.045362957, 0.57959485, -0.34872577, 0.7365178, 0.019514259, -0.37838385, 0.0009066957)
+transform = Transform3D(0.6642465, -0.32139173, -0.67489415, 0.47206384, 0.8803958, 0.045362957, 0.5795948, -0.34872577, 0.7365177, 0.019514259, -0.37838385, 0.0009066957)
 
 [node name="cylinder5" parent="root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=328583800]
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
@@ -746,7 +746,7 @@ smooth_faces = false
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
 
 [node name="thighL" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(1025111949) index="0" unique_id=1819529140]
-transform = Transform3D(0.9659253, -0.27499995, -0.06698729, 0.25881886, 1.0263139, 0.25000006, -2.235173e-08, -0.284701, 0.9659258, 0.015625, 0.029596722, 0.10013917)
+transform = Transform3D(0.9659252, -0.27499995, -0.06698729, 0.25881886, 1.0263139, 0.25000006, -2.2351728e-08, -0.284701, 0.9659258, 0.015625, 0.029596722, 0.10013917)
 
 [node name="cylinder11" parent="root/pelvis/legs/thighL" index="0" unique_id=1603184698]
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
@@ -755,7 +755,7 @@ material_overlay = SubResource("StandardMaterial3D_bkg1h")
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
 
 [node name="kneeL" parent="root/pelvis/legs/thighL" index="2" unique_id=2062228924]
-transform = Transform3D(0.8660254, 0.48296297, 0.12940946, -0.482963, 0.875, -0.03349364, -0.12940955, -0.03349366, 0.99102473, -0.04148457, -0.56381005, -0.018114116)
+transform = Transform3D(0.8660254, 0.48296297, 0.12940946, -0.482963, 0.875, -0.03349364, -0.12940955, -0.03349366, 0.9910247, -0.04148457, -0.56381005, -0.018114116)
 
 [node name="cylinder12" parent="root/pelvis/legs/thighL/kneeL" index="0" unique_id=1405951777]
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
@@ -776,7 +776,7 @@ material_overlay = SubResource("StandardMaterial3D_bkg1h")
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
 
 [node name="kneeR" parent="root/pelvis/legs/thighR" index="2" unique_id=1849032130]
-transform = Transform3D(0.8660254, 0.48296297, -0.12940946, -0.482963, 0.875, 0.03349364, 0.12940955, 0.03349366, 0.99102473, -0.04148457, -0.56381005, 0.018114116)
+transform = Transform3D(0.8660254, 0.48296297, -0.12940946, -0.482963, 0.875, 0.03349364, 0.12940955, 0.03349366, 0.9910247, -0.04148457, -0.56381005, 0.018114116)
 
 [node name="cylinder15" parent="root/pelvis/legs/thighR/kneeR" index="0" unique_id=799766754]
 material_overlay = SubResource("StandardMaterial3D_bkg1h")

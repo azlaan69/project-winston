@@ -45,6 +45,9 @@ shader_parameter/line_color = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_jfawc")
 size = Vector2(3, 2)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
+size = Vector3(2, 1, 2)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 1.2, 3.5)
 
@@ -307,7 +310,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -340,83 +343,6 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.24331881, 1.0568871, 0), Vector3(-0.2757304, 2.9580085, 0), Vector3(-0.6437729, 4.3060384, 0), Vector3(-0.6632251, 4.377286, 0), Vector3(-0.6658366, 4.386851, 0), Vector3(-0.4099674, 3.449679, 0), Vector3(0.17760956, 1.2975605, 0), Vector3(0.506706, 0.092178695, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hyvrl"]
-resource_name = "parry_archive"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.08808589, 1.1201602, -1.5870181), Vector3(-0.752, 1.12, -1.007), Vector3(-0.752, 1.12, -1.007), Vector3(0.08808589, 1.1201602, -1.5870181)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.31415927, 1.7976891, 1.5725417), Vector3(0.31415927, 1.7976891, 1.5725417), Vector3(0.506706, 0.092178695, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = false
-tracks/3/path = NodePath("../../../SwordHitbox/CollisionShape3D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../../../SwordHitbox:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.19999999, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.088, -0.5, -1.587), Vector3(-0.567, -0.09, -0.877), Vector3(-0.567, -0.09, -0.877), Vector3(0.088, -0.5, -1.587)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../../../SwordHitbox:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.19999999, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.29670596, 1.7505653, 0), Vector3(0.29670596, 1.7505653, 0), Vector3(0.506706, 0.092178695, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_p4ou1"]
@@ -808,7 +734,6 @@ _data = {
 &"RESET": SubResource("Animation_jwpt3"),
 &"drop": SubResource("Animation_ihpx8"),
 &"parry": SubResource("Animation_0g25m"),
-&"parry_archive": SubResource("Animation_hyvrl"),
 &"ready": SubResource("Animation_p4ou1"),
 &"sheath": SubResource("Animation_lokl3"),
 &"swing1": SubResource("Animation_ryfec"),
@@ -1336,6 +1261,14 @@ material_override = SubResource("ShaderMaterial_y2pyw")
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_seyvw")
 
+[node name="ParryHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=138266649]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/ParryHitbox" unique_id=1315296259]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
+shape = SubResource("BoxShape3D_nhb04")
+debug_color = Color(1, 0, 0, 0.41960785)
+
 [node name="SwordHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=470632088]
 unique_name_in_owner = true
 transform = Transform3D(0.9957247, 0.044782154, 0.08078913, 0, 0.8746197, -0.4848095, -0.0923706, 0.4827369, 0.87088025, 0.086, -0.58, -1.58)
@@ -1344,7 +1277,6 @@ monitoring = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/SwordHitbox" unique_id=1994545392]
 transform = Transform3D(0.9999955, -1.0728836e-06, -1.0244548e-07, -7.1525574e-07, 1.0000004, 8.940697e-08, -1.2440607e-05, -2.3245811e-06, 1.0000002, 0.39999965, 2.3841858e-07, 1.1786101)
 shape = SubResource("BoxShape3D_seyvw")
-disabled = true
 
 [node name="WeaponLayer" type="SubViewportContainer" parent="Head/CameraPivot" unique_id=1651043335]
 anchors_preset = 15

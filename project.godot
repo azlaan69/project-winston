@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://assets/textures/icon.svg"
 
+[autoload]
+
+PhysUtil="*uid://b8k5kp85hm5oi"
+
 [display]
 
 window/size/viewport_width=1920
@@ -30,6 +34,7 @@ window/vsync/vsync_mode=0
 
 player=""
 enemy=""
+projectile=""
 
 [input]
 
