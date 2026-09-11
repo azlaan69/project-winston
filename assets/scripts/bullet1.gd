@@ -36,7 +36,7 @@ func _on_body_entered(body: Node3D) -> void:
 		if !parried: return
 		else:
 			hit_data = {
-				"damage": 5.0,
+				"damage": 0.0,
 				"knockback": 10,
 				"dir": -transform.basis.z
 			}
@@ -47,8 +47,7 @@ func _on_body_entered(body: Node3D) -> void:
 
 func deflect(facing: Vector3) -> void:
 	var protectionfirst: Array[RID] = [get_rid()]
-	var final_dir = PhysUtil.get_target_in_cone(global_position, facing, 80.0, 5.0, protectionfirst)
-	dir = final_dir
+	dir = PhysUtil.get_target_in_cone(global_position, facing, 80.0, 1.0, protectionfirst)
 	hit_data["dir"] = dir
 	if dir.length_squared() > 0.001:
 		global_transform.basis = Basis.looking_at(dir, Vector3.UP)

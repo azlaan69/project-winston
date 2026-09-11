@@ -46,7 +46,7 @@ material = SubResource("ShaderMaterial_jfawc")
 size = Vector2(3, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
-size = Vector3(2, 1, 2)
+size = Vector3(3.5, 2, 2.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 1.2, 3.5)
@@ -536,7 +536,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, true, true, true, false, false]
+"values": [false, true, true, true, true, true, false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -610,10 +610,10 @@ tracks/2/path = NodePath("../../../SwordHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, false, false, true, true]
+"values": [false, true, true, true, true, false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -690,7 +690,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, false, false, true, true, true, false]
+"values": [false, true, true, true, true, true, false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1265,13 +1265,14 @@ mesh = SubResource("QuadMesh_seyvw")
 unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/ParryHitbox" unique_id=1315296259]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.25)
 shape = SubResource("BoxShape3D_nhb04")
 debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="SwordHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=470632088]
 unique_name_in_owner = true
 transform = Transform3D(0.9957247, 0.044782154, 0.08078913, 0, 0.8746197, -0.4848095, -0.0923706, 0.4827369, 0.87088025, 0.086, -0.58, -1.58)
+visible = false
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/SwordHitbox" unique_id=1994545392]
