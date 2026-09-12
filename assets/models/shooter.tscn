@@ -20,6 +20,16 @@ diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(1, 0, 0, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq8os"]
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+disable_ambient_light = true
+disable_specular_occlusion = true
+disable_receive_shadows = true
+stencil_mode = 3
+stencil_flags = 2
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_seyvw"]
 radius = 0.4116211
 height = 1.875
@@ -131,7 +141,7 @@ tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [false]
 }
 tracks/9/type = "value"
@@ -381,7 +391,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, false]
 }
 
@@ -796,7 +806,7 @@ material_overlay = SubResource("StandardMaterial3D_bkg1h")
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
 
 [node name="forearmR" parent="root/pelvis/torso/arms/armR" index="2" unique_id=1639213656]
-transform = Transform3D(0.6642464, -0.32139173, -0.6748941, 0.47206378, 0.8803958, 0.04536295, 0.57959473, -0.34872577, 0.73651767, 0.019514259, -0.37838385, 0.0009066957)
+transform = Transform3D(0.6642463, -0.32139173, -0.67489403, 0.47206372, 0.8803958, 0.045362946, 0.5795947, -0.34872577, 0.7365176, 0.019514259, -0.37838385, 0.0009066957)
 
 [node name="cylinder5" parent="root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=328583800]
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
@@ -830,10 +840,10 @@ material_overlay = SubResource("StandardMaterial3D_bkg1h")
 
 [node name="gun" type="Node3D" parent="root/pelvis/torso/arms/armL/fofrontmR" index="3" unique_id=2136666657]
 transform = Transform3D(0.8953103, 0.40993744, -0.1742728, -0.35048687, 0.88976324, 0.29237187, 0.2749154, -0.2006832, 0.94029194, 0, -0.5, -0.055)
-visible = false
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="0" unique_id=863837001]
 transform = Transform3D(0.94799924, -0.29054362, -0.12992978, 0.2775806, 0.9544883, -0.109092005, 0.15571246, 0.06735317, 0.98550355, -0.013406508, 0.07919564, -0.010261921)
+material_override = SubResource("StandardMaterial3D_pq8os")
 
 [node name="barrel" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun/CSGCombiner3D" index="0" unique_id=1462968912]
 transform = Transform3D(0.99996555, 4.3213367e-07, -1.3394747e-06, 1.2740493e-06, 0.9999848, -2.7045608e-06, 4.656613e-10, -6.817281e-07, 0.999961, 0.05000043, -0.20140195, -7.4505806e-08)
@@ -874,7 +884,7 @@ smooth_faces = false
 material_overlay = SubResource("StandardMaterial3D_bkg1h")
 
 [node name="thighL" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(1025111949) index="0" unique_id=1819529140]
-transform = Transform3D(0.96592516, -0.27499995, -0.06698729, 0.25881884, 1.0263139, 0.25000006, -2.2351728e-08, -0.284701, 0.9659258, 0.015625, 0.029596722, 0.10013917)
+transform = Transform3D(0.9659251, -0.27499995, -0.06698729, 0.25881884, 1.0263139, 0.25000006, -2.2351726e-08, -0.284701, 0.9659258, 0.015625, 0.029596722, 0.10013917)
 
 [node name="cylinder11" parent="root/pelvis/legs/thighL" index="0" unique_id=1603184698]
 material_overlay = SubResource("StandardMaterial3D_bkg1h")

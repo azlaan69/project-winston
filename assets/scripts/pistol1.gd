@@ -8,6 +8,7 @@ var cooldown: float = 0.0
 var movement: Vector3
 var los: bool
 var shots: int = 0
+var shoot_left: bool = false
 
 var strafe: Vector3
 var side: float
@@ -15,9 +16,10 @@ var side: float
 @export var armhinge: Node3D
 @export var head: Node3D
 @export var bulletpos: Marker3D
+@export var bulletpos2: Marker3D
 @export var anim: AnimationPlayer
 @export var hitanim: AnimationPlayer
-const BULLET = preload("res://assets/scenes/enemies/bullet1.tscn")
+const BULLET = preload("res://assets/scenes/enemies/bullet2.tscn")
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -92,11 +94,11 @@ func _physics_process(delta: float) -> void:
 			if cooldown <= 0.0: change_state(state.IDLE)
 
 	if movement.length() > 0.0 and current_state in [state.CHASE, state.RETREAT, state.REPOSITION] and iframe_timer <= 0.0:
-		anim.play("walk", 0.0, movement.length() / 7.5)
+		anim.play("walk", 0.0, movement.length() / 10.0)
 	
 	velocity.x = movement.x
 	velocity.z = movement.z
-	velocity += kb_velocity * 2
+	velocity += kb_velocity
 	$Label3D.text = str(los, state.find_key(current_state))
 	
 	move_and_slide()
@@ -108,14 +110,15 @@ func change_state(new_state: state) -> void:
 	
 	match current_state:
 		state.IDLE:
-			anim.play("walk_pistol")
+			anim.play("idle")
 		state.CHASE, state.RETREAT:
-			anim.play("walk_pistol")
+			anim.play("walk")
 		state.TELEGRAPH:
-			anim.play("walk_pistol")
+			anim.play("walk")
 			side = -1.0 if randf() > 0.5 else 1.0
-			telegraph_timer = 1.0
+			telegraph_timer = randf()
 		state.STAGGER:
+			anim.play("idle")
 			cooldown = 2.0
 
 func aim(delta) -> void:
@@ -128,10 +131,11 @@ func aim(delta) -> void:
 func shoot() -> void:
 	var bullet = BULLET.instantiate()
 	get_parent().add_child(bullet)
-	bullet.global_position = bulletpos.global_position
+	bullet.global_position = bulletpos.global_position if shoot_left else bulletpos2.global_position
 	bullet.global_transform.basis = global_transform.basis.rotated(global_transform.basis.x.normalized(), armhinge.rotation.z)
+	shoot_left = !shoot_left
 
 func hit(hit_data) -> void:
 	super(hit_data)
-	hitanim.play("hit")
+	hitanim.play("new_animation")
 	if hit_data["damage"] >= 2.0: change_state(state.STAGGER)

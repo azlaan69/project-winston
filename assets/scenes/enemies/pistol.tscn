@@ -1,147 +1,54 @@
 [gd_scene format=3 uid="uid://bstcuqobofq4t"]
 
 [ext_resource type="Script" uid="uid://cau2yiqdo8tge" path="res://assets/scripts/pistol1.gd" id="1_hhsj7"]
-[ext_resource type="PackedScene" uid="uid://c14w2r6atrydk" path="res://assets/models/shooter.tscn" id="2_hg00e"]
+[ext_resource type="PackedScene" uid="uid://dnonwbdxl74l0" path="res://assets/models/shooter_pistol.tscn" id="2_hhsj7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vseqf"]
 radius = 0.75
 height = 2.8853436
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhsj7"]
-diffuse_mode = 3
-specular_mode = 1
-disable_ambient_light = true
-disable_specular_occlusion = true
-albedo_color = Color(0, 1, 0, 1)
-roughness = 0.1
-emission = Color(1, 0, 0, 1)
-disable_receive_shadows = true
-stencil_mode = 3
-stencil_flags = 2
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_ocygg"]
 radius = 0.4
 
-[node name="pistol" type="CharacterBody3D" unique_id=19557238 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim") groups=["enemy"]]
+[node name="pistol" type="CharacterBody3D" unique_id=19557238 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "bulletpos2", "anim", "hitanim") groups=["enemy"]]
 script = ExtResource("1_hhsj7")
-armhinge = NodePath("shooter/root/pelvis/torso/arms")
-head = NodePath("shooter/root/pelvis/torso/head")
-bulletpos = NodePath("shooter/root/pelvis/torso/arms/armL/fofrontmR/gun/Marker3D")
-anim = NodePath("shooter/AnimationPlayer")
-hitanim = NodePath("shooter/hitanim")
+armhinge = NodePath("blockbench_export/root/pelvis/torso/arms")
+head = NodePath("blockbench_export/root/pelvis/torso/head")
+bulletpos = NodePath("blockbench_export/root/pelvis/torso/arms/armR/forearmR/Marker3D")
+bulletpos2 = NodePath("blockbench_export/root/pelvis/torso/arms/armL/fofrontmR/Marker3D")
+anim = NodePath("blockbench_export/AnimationPlayer")
+hitanim = NodePath("blockbench_export/HitAnim")
+
+[node name="blockbench_export" parent="." unique_id=1258252279 instance=ExtResource("2_hhsj7")]
+transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, -0.92088085, 0)
+
+[node name="forearmR" parent="blockbench_export/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(1258252279, 470227708) index="2" unique_id=1639213656]
+transform = Transform3D(0.025157481, -0.86905766, 0.2587371, 0.9656198, 0.0814136, 0.24371055, -0.2587371, 0.21933955, 0.93469745, 0.019514263, -0.37838387, 0.00090670586)
+
+[node name="Marker3D" type="Marker3D" parent="blockbench_export/root/pelvis/torso/arms/armR/forearmR" index="3" unique_id=1446780463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06275004, -0.75909203, 3.637979e-12)
+
+[node name="armL" parent="blockbench_export/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(1258252279, 939260004) index="1" unique_id=1436495761]
+transform = Transform3D(0.73008174, -0.67105675, 0.12908588, 0.6441205, 0.73885965, 0.19797704, -0.22823012, -0.061392557, 0.9716698, -0.0010466765, 0.01171875, 0.2349074)
+
+[node name="Marker3D" type="Marker3D" parent="blockbench_export/root/pelvis/torso/arms/armL/fofrontmR" parent_id_path=PackedInt32Array(1258252279, 2101002415) index="3" unique_id=1105172047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.061873473, -0.76350963, -9.094947e-10)
+
+[node name="thighL" parent="blockbench_export/root/pelvis/legs" parent_id_path=PackedInt32Array(1258252279, 1025111949) index="0" unique_id=1819529140]
+transform = Transform3D(0.96592546, -0.24999996, -0.0669873, 0.25881895, 0.9330125, 0.25000003, -1.4901156e-08, -0.258819, 0.9659258, 0.015625, 0.029596686, 0.10013917)
+
+[node name="kneeL" parent="blockbench_export/root/pelvis/legs/thighL" index="2" unique_id=2062228924]
+transform = Transform3D(0.8660255, 0.48296297, 0.12940946, -0.48296306, 0.875, -0.03349364, -0.12940957, -0.03349366, 0.99102473, -0.041484654, -0.56381, -0.01811415)
+
+[node name="thighR" parent="blockbench_export/root/pelvis/legs" parent_id_path=PackedInt32Array(1258252279, 1025111949) index="1" unique_id=1262049012]
+transform = Transform3D(0.9659255, -0.24999999, 0.066987306, 0.25881895, 0.9330126, -0.25000006, 1.4901157e-08, 0.25881904, 0.96592593, 0.015625, 0.029596686, -0.10013917)
+
+[node name="kneeR" parent="blockbench_export/root/pelvis/legs/thighR" index="2" unique_id=1849032130]
+transform = Transform3D(0.8660254, 0.48296294, -0.12940946, -0.482963, 0.87499994, 0.03349364, 0.12940955, 0.033493657, 0.99102473, -0.041484535, -0.56381, 0.01811412)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=347278023]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5685587, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.724283, 0)
 shape = SubResource("CapsuleShape3D_vseqf")
-
-[node name="shooter" parent="." unique_id=1258252279 instance=ExtResource("2_hg00e")]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -1, 0)
-mask_material = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder" parent="shooter/root/pelvis" parent_id_path=PackedInt32Array(1258252279, 658474050) index="0" unique_id=1120213308]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder2" parent="shooter/root/pelvis/torso" parent_id_path=PackedInt32Array(1258252279, 1797756954) index="0" unique_id=74854660]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder22" parent="shooter/root/pelvis/torso" parent_id_path=PackedInt32Array(1258252279, 1797756954) index="1" unique_id=1942369463]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder3" parent="shooter/root/pelvis/torso" parent_id_path=PackedInt32Array(1258252279, 1797756954) index="2" unique_id=1686932379]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="arms" parent="shooter/root/pelvis/torso" parent_id_path=PackedInt32Array(1258252279, 1797756954) index="3" unique_id=939260004]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9, 0, 0.453125, 0)
-
-[node name="armR" parent="shooter/root/pelvis/torso/arms" index="0" unique_id=470227708]
-transform = Transform3D(0.4293208, -0.83709395, -0.33905238, 0.81652737, 0.520185, -0.25037992, 0.38596177, -0.16935219, 0.9068367, -0.0010466765, 0.01171875, -0.2349074)
-
-[node name="cylinder4" parent="shooter/root/pelvis/torso/arms/armR" index="0" unique_id=1961192210]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder23" parent="shooter/root/pelvis/torso/arms/armR" index="1" unique_id=329558809]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="forearmR" parent="shooter/root/pelvis/torso/arms/armR" index="2" unique_id=1639213656]
-transform = Transform3D(0.6642458, -0.3213916, -0.6748936, 0.47206333, 0.88039553, 0.04536292, 0.5795942, -0.34872565, 0.7365172, 0.019514259, -0.37838385, 0.0009066957)
-
-[node name="cylinder5" parent="shooter/root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=328583800]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder24" parent="shooter/root/pelvis/torso/arms/armR/forearmR" index="1" unique_id=450838944]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder6" parent="shooter/root/pelvis/torso/arms/armR/forearmR" index="2" unique_id=46814518]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="armL" parent="shooter/root/pelvis/torso/arms" index="1" unique_id=1436495761]
-transform = Transform3D(0.9252014, -0.27163935, 0.26497865, 0.14177774, 0.8951494, 0.42261812, -0.3519953, -0.353439, 0.86670613, -0.0010466765, 0.01171875, 0.2349074)
-
-[node name="cylinder7" parent="shooter/root/pelvis/torso/arms/armL" index="0" unique_id=952791777]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder25" parent="shooter/root/pelvis/torso/arms/armL" index="1" unique_id=1519462618]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="fofrontmR" parent="shooter/root/pelvis/torso/arms/armL" index="2" unique_id=2101002415]
-transform = Transform3D(0.0811974, -0.99532574, -0.05228205, 0.99546707, 0.08359172, -0.04536296, 0.04952131, -0.048361726, 0.99760085, 0.019514259, -0.37838385, -0.0009066957)
-
-[node name="cylinder8" parent="shooter/root/pelvis/torso/arms/armL/fofrontmR" index="0" unique_id=1190281097]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder26" parent="shooter/root/pelvis/torso/arms/armL/fofrontmR" index="1" unique_id=1429295948]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder9" parent="shooter/root/pelvis/torso/arms/armL/fofrontmR" index="2" unique_id=1333936089]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="Marker3D" type="Marker3D" parent="shooter/root/pelvis/torso/arms/armL/fofrontmR/gun" parent_id_path=PackedInt32Array(1258252279, 2136666657) index="0" unique_id=809280985]
-transform = Transform3D(-0.15274577, 0.17527685, 0.9725984, -0.070633665, -0.98356533, 0.16616018, 0.98573774, -0.04331787, 0.16261622, 0.2298035, -0.50287247, -0.040093854)
-
-[node name="cylinder10" parent="shooter/root/pelvis/torso/head" parent_id_path=PackedInt32Array(1258252279, 1603795184) index="0" unique_id=999317542]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="thighL" parent="shooter/root/pelvis/legs" parent_id_path=PackedInt32Array(1258252279, 1025111949) index="0" unique_id=1819529140]
-transform = Transform3D(0.9659249, -0.24999988, -0.06698728, 0.25881878, 0.93301225, 0.25000003, -2.235172e-08, -0.25881898, 0.9659257, 0.015625, 0.029596722, 0.10013917)
-
-[node name="cylinder11" parent="shooter/root/pelvis/legs/thighL" index="0" unique_id=1603184698]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder27" parent="shooter/root/pelvis/legs/thighL" index="1" unique_id=2098665264]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder12" parent="shooter/root/pelvis/legs/thighL/kneeL" parent_id_path=PackedInt32Array(1258252279, 2062228924) index="0" unique_id=1405951777]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder28" parent="shooter/root/pelvis/legs/thighL/kneeL" parent_id_path=PackedInt32Array(1258252279, 2062228924) index="1" unique_id=793377635]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder13" parent="shooter/root/pelvis/legs/thighL/kneeL" parent_id_path=PackedInt32Array(1258252279, 2062228924) index="2" unique_id=1627572421]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="thighR" parent="shooter/root/pelvis/legs" parent_id_path=PackedInt32Array(1258252279, 1025111949) index="1" unique_id=1262049012]
-transform = Transform3D(0.9659254, -0.24999987, 0.066987276, 0.25881892, 0.9330122, -0.24999996, 1.4901155e-08, 0.25881892, 0.9659255, 0.015625, 0.029596722, -0.10013917)
-
-[node name="cylinder14" parent="shooter/root/pelvis/legs/thighR" index="0" unique_id=582637815]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder29" parent="shooter/root/pelvis/legs/thighR" index="1" unique_id=1984642620]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="kneeR" parent="shooter/root/pelvis/legs/thighR" index="2" unique_id=1849032130]
-transform = Transform3D(0.8660252, 0.48296294, -0.12940945, -0.4829629, 0.87499994, 0.033493638, 0.12940952, 0.033493657, 0.9910246, -0.04148457, -0.56381005, 0.018114116)
-
-[node name="cylinder15" parent="shooter/root/pelvis/legs/thighR/kneeR" index="0" unique_id=799766754]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder210" parent="shooter/root/pelvis/legs/thighR/kneeR" index="1" unique_id=34578741]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="cylinder16" parent="shooter/root/pelvis/legs/thighR/kneeR" index="2" unique_id=1006721047]
-material_overlay = SubResource("StandardMaterial3D_hhsj7")
-
-[node name="Area3D" parent="shooter/root/pelvis/legs/thighR/kneeR/cylinder16" index="0" unique_id=2075030181]
-visible = false
 
 [node name="los" type="ShapeCast3D" parent="." unique_id=1890521789]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.412114, 0)
@@ -152,11 +59,10 @@ target_position = Vector3(0, 0, 0)
 
 [node name="Label3D" type="Label3D" parent="." unique_id=951894295]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2, 0)
+visible = false
 pixel_size = 0.01
 billboard = 1
 no_depth_test = true
 font_size = 128
 
-[connection signal="current_animation_changed" from="shooter/AnimationPlayer" to="." method="_on_animation_player_current_animation_changed"]
-
-[editable path="shooter"]
+[editable path="blockbench_export"]

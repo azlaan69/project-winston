@@ -1,0 +1,746 @@
+[gd_scene format=3 uid="uid://dnonwbdxl74l0"]
+
+[ext_resource type="PackedScene" uid="uid://styj31cx5pi0" path="res://assets/models/shooter_raw.gltf" id="1_pgkec"]
+[ext_resource type="Script" uid="uid://toacpq84dsr1" path="res://assets/scripts/helper/shaderhelper.gd" id="2_lbhv6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbhv6"]
+diffuse_mode = 3
+specular_mode = 1
+disable_ambient_light = true
+disable_specular_occlusion = true
+albedo_color = Color(0, 1, 0, 1)
+roughness = 0.1
+emission = Color(1, 0, 0, 1)
+disable_receive_shadows = true
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dgjra"]
+diffuse_mode = 3
+specular_mode = 1
+disable_ambient_light = true
+disable_specular_occlusion = true
+albedo_color = Color(0.7652138, 0.7652139, 0.7652138, 1)
+emission = Color(1, 0, 0, 1)
+disable_receive_shadows = true
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="Animation" id="Animation_dgjra"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root/pelvis/torso/arms/armR:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.2605377, -0.21263571, 0.10049142)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root/pelvis/torso/arms/armR/forearmR:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.24619006, 0.27005166, 1.4773886)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("root/pelvis/torso/arms/armL:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.19929364, 0.13207616, 0.71700144)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("root/pelvis/torso/arms/armL/fofrontmR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.10754534, -0.21543868, 0.92367554)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("root/pelvis/legs/thighL:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.25268027, -0.0692395, 0.27059743)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("root/pelvis/legs/thighL/kneeL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.03349993, 0.12984677, -0.504345)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("root/pelvis/legs/thighR:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.25268027, 0.0692395, 0.27059743)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("root/pelvis/legs/thighR/kneeR:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.03349993, -0.12984677, -0.504345)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("root/pelvis/torso:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("root/pelvis/torso/head/cylinder10:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("root/pelvis/torso/arms/armR/forearmR/gun:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.12707196, 0.04276766, -0.3256537)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("root/pelvis/torso/arms/armR/forearmR/gun:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00063412555, -0.49810508, 0.040333357)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("root/pelvis/torso/arms/armL/fofrontmR/gun:rotation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.06043579, 0.020250699, -0.32354447)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("root/pelvis/torso/arms/armL/fofrontmR/gun:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0003828929, -0.5011442, -0.009881195)]
+}
+
+[sub_resource type="Animation" id="Animation_mg8p2"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root/pelvis/torso/arms/armR:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.2605377, -0.21263571, 0.10049142)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root/pelvis/torso/arms/armR/forearmR:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.24619006, 0.27005166, 1.4773886)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("root/pelvis/torso/arms/armL:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.19929364, 0.13207616, 0.71700144)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("root/pelvis/torso/arms/armL/fofrontmR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.10754534, -0.21543868, 0.92367554)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("root/pelvis/legs/thighL:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.25268027, -0.0692395, 0.27059743)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("root/pelvis/legs/thighL/kneeL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.03349993, 0.12984677, -0.504345)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("root/pelvis/legs/thighR:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.25268027, 0.0692395, 0.27059743)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("root/pelvis/legs/thighR/kneeR:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.03349993, -0.12984677, -0.504345)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("root/pelvis/torso/arms/armR/forearmR/gun:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.12707196, 0.04276766, -0.3256537)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("root/pelvis/torso/arms/armR/forearmR/gun:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00063412555, -0.49810508, 0.040333357)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("root/pelvis/torso/arms/armL/fofrontmR/gun:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.06043579, 0.020250699, -0.32354447)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("root/pelvis/torso/arms/armL/fofrontmR/gun:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0003828929, -0.5011442, -0.009881195)]
+}
+
+[sub_resource type="Animation" id="Animation_bimul"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root/pelvis/legs/thighL:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(-0.17627825, -0.19373155, 1.3665928), Vector3(-0.1793525, -0.1797266, 1.3033314), Vector3(-0.1875152, -0.14254105, 1.1353617), Vector3(-0.19917616, -0.08941886, 0.8954048), Vector3(-0.2127453, -0.027603924, 0.61618215), Vector3(-0.22663245, 0.03565976, 0.33041546), Vector3(-0.2392475, 0.09312832, 0.070825756), Vector3(-0.24900033, 0.13755779, -0.12986544), Vector3(-0.25430074, 0.16170426, -0.23893677), Vector3(-0.25367317, 0.1588453, -0.22602262), Vector3(-0.24735506, 0.13006273, -0.096009664), Vector3(-0.23690258, 0.08244592, 0.11907901), Vector3(-0.22390589, 0.0232388, 0.3865218), Vector3(-0.20995514, -0.040314674, 0.67359746), Vector3(-0.19664042, -0.10097054, 0.9475845), Vector3(-0.1855519, -0.15148492, 1.1757617), Vector3(-0.1782797, -0.18461385, 1.3254075)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root/pelvis/legs/thighL/kneeL:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0.061738063, 0.05652113, -1.6662669), Vector3(0.06410365, 0.045495875, -1.6397805), Vector3(0.07038468, 0.016221924, -1.5694543), Vector3(0.079357594, -0.025597997, -1.4689884), Vector3(0.0897988, -0.07426119, -1.3520826), Vector3(0.100484714, -0.12406492, -1.2324369), Vector3(0.11019177, -0.16930646, -1.1237509), Vector3(0.117696375, -0.20428313, -1.0397251), Vector3(0.12177498, -0.22329219, -0.99405867), Vector3(0.12129207, -0.22104152, -0.9994656), Vector3(0.11643039, -0.19838272, -1.0538999), Vector3(0.108387396, -0.16089685, -1.1439538), Vector3(0.09838668, -0.11428663, -1.2559277), Vector3(0.08765182, -0.06425479, -1.3761215), Vector3(0.07740639, -0.016504064, -1.4908352), Vector3(0.06887397, 0.023262896, -1.586369), Vector3(0.06327814, 0.04934331, -1.6490233)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("root/pelvis/legs/thighR:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0.2540081, 0.16378304, -0.2500544), Vector3(0.25096557, 0.1649553, -0.18677455), Vector3(0.24288706, 0.16806787, -0.018755645), Vector3(0.23134635, 0.17251438, 0.22127132), Vector3(0.21791714, 0.17768851, 0.5005755), Vector3(0.2041732, 0.18298392, 0.78642577), Vector3(0.19168824, 0.18779424, 1.0460913), Vector3(0.18203601, 0.19151314, 1.2468411), Vector3(0.17679022, 0.19353428, 1.3559444), Vector3(0.17741133, 0.19329499, 1.3430265), Vector3(0.1836643, 0.19088578, 1.2129754), Vector3(0.19400899, 0.18690008, 0.99782395), Vector3(0.20687163, 0.18194424, 0.73030305), Vector3(0.22067854, 0.17662458, 0.44314343), Vector3(0.23385592, 0.17154747, 0.16907632), Vector3(0.2448301, 0.16731924, -0.059167504), Vector3(0.2520273, 0.16454624, -0.208857)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("root/pelvis/legs/thighR/kneeR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(-0.12206957, -0.22575614, -0.9888503), Vector3(-0.11968253, -0.21473332, -1.0153866), Vector3(-0.113344535, -0.1854658, -1.0858451), Vector3(-0.104290254, -0.14365506, -1.1865002), Vector3(-0.093754366, -0.09500257, -1.3036261), Vector3(-0.08297154, -0.045209803, -1.4234971), Vector3(-0.07317646, 2.18153e-05, -1.5323875), Vector3(-0.065603785, 0.034990773, -1.6165718), Vector3(-0.061488204, 0.05399567, -1.6623241), Vector3(-0.06197549, 0.051745474, -1.6569068), Vector3(-0.06688126, 0.029091662, -1.6023701), Vector3(-0.074997194, -0.008385964, -1.5121467), Vector3(-0.085088596, -0.05498593, -1.3999621), Vector3(-0.09592081, -0.10500678, -1.279542), Vector3(-0.10625915, -0.152747, -1.1646122), Vector3(-0.11486895, -0.19250521, -1.0688984), Vector3(-0.120515525, -0.21857989, -1.0061264)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("root/pelvis/torso/arms/armR:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0.31241393, -0.090757124, 0.43982297), Vector3(0.32607728, -0.09041554, 0.46045464), Vector3(0.3623559, -0.08950857, 0.5152353), Vector3(0.41418242, -0.088212915, 0.59349334), Vector3(0.47448966, -0.08670523, 0.6845573), Vector3(0.53621036, -0.085162215, 0.77775556), Vector3(0.5922773, -0.08376054, 0.86241657), Vector3(0.63562304, -0.08267689, 0.9278687), Vector3(0.6591806, -0.08208796, 0.9634406), Vector3(0.6563914, -0.08215769, 0.9592289), Vector3(0.62831074, -0.0828597, 0.9168272), Vector3(0.58185536, -0.08402109, 0.84667957), Vector3(0.5240923, -0.08546516, 0.75945735), Vector3(0.4620889, -0.08701524, 0.6658322), Vector3(0.4029125, -0.08849466, 0.57647574), Vector3(0.35363016, -0.08972672, 0.50205946), Vector3(0.32130927, -0.09053474, 0.4532549)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("root/pelvis/torso/arms/armR/forearmR:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(-0.24609143, 0.3403392, 0.85346603), Vector3(-0.2402845, 0.34307188, 0.85346603), Vector3(-0.22486609, 0.3503276, 0.85346603), Vector3(-0.20283982, 0.36069292, 0.85346603), Vector3(-0.17720923, 0.37275437, 0.85346603), Vector3(-0.15097795, 0.3850985, 0.85346603), Vector3(-0.12714952, 0.39631185, 0.85346603), Vector3(-0.108727545, 0.40498102, 0.85346603), Vector3(-0.0987156, 0.40969253, 0.85346603), Vector3(-0.09990103, 0.4091347, 0.85346603), Vector3(-0.111835256, 0.4035186, 0.85346603), Vector3(-0.13157882, 0.3942275, 0.85346603), Vector3(-0.15612811, 0.38267487, 0.85346603), Vector3(-0.18247955, 0.37027422, 0.85346603), Vector3(-0.20762955, 0.3584389, 0.85346603), Vector3(-0.22857453, 0.34858248, 0.85346603), Vector3(-0.24231091, 0.3421183, 0.85346603)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("root/pelvis/torso/arms/armL:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(-0.6265732, 0.13264503, 0.699877), Vector3(-0.62247425, 0.13264503, 0.6930454), Vector3(-0.6115906, 0.13264503, 0.6749061), Vector3(-0.5960427, 0.13264503, 0.6489928), Vector3(-0.57795054, 0.13264503, 0.61883914), Vector3(-0.5594343, 0.13264503, 0.58797884), Vector3(-0.5426142, 0.13264503, 0.5599454), Vector3(-0.52961046, 0.13264503, 0.53827256), Vector3(-0.5225432, 0.13264503, 0.5264937), Vector3(-0.52338, 0.13264503, 0.52788836), Vector3(-0.53180414, 0.13264503, 0.54192865), Vector3(-0.5457407, 0.13264503, 0.56515634), Vector3(-0.5630697, 0.13264503, 0.59403783), Vector3(-0.5816707, 0.13264503, 0.6250395), Vector3(-0.59942365, 0.13264503, 0.65462774), Vector3(-0.61420834, 0.13264503, 0.67926896), Vector3(-0.6239046, 0.13264503, 0.6954294)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("root/pelvis/torso/arms/armL/fofrontmR:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093), Vector3(0.108210415, -0.21467547, 1.0724093)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("root/pelvis/torso:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.007856432), Vector3(0, 0, -0.028716616), Vector3(0, 0, -0.058516875), Vector3(0, 0, -0.09319354), Vector3(0, 0, -0.12868293), Vector3(0, 0, -0.1609214), Vector3(0, 0, -0.18584523), Vector3(0, 0, -0.19939081), Vector3(0, 0, -0.19778702), Vector3(0, 0, -0.18164068), Vector3(0, 0, -0.15492882), Vector3(0, 0, -0.12171507), Vector3(0, 0, -0.08606312), Vector3(0, 0, -0.052036658), Vector3(0, 0, -0.023699328), Vector3(0, 0, -0.0051148124)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("root/pelvis/torso/head/cylinder10:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.010930688), Vector3(0, 0, 0.039953552), Vector3(0, 0, 0.081414774), Vector3(0, 0, 0.12966058), Vector3(0, 0, 0.17903712), Vector3(0, 0, 0.22389063), Vector3(0, 0, 0.25856727), Vector3(0, 0, 0.27741334), Vector3(0, 0, 0.27518195), Vector3(0, 0, 0.2527175), Vector3(0, 0, 0.21555313), Vector3(0, 0, 0.16934273), Vector3(0, 0, 0.11974001), Vector3(0, 0, 0.072398834), Vector3(0, 0, 0.032972977), Vector3(0, 0, 0.0071162544)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dgjra"]
+_data = {
+&"RESET": SubResource("Animation_dgjra"),
+&"idle": SubResource("Animation_mg8p2"),
+&"walk": SubResource("Animation_bimul")
+}
+
+[sub_resource type="Animation" id="Animation_f7ls0"]
+resource_name = "RESET"
+
+[sub_resource type="Animation" id="Animation_lbhv6"]
+resource_name = "new_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../root/pelvis/torso/head:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0.07117671, -0.02972514, 0.052087173), Vector3(0.22776547, -0.095120445, 0.16667894), Vector3(0.38435423, -0.16051576, 0.28127074), Vector3(0.45553094, -0.19024089, 0.3333579), Vector3(0.38435423, -0.16051576, 0.28127074), Vector3(0.2277655, -0.09512046, 0.16667897), Vector3(0.07117672, -0.029725146, 0.052087195), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../root/pelvis/torso:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0.027227137, -0.008894199, 0.017788397), Vector3(0.092153385, -0.030103441, 0.060206883), Vector3(0.16964601, -0.055417694, 0.11083539), Vector3(0.23457226, -0.076626934, 0.15325387), Vector3(0.2617994, -0.08552113, 0.17104226), Vector3(0.23457226, -0.076626934, 0.15325387), Vector3(0.16964601, -0.055417694, 0.11083539), Vector3(0.092153385, -0.030103436, 0.06020687), Vector3(0.027227134, -0.008894198, 0.017788395), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("../root/pelvis/torso/arms/armR:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0.25307274, -0.3577925, 1.0035644), Vector3(0.2731117, -0.32252392, 1.0035644), Vector3(0.31254324, -0.25312448, 1.0035644), Vector3(0.3403392, -0.20420352, 1.0035644), Vector3(0.33871025, -0.2070705, 1.0035644), Vector3(0.317999, -0.24352229, 1.0035644), Vector3(0.2893756, -0.29389948, 1.0035644), Vector3(0.26401013, -0.33854267, 1.0035644), Vector3(0.25307274, -0.3577925, 1.0035644), Vector3(0.25307274, -0.3577925, 1.0035644), Vector3(0.25307274, -0.3577925, 1.0035644)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("../root/pelvis/torso/arms/armL:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(-0.43633232, 0.29670596, 0.15707964), Vector3(-0.32812193, 0.29870984, 0.1751147), Vector3(-0.11519176, 0.302653, 0.21060306), Vector3(0.034906596, 0.30543262, 0.23561946), Vector3(0.026110116, 0.30526972, 0.23415338), Vector3(-0.08573055, 0.3031986, 0.21551326), Vector3(-0.24029692, 0.30033624, 0.1897522), Vector3(-0.37727034, 0.2977997, 0.1669233), Vector3(-0.43633232, 0.29670596, 0.15707964), Vector3(-0.43633232, 0.29670596, 0.15707964), Vector3(-0.43633232, 0.29670596, 0.15707964)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mg8p2"]
+_data = {
+&"RESET": SubResource("Animation_f7ls0"),
+&"new_animation": SubResource("Animation_lbhv6")
+}
+
+[node name="blockbench_export" unique_id=1258252279 instance=ExtResource("1_pgkec")]
+transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, 0, 0)
+script = ExtResource("2_lbhv6")
+
+[node name="root" parent="." index="0" unique_id=1935293852]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="cylinder" parent="root/pelvis" parent_id_path=PackedInt32Array(658474050) index="0" unique_id=1120213308]
+transform = Transform3D(0.9725, 0, 0, 0, 0.9725, 0, 0, 0, 0.9725, 0, -1.21875, 0)
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="torso" parent="root/pelvis" parent_id_path=PackedInt32Array(658474050) index="1" unique_id=1797756954]
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0.078125, 0)
+
+[node name="cylinder2" parent="root/pelvis/torso" index="0" unique_id=74854660]
+transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046875, 0)
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder22" parent="root/pelvis/torso" index="1" unique_id=1942369463]
+transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.203125, 0)
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder3" parent="root/pelvis/torso" index="2" unique_id=1686932379]
+transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, 0.765625, 0)
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="armR" parent="root/pelvis/torso/arms" parent_id_path=PackedInt32Array(939260004) index="0" unique_id=470227708]
+transform = Transform3D(0.967093, -0.15215184, -0.20391485, 0.096936665, 0.96137697, -0.2576002, 0.23523334, 0.22935648, 0.9444899, -0.0010466769, 0.01171875, -0.2349074)
+
+[node name="cylinder4" parent="root/pelvis/torso/arms/armR" index="0" unique_id=1961192210]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder23" parent="root/pelvis/torso/arms/armR" index="1" unique_id=329558809]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="forearmR" parent="root/pelvis/torso/arms/armR" index="2" unique_id=1639213656]
+transform = Transform3D(0.025157481, -0.8690578, 0.25873718, 0.9656198, 0.081413604, 0.24371065, -0.2587371, 0.21933958, 0.9346978, 0.019514263, -0.37838387, 0.00090670586)
+
+[node name="cylinder5" parent="root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=328583800]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder24" parent="root/pelvis/torso/arms/armR/forearmR" index="1" unique_id=450838944]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder6" parent="root/pelvis/torso/arms/armR/forearmR" index="2" unique_id=46814518]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="gun" type="Node3D" parent="root/pelvis/torso/arms/armR/forearmR" index="3" unique_id=1797637268]
+transform = Transform3D(1.4224634, 0.47175318, 0.06361486, -0.47602302, 1.4097042, 0.1900954, -1.1175871e-08, -0.20045726, 1.4865453, 0.00063412555, -0.49810508, 0.040333357)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="root/pelvis/torso/arms/armR/forearmR/gun" index="0" unique_id=1662593979]
+transform = Transform3D(0.94799924, -0.29054362, -0.12992978, 0.2775806, 0.9544883, -0.109092005, 0.15571246, 0.06735317, 0.98550355, -0.013406508, 0.07919564, -0.010261921)
+material_override = SubResource("StandardMaterial3D_dgjra")
+
+[node name="barrel" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armR/forearmR/gun/CSGCombiner3D" index="0" unique_id=1537795045]
+transform = Transform3D(0.99996555, 4.4889748e-07, -1.4288817e-06, 1.2740493e-06, 0.99998486, -2.9206276e-06, 1.8626451e-09, -9.3877316e-07, 0.9999642, 0.050000787, -0.119366765, -5.9604645e-08)
+radius = 0.05
+height = 0.25294018
+sides = 5
+smooth_faces = false
+
+[node name="barrel2" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armR/forearmR/gun/CSGCombiner3D" index="1" unique_id=1263783872]
+transform = Transform3D(0.9999777, 8.530915e-07, -4.018657e-07, 5.476177e-07, 0.9999691, -2.5480986e-06, -8.009374e-08, -1.5050173e-06, 0.9999657, 0.050000668, -0.27838218, -1.1920929e-07)
+radius = 0.030273438
+height = 0.2078247
+sides = 5
+smooth_faces = false
+
+[node name="barrel3" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armR/forearmR/gun/CSGCombiner3D" index="2" unique_id=885450949]
+transform = Transform3D(0.9999348, 1.3820827e-06, -2.1187589e-07, 1.4901161e-06, 0.99995464, -3.5315752e-06, -1.5692785e-07, -2.2798777e-06, 0.9999228, 0.050001025, -0.33500165, 0)
+radius = 0.040527344
+height = 0.055603027
+sides = 5
+smooth_faces = false
+
+[node name="handle" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armR/forearmR/gun/CSGCombiner3D" index="3" unique_id=1598473991]
+transform = Transform3D(0.7986342, -0.60181504, -3.7252903e-07, 0.60181326, 0.7986352, -9.275973e-07, 3.9022416e-07, 6.482005e-07, 0.99999684, -0.021935105, -0.035797, 1.1920929e-07)
+radius = 0.05
+height = 0.22304687
+sides = 5
+smooth_faces = false
+
+[node name="armL" parent="root/pelvis/torso/arms" parent_id_path=PackedInt32Array(939260004) index="1" unique_id=1436495761]
+transform = Transform3D(0.73008156, -0.67105675, 0.12908588, 0.64412034, 0.73885965, 0.19797704, -0.22823007, -0.061392553, 0.9716698, -0.0010466765, 0.01171875, 0.2349074)
+
+[node name="cylinder7" parent="root/pelvis/torso/arms/armL" index="0" unique_id=952791777]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder25" parent="root/pelvis/torso/arms/armL" index="1" unique_id=1519462618]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="fofrontmR" parent="root/pelvis/torso/arms/armL" index="2" unique_id=2101002415]
+transform = Transform3D(0.57064736, -0.7138921, -0.21254092, 0.7932135, 0.5394677, -0.107338145, 0.21254088, -0.09660428, 0.97123885, 0.019514441, -0.37838393, -0.00090676546)
+
+[node name="cylinder8" parent="root/pelvis/torso/arms/armL/fofrontmR" index="0" unique_id=1190281097]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder26" parent="root/pelvis/torso/arms/armL/fofrontmR" index="1" unique_id=1429295948]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder9" parent="root/pelvis/torso/arms/armL/fofrontmR" index="2" unique_id=1333936089]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="gun" type="Node3D" parent="root/pelvis/torso/arms/armL/fofrontmR" index="3" unique_id=1142106846]
+transform = Transform3D(1.4224634, 0.47505653, 0.030318517, -0.47602302, 1.4195753, 0.09059851, -5.5879354e-09, -0.09553692, 1.4969544, -0.0003828929, -0.5011442, -0.009881195)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="0" unique_id=252534902]
+transform = Transform3D(0.94799924, -0.29054362, -0.12992978, 0.2775806, 0.9544883, -0.109092005, 0.15571246, 0.06735317, 0.98550355, -0.013406508, 0.07919564, -0.010261921)
+material_override = SubResource("StandardMaterial3D_dgjra")
+
+[node name="barrel" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun/CSGCombiner3D" index="0" unique_id=1044479845]
+transform = Transform3D(0.99996555, 4.4889748e-07, -1.4288817e-06, 1.2740493e-06, 0.99998486, -2.9206276e-06, 1.8626451e-09, -9.3877316e-07, 0.9999642, 0.050000787, -0.119366765, -5.9604645e-08)
+radius = 0.05
+height = 0.25294018
+sides = 5
+smooth_faces = false
+
+[node name="barrel2" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun/CSGCombiner3D" index="1" unique_id=1044046822]
+transform = Transform3D(0.9999777, 8.530915e-07, -4.018657e-07, 5.476177e-07, 0.9999691, -2.5480986e-06, -8.009374e-08, -1.5050173e-06, 0.9999657, 0.050000668, -0.27838218, -1.1920929e-07)
+radius = 0.030273438
+height = 0.2078247
+sides = 5
+smooth_faces = false
+
+[node name="barrel3" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun/CSGCombiner3D" index="2" unique_id=373439083]
+transform = Transform3D(0.9999348, 1.3820827e-06, -2.1187589e-07, 1.4901161e-06, 0.99995464, -3.5315752e-06, -1.5692785e-07, -2.2798777e-06, 0.9999228, 0.050001025, -0.33500165, 0)
+radius = 0.040527344
+height = 0.055603027
+sides = 5
+smooth_faces = false
+
+[node name="handle" type="CSGCylinder3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun/CSGCombiner3D" index="3" unique_id=1397746450]
+transform = Transform3D(0.7986342, -0.60181504, -3.7252903e-07, 0.60181326, 0.7986352, -9.275973e-07, 3.9022416e-07, 6.482005e-07, 0.99999684, -0.021935105, -0.035797, 1.1920929e-07)
+radius = 0.05
+height = 0.22304687
+sides = 5
+smooth_faces = false
+
+[node name="cylinder10" parent="root/pelvis/torso/head" parent_id_path=PackedInt32Array(1603795184) index="0" unique_id=999317542]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="root/pelvis/torso/head/cylinder10" index="0" unique_id=1411068325]
+transform = Transform3D(0.99999994, -1.4901161e-08, 0, 0, -0.99999994, 8.742277e-08, -3.5527137e-15, -8.742278e-08, -0.9999999, 0.012534052, -0.064225316, -3.309497e-08)
+radius = 0.14794922
+height = 0.34204102
+sides = 6
+cone = true
+smooth_faces = false
+material = SubResource("StandardMaterial3D_dgjra")
+
+[node name="thighL" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(1025111949) index="0" unique_id=1819529140]
+transform = Transform3D(0.9659257, -0.25000003, -0.0669873, 0.258819, 0.9330128, 0.25000003, -1.4901159e-08, -0.2588191, 0.9659258, 0.015625, 0.029596686, 0.10013917)
+
+[node name="cylinder11" parent="root/pelvis/legs/thighL" index="0" unique_id=1603184698]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder27" parent="root/pelvis/legs/thighL" index="1" unique_id=2098665264]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="kneeL" parent="root/pelvis/legs/thighL" index="2" unique_id=2062228924]
+transform = Transform3D(0.8660255, 0.48296297, 0.12940952, -0.48296306, 0.875, -0.033493657, -0.12940957, -0.03349366, 0.99102515, -0.041484654, -0.56381, -0.01811415)
+
+[node name="cylinder12" parent="root/pelvis/legs/thighL/kneeL" index="0" unique_id=1405951777]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder28" parent="root/pelvis/legs/thighL/kneeL" index="1" unique_id=793377635]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder13" parent="root/pelvis/legs/thighL/kneeL" index="2" unique_id=1627572421]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="thighR" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(1025111949) index="1" unique_id=1262049012]
+transform = Transform3D(0.9659257, -0.24999999, 0.0669873, 0.258819, 0.9330126, -0.25000003, 1.4901159e-08, 0.25881904, 0.9659258, 0.015625, 0.029596686, -0.10013917)
+
+[node name="cylinder14" parent="root/pelvis/legs/thighR" index="0" unique_id=582637815]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder29" parent="root/pelvis/legs/thighR" index="1" unique_id=1984642620]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="kneeR" parent="root/pelvis/legs/thighR" index="2" unique_id=1849032130]
+transform = Transform3D(0.8660253, 0.48296294, -0.12940952, -0.48296297, 0.87499994, 0.033493657, 0.12940954, 0.033493657, 0.99102515, -0.041484535, -0.56381, 0.01811412)
+
+[node name="cylinder15" parent="root/pelvis/legs/thighR/kneeR" index="0" unique_id=799766754]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder210" parent="root/pelvis/legs/thighR/kneeR" index="1" unique_id=34578741]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="cylinder16" parent="root/pelvis/legs/thighR/kneeR" index="2" unique_id=1006721047]
+material_overlay = SubResource("StandardMaterial3D_lbhv6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=1250193764]
+libraries/ = SubResource("AnimationLibrary_dgjra")
+autoplay = &"idle"
+
+[node name="HitAnim" type="AnimationPlayer" parent="." index="2" unique_id=1809616725]
+root_node = NodePath("../AnimationPlayer")
+libraries/ = SubResource("AnimationLibrary_mg8p2")
+
+[node name="Legacy" type="AnimationPlayer" parent="." index="3" unique_id=1440802744]
+active = false
+libraries/ = SubResource("AnimationLibrary_dgjra")
+autoplay = &"idle"

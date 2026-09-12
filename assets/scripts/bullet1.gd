@@ -1,3 +1,4 @@
+class_name BulletBase
 extends Area3D
 
 var max_lifetime: float = 0.0
@@ -7,9 +8,11 @@ var init: bool = false
 @export var speed: float = 30.0
 @export var lifetime: float = 5.0
 @export var parriable: bool = true
-@export var hit_data: Dictionary = {
-	"damage": 10.0,
-	"knockback": 10,
+@export var damage: float = 10.0
+@export var knockback: int = 10
+var hit_data: Dictionary = {
+	"damage": damage,
+	"knockback": knockback,
 	"dir": -transform.basis.z
 }
 

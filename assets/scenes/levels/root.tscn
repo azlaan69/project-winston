@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ciyrn5mm6l4y6" path="res://assets/scenes/player/player_hat.tscn" id="2_1jmg1"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="4_uum53"]
 [ext_resource type="PackedScene" uid="uid://c6srnxmgg4tu5" path="res://assets/scenes/levels/playground.tscn" id="5_7qu1s"]
+[ext_resource type="PackedScene" uid="uid://wpc7vvjgbotd" path="res://assets/scenes/enemies/shooter1.tscn" id="5_uum53"]
 [ext_resource type="PackedScene" uid="uid://bwlnqi7ycc0k2" path="res://assets/models/lesser_valkyrie.tscn" id="7_1jmg1"]
 [ext_resource type="PackedScene" uid="uid://bu0wdb3r6xfqs" path="res://assets/scenes/player/hud.tscn" id="7_uum53"]
 [ext_resource type="PackedScene" uid="uid://cv0vve3eftqu8" path="res://assets/scenes/player/settings_menu.tscn" id="8_vsmvd"]
@@ -57,19 +58,25 @@ pixel_size = 0.001
 billboard = 1
 fixed_size = true
 texture_filter = 0
+modulate = Color(0, 1, 1, 1)
 text = "WASD: MOVE
 SHIFT: DASH
 CTRL: SLIDE
 SPACE: JUMP
-LMB: ATTACK
+LMB: ATTACK (+ PARRY IF SWORD)
 Q: SWITCH WEAPON
 R: THROW HAT
 HAT LAUNCHED + R: HAT GRAPPLE
 HAT LANDED + R: WARP TO HAT
 HAT LANDED ALSO ACTS AS A JUMP PAD
-F12: RESET"
+ESC: MENU
+
+
+p.s. i might've added too 
+many enemies"
 font = ExtResource("4_uum53")
 font_size = 48
+outline_size = 20
 line_spacing = 8.0
 
 [node name="enemies" type="Node3D" parent="." unique_id=1039829579]
@@ -77,6 +84,104 @@ line_spacing = 8.0
 [node name="pistol" parent="enemies" unique_id=19557238 instance=ExtResource("9_uum53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 speed = 15.0
+
+[node name="pistol2" parent="enemies" unique_id=353306427 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 9)
+speed = 15.0
+
+[node name="pistol3" parent="enemies" unique_id=2011344821 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
+speed = 15.0
+
+[node name="shooter1" parent="enemies" unique_id=733271003 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 6)
+
+[node name="shooter2" parent="enemies" unique_id=634010574 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
+
+[node name="shooter3" parent="enemies" unique_id=1139753364 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9)
+
+[node name="pistol4" parent="enemies" unique_id=443246171 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, 0)
+speed = 15.0
+
+[node name="pistol5" parent="enemies" unique_id=887878741 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 41, 0)
+speed = 15.0
+
+[node name="pistol6" parent="enemies" unique_id=773361852 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 41, -10)
+speed = 15.0
+
+[node name="shooter4" parent="enemies" unique_id=552225169 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71, 41, -13)
+
+[node name="shooter5" parent="enemies" unique_id=1152910382 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105, 41, -16)
+
+[node name="shooter6" parent="enemies" unique_id=1296417433 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104, 71, -48)
+
+[node name="shooter7" parent="enemies" unique_id=827106130 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119, 71, -51)
+
+[node name="shooter8" parent="enemies" unique_id=173784207 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 100, 34)
+
+[node name="shooter9" parent="enemies" unique_id=719510957 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165, 99, 35)
+
+[node name="shooter10" parent="enemies" unique_id=1104807310 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 34, 20)
+
+[node name="shooter11" parent="enemies" unique_id=2020236356 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 37, 39)
+
+[node name="shooter12" parent="enemies" unique_id=728433644 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 28, 30)
+
+[node name="shooter13" parent="enemies" unique_id=1252856899 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 41, 24)
+
+[node name="pistol7" parent="enemies" unique_id=1937304859 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 24, 26)
+
+[node name="pistol8" parent="enemies" unique_id=2086932407 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 24, 31)
+
+[node name="pistol9" parent="enemies" unique_id=1144758612 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 41, 1)
+
+[node name="pistol10" parent="enemies" unique_id=1018113580 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 41, -17)
+
+[node name="pistol11" parent="enemies" unique_id=490706342 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 41, 8)
+
+[node name="pistol12" parent="enemies" unique_id=831296206 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127, 61, -3)
+
+[node name="shooter14" parent="enemies" unique_id=1080960481 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 51, -57)
+
+[node name="shooter15" parent="enemies" unique_id=586147682 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71, 51, -59)
+
+[node name="pistol13" parent="enemies" unique_id=2146631971 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 41, -61)
+
+[node name="pistol14" parent="enemies" unique_id=1729815396 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 41, -41)
+
+[node name="pistol15" parent="enemies" unique_id=1102281611 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116, 1, -58)
+
+[node name="pistol16" parent="enemies" unique_id=1416511079 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 1, -51)
+
+[node name="shooter16" parent="enemies" unique_id=1166777477 instance=ExtResource("5_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 2, -36)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")

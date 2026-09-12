@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://e4njii2qsbpf"]
+
+[ext_resource type="Script" uid="uid://c3lndmc2vaefx" path="res://assets/scripts/bullet1.gd" id="1_2x7af"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hpn0d"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(18.892157, 18.892157, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2x7af"]
+size = Vector3(0.2, 0.2, 0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jjbx1"]
+radius = 0.1
+height = 0.5
+
+[node name="Area3D" type="Area3D" unique_id=428455315 groups=["projectile"]]
+script = ExtResource("1_2x7af")
+speed = 44.9999999999991
+lifetime = 1.49999999999997
+damage = 4.9999999999999
+knockback = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=640888561 groups=["projectile"]]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_hpn0d")
+mesh = SubResource("BoxMesh_2x7af")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781101476 groups=["projectile"]]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_jjbx1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
