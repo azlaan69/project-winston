@@ -39,3 +39,11 @@ func _on_option_button_item_selected(index: int) -> void:
 func _on_check_button_toggled(toggled_on: bool) -> void:
 	if toggled_on: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	else: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+
+func _on_quit_pressed() -> void:
+	Settings.quit()
+
+
+func _on_reset_pressed() -> void:
+	Settings.reset()

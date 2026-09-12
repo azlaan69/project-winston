@@ -35,6 +35,7 @@ var crouching : bool = false
 var crouch_end_requested : bool = false
 var downhill : bool = false
 var is_switching : bool = false
+var wall_running : bool = false
 
 
 var move_velocity: Vector3
@@ -165,7 +166,7 @@ func _physics_process(delta: float) -> void:
 	if wallcheck.is_colliding(): wall_normal = wallcheck.get_collision_normal(0)
 	else: wall_normal = Vector3.ZERO
 	if is_on_wall() and wall_normal.length() > 0.1:
-		dash_velocity = dash_velocity.slide(wall_normal)
+		dash_velocity = Vector3.ZERO
 		slide_velocity = slide_velocity.slide(wall_normal)
 
 func rotate_look(rot_input : Vector2):
@@ -189,6 +190,8 @@ func disable_freefly():
 
 func movestuff(delta) -> void:
 	if move_dir:
+		if not is_on_floor() and is_on_wall(): base_speed = 5.0
+		else: base_speed = 7.0
 		move_velocity = move_velocity.move_toward(move_dir * base_speed, 50.0 * delta)
 	else:
 		if not is_on_floor() and not is_on_wall(): move_velocity = move_velocity.move_toward(Vector3.ZERO, 1.0 * delta)
@@ -203,46 +206,48 @@ func dash(delta) -> void:
 		jump_velocity = Vector3.ZERO
 		slide_velocity = Vector3.ZERO
 		var dash_dir = -head.global_transform.basis.z
-		var dash_impulse = 150.0
-		var forward_only = (input_dir.x == 0 and input_dir.y <= 0)
-		if forward_only:
+		var dash_impulse = 100.0
+		var cam_allowed = (input_dir.x == 0 and input_dir.y <= 0 and current_wpn == wpn.SWORD and dash_charges >= 2)
+		if cam_allowed:
 			dash_dir = -head.global_transform.basis.z
-			dash_impulse = 150.0
+			dash_impulse = 170.0
 		else:
 			dash_dir = move_dir
-			dash_impulse = 100.0
-		print(dash_impulse)
+			dash_impulse = 100.0 if is_on_floor() else 140.0
 		dash_velocity = (dash_dir * dash_impulse)
-		dash_charges -= 1
-	var speed_ratio = clamp(dash_velocity.length() / 150.0, 0.0, 1.0)
-	var decay = lerp(16.0, 2.0, speed_ratio)
-	#dash_velocity = dash_velocity * exp(-decay * delta)
-	dash_velocity = dash_velocity.move_toward(Vector3.ZERO, 350.0 * delta)
-	if dash_velocity.length_squared() < 1.0: dash_velocity = Vector3.ZERO
+		dash_charges -= 1 if not cam_allowed else 2
+	var speed_ratio = clamp(dash_velocity.length() / 170.0, 0.0, 1.0)
+	var decay = lerp(18.0, 1.0, speed_ratio)
+	dash_velocity = dash_velocity * exp(-decay * delta)
+	if dash_velocity.length_squared() < 1.0 or wall_run_speed > 10.0: dash_velocity = Vector3.ZERO
 
 func slide(delta) -> void:
 	if slide_buffer > 0.0 and is_on_floor():
 		slide_buffer = 0.0
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
-		var speed = maxf(25.0, Vector3(velocity.x, grav_velocity.y * 1.5, velocity.z).length())
-		slide_velocity = (speed * dir).slide(get_floor_normal())
+		var speed = maxf(15.0, Vector3(velocity.x, 0.0, velocity.z).length())
+		var increment =  Vector3(slide_velocity.x, velocity.y * 3.0, slide_velocity.z).length() / 2.0
+		slide_velocity = ((speed + increment) * dir).slide(get_floor_normal())
 	else:
 		if slide_velocity.length() > 0.0:
 			var target_dir = -transform.basis.z if (not move_dir and is_on_floor()) else move_dir
 			var current_dir = slide_velocity.normalized()
-			var dir = current_dir.lerp(target_dir, 8.0 * delta)
+			var dir = current_dir.lerp(target_dir, 2.0 * delta)
 			slide_velocity = dir * slide_velocity.length()
 		
 		var decay = 3.0
 		
-		var floor_angle = get_floor_angle()
-		var slide_dir = slide_velocity.normalized()
-		downhill = slide_dir.dot(Vector3.DOWN) > 0.0
-		if is_on_floor() and floor_angle > 0.15 and downhill:
-			var slope_accel = floor_angle * 150.0
-			slide_velocity += slide_dir * (slope_accel * delta)
-				
+		var floor_normal = get_floor_normal()
+		if floor_normal.length() > 0.1:
+			var floor_angle = get_floor_angle()
+			var true_down = Vector3.DOWN.slide(floor_normal).normalized()
+			var slide_dir = slide_velocity.normalized()
+			downhill = slide_dir.dot(true_down) > 0.3
+			if is_on_floor() and floor_angle > 0.26 and downhill:
+				var slope_accel = floor_angle * 150.0
+				slide_velocity += slide_dir * (slope_accel * delta)
+					
 		if downhill:
 			decay = 0.5
 		elif not is_on_floor() and not is_on_wall() or near_wall:
@@ -264,15 +269,22 @@ func jump(delta) -> void:
 		
 		if near_wall and not is_on_floor():
 			wall_velocity = Vector3.ZERO
-			#move_velocity = Vector3.ZERO
+			move_velocity = Vector3.ZERO
 			var launch_speed = clamp(velocity.length() * 0.8, 15.0, 30.0)
 			var eject_dir = (wall_normal * 1.2 + -transform.basis.z * 0.9).normalized()
 			jump_velocity = (eject_dir * launch_speed) + Vector3(0.0, 12.0, 0.0)
 			return
 		
-		if slide_velocity.length() > 10.0 and downhill:
-			jump_force += slide_velocity.length() * 0.4
-			slide_velocity *= 0.6
+		if slide_velocity.length() > 0.0:
+			if downhill:
+				jump_force += slide_velocity.length() * 0.4
+				slide_velocity *= 0.6
+			else:
+				var slide_speed = slide_velocity.length()
+				if slide_speed <= 10.0:
+					jump_force = remap(slide_speed, 0.0, 12.0, 0.0, 12.0)
+				else:
+					jump_force = remap(slide_speed, 12.0, 25.0, 12.0, 14.0)
 		
 		elif dash_velocity.length() > 5.0:
 			jump_force += dash_velocity.length() * 0.1
@@ -287,19 +299,21 @@ func jump(delta) -> void:
 		jump_velocity = jump_velocity.move_toward(Vector3.ZERO, 25.0 * delta)
 
 func wall(delta) -> void:
-	if near_wall and not is_on_floor():
+	if near_wall and not is_on_floor() and move_velocity.length() > 1.0 and wall_normal.length() > 0.1:
 		var forward = -transform.basis.z
 		if move_dir and abs(forward.dot(wall_normal)) < 0.6:
-			if wall_run_speed == 0:
+			if wall_run_speed == 0 and not wall_running:
 				var entry_speed = velocity.length() / 2
 				wall_run_speed = maxf(base_speed * 1.5, entry_speed)
+				wall_running = true
 			
-			wall_run_speed = move_toward(wall_run_speed, base_speed, 10.0 * delta)
+			wall_run_speed = move_toward(wall_run_speed, 0.0, 10.0 * delta)
 			var run_dir = forward.slide(wall_normal).normalized()
 			wall_velocity = run_dir * wall_run_speed
 			grav_velocity = Vector3.ZERO
 			return
 	
+	wall_running = false
 	wall_run_speed = 0.0
 	wall_velocity = wall_velocity.move_toward(Vector3.ZERO, 25.0 * delta)
 
@@ -346,7 +360,8 @@ func hatstuff(delta) -> void:
 				juice.shift(1.7, 70, 0.2)
 				await get_tree().create_timer(0.2).timeout
 				var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-				hat.launch(facing, 30.0)
+				var speed = maxf(30.0, velocity.length() / 4)
+				hat.launch(facing, speed)
 			
 			hat.state.LAUNCHED:
 				grav_velocity.y /= 5
@@ -522,10 +537,10 @@ func _on_sword_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
 		"swing1":
 			combo_step = 1
-			combo.start(0.4)
+			combo.start(0.6)
 		"swing2":
 			combo_step = 2
-			combo.start(0.4)
+			combo.start(0.6)
 		"swing3":
 			combo_step = 0
 			combo.start(0.3)

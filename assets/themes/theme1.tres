@@ -5,3 +5,4 @@
 [resource]
 default_font = ExtResource("1_jhdmr")
 default_font_size = 24
+Button/constants/outline_size = 8

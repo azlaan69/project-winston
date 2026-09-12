@@ -13,6 +13,8 @@ var init: bool = false
 	"dir": -transform.basis.z
 }
 
+const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
+
 func _ready() -> void:
 	max_lifetime = lifetime
 
@@ -35,8 +37,13 @@ func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy"):
 		if !parried: return
 		else:
+			var fx = hitfx.instantiate()
+			body.add_child(fx)
+			fx.global_position = body.global_position + Vector3(0, 1.0, 0) - (body.global_transform.basis.z * 2.0)
+			fx.sprite.play("pistol")
+			
 			hit_data = {
-				"damage": 0.0,
+				"damage": 5.0,
 				"knockback": 10,
 				"dir": -transform.basis.z
 			}

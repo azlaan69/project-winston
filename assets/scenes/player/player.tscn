@@ -498,7 +498,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_ryfec"]
 resource_name = "swing1"
-length = 0.26666668
+length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -574,8 +574,8 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_i6fpi"]
 resource_name = "swing2"
-length = 0.2
-step = 0.05
+length = 0.16666667
+step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -610,7 +610,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, true, true, true, false]
+"values": [false, true, true, true, false, false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false

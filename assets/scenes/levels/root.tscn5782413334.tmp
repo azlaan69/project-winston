@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c6srnxmgg4tu5" path="res://assets/scenes/levels/playground.tscn" id="5_7qu1s"]
 [ext_resource type="PackedScene" uid="uid://bwlnqi7ycc0k2" path="res://assets/models/lesser_valkyrie.tscn" id="7_1jmg1"]
 [ext_resource type="PackedScene" uid="uid://bu0wdb3r6xfqs" path="res://assets/scenes/player/hud.tscn" id="7_uum53"]
-[ext_resource type="PackedScene" uid="uid://cv0vve3eftqu8" path="res://assets/scenes/player/settings_menu.tscn" id="8_vsmvd"]
-[ext_resource type="PackedScene" uid="uid://bstcuqobofq4t" path="res://assets/scenes/enemies/pistol.tscn" id="9_uum53"]
+[ext_resource type="PackedScene" uid="uid://wpc7vvjgbotd" path="res://assets/scenes/enemies/shooter1.tscn" id="7_vsmvd"]
+[ext_resource type="Script" uid="uid://cm740uabr8twg" path="res://assets/scripts/helper/settings_menu.gd" id="8_vsmvd"]
+[ext_resource type="Theme" uid="uid://c8tpo5girt22e" path="res://assets/themes/theme1.tres" id="9_uum53"]
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
@@ -32,6 +33,46 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Arr
 cell_height = 0.1
 agent_radius = 1.0
 agent_max_climb = 0.1
+
+[sub_resource type="LabelSettings" id="LabelSettings_seyvw"]
+font = ExtResource("4_uum53")
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vsmvd"]
+font = ExtResource("4_uum53")
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uum53"]
+font = ExtResource("4_uum53")
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vseqf"]
+font = ExtResource("4_uum53")
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ocygg"]
+font = ExtResource("4_uum53")
+font_size = 18
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="Root" type="Node3D" unique_id=1696301327]
 
@@ -74,9 +115,20 @@ line_spacing = 8.0
 
 [node name="enemies" type="Node3D" parent="." unique_id=1039829579]
 
-[node name="pistol" parent="enemies" unique_id=19557238 instance=ExtResource("9_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-speed = 15.0
+[node name="shooter1" parent="enemies" unique_id=733271003 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -56.705307, 2, -8)
+
+[node name="shooter2" parent="enemies" unique_id=816785027 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 41, 0)
+
+[node name="shooter3" parent="enemies" unique_id=2127880107 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(0, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 0, -57, 2, 0)
+
+[node name="shooter4" parent="enemies" unique_id=1923780596 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 41, -28)
+
+[node name="shooter5" parent="enemies" unique_id=364209728 instance=ExtResource("7_vsmvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 42, 29)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")
@@ -114,4 +166,200 @@ font_size = 128
 
 [node name="Overlay" parent="misc" unique_id=320630329 instance=ExtResource("7_uum53")]
 
-[node name="SettingsMenu" parent="misc" unique_id=401807240 instance=ExtResource("8_vsmvd")]
+[node name="SettingsMenu" type="CanvasLayer" parent="misc" unique_id=808512659]
+process_mode = 3
+script = ExtResource("8_vsmvd")
+
+[node name="Control" type="Control" parent="misc/SettingsMenu" unique_id=1016547626]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_uum53")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="misc/SettingsMenu/Control" unique_id=322604209]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -288.0
+offset_top = -350.0
+offset_right = 288.0
+offset_bottom = -310.0
+grow_horizontal = 2
+
+[node name="IntroText" type="Label" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=989749518]
+z_index = 1
+layout_mode = 2
+text = "REDSHIFT PLAYTEST 
+0.3"
+label_settings = SubResource("LabelSettings_seyvw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=1244631572]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Resolution" type="VBoxContainer" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=468225828]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="misc/SettingsMenu/Control/VBoxContainer/Resolution" unique_id=67745480]
+z_index = 1
+layout_mode = 2
+text = "
+Resolution
+"
+label_settings = SubResource("LabelSettings_vsmvd")
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="misc/SettingsMenu/Control/VBoxContainer/Resolution" unique_id=674482997]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1600x900"
+popup/item_1/id = 1
+popup/item_2/text = "1280x720"
+popup/item_2/id = 2
+popup/item_3/text = "2560x1440"
+popup/item_3/id = 3
+
+[node name="Polygon2D" type="Polygon2D" parent="misc/SettingsMenu/Control/VBoxContainer/Resolution/OptionButton" unique_id=628030829]
+color = Color(0, 0, 0, 1)
+invert_enabled = true
+invert_border = 3.0
+polygon = PackedVector2Array(575, 1, 575, 100, -1, 100, 0, 0)
+
+[node name="Fullscreen" type="HBoxContainer" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=1707046072]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="misc/SettingsMenu/Control/VBoxContainer/Fullscreen" unique_id=654598403]
+z_index = 1
+custom_minimum_size = Vector2(520, 0)
+clip_contents = true
+layout_mode = 2
+text = "
+
+Fullscreen
+"
+label_settings = SubResource("LabelSettings_uum53")
+vertical_alignment = 1
+clip_text = true
+
+[node name="CheckButton" type="CheckButton" parent="misc/SettingsMenu/Control/VBoxContainer/Fullscreen" unique_id=1697304774]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_uum53")
+button_pressed = true
+
+[node name="Sens" type="VBoxContainer" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=515875328]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="Text" type="Label" parent="misc/SettingsMenu/Control/VBoxContainer/Sens" unique_id=70192649]
+z_index = 1
+layout_mode = 2
+text = "
+
+Sensitivity"
+label_settings = SubResource("LabelSettings_vseqf")
+vertical_alignment = 1
+
+[node name="SensSlider" type="HSlider" parent="misc/SettingsMenu/Control/VBoxContainer/Sens" unique_id=867183260]
+layout_mode = 2
+theme = ExtResource("9_uum53")
+min_value = 0.0005
+max_value = 0.005
+step = 0.0005
+value = 0.001
+
+[node name="HSeparator" type="HSeparator" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=1451397585]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Reset" type="BoxContainer" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=1868308983]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="misc/SettingsMenu/Control/VBoxContainer/Reset" unique_id=343106165]
+z_index = 5
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "   RESET   "
+
+[node name="Polygon2D" type="Polygon2D" parent="misc/SettingsMenu/Control/VBoxContainer/Reset" unique_id=60317414]
+color = Color(0, 0, 0, 1)
+invert_enabled = true
+invert_border = 3.0
+polygon = PackedVector2Array(575, 1, 575, 59, 1, 59, 0, 0)
+
+[node name="HSeparator4" type="HSeparator" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=157837181]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Quit" type="BoxContainer" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=1830184477]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="misc/SettingsMenu/Control/VBoxContainer/Quit" unique_id=1788408333]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "   QUIT   "
+icon_alignment = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="misc/SettingsMenu/Control/VBoxContainer/Quit" unique_id=1610020197]
+color = Color(0, 0, 0, 1)
+invert_enabled = true
+invert_border = 3.0
+polygon = PackedVector2Array(575, 1, 575, 59, 1, 59, 0, 0)
+
+[node name="IntroText2" type="Label" parent="misc/SettingsMenu/Control/VBoxContainer" unique_id=1297801369]
+z_index = 1
+layout_mode = 2
+text = "
+Thanks for playing!"
+label_settings = SubResource("LabelSettings_ocygg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="ColorRect" parent="misc/SettingsMenu/Control" unique_id=895827765]
+z_index = -5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -400.0
+offset_right = 300.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="Polygon2D" type="Polygon2D" parent="misc/SettingsMenu/Control/Background" unique_id=806021437]
+color = Color(0, 0, 0, 1)
+invert_enabled = true
+invert_border = 5.0
+polygon = PackedVector2Array(600, 0, 600, 800, 0, 800, 0, 0)
+
+[connection signal="item_selected" from="misc/SettingsMenu/Control/VBoxContainer/Resolution/OptionButton" to="misc/SettingsMenu" method="_on_option_button_item_selected"]
+[connection signal="toggled" from="misc/SettingsMenu/Control/VBoxContainer/Fullscreen/CheckButton" to="misc/SettingsMenu" method="_on_check_button_toggled"]
+[connection signal="value_changed" from="misc/SettingsMenu/Control/VBoxContainer/Sens/SensSlider" to="misc/SettingsMenu" method="_on_sens_slider_value_changed"]
+[connection signal="pressed" from="misc/SettingsMenu/Control/VBoxContainer/Reset/Button" to="misc/SettingsMenu" method="_on_reset_pressed"]
+[connection signal="pressed" from="misc/SettingsMenu/Control/VBoxContainer/Quit/Button2" to="misc/SettingsMenu" method="_on_quit_pressed"]

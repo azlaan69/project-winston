@@ -10,7 +10,6 @@ no_depth_test = true
 albedo_color = Color(0, 0.87058824, 1, 1)
 emission_enabled = true
 emission = Color(0, 0.87058824, 1, 1)
-emission_energy_multiplier = 16.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq8q7"]
 transparency = 1
@@ -23,6 +22,20 @@ emission = Color(0, 1, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 2, 1)
+
+[sub_resource type="Environment" id="Environment_60jfb"]
+background_mode = 1
+background_color = Color(1, 0, 0.43137255, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0, 0.68649316, 0.6864933, 1)
+tonemap_mode = 3
+tonemap_exposure = 0.2
+tonemap_white = 16.0
+glow_enabled = true
+glow_bloom = 1.0
+glow_hdr_threshold = 1.5
+adjustment_contrast = 500.0
+adjustment_saturation = 0.0
 
 [node name="Hat" type="RigidBody3D" unique_id=1332287299]
 collision_layer = 2
@@ -53,12 +66,10 @@ spin_sides = 4
 material = SubResource("StandardMaterial3D_pq8q7")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/CSGPolygon3D" unique_id=371698944]
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 light_color = Color(0, 1, 1, 1)
-light_energy = 8.0
-light_indirect_energy = 16.0
+light_energy = 4.0
 light_size = 20.0
-light_specular = 1.0
 omni_range = 20.0
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1493100362]
@@ -71,6 +82,9 @@ debug_color = Color(0.9968185, 0, 0.18827581, 0.41960785)
 
 [node name="CD" type="Timer" parent="." unique_id=1265748938]
 one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=517083336]
+environment = SubResource("Environment_60jfb")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

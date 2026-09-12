@@ -8,7 +8,6 @@ extends CharacterBody3D
 
 @export var look_speed: float = 10.0
 @export var accel: float = 20.0
-@export var socialdistance: float = 10.0
 
 var player = null
 

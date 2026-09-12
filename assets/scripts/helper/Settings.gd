@@ -8,8 +8,10 @@ func _ready() -> void:
 func change_sens(val: float) -> void:
 	sens = val
 
-func set_fullscreen(is_full: bool) -> void:
-	if is_full:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+func quit() -> void:
+	get_tree().quit()
+
+func reset() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

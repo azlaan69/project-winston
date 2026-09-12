@@ -28,7 +28,6 @@ func get_target_in_cone(from: Vector3, dir: Vector3, distance: float = 80.0, rad
 	for r in results:
 		var body = r.collider
 		if is_instance_valid(body) and body.is_in_group("enemy"):
-			print(body)
 			return (body.global_position + Vector3(0, 0.9, 0) - from).normalized()
 	
 	return norm_dir
