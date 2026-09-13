@@ -226,7 +226,7 @@ func slide(delta) -> void:
 		slide_buffer = 0.0
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
-		var speed = maxf(15.0, Vector3(velocity.x, 0.0, velocity.z).length())
+		var speed = maxf(20.0, Vector3(velocity.x, 0.0, velocity.z).length())
 		var increment =  Vector3(slide_velocity.x, velocity.y * 3.0, slide_velocity.z).length() / 2.0
 		slide_velocity = ((speed + increment) * dir).slide(get_floor_normal())
 	else:
@@ -270,21 +270,21 @@ func jump(delta) -> void:
 		if near_wall and not is_on_floor():
 			wall_velocity = Vector3.ZERO
 			move_velocity = Vector3.ZERO
-			var launch_speed = clamp(velocity.length() * 0.8, 15.0, 30.0)
+			var launch_speed = clamp(wall_velocity.length() * 0.8, 15.0, 30.0)
 			var eject_dir = (wall_normal * 1.2 + -transform.basis.z * 0.9).normalized()
 			jump_velocity = (eject_dir * launch_speed) + Vector3(0.0, 12.0, 0.0)
 			return
 		
-		if slide_velocity.length() > 0.0:
+		if slide_velocity.length() > 5.0:
 			if downhill:
 				jump_force += slide_velocity.length() * 0.4
 				slide_velocity *= 0.6
-			else:
-				var slide_speed = slide_velocity.length()
-				if slide_speed <= 10.0:
-					jump_force = remap(slide_speed, 0.0, 12.0, 0.0, 12.0)
-				else:
-					jump_force = remap(slide_speed, 12.0, 25.0, 12.0, 14.0)
+			#else:
+				#var slide_speed = slide_velocity.length()
+				#if slide_speed <= 10.0:
+					#jump_force = remap(slide_speed, 0.0, 10.0, 0.0, 12.0)
+				#else:
+					#jump_force = remap(slide_speed, 10.0, 25.0, 12.0, 14.0)
 		
 		elif dash_velocity.length() > 5.0:
 			jump_force += dash_velocity.length() * 0.1
@@ -303,13 +303,16 @@ func wall(delta) -> void:
 		var forward = -transform.basis.z
 		if move_dir and abs(forward.dot(wall_normal)) < 0.6:
 			if wall_run_speed == 0 and not wall_running:
-				var entry_speed = velocity.length() / 2
+				var sample_velocity = jump_velocity + wall_velocity + (slide_velocity * 2) + hat_velocity + grav_velocity + external_velocity
+				var entry_speed = sample_velocity.length() * 1.2
 				wall_run_speed = maxf(base_speed * 1.5, entry_speed)
 				wall_running = true
 			
 			wall_run_speed = move_toward(wall_run_speed, 0.0, 10.0 * delta)
 			var run_dir = forward.slide(wall_normal).normalized()
 			wall_velocity = run_dir * wall_run_speed
+			wall_velocity.y = 0.0
+			jump_velocity = Vector3.ZERO
 			grav_velocity = Vector3.ZERO
 			return
 	
@@ -319,7 +322,7 @@ func wall(delta) -> void:
 
 
 func grav(delta) -> void:
-	var rising = jump_velocity.y > 1.0
+	var rising = jump_velocity.length() > 4.0
 	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 5.0 :
 		grav_velocity += get_gravity() * delta
 		grav_velocity *= pow(1.2, delta)
@@ -329,7 +332,7 @@ func grav(delta) -> void:
 			if grav_velocity.y < -2.0:
 				grav_velocity.y = -2.0
 				was_near_wall = true
-		grav_velocity += get_gravity() / 30 * delta
+		grav_velocity += get_gravity() / 20 * delta
 		
 
 	else:
@@ -480,9 +483,9 @@ func deal_shot() -> void:
 				fx.anim = "pistol"
 				
 				var hit_data = {
-					"damage": 1.0, # replace with function bichazz
+					"damage": 2.5, # replace with function bichazz
 					"type": "GUN",
-					"knockback": 1.0,
+					"knockback": 0.0,
 					"dir": -global_transform.basis.z
 				}
 				body.hit(hit_data)
@@ -507,7 +510,7 @@ func deal_swing() -> void:
 			fx.anim = "sword"
 			
 			var hit_data = {
-				"damage": 1.0,
+				"damage": 5.0,
 				"type": "SWORD",
 				"knockback": 10.0,
 				"dir": -global_transform.basis.z

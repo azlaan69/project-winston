@@ -19,7 +19,7 @@ script = ExtResource("1_2x7af")
 speed = 44.9999999999991
 lifetime = 1.49999999999997
 damage = 4.9999999999999
-knockback = 3
+knockback = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=640888561 groups=["projectile"]]
 transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0, 0, 0)

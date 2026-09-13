@@ -170,4 +170,4 @@ func _on_kick_connected(body: Node3D) -> void:
 func hit(hit_data) -> void:
 	super(hit_data)
 	hitanim.play("hit")
-	if hit_data["damage"] >= 2.0: change_state(state.STAGGER)
+	if hit_data["damage"] >= 5.0: change_state(state.STAGGER)

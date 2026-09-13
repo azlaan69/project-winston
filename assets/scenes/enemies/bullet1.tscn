@@ -17,6 +17,7 @@ height = 1.0
 [node name="Bullet" type="Area3D" unique_id=106936963 groups=["projectile"]]
 script = ExtResource("1_ttmfr")
 lifetime = 2.0
+knockback = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1646085975 groups=["projectile"]]
 transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0, 0, 0)
