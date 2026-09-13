@@ -14,12 +14,12 @@
 background_mode = 1
 background_color = Color(1, 0, 0.43137255, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0, 0.68649316, 0.6864933, 1)
+ambient_light_color = Color(8.663535e-07, 0.6018311, 0.60183114, 1)
+ambient_light_energy = 1.52
 tonemap_mode = 3
-tonemap_exposure = 0.2
+tonemap_exposure = 0.5
 tonemap_white = 16.0
 glow_enabled = true
-glow_bloom = 1.0
 glow_hdr_threshold = 1.5
 adjustment_contrast = 500.0
 adjustment_saturation = 0.0
@@ -38,6 +38,7 @@ agent_max_climb = 0.1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=675200441]
 transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
+light_energy = 0.564
 shadow_enabled = true
 directional_shadow_max_distance = 500.0
 

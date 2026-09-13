@@ -73,12 +73,12 @@ animations = [{
 script = ExtResource("1_yh36u")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1341018182]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
-transparency = 0.01
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
 billboard = 1
+no_depth_test = true
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_seyvw")
 animation = &"pistol"

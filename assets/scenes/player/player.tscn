@@ -33,7 +33,7 @@ shader_parameter/line_color = Color(0, 0, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jfawc"]
 render_priority = 1
 shader = ExtResource("2_omksk")
-shader_parameter/line_thickness = 1.5
+shader_parameter/line_thickness = 2.0
 shader_parameter/normal_threshold = 0.35
 shader_parameter/depth_threshold = 0.002
 shader_parameter/line_color = Color(0, 0, 0, 1)
