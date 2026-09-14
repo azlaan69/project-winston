@@ -84,51 +84,6 @@ line_spacing = 8.0
 [node name="shooter1" parent="enemies" unique_id=733271003 instance=ExtResource("5_uum53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 6)
 
-[node name="shooter2" parent="enemies" unique_id=634010574 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0)
-
-[node name="shooter3" parent="enemies" unique_id=1139753364 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9)
-
-[node name="shooter4" parent="enemies" unique_id=552225169 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71, 41, -13)
-
-[node name="shooter5" parent="enemies" unique_id=1152910382 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105, 41, -16)
-
-[node name="shooter6" parent="enemies" unique_id=1296417433 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104, 71, -48)
-
-[node name="shooter7" parent="enemies" unique_id=827106130 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119, 71, -51)
-
-[node name="shooter8" parent="enemies" unique_id=173784207 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 100, 34)
-
-[node name="shooter9" parent="enemies" unique_id=719510957 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165, 99, 35)
-
-[node name="shooter10" parent="enemies" unique_id=1104807310 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 34, 20)
-
-[node name="shooter11" parent="enemies" unique_id=2020236356 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 37, 39)
-
-[node name="shooter12" parent="enemies" unique_id=728433644 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 28, 30)
-
-[node name="shooter13" parent="enemies" unique_id=1252856899 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 41, 24)
-
-[node name="shooter14" parent="enemies" unique_id=1080960481 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 51, -57)
-
-[node name="shooter15" parent="enemies" unique_id=586147682 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71, 51, -59)
-
-[node name="shooter16" parent="enemies" unique_id=1166777477 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 2, -36)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")
 

@@ -7,5 +7,5 @@ extends Node3D
 func _ready(): if mask_material: _apply(self)
 
 func _apply(n: Node):
-	if n is MeshInstance3D: n.material_overlay = mask_material
+	if n is MeshInstance3D: n.get_surface_override_material(0).next_pass = mask_material
 	for c in n.get_children(): _apply(c)
