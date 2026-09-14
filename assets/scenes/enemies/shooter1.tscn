@@ -12,31 +12,15 @@ radius = 0.4
 
 [node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim") groups=["enemy"]]
 script = ExtResource("1_yknt1")
-armhinge = NodePath("shooter_burst/root/pelvis/torso/arms")
-head = NodePath("shooter_burst/root/pelvis/torso/head")
-bulletpos = NodePath("shooter_burst/root/pelvis/torso/arms/armL/fofrontmR/Marker3D")
-anim = NodePath("shooter_burst/AnimationPlayer")
-hitanim = NodePath("shooter_burst/hitanim")
+armhinge = NodePath("")
+head = NodePath("")
+bulletpos = NodePath("")
+anim = NodePath("")
+hitanim = NodePath("")
 hp = 20.0
 look_speed = 4.9999999999999
 
 [node name="shooter_burst" parent="." unique_id=907194274 instance=ExtResource("2_xoxhl")]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, -0.95412, 0)
-
-[node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 435052224) index="2" unique_id=421216756]
-transform = Transform3D(0.66424656, -0.32139173, -0.6748942, 0.4720639, 0.8803958, 0.045362957, 0.57959485, -0.34872577, 0.7365178, 0.019514374, -0.37838376, 0.000906875)
-
-[node name="thighL" parent="shooter_burst/root/pelvis/legs" parent_id_path=PackedInt32Array(907194274, 372647366) index="0" unique_id=903971551]
-transform = Transform3D(0.9659253, -0.24999996, -0.06698728, 0.25881886, 0.93301255, 0.25000003, -2.235173e-08, -0.25881907, 0.96592575, 0.015625, 0.029596874, 0.10013937)
-
-[node name="kneeL" parent="shooter_burst/root/pelvis/legs/thighL" index="2" unique_id=228739775]
-transform = Transform3D(0.8660254, 0.48296297, 0.12940948, -0.482963, 0.875, -0.033493645, -0.12940955, -0.03349366, 0.99102485, -0.041484375, -0.56381, -0.018114375)
-
-[node name="thighR" parent="shooter_burst/root/pelvis/legs" parent_id_path=PackedInt32Array(907194274, 372647366) index="1" unique_id=962834307]
-transform = Transform3D(0.9659255, -0.2499999, 0.066987276, 0.25881895, 0.93301225, -0.24999996, 1.4901157e-08, 0.25881895, 0.9659255, 0.015625, 0.029596874, -0.10013937)
-
-[node name="kneeR" parent="shooter_burst/root/pelvis/legs/thighR" index="2" unique_id=787195350]
-transform = Transform3D(0.8660254, 0.48296297, -0.12940948, -0.482963, 0.875, 0.033493645, 0.12940955, 0.03349366, 0.9910248, -0.041484375, -0.56381, 0.018114375)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=941452281]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5114746, 0)
@@ -55,8 +39,3 @@ pixel_size = 0.01
 billboard = 1
 no_depth_test = true
 font_size = 128
-
-[connection signal="animation_finished" from="shooter_burst/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="body_entered" from="shooter_burst/root/pelvis/legs/thighR/kneeR/Area3D" to="." method="_on_area_3d_body_entered"]
-
-[editable path="shooter_burst"]
