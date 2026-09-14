@@ -158,7 +158,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			change_state(state.RETREAT)
 
 
-func _on_kick_connected(body: Node3D) -> void:
+func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		var hit_data: Dictionary = {
 		"damage": 20.0,
