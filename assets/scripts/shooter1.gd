@@ -135,6 +135,7 @@ func change_state(new_state: state) -> void:
 			anim.play("kick")
 		state.REPOSITION:
 			anim.play("walk")
+			cooldown = 1.0
 			side = -1.0 if randf() > 0.5 else 1.0
 		state.STAGGER:
 			cooldown = 2.0

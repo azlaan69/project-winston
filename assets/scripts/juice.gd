@@ -49,7 +49,8 @@ func _process(delta: float) -> void:
 			var strafe_input := Input.get_axis(player.input_left, player.input_right)
 			var strafe_factor = 2.0 if player.is_on_floor() else 5.0
 			if strafe_input != 0:
-				end_tilt = deg_to_rad(strafe_input * strafe_factor)
+				var airnerf = 1.0 if player.is_on_floor() else 0.5
+				end_tilt = deg_to_rad(strafe_input * strafe_factor * airnerf)
 			else:
 				end_tilt = 0.0
 				
