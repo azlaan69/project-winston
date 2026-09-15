@@ -26,6 +26,11 @@ extends CharacterBody3D
 @export var input_secondary : String = "rmb"
 @export var input_switch : String = "q"
 
+@export_group("Trails")
+@export var ghost : Node3D
+@export var ghost_mat : StandardMaterial3D
+
+
 var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
@@ -458,7 +463,7 @@ func hit(hit_data: Dictionary) -> void:
 	hp -= hit_data["damage"]
 	var modifier = 1.0 if is_on_floor() else 2.0
 	external_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
-	iframe_timer = 0.5
+	iframe_timer = 0.15
 	
 	var trauma = hit_data["damage"] / 50.0
 	juice.add_trauma(trauma)

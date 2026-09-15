@@ -5,6 +5,14 @@
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_omksk"]
 [ext_resource type="PackedScene" uid="uid://blcy5n0k46xm2" path="res://assets/scenes/player/hitfx.tscn" id="8_n7aby"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4ou1"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 4.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
 
@@ -61,14 +69,6 @@ diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.14767182, 0.14767179, 0.14767179, 1)
 metallic_specular = 1.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4ou1"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0, 1, 1, 1)
-emission_enabled = true
-emission = Color(0, 1, 1, 1)
-emission_energy_multiplier = 4.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lokl3"]
 diffuse_mode = 3
@@ -1122,11 +1122,13 @@ disable_specular_occlusion = true
 metallic_specular = 0.0
 disable_receive_shadows = true
 
-[node name="Player" type="CharacterBody3D" unique_id=500862226 groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("ghost") groups=["player"]]
 slide_on_ceiling = false
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
 base_speed = 10.0
+ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot")
+ghost_mat = SubResource("StandardMaterial3D_p4ou1")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

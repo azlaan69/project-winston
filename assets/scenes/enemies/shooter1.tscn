@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://toacpq84dsr1" path="res://assets/scripts/helper/shaderhelper.gd" id="1_xoxhl"]
 [ext_resource type="Script" uid="uid://crtl3c135qupk" path="res://assets/scripts/shooter1.gd" id="1_yknt1"]
+[ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="2_satdh"]
 [ext_resource type="PackedScene" uid="uid://djto08je026bj" path="res://assets/models/shooter_burst.tscn" id="2_xoxhl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_satdh"]
@@ -18,7 +19,7 @@ height = 2.9995117
 [sub_resource type="SphereShape3D" id="SphereShape3D_xoxhl"]
 radius = 0.4
 
-[node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim") groups=["enemy"]]
+[node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim", "optional_ghostroot") groups=["enemy"]]
 script = ExtResource("1_yknt1")
 armhinge = NodePath("shooter_burst/root/pelvis/torso/arms")
 head = NodePath("shooter_burst/root/pelvis/torso/head")
@@ -26,6 +27,8 @@ bulletpos = NodePath("shooter_burst/root/pelvis/torso/arms/armL/fofrontmR/gun/Ma
 anim = NodePath("shooter_burst/AnimationPlayer")
 hitanim = NodePath("shooter_burst/hitanim")
 hp = 499.99999999999
+optional_ghostmat = ExtResource("2_satdh")
+optional_ghostroot = NodePath("shooter_burst")
 
 [node name="shooter_burst" parent="." unique_id=907194274 instance=ExtResource("2_xoxhl")]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.9868642, 0)
@@ -33,19 +36,16 @@ script = ExtResource("1_xoxhl")
 mask_material = SubResource("StandardMaterial3D_satdh")
 
 [node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 931774970) index="2" unique_id=958046270]
-transform = Transform3D(0.66424626, -0.32139173, -0.674894, 0.47206366, 0.8803958, 0.045362942, 0.5795946, -0.34872577, 0.73651755, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.66424614, -0.32139173, -0.6748939, 0.4720636, 0.8803958, 0.04536294, 0.57959455, -0.34872577, 0.7365175, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1193048049) index="1" unique_id=1034599267]
 transform = Transform3D(0.9252015, -0.2716394, 0.26497868, 0.14177774, 0.89514965, 0.42261818, -0.3519953, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)
 
 [node name="thighL" parent="shooter_burst/root/pelvis/legs" parent_id_path=PackedInt32Array(907194274, 678095314) index="0" unique_id=1844497481]
-transform = Transform3D(0.96592504, -0.24999994, -0.06698728, 0.2588188, 0.9330125, 0.25000003, -2.2351724e-08, -0.25881904, 0.96592575, 0.015625, 0.029596874, 0.10013937)
+transform = Transform3D(0.965925, -0.24999993, -0.06698728, 0.2588188, 0.9330124, 0.25000003, -2.2351724e-08, -0.25881904, 0.96592575, 0.015625, 0.029596874, 0.10013937)
 
 [node name="kneeL" parent="shooter_burst/root/pelvis/legs/thighL" index="2" unique_id=1600353821]
 transform = Transform3D(0.8660254, 0.48296297, 0.12940946, -0.482963, 0.875, -0.03349364, -0.12940955, -0.03349366, 0.9910247, -0.041484375, -0.56381, -0.018114375)
-
-[node name="kneeR" parent="shooter_burst/root/pelvis/legs/thighR" parent_id_path=PackedInt32Array(907194274, 891735659) index="2" unique_id=904168987]
-transform = Transform3D(0.8660254, 0.48296297, -0.12940946, -0.482963, 0.875, 0.03349364, 0.12940955, 0.03349366, 0.9910247, -0.041484375, -0.56381, 0.018114375)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=941452281]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5114746, 0)

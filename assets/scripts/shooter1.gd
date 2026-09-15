@@ -10,7 +10,7 @@ var los: bool
 var shots: int = 0
 
 var strafe: Vector3
-var side: float
+var side: float = 1.0
 
 @export var armhinge: Node3D
 @export var head: Node3D
@@ -78,15 +78,16 @@ func _physics_process(delta: float) -> void:
 			
 			shots += 1
 			shoot()
-			cooldown = 0.5
+			cooldown = 0.1
 			if shots >= 3:
 				shots = 0
+				cooldown = 0.2
 				change_state(state.REPOSITION)
 			else:
 				change_state(state.IDLE)
 			
 		state.KICK:
-			rotate_towards(dir, look_speed, delta * 2)
+			rotate_towards(dir, look_speed * 2, delta * 2)
 			movement = movement.lerp(Vector3.ZERO, accel * 2 * delta)
 		
 		state.RETREAT:
@@ -100,15 +101,21 @@ func _physics_process(delta: float) -> void:
 			rotate_towards(dir, look_speed, delta)
 			var flat_dir = Vector3(dir.x, 0, dir.z).normalized()
 			strafe = flat_dir.cross(Vector3.UP) * side
-			movement = movement.lerp(strafe * speed * 0.6, accel * delta)
-			if cooldown <= 0.0: change_state(state.IDLE)
+			#movement = movement.lerp(strafe * speed * 0.6, accel * delta)
+			movement = strafe * speed * 1.5
+			PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.2)
+			
+			if dist < 2.0: change_state(state.KICK)
+			elif cooldown <= 0.0: 
+				movement = Vector3.ZERO
+				change_state(state.IDLE)
 		
 		state.STAGGER:
 			movement = Vector3.ZERO
 			if cooldown <= 0.0: change_state(state.IDLE)
 
 	if movement.length() > 0.0 and current_state in [state.CHASE, state.RETREAT, state.REPOSITION] and iframe_timer <= 0.0:
-		anim.play("walk", 0.0, movement.length() / 10)
+		anim.play("walk", 0.0, movement.length() / 7.5)
 	
 	velocity.x = movement.x
 	velocity.z = movement.z
@@ -135,8 +142,10 @@ func change_state(new_state: state) -> void:
 			anim.play("kick")
 		state.REPOSITION:
 			anim.play("walk")
-			cooldown = 1.0
-			side = -1.0 if randf() > 0.5 else 1.0
+			if randf() > 0.3:
+				side = -1.0 if randf() > 0.5 else 1.0
+			else:
+				side = -side
 		state.STAGGER:
 			cooldown = 2.0
 

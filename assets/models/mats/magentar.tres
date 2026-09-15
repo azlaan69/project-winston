@@ -5,12 +5,13 @@ cull_mode = 1
 shading_mode = 0
 albedo_color = Color(0, 0, 0, 1)
 grow = true
-grow_amount = 0.005
+grow_amount = 0.01
 
 [resource]
 next_pass = SubResource("StandardMaterial3D_satdh")
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(1, 0, 0.43137255, 1)
+metallic_specular = 0.0
 stencil_mode = 3
 stencil_flags = 2

@@ -9,6 +9,9 @@ extends CharacterBody3D
 @export var look_speed: float = 10.0
 @export var accel: float = 20.0
 
+@export var optional_ghostmat: Material
+@export var optional_ghostroot: Node3D
+
 var player = null
 
 var iframe_timer: float = 0.0
