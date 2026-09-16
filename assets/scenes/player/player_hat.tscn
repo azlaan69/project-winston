@@ -2,6 +2,25 @@
 
 [ext_resource type="Script" uid="uid://b5yxlnf77w0mk" path="res://assets/scripts/player_hat.gd" id="1_ht0oc"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg42c"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60jfb"]
+next_pass = SubResource("StandardMaterial3D_wg42c")
+transparency = 1
+depth_draw_mode = 2
+no_depth_test = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0.87058824, 1, 0.78431374)
+emission = Color(0, 1.5942107, 1.8247963, 1)
+emission_energy_multiplier = 2.0
+stencil_mode = 3
+stencil_flags = 2
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
 size = Vector3(1.5, 0.5, 1.5)
 
@@ -10,15 +29,6 @@ no_depth_test = true
 albedo_color = Color(0, 0.87058824, 1, 1)
 emission_enabled = true
 emission = Color(0, 0.87058824, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq8q7"]
-transparency = 1
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0, 1, 1, 0)
-roughness = 0.0
-emission_enabled = true
-emission = Color(0, 1, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 2, 1)
@@ -37,7 +47,7 @@ glow_hdr_threshold = 1.5
 adjustment_contrast = 500.0
 adjustment_saturation = 0.0
 
-[node name="Hat" type="RigidBody3D" unique_id=1332287299]
+[node name="Hat" type="RigidBody3D" unique_id=1332287299 node_paths=PackedStringArray("ghost")]
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -47,6 +57,8 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_ht0oc")
+ghost = NodePath("Node3D")
+ghostmat = SubResource("StandardMaterial3D_60jfb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=572414648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
@@ -54,18 +66,19 @@ visible = false
 shape = SubResource("BoxShape3D_nhb04")
 debug_color = Color(0.43137255, 1, 1, 1)
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1406943292]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.39999962, 0)
-material_override = SubResource("StandardMaterial3D_pq8os")
+[node name="Node3D" type="Node3D" parent="." unique_id=604488914]
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D" unique_id=921216218]
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Node3D" unique_id=1406943292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.39999962, 0)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Node3D/CSGCombiner3D" unique_id=921216218]
 polygon = PackedVector2Array(0, 0, 0, 0.5, 1, 0.1, 1, 0)
 mode = 1
 spin_degrees = 360.0
 spin_sides = 4
-material = SubResource("StandardMaterial3D_pq8q7")
+material = SubResource("StandardMaterial3D_pq8os")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/CSGPolygon3D" unique_id=371698944]
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D/CSGCombiner3D/CSGPolygon3D" unique_id=371698944]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 light_color = Color(0, 1, 1, 1)
 light_energy = 4.0

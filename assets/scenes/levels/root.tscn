@@ -45,10 +45,10 @@ directional_shadow_max_distance = 500.0
 environment = SubResource("Environment_vvh5c")
 
 [node name="Player" parent="." unique_id=500862226 instance=ExtResource("1_y2pyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 45, 27)
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_1jmg1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106, 2, 68)
 visible = false
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
@@ -82,7 +82,7 @@ line_spacing = 8.0
 [node name="enemies" type="Node3D" parent="." unique_id=1039829579]
 
 [node name="shooter1" parent="enemies" unique_id=733271003 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 2, 6)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")
@@ -108,7 +108,7 @@ start_position = Vector3(2, -4, -4)
 end_position = Vector3(-2, 6, -4)
 
 [node name="tease" parent="." unique_id=1979071613 instance=ExtResource("7_1jmg1")]
-transform = Transform3D(-1.5298986e-07, 0, 3.5, 0, 3.5, 0, -3.5, 0, -1.5298986e-07, -184, 0, 0)
+transform = Transform3D(-1.5298986e-07, 0, 3.5, 0, 3.5, 0, -3.5, 0, -1.5298986e-07, -149, 0, 0)
 
 [node name="Label3D" type="Label3D" parent="tease" unique_id=492402929]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3199399, 0.5714286, -1.3428993)

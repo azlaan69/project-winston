@@ -6,8 +6,12 @@ var current_state = state.EQUIPPED
 var used: bool = false
 var can_use: bool = true
 
+@export var ghost: Node3D
+@export var ghostmat: StandardMaterial3D
+
 @onready var player = get_node("../Player")
 @onready var cd = $CD
+@onready var light = $Node3D/CSGCombiner3D/CSGPolygon3D/OmniLight3D
 
 func _ready() -> void:
 	contact_monitor = true
@@ -30,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	else: can_use = true
 	
 	visible = (current_state != state.EQUIPPED)
-	$CSGCombiner3D/CSGPolygon3D/OmniLight3D.visible = (current_state != state.EQUIPPED)
+	light.visible = (current_state != state.EQUIPPED)
 
 func launch(dir: Vector3, speed: float) -> void:
 	global_position = player.global_position + dir + Vector3(0, 2, 0)

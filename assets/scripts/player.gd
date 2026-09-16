@@ -313,7 +313,7 @@ func wall(delta) -> void:
 		var forward = -transform.basis.z
 		if move_dir and abs(forward.dot(wall_normal)) < 0.6:
 			if wall_run_speed == 0 and not wall_running:
-				var sample_velocity = jump_velocity + wall_velocity + (slide_velocity * 2) + hat_velocity + grav_velocity + external_velocity
+				var sample_velocity = jump_velocity + wall_velocity + slide_velocity + hat_velocity + grav_velocity + external_velocity
 				var entry_speed = sample_velocity.length() * 1.2
 				wall_run_speed = maxf(base_speed * 1.5, entry_speed)
 				wall_running = true

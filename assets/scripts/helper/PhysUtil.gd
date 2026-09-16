@@ -48,6 +48,7 @@ func ghost(root: Node3D, mat: StandardMaterial3D, duration: float) -> void:
 	for child in ghost.find_children("*", "MeshInstance3D", true, false):
 		var mesh_child = child as MeshInstance3D
 		mesh_child.material_override = ghost_mat
+		print(mesh_child)
 	
 	var tween = create_tween()
 	tween.tween_property(ghost_mat, "albedo_color:a", 0.0, duration)

@@ -29,7 +29,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if shift_allowed:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
-		end_fov = remap(clamp(speed, 0.0, 70.0), 0.0, 70.0, 80.0, 110.0)
+		end_fov = remap(clamp(speed, 0.0, 70.0), 0.0, 30.0, 80.0, 110.0)
 		end_fov = clamp(end_fov, 80.0, 110.0)
 		
 		if player.crouching and player.is_on_floor():
@@ -65,7 +65,7 @@ func _process(delta: float) -> void:
 		shake.position = Vector3.ZERO
 		shake.rotation = Vector3.ZERO
 	
-	var interp_speed = 25.0 if end_fov > camera.fov else 6.0
+	var interp_speed = 15.0 if end_fov > camera.fov else 6.0
 	camera.fov = lerp(camera.fov, end_fov, 1.0 - exp(delta * -interp_speed))
 	rotation.z = lerp(rotation.z, end_tilt, 1.0 - exp(delta * -12.0))
 	position.y = lerp(position.y, end_y, 1.0 - exp(delta * -12.0))
