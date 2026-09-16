@@ -5,13 +5,25 @@
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_omksk"]
 [ext_resource type="PackedScene" uid="uid://blcy5n0k46xm2" path="res://assets/scenes/player/hitfx.tscn" id="8_n7aby"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4ou1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg42c"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xvhxs"]
+next_pass = SubResource("StandardMaterial3D_wg42c")
+transparency = 1
+depth_draw_mode = 2
+no_depth_test = true
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0, 1, 1, 1)
+albedo_color = Color(0, 0.87058824, 1, 0.78431374)
 emission_enabled = true
-emission = Color(0, 1, 1, 1)
-emission_energy_multiplier = 4.0
+emission = Color(0, 1.5942107, 1.8247963, 1)
+emission_energy_multiplier = 2.0
+stencil_mode = 3
+stencil_flags = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -60,15 +72,24 @@ size = Vector3(1, 1.2, 3.5)
 background_mode = 1
 background_color = Color(1, 1, 1, 1)
 tonemap_mode = 2
-tonemap_exposure = 0.2
-tonemap_white = 5.0
+tonemap_exposure = 0.5
+tonemap_white = 16.0
 glow_enabled = true
+glow_hdr_threshold = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryfec"]
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.14767182, 0.14767179, 0.14767179, 1)
 metallic_specular = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4ou1"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 4.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lokl3"]
 diffuse_mode = 3
@@ -508,7 +529,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.08808589, 1.1201602, -1.5870181), Vector3(-0.11951344, 1.0512959, -1.5870142), Vector3(-0.5335523, 0.9139519, -1.5870063), Vector3(-0.8408921, 0.8120018, -1.5870005), Vector3(-0.862, 0.805, -1.587), Vector3(-0.862, 0.805, -1.587), Vector3(-0.862, 0.805, -1.587)]
 }
 tracks/1/type = "value"
@@ -520,7 +541,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.2536206, 1.0309687, 0.34683633), Vector3(-0.2532155, 2.9110165, 1.0414208), Vector3(-0.63517207, 4.3278384, 1.5648663), Vector3(-0.66501206, 4.4385266, 1.60576), Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.66497046, 4.438372, 1.6057029)]
 }
 tracks/2/type = "value"
@@ -556,7 +577,7 @@ tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.088, -0.5, -1.587), Vector3(-0.208875, -0.59375, -1.587), Vector3(-0.50575, -0.6875, -1.587), Vector3(-0.80262494, -0.78125, -1.587), Vector3(-0.862, -0.8, -1.587), Vector3(-0.862, -0.8, -1.587), Vector3(-0.862, -0.8, -1.587)]
 }
 tracks/5/type = "value"
@@ -568,7 +589,7 @@ tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.14302945, 1.4411933, 0.498394), Vector3(-0.2206471, 2.7902079, 0.996788), Vector3(-0.58432364, 4.1392226, 1.495182), Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.66497046, 4.438372, 1.6057029)]
 }
 
@@ -585,7 +606,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(-0.862, 0.805, -1.587), Vector3(-0.848, 1.521, -1.587), Vector3(-0.662, 1.5, -1.587), Vector3(0.009, 1.5, -1.587), Vector3(1.151, 1.686, -1.587)]
 }
 tracks/1/type = "value"
@@ -597,7 +618,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.2617994, 5.003859, -1.7715092), Vector3(0.3403392, 5.660103, -1.9809487), Vector3(0.31241393, 4.841543, -1.8151424), Vector3(-0.20943952, 2.7646015, -1.3264502)]
 }
 tracks/2/type = "value"
@@ -633,7 +654,7 @@ tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(-0.862, -0.8, -1.587), Vector3(-0.862, -0.8, -1.587), Vector3(-0.862, -0.8, -1.587), Vector3(-0.492, -0.7, -1.587), Vector3(-0.492, -0.7, -1.587)]
 }
 tracks/5/type = "value"
@@ -645,7 +666,7 @@ tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(-0.66497046, 4.438372, 1.6057029), Vector3(0.43458697, 5.599016, 1.9809487), Vector3(0.43458697, 5.599016, 1.9809487)]
 }
 
@@ -662,7 +683,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(1.603, 1.005, -1.587), Vector3(1.3944786, 1.2600878, -1.587), Vector3(1.0348287, 1.6660725, -1.587), Vector3(0.8633125, 1.7379283, -1.587), Vector3(0.8346667, 1.4904252, -1.587), Vector3(0.86713195, 1.1662762, -1.587), Vector3(0.893, 1.005, -1.587)]
 }
 tracks/1/type = "value"
@@ -674,7 +695,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(-0.44680429, 1.8989183, 1.134464), Vector3(-1.1014711, 2.3135855, 0.76289976), Vector3(-2.112678, 3.0394425, 0.1254455), Vector3(-2.172337, 3.4237785, -0.16635169), Vector3(-1.2816417, 3.5693347, -0.18907735), Vector3(-0.19253147, 3.593957, -0.1027199), Vector3(0.33859387, 3.5831609, -0.04363323)]
 }
 tracks/2/type = "value"
@@ -710,7 +731,7 @@ tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(1.603, -0.49, -1.587), Vector3(1.603, -0.49, -1.587), Vector3(1.603, -0.49, -1.587), Vector3(0.938, 0.155, -1.587), Vector3(0.938, 0.155, -1.587), Vector3(0.938, 0.155, -1.587), Vector3(0.893, -0.465, -1.587)]
 }
 tracks/5/type = "value"
@@ -722,7 +743,7 @@ tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(-0.44680429, 1.8989183, 1.134464), Vector3(-0.44680429, 1.8989183, 1.134464), Vector3(-0.44680429, 1.8989183, 1.134464), Vector3(-2.2968533, 3.2428217, -0.04363323), Vector3(-2.2968533, 3.2428217, -0.04363323), Vector3(-2.2968533, 3.2428217, -0.04363323), Vector3(0.33859387, 3.5831609, -0.04363323)]
 }
 
@@ -1128,7 +1149,7 @@ floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
 base_speed = 10.0
 ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot")
-ghost_mat = SubResource("StandardMaterial3D_p4ou1")
+ghost_mat = SubResource("StandardMaterial3D_xvhxs")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -1226,6 +1247,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="Head/CameraPivot/WeaponLayer" unique_id=1572848522]
 transparent_bg = true
 handle_input_locally = false
+use_hdr_2d = true
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
@@ -1237,7 +1259,7 @@ size = 0.765
 
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=443423592]
 unique_name_in_owner = true
-transform = Transform3D(0.99575377, 0.04467098, 0.08048215, 0, 0.8743478, -0.48529977, -0.09204814, 0.48323947, 0.87063575, 0.08808589, 1.1201602, -1.5870181)
+transform = Transform3D(0.99575377, 0.04467098, 0.08048215, 0, 0.8743478, -0.48529974, -0.09204814, 0.48323947, 0.8706357, 0.08808589, 1.1201602, -1.5870181)
 
 [node name="SwordPivot" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=913439823]
 transform = Transform3D(1.0000002, -7.450581e-09, -1.4901161e-08, 0, 1.0000002, -5.9604645e-08, 7.450581e-09, -5.9604645e-08, 1, -0.09204821, 0.4832396, 0.8706362)

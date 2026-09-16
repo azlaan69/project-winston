@@ -657,7 +657,7 @@ surface_material_override/0 = ExtResource("3_50cgn")
 surface_material_override/0 = ExtResource("3_50cgn")
 
 [node name="forearmR" parent="root/pelvis/torso/arms/armR" index="2" unique_id=958046270]
-transform = Transform3D(0.6642464, -0.32139173, -0.6748941, 0.47206378, 0.8803958, 0.04536295, 0.57959473, -0.34872577, 0.73651767, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.6642463, -0.32139173, -0.67489403, 0.47206372, 0.8803958, 0.045362946, 0.5795947, -0.34872577, 0.7365176, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="cylinder23" parent="root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=1882375754]
 surface_material_override/0 = ExtResource("2_50cgn")
@@ -759,7 +759,7 @@ surface_material_override/0 = ExtResource("3_j3lu3")
 surface_material_override/0 = ExtResource("3_j3lu3")
 
 [node name="thighL" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(678095314) index="0" unique_id=1844497481]
-transform = Transform3D(0.96592516, -0.24999996, -0.06698728, 0.25881884, 0.93301255, 0.25000003, -2.2351728e-08, -0.25881907, 0.96592575, 0.015625, 0.029596874, 0.10013937)
+transform = Transform3D(0.9659251, -0.24999996, -0.06698728, 0.25881884, 0.93301255, 0.25000003, -2.2351726e-08, -0.25881907, 0.96592575, 0.015625, 0.029596874, 0.10013937)
 
 [node name="cylinder12" parent="root/pelvis/legs/thighL" index="0" unique_id=1173470689]
 surface_material_override/0 = ExtResource("3_50cgn")
@@ -768,7 +768,7 @@ surface_material_override/0 = ExtResource("3_50cgn")
 surface_material_override/0 = ExtResource("3_50cgn")
 
 [node name="kneeL" parent="root/pelvis/legs/thighL" index="2" unique_id=1600353821]
-transform = Transform3D(0.8660254, 0.48296297, 0.12940946, -0.482963, 0.875, -0.03349364, -0.12940955, -0.03349366, 0.99102473, -0.041484375, -0.56381, -0.018114375)
+transform = Transform3D(0.8660254, 0.48296297, 0.12940946, -0.482963, 0.875, -0.03349364, -0.12940955, -0.03349366, 0.9910247, -0.041484375, -0.56381, -0.018114375)
 
 [node name="cylinder27" parent="root/pelvis/legs/thighL/kneeL" index="0" unique_id=2061566795]
 surface_material_override/0 = ExtResource("2_50cgn")

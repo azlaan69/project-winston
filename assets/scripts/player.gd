@@ -120,6 +120,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			disable_freefly()
 
+func _process(delta: float) -> void:
+	if sword_hitbox.monitoring: 
+		PhysUtil.ghost(ghost, ghost_mat, 0.1)
+
+
 func _physics_process(delta: float) -> void:
 	
 	if can_freefly and freeflying:
