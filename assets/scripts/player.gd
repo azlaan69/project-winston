@@ -178,6 +178,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall() and wall_normal.length() > 0.1:
 		dash_velocity = Vector3.ZERO
 		slide_velocity = slide_velocity.slide(wall_normal)
+		hat_velocity = hat_velocity.slide(wall_normal) / 5
 
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * Settings.sens
@@ -373,7 +374,7 @@ func hatstuff(delta) -> void:
 				juice.shift(1.7, 70, 0.2)
 				await get_tree().create_timer(0.2).timeout
 				var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-				var speed = maxf(30.0, velocity.length() / 4)
+				var speed = 30.0 + velocity.length()
 				hat.launch(facing, speed)
 			
 			hat.state.LAUNCHED:
@@ -391,12 +392,12 @@ func hatstuff(delta) -> void:
 					hat.reset()
 					juice.shift(1.7, 110, 0.1)
 
-	if not Input.is_action_pressed("r"):
-		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
-	elif hat.current_state == hat.state.EQUIPPED:
-		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, 20.0 * delta)
+	if not Input.is_action_pressed("r") or hat.current_state == hat.state.EQUIPPED:
+		var weight = 35.0 if (is_on_floor() and hat_velocity.length() > 10.0) else 5.0
+		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, weight * delta)
 	if hat_velocity.length_squared() < 0.5: hat_velocity = Vector3.ZERO
-	if is_on_floor() and hat_velocity.y <= 0: hat_velocity.y = 0
+	if is_on_floor() and abs(hat_velocity.y) >= 5.0 and hat.used: hat_velocity.y = 0
+	hat_velocity.slide(-transform.basis.z)
 
 func combatstuff(delta) -> void:
 	
