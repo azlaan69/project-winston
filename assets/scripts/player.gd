@@ -85,6 +85,8 @@ const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 
 @onready var dash_cd: Timer = $Dash_CD
 @onready var combo: Timer = %ComboTimer
+@onready var hat_timer: Timer = $timers/HatNoYKillWindow
+@onready var downhill_timer: Timer = $timers/DownhillEndWindow
 
 @onready var juice = $Head
 @onready var hud: Control
@@ -264,13 +266,17 @@ func slide(delta) -> void:
 		elif not is_on_floor() and not is_on_wall() or near_wall:
 			decay = 0.5
 		else:
-			decay = 5.0
+			decay = 4.0
 		
 		slide_velocity = slide_velocity * exp(-decay * delta)
 		if slide_velocity.length_squared() < 4.0: slide_velocity = Vector3.ZERO
 	if slide_velocity.length() <= 2.0:
 		crouch_end()
 	if crouch_end_requested: crouch_end()
+	if !is_on_floor():
+		if downhill_timer.is_stopped(): downhill_timer.start()
+		await downhill_timer.timeout
+		downhill = false
 
 func jump(delta) -> void:
 	if jump_buffer > 0.0 and (is_on_floor() or near_wall):
@@ -286,7 +292,7 @@ func jump(delta) -> void:
 			jump_velocity = (eject_dir * launch_speed) + Vector3(0.0, 12.0, 0.0)
 			return
 		
-		if slide_velocity.length() > 5.0:
+		if slide_velocity.length() > 20.0:
 			if downhill:
 				jump_force += slide_velocity.length() * 0.4
 				slide_velocity *= 0.6
@@ -367,37 +373,43 @@ func crouch_end() -> void:
 
 
 func hatstuff(delta) -> void:
-	if Input.is_action_just_pressed("r") and hat.can_use:
-		match hat.current_state:
-			
-			hat.state.EQUIPPED:
-				juice.shift(1.7, 70, 0.2)
-				await get_tree().create_timer(0.2).timeout
-				var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-				var speed = 30.0 + velocity.length()
-				hat.launch(facing, speed)
-			
-			hat.state.LAUNCHED:
-				grav_velocity.y /= 5
-				hat.used = true
-				var pull_dir: Vector3 = (hat.global_position - global_position).normalized()
-				hat_velocity = pull_dir * 25.0
-				
-		
-			hat.state.LANDED:
-				if not hat.used:
-					juice.shift(1.7, 60, 0.4)
-					await get_tree().create_timer(0.4).timeout
-					global_position = hat.global_position + Vector3(0, 1.0, 0)
-					hat.reset()
-					juice.shift(1.7, 110, 0.1)
-
-	if not Input.is_action_pressed("r") or hat.current_state == hat.state.EQUIPPED:
-		var weight = 35.0 if (is_on_floor() and hat_velocity.length() > 10.0) else 5.0
-		hat_velocity = hat_velocity.move_toward(Vector3.ZERO, weight * delta)
+	if Input.is_action_just_pressed("r"):
+		hat_timer.start()
+		var target = PhysUtil.raycast_from_cam(%Camera3D, 80.0)
+		if target: 
+			hat_velocity = (target.position - global_position).normalized() * 40.0
+		else:
+			hat_velocity = Vector3.ZERO
+	#if Input.is_action_just_pressed("r") and hat.can_use:
+		#match hat.current_state:
+			#
+			#hat.state.EQUIPPED:
+				#juice.shift(1.7, 70, 0.2)
+				#await get_tree().create_timer(0.2).timeout
+				#var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
+				#var speed = 30.0 + velocity.length()
+				#hat.launch(facing, speed)
+			#
+			#hat.state.LAUNCHED:
+				#if not hat.used: hat_timer.start()
+				#grav_velocity.y /= 5
+				#hat.used = true
+				#var pull_dir: Vector3 = (hat.global_position - global_position).normalized()
+				#hat_velocity = pull_dir * 35.0
+		#
+			#hat.state.LANDED:
+				#if not hat.used:
+					#juice.shift(1.7, 60, 0.4)
+					#await get_tree().create_timer(0.4).timeout
+					#global_position = hat.global_position + Vector3(0, 1.0, 0)
+					#hat.reset()
+					#juice.shift(1.7, 110, 0.1)
+#
+	var weight = 35.0 if is_on_floor() else 10.0
+	hat_velocity = hat_velocity.move_toward(Vector3.ZERO, weight * delta)
 	if hat_velocity.length_squared() < 0.5: hat_velocity = Vector3.ZERO
-	if is_on_floor() and abs(hat_velocity.y) >= 5.0 and hat.used: hat_velocity.y = 0
-	hat_velocity.slide(-transform.basis.z)
+	if is_on_floor() and abs(hat_velocity.y) >= 5.0 and hat_timer.time_left <= 0.0: hat_velocity.y = 0
+	
 
 func combatstuff(delta) -> void:
 	

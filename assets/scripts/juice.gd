@@ -47,10 +47,12 @@ func _process(delta: float) -> void:
 				end_tilt = 0.0
 		else:
 			var strafe_input := Input.get_axis(player.input_left, player.input_right)
-			var strafe_factor = 2.0 if player.is_on_floor() else 5.0
+			var strafe_factor = 5.0
+			if player.slide_velocity.length() > 2.0 and player.is_on_floor(): strafe_factor = 10.0
+			elif player.is_on_floor(): strafe_factor = 5.0
+			elif !player.is_on_floor(): strafe_factor = 2.5
 			if strafe_input != 0:
-				var airnerf = 1.0 if player.is_on_floor() else 0.5
-				end_tilt = deg_to_rad(strafe_input * strafe_factor * airnerf)
+				end_tilt = deg_to_rad(strafe_input * strafe_factor)
 			else:
 				end_tilt = 0.0
 				
@@ -65,7 +67,7 @@ func _process(delta: float) -> void:
 		shake.position = Vector3.ZERO
 		shake.rotation = Vector3.ZERO
 	
-	var interp_speed = 15.0 if end_fov > camera.fov else 6.0
+	var interp_speed = 5.0 if end_fov > camera.fov else 2.0
 	camera.fov = lerp(camera.fov, end_fov, 1.0 - exp(delta * -interp_speed))
 	rotation.z = lerp(rotation.z, end_tilt, 1.0 - exp(delta * -12.0))
 	position.y = lerp(position.y, end_y, 1.0 - exp(delta * -12.0))

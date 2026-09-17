@@ -14,12 +14,13 @@ background_mode = 1
 background_color = Color(1, 0, 0.43137255, 1)
 ambient_light_source = 2
 ambient_light_color = Color(8.663535e-07, 0.6018311, 0.60183114, 1)
-ambient_light_energy = 1.52
+ambient_light_energy = 1.5
+reflected_light_source = 1
 tonemap_mode = 3
 tonemap_exposure = 0.5
 tonemap_white = 16.0
 glow_enabled = true
-glow_hdr_threshold = 1.5
+glow_hdr_threshold = 2.0
 adjustment_contrast = 500.0
 adjustment_saturation = 0.0
 

@@ -86,7 +86,6 @@ mouse_filter = 2
 script = ExtResource("1_lnytp")
 
 [node name="Label" type="Label" parent="HUD" unique_id=1129181077]
-visible = false
 layout_mode = 0
 offset_left = 25.0
 offset_top = 10.0
