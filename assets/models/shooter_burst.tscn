@@ -657,7 +657,7 @@ surface_material_override/0 = ExtResource("3_50cgn")
 surface_material_override/0 = ExtResource("3_50cgn")
 
 [node name="forearmR" parent="root/pelvis/torso/arms/armR" index="2" unique_id=958046270]
-transform = Transform3D(0.66424614, -0.32139173, -0.6748939, 0.4720636, 0.8803958, 0.04536294, 0.57959455, -0.34872577, 0.7365175, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.6642461, -0.32139173, -0.6748939, 0.47206357, 0.8803958, 0.045362934, 0.57959443, -0.34872577, 0.7365174, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="cylinder23" parent="root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=1882375754]
 surface_material_override/0 = ExtResource("2_50cgn")
@@ -759,7 +759,7 @@ surface_material_override/0 = ExtResource("3_j3lu3")
 surface_material_override/0 = ExtResource("3_j3lu3")
 
 [node name="thighL" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(678095314) index="0" unique_id=1844497481]
-transform = Transform3D(0.965925, -0.24999996, -0.06698728, 0.2588188, 0.93301255, 0.25000003, -2.2351724e-08, -0.25881907, 0.96592575, 0.015625, 0.029596874, 0.10013937)
+transform = Transform3D(0.965925, -0.24999996, -0.06698728, 0.25881878, 0.93301255, 0.25000003, -2.2351722e-08, -0.25881907, 0.96592575, 0.015625, 0.029596874, 0.10013937)
 
 [node name="cylinder12" parent="root/pelvis/legs/thighL" index="0" unique_id=1173470689]
 surface_material_override/0 = ExtResource("3_50cgn")

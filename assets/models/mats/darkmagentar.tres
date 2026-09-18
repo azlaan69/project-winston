@@ -1,14 +1,9 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dvau0kuv3r04e"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_satdh"]
-cull_mode = 1
-shading_mode = 0
-albedo_color = Color(0, 0, 0, 1)
-grow = true
-grow_amount = 0.005
+[ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="1_xe0xx"]
 
 [resource]
-next_pass = SubResource("StandardMaterial3D_satdh")
+next_pass = ExtResource("1_xe0xx")
 diffuse_mode = 3
 specular_mode = 1
 disable_ambient_light = true

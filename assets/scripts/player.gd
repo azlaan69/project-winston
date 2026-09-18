@@ -8,23 +8,7 @@ extends CharacterBody3D
 
 @export_group("Speeds")
 @export var base_speed : float = 7.0
-@export var jump_speed : float = 6.0
-@export var dash_speed : float = 20.0
 @export var freefly_speed : float = 30.0
-@export var slide_speed : float = 10.0
-
-@export_group("Input Actions")
-@export var input_left : String = "a"
-@export var input_right : String = "d"
-@export var input_forward : String = "w"
-@export var input_back : String = "s"
-@export var input_jump : String = "space"
-@export var input_dash : String = "shift"
-@export var input_freefly : String = "freefly"
-@export var input_slide : String = "ctrl"
-@export var input_attack : String = "lmb"
-@export var input_secondary : String = "rmb"
-@export var input_switch : String = "q"
 
 @export_group("Trails")
 @export var ghost : Node3D
@@ -48,7 +32,7 @@ var jump_velocity: Vector3
 var wall_velocity: Vector3
 var slide_velocity: Vector3
 var dash_velocity: Vector3
-var hat_velocity: Vector3
+var grapple_velocity: Vector3
 var grav_velocity: Vector3
 var external_velocity: Vector3
 
@@ -56,7 +40,10 @@ var external_velocity: Vector3
 var input_dir = 0.0
 var move_dir = 0.0
 var wall_normal: Vector3
+
+
 var wall_run_speed = 0.0
+var grapple_speed = 0.0 
 
 
 var hp = 100
@@ -89,6 +76,7 @@ const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 @onready var hat_timer: Timer = $timers/HatNoYKillWindow
 @onready var downhill_timer: Timer = $timers/DownhillEndWindow
 @onready var dashjump_timer: Timer = $timers/DashJumpWindow
+@onready var pistol_timeslow_timer: Timer = $timers/PistolSecondaryTimer
 
 @onready var juice = $Head
 @onready var hud: Control
@@ -118,7 +106,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
 		rotate_look(event.relative)
 	
-	if can_freefly and Input.is_action_just_pressed(input_freefly):
+	if can_freefly and Input.is_action_just_pressed("freefly"):
 		if not freeflying:
 			enable_freefly()
 		else:
@@ -126,13 +114,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	if trailing: 
-		PhysUtil.ghost(ghost, ghost_mat, 0.1)
+		PhysUtil.ghost(ghost, ghost_mat, 0.05)
 
 
 func _physics_process(delta: float) -> void:
 	
 	if can_freefly and freeflying:
-		input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
+		input_dir = Input.get_vector("left", "right", "forward", "back")
 		var motion := (head.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		motion *= freefly_speed * delta
 		move_and_collide(motion)
@@ -140,20 +128,20 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("reset"): get_tree().reload_current_scene()
 	
-	input_dir = Input.get_vector(input_left, input_right, input_forward, input_back)
+	input_dir = Input.get_vector("left", "right", "forward", "back")
 	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	near_wall = (wallcheck.is_colliding())
 	
-	if Input.is_action_just_pressed(input_jump): jump_buffer = 0.2
+	if Input.is_action_just_pressed("jump"): jump_buffer = 0.2
 	if jump_buffer > 0.0: jump_buffer -= delta
 	
-	if Input.is_action_just_pressed(input_slide): slide_buffer = 0.5
+	if Input.is_action_just_pressed("slide"): slide_buffer = 0.5
 	if slide_buffer > 0.0: slide_buffer -= delta
 	
-	if Input.is_action_just_pressed(input_dash): dash_buffer = 0.2
+	if Input.is_action_just_pressed("dash"): dash_buffer = 0.2
 	if dash_buffer > 0.0: dash_buffer -= delta
 	
-	if Input.is_action_just_pressed(input_switch): switch_buffer = 0.5
+	if Input.is_action_just_pressed("switch_weapon"): switch_buffer = 0.5
 	if switch_buffer > 0.0: switch_buffer -= delta
 	
 	if shoot_buffer > 0.0:
@@ -170,10 +158,10 @@ func _physics_process(delta: float) -> void:
 	slide(delta)
 	jump(delta)
 	wall(delta)
-	hatstuff(delta)
+	grapplestuff(delta)
 	combatstuff(delta)
 	
-	velocity = move_velocity + jump_velocity + wall_velocity + dash_velocity + slide_velocity + hat_velocity + grav_velocity + external_velocity
+	velocity = move_velocity + jump_velocity + wall_velocity + dash_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity
 
 	move_and_slide()
 
@@ -182,7 +170,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall() and wall_normal.length() > 0.1:
 		dash_velocity = Vector3.ZERO
 		slide_velocity = slide_velocity.slide(wall_normal)
-		hat_velocity = hat_velocity.slide(wall_normal) / 5
+		grapple_velocity = grapple_velocity.slide(wall_normal) / 5
 		wall_velocity = wall_velocity.slide(wall_normal)
 
 func rotate_look(rot_input : Vector2):
@@ -221,6 +209,8 @@ func dash(delta) -> void:
 		grav_velocity = Vector3.ZERO
 		jump_velocity = Vector3.ZERO
 		slide_velocity = Vector3.ZERO
+		grapple_velocity = Vector3.ZERO
+		wall_velocity = Vector3.ZERO
 		dashjump_timer.start()
 		var dash_dir = -head.global_transform.basis.z
 		var dash_impulse = 100.0
@@ -327,8 +317,8 @@ func wall(delta) -> void:
 		var forward = -transform.basis.z
 		if move_dir and abs(forward.dot(wall_normal)) < 0.6:
 			if wall_run_speed == 0 and not wall_running:
-				var sample_velocity = jump_velocity + wall_velocity + slide_velocity + hat_velocity + grav_velocity + external_velocity
-				var entry_speed = sample_velocity.length() * 1.2
+				var sample_velocity = jump_velocity + wall_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity
+				var entry_speed = sample_velocity.length() * 1.5
 				wall_run_speed = maxf(base_speed * 1.5, entry_speed)
 				wall_running = true
 			
@@ -379,14 +369,30 @@ func crouch_end() -> void:
 		crouch_end_requested = false
 
 
-func hatstuff(delta) -> void:
-	if Input.is_action_just_pressed("r"):
+func grapplestuff(delta) -> void:
+	if Input.is_action_pressed("grapple"):
 		hat_timer.start()
-		var target = PhysUtil.raycast_from_cam(%Camera3D, 80.0)
-		if target: 
-			hat_velocity = (target.position - global_position).normalized() * 40.0
-		else:
-			hat_velocity = Vector3.ZERO
+		var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
+		if target and (target.position - global_position).length() > 5.0:
+			grav_velocity = Vector3.ZERO
+			var point = target.collider
+			if point.is_in_group("grapple"):
+				if grapple_speed >= 0.0: hat_timer.start()
+				
+				var dist = target.position - global_position
+				grapple_speed = dist.length()
+				grapple_velocity = dist.normalized() * 40.0
+		
+	else:
+		var decay = 8.0
+		if !is_on_floor(): decay = 1.0
+		else: decay = 8.0
+		grapple_velocity *= exp(-decay * delta)
+		grapple_speed *= exp(-decay * delta)
+		
+		if grapple_velocity.length_squared() < 0.5: grapple_velocity = Vector3.ZERO
+		if is_on_floor() and abs(grapple_velocity.y) >= 5.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
+		
 	#if Input.is_action_just_pressed("r") and hat.can_use:
 		#match hat.current_state:
 			#
@@ -411,12 +417,6 @@ func hatstuff(delta) -> void:
 					#global_position = hat.global_position + Vector3(0, 1.0, 0)
 					#hat.reset()
 					#juice.shift(1.7, 110, 0.1)
-#
-	var weight = 35.0 if is_on_floor() else 10.0
-	hat_velocity = hat_velocity.move_toward(Vector3.ZERO, weight * delta)
-	if hat_velocity.length_squared() < 0.5: hat_velocity = Vector3.ZERO
-	if is_on_floor() and abs(hat_velocity.y) >= 5.0 and hat_timer.time_left <= 0.0: hat_velocity.y = 0
-	
 
 func combatstuff(delta) -> void:
 	
@@ -455,16 +455,24 @@ func combatstuff(delta) -> void:
 	
 	match current_wpn:
 		wpn.GUNS:
-			if Input.is_action_pressed(input_attack) and !is_switching:
+			if Input.is_action_pressed("primary") and !is_switching:
 				if !anim_gun.is_playing():
 					if shoot_l: anim_gun.play("L_shoot")
 					else: anim_gun.play("R_shoot")
 					hud.hit_time = 0.2
 					shoot_l = !shoot_l
 					shoot_buffer = 0.05
-					
+					return
+				
+			
+			if Input.is_action_pressed("secondary") and !is_switching and pistol_timeslow_timer.is_stopped():
+				pistol_timeslow_timer.start()
+				Engine.time_scale = 0.5
+			elif Input.is_action_just_released("secondary") or pistol_timeslow_timer.time_left <= 0.0:
+				Engine.time_scale = 1.0
+			
 		wpn.SWORD:
-			if Input.is_action_just_pressed(input_attack) and !is_switching:
+			if Input.is_action_just_pressed("primary") and !is_switching:
 				combo.stop()
 				match combo_step:
 					0:
@@ -476,7 +484,7 @@ func combatstuff(delta) -> void:
 					3:
 						pass
 			
-			elif Input.is_action_just_pressed("rmb") and !is_switching:
+			elif Input.is_action_just_pressed("secondary") and !is_switching:
 				anim_sword.stop()
 				combo.stop()
 				anim_sword.play("parry")

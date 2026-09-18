@@ -1147,7 +1147,26 @@ disable_receive_shadows = true
 slide_on_ceiling = false
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
+can_move = null
+has_gravity = null
+can_jump = null
+can_dash = null
 base_speed = 10.0
+jump_speed = null
+dash_speed = null
+freefly_speed = null
+slide_speed = null
+input_left = null
+input_right = null
+input_forward = null
+input_back = null
+input_jump = null
+input_dash = null
+input_freefly = null
+input_slide = null
+input_attack = null
+input_secondary = null
+input_switch = null
 ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot")
 ghost_mat = SubResource("StandardMaterial3D_xvhxs")
 
@@ -1508,11 +1527,7 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
-[node name="PistolSecondaryTimer" type="Timer" parent="timers" unique_id=1411021427]
-process_callback = 0
-wait_time = 0.5
-one_shot = true
-ignore_time_scale = true
+[node name="Timer" type="Timer" parent="timers" unique_id=1411021427]
 
 [connection signal="timeout" from="Dash_CD" to="." method="_on_dash_cd_timeout"]
 [connection signal="body_entered" from="Head/CameraPivot/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]

@@ -4,13 +4,7 @@
 [ext_resource type="Script" uid="uid://crtl3c135qupk" path="res://assets/scripts/shooter1.gd" id="1_yknt1"]
 [ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="2_satdh"]
 [ext_resource type="PackedScene" uid="uid://djto08je026bj" path="res://assets/models/shooter_burst.tscn" id="2_xoxhl"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_satdh"]
-cull_mode = 1
-shading_mode = 0
-albedo_color = Color(0, 0, 0, 1)
-grow = true
-grow_amount = 0.005
+[ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="5_pe1q6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qok5"]
 radius = 0.75
@@ -33,16 +27,16 @@ optional_ghostroot = NodePath("shooter_burst")
 [node name="shooter_burst" parent="." unique_id=907194274 instance=ExtResource("2_xoxhl")]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.9868642, 0)
 script = ExtResource("1_xoxhl")
-mask_material = SubResource("StandardMaterial3D_satdh")
+mask_material = ExtResource("5_pe1q6")
 
 [node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 931774970) index="2" unique_id=958046270]
-transform = Transform3D(0.6642459, -0.32139173, -0.6748938, 0.47206345, 0.8803958, 0.04536293, 0.5795943, -0.34872577, 0.73651737, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.66424584, -0.32139173, -0.67489374, 0.4720634, 0.8803958, 0.045362927, 0.57959425, -0.34872577, 0.7365173, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1193048049) index="1" unique_id=1034599267]
 transform = Transform3D(0.9252015, -0.2716394, 0.26497868, 0.14177774, 0.89514965, 0.42261818, -0.3519953, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)
 
 [node name="thighL" parent="shooter_burst/root/pelvis/legs" parent_id_path=PackedInt32Array(907194274, 678095314) index="0" unique_id=1844497481]
-transform = Transform3D(0.965925, -0.24999988, -0.06698728, 0.25881878, 0.93301225, 0.25000003, -2.2351722e-08, -0.25881898, 0.96592575, 0.015625, 0.029596874, 0.10013937)
+transform = Transform3D(0.965925, -0.24999987, -0.06698728, 0.25881878, 0.93301225, 0.25000003, -2.2351722e-08, -0.25881898, 0.96592575, 0.015625, 0.029596874, 0.10013937)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=941452281]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5114746, 0)
@@ -57,6 +51,7 @@ target_position = Vector3(0, 0, 0)
 
 [node name="Label3D" type="Label3D" parent="." unique_id=2078017863]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2, 0)
+visible = false
 pixel_size = 0.01
 billboard = 1
 no_depth_test = true

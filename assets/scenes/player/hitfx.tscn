@@ -4,6 +4,28 @@
 [ext_resource type="Texture2D" uid="uid://doali578me4ns" path="res://assets/textures/shootfx-Sheet.png" id="2_hcnbq"]
 [ext_resource type="Texture2D" uid="uid://dvqiobdvliu3k" path="res://assets/textures/slashfx.png" id="6_gcgvq"]
 
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_wg42c"]
+frames = 4
+frame_0/texture = ExtResource("2_hcnbq")
+frame_1/duration = 1.0
+frame_2/duration = 1.0
+frame_3/duration = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xo733"]
+transparency = 1
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_texture = SubResource("AnimatedTexture_wg42c")
+heightmap_scale = 4.425
+billboard_mode = 1
+billboard_keep_scale = true
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_r2pus"]
 atlas = ExtResource("2_hcnbq")
 region = Rect2(0, 0, 512, 512)
@@ -74,6 +96,7 @@ script = ExtResource("1_yh36u")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1341018182]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_xo733")
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0

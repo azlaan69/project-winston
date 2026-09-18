@@ -1,12 +1,14 @@
 extends Node
 
-func raycast_from_cam(cam: Camera3D, distance: float = 100.0, exclude: Array[RID] = [], offset: Vector3 = Vector3.ZERO) -> Dictionary:
+func raycast_from_cam(cam: Camera3D, distance: float = 100.0, exclude: Array[RID] = [], offset: Vector3 = Vector3.ZERO, include_areas: bool = false, mask: int = 3) -> Dictionary:
 	var space_state = cam.get_world_3d().direct_space_state
 	var origin = cam.global_position + offset
 	var target = origin + (-cam.global_transform.basis.z * distance)
 	
 	var query = PhysicsRayQueryParameters3D.create(origin, target)
 	query.exclude = exclude
+	query.collide_with_areas = include_areas
+	query.collision_mask = mask
 	return space_state.intersect_ray(query)
 
 func get_target_in_cone(from: Vector3, dir: Vector3, distance: float = 80.0, radius: float = 4.0, exclude: Array[RID] = []) -> Vector3:
@@ -48,7 +50,6 @@ func ghost(root: Node3D, mat: StandardMaterial3D, duration: float) -> void:
 	for child in ghost.find_children("*", "MeshInstance3D", true, false):
 		var mesh_child = child as MeshInstance3D
 		mesh_child.material_override = ghost_mat
-		print(mesh_child)
 	
 	var tween = create_tween()
 	tween.tween_property(ghost_mat, "albedo_color:a", 0.0, duration)

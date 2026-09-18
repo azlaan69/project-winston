@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bwlnqi7ycc0k2" path="res://assets/models/lesser_valkyrie.tscn" id="7_1jmg1"]
 [ext_resource type="PackedScene" uid="uid://bu0wdb3r6xfqs" path="res://assets/scenes/player/hud.tscn" id="7_uum53"]
 [ext_resource type="PackedScene" uid="uid://cv0vve3eftqu8" path="res://assets/scenes/player/settings_menu.tscn" id="8_vsmvd"]
+[ext_resource type="PackedScene" uid="uid://xkh2maewipsq" path="res://assets/scenes/enemies/grapple_point.tscn" id="9_uum53"]
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
@@ -55,6 +56,7 @@ physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Instructions" type="Label3D" parent="." unique_id=890364319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 38, -112)
+visible = false
 pixel_size = 0.001
 billboard = 1
 fixed_size = true
@@ -122,3 +124,36 @@ font_size = 128
 [node name="Overlay" parent="misc" unique_id=320630329 instance=ExtResource("7_uum53")]
 
 [node name="SettingsMenu" parent="misc" unique_id=401807240 instance=ExtResource("8_vsmvd")]
+
+[node name="GrapplePoint" parent="." unique_id=1320846172 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 72, 35)
+
+[node name="GrapplePoint2" parent="." unique_id=849040601 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 100, 35)
+
+[node name="GrapplePoint3" parent="." unique_id=601833227 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165, 99, 35)
+
+[node name="GrapplePoint4" parent="." unique_id=61337913 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185, 90, 16)
+
+[node name="GrapplePoint5" parent="." unique_id=1373599032 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185, 70, 35)
+
+[node name="GrapplePoint6" parent="." unique_id=338989681 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165, 80, 16)
+
+[node name="GrapplePoint7" parent="." unique_id=1120417691 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 81, -75)
+
+[node name="GrapplePoint8" parent="." unique_id=1637340738 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121, 81, -86)
+
+[node name="GrapplePoint9" parent="." unique_id=1686169224 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 181, 88, -80)
+
+[node name="GrapplePoint10" parent="." unique_id=959321071 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 73, -24)
+
+[node name="GrapplePoint11" parent="." unique_id=1291419563 instance=ExtResource("9_uum53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 177, 41, -24)
