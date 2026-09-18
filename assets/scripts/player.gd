@@ -74,6 +74,7 @@ enum wpn { GUNS, SWORD }
 var current_wpn = wpn.SWORD
 var shoot_l : bool = false
 var combo_step : int = 1
+var trailing: bool = false
 
 
 const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
@@ -123,7 +124,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _process(delta: float) -> void:
-	if sword_hitbox.monitoring: 
+	if trailing: 
 		PhysUtil.ghost(ghost, ghost_mat, 0.1)
 
 
@@ -517,6 +518,7 @@ func deal_shot() -> void:
 func deal_swing() -> void:
 	for proj in parry_hitbox.get_overlapping_areas():
 		if proj.is_in_group("projectile") and proj.parriable:
+			trailing = true
 			var angle = -%Camera3D.global_transform.basis.z
 			proj.deflect(angle)
 			var trauma = proj.hit_data["damage"] / 100.0
@@ -560,6 +562,7 @@ func _on_combo_timer_timeout() -> void:
 	anim_sword.play("sheath", 0.15)
 
 func _on_sword_player_animation_finished(anim_name: StringName) -> void:
+	trailing = false
 	match anim_name:
 		"swing1":
 			combo_step = 1

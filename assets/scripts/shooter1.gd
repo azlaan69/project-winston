@@ -40,10 +40,8 @@ func _physics_process(delta: float) -> void:
 			
 			if dist > 70.0:
 				pass
-			elif dist < 2.0:
+			elif dist < 10.0:
 				change_state(state.KICK)
-			elif dist < 8.0:
-				change_state(state.CHASE)
 			elif cooldown <= 0.0 and dist <= 30.0:
 				change_state(state.TELEGRAPH)
 			elif dist > 30.0:
@@ -59,7 +57,7 @@ func _physics_process(delta: float) -> void:
 			movement = movement.lerp(target, accel * delta)
 			
 			if los:
-				if dist < 2.0:
+				if dist < 10.0:
 					change_state(state.KICK)
 				elif dist <= 30.0 and dist > 2.0 and cooldown <= 0.0:
 					change_state(state.TELEGRAPH)
@@ -88,12 +86,20 @@ func _physics_process(delta: float) -> void:
 			
 		state.KICK:
 			rotate_towards(dir, look_speed * 2, delta * 2)
-			movement = movement.lerp(Vector3.ZERO, accel * 2 * delta)
+			if dist > 2.0 and anim.current_animation != "kick":
+				var target = Vector3(dir.x, 0, dir.z).normalized()
+				movement = target * speed * 1.5
+				PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.2)
+				
+			else:
+				if anim.current_animation != "kick": anim.play("kick")
+				movement = movement.lerp(Vector3.ZERO, accel * 2 * delta)
 		
 		state.RETREAT:
 			rotate_towards(dir, look_speed, delta)
 			var target = -Vector3(dir.x, 0, dir.z).normalized()
-			movement = movement.lerp(target * speed * 0.6, accel * delta)
+			movement = target * speed * 1.5
+			PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.2)
 			if cooldown <= 0.0:
 				change_state(state.IDLE)
 		
@@ -105,7 +111,7 @@ func _physics_process(delta: float) -> void:
 			movement = strafe * speed * 1.5
 			PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.2)
 			
-			if dist < 2.0: change_state(state.KICK)
+			if dist < 10.0: change_state(state.KICK)
 			elif cooldown <= 0.0: 
 				movement = Vector3.ZERO
 				change_state(state.IDLE)
@@ -114,13 +120,13 @@ func _physics_process(delta: float) -> void:
 			movement = Vector3.ZERO
 			if cooldown <= 0.0: change_state(state.IDLE)
 
-	if movement.length() > 0.0 and current_state in [state.CHASE, state.RETREAT, state.REPOSITION] and iframe_timer <= 0.0:
+	if movement.length() > 0.0 and current_state in [state.CHASE, state.RETREAT, state.REPOSITION] and iframe_timer <= 0.0 and anim.current_animation != "kick":
 		anim.play("walk", 0.0, movement.length() / 7.5)
 	
 	velocity.x = movement.x
 	velocity.z = movement.z
 	velocity += kb_velocity
-	#$Label3D.text = str(los, state.find_key(current_state))
+	$Label3D.text = str(los, state.find_key(current_state))
 	
 	move_and_slide()
 
@@ -132,17 +138,19 @@ func change_state(new_state: state) -> void:
 	match current_state:
 		state.IDLE:
 			anim.play("idle")
-		state.CHASE, state.RETREAT:
+		state.CHASE:
 			anim.play("walk")
 		state.TELEGRAPH:
 			anim.play("idle")
 			telegraph_timer = 0.2
-		state.KICK:
-			cooldown = 2.0
-			anim.play("kick")
+		#state.KICK:
+			#anim.play("kick")
+		state.RETREAT:
+			anim.play("walk")
+			cooldown = 0.4
 		state.REPOSITION:
 			anim.play("walk")
-			if randf() > 0.3:
+			if randf() > 0.5:
 				side = -1.0 if randf() > 0.5 else 1.0
 			else:
 				side = -side
@@ -180,4 +188,4 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 func hit(hit_data) -> void:
 	super(hit_data)
 	hitanim.play("hit")
-	if hit_data["damage"] >= 5.0: change_state(state.STAGGER)
+	if hit_data["damage"] > 5.0: change_state(state.STAGGER)
