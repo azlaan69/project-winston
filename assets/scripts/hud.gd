@@ -13,7 +13,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	$Label.text = "FPS: %s\nTOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nDOWNHILL: %.s" % [
+	$Label.text = "FPS: %s\nTOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nWALL SPEED: %.s" % [
 	str(Engine.get_frames_per_second()),
 	str(player.velocity.round()),
 	str(player.wall_velocity.round()),
@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	str(player.slide_velocity.round()),
 	str(player.grav_velocity.round()),
 	str(player.wall_normal.snapped(Vector3(0.01, 0.01, 0.01))),
-	player.downhill
+	player.wall_run_speed
 	]
 	var dash_charges = player.dash_charges
 	var time_left = player.dash_cd.time_left

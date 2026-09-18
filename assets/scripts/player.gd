@@ -88,6 +88,7 @@ const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 @onready var combo: Timer = %ComboTimer
 @onready var hat_timer: Timer = $timers/HatNoYKillWindow
 @onready var downhill_timer: Timer = $timers/DownhillEndWindow
+@onready var dashjump_timer: Timer = $timers/DashJumpWindow
 
 @onready var juice = $Head
 @onready var hud: Control
@@ -182,6 +183,7 @@ func _physics_process(delta: float) -> void:
 		dash_velocity = Vector3.ZERO
 		slide_velocity = slide_velocity.slide(wall_normal)
 		hat_velocity = hat_velocity.slide(wall_normal) / 5
+		wall_velocity = wall_velocity.slide(wall_normal)
 
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * Settings.sens
@@ -219,6 +221,7 @@ func dash(delta) -> void:
 		grav_velocity = Vector3.ZERO
 		jump_velocity = Vector3.ZERO
 		slide_velocity = Vector3.ZERO
+		dashjump_timer.start()
 		var dash_dir = -head.global_transform.basis.z
 		var dash_impulse = 100.0
 		var cam_allowed = (input_dir.x == 0 and input_dir.y <= 0 and current_wpn == wpn.SWORD and dash_charges >= 2)
@@ -304,9 +307,12 @@ func jump(delta) -> void:
 				#else:
 					#jump_force = remap(slide_speed, 10.0, 25.0, 12.0, 14.0)
 		
-		elif dash_velocity.length() > 5.0:
-			jump_force += dash_velocity.length() * 0.1
+		elif !dashjump_timer.is_stopped():
+			var launch_speed = 30.0
+			var eject_dir = dash_velocity.normalized() + Vector3.UP
+			wall_velocity = eject_dir * launch_speed
 			dash_velocity.y = 0.0
+			return
 		
 		jump_velocity.y = jump_force
 		
@@ -340,7 +346,7 @@ func wall(delta) -> void:
 
 
 func grav(delta) -> void:
-	var rising = jump_velocity.length() > 4.0
+	var rising = jump_velocity.y > 4.0
 	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 5.0 :
 		grav_velocity += get_gravity() * delta
 		grav_velocity *= pow(1.2, delta)

@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 				change_state(state.KICK)
 			elif cooldown <= 0.0 and dist <= 30.0:
 				change_state(state.TELEGRAPH)
-			elif dist > 30.0:
+			elif dist > 30.0 and los:
 				change_state(state.CHASE)
 				
 			
