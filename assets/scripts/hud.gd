@@ -14,7 +14,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	$Label.text = "FPS: %s\nTOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nGRAPPLE SPEED: %.s" % [
-	str(Engine.get_frames_per_second()),
+	str(player.hat.state.find_key(player.hat.current_state)),
 	str(player.velocity.round()),
 	str(player.wall_velocity.round()),
 	str(player.jump_velocity.round()),

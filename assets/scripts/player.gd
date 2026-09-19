@@ -53,6 +53,7 @@ var slide_buffer: float = 0.0
 var dash_buffer: float = 0.0
 var shoot_buffer: float = 0.0
 var switch_buffer: float = 0.0
+var hat_buffer: float = 0.0
 var iframe_timer: float = 0.0
 var sword_logging : bool = true
 
@@ -143,6 +144,9 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("switch_weapon"): switch_buffer = 0.5
 	if switch_buffer > 0.0: switch_buffer -= delta
+	
+	if Input.is_action_just_pressed("hat_trick"): hat_buffer = 0.5
+	if hat_buffer > 0.0: hat_buffer -= delta
 	
 	if shoot_buffer > 0.0:
 		shoot_buffer -= delta
@@ -391,7 +395,7 @@ func grapplestuff(delta) -> void:
 		grapple_speed *= exp(-decay * delta)
 		
 		if grapple_velocity.length_squared() < 0.5: grapple_velocity = Vector3.ZERO
-		if is_on_floor() and abs(grapple_velocity.y) >= 5.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
+		if is_on_floor() and abs(grapple_velocity.y) >= 0.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
 		
 	#if Input.is_action_just_pressed("r") and hat.can_use:
 		#match hat.current_state:
@@ -422,6 +426,10 @@ func combatstuff(delta) -> void:
 	
 	external_velocity = external_velocity.lerp(Vector3.ZERO, 4.0 * delta)
 	if external_velocity.length_squared() < 0.5: external_velocity = Vector3.ZERO
+	
+	if hat_buffer > 0.0 and hat.current_state == hat.state.EQUIPPED:
+		var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
+		hat.launch(facing, 35.0, 0.5)
 	
 	if switch_buffer > 0.0 and not is_switching:
 		switch_buffer = 0.0
