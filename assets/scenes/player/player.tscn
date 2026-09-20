@@ -1510,7 +1510,7 @@ one_shot = true
 
 [node name="PistolSecondaryTimer" type="Timer" parent="timers" unique_id=1411021427]
 process_callback = 0
-wait_time = 0.5
+wait_time = 2.0
 one_shot = true
 ignore_time_scale = true
 

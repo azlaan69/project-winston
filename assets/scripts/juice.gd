@@ -84,11 +84,16 @@ func apply_shake() -> void:
 	shake.rotation.y = max_yaw * amount * noise.get_noise_2d(noise_offset + 300.0, 0.0)
 
 func shift(pos: float, fov: float, time: float = 1.0, perm: bool = false) -> void:
-	position.y = pos
+	if pos != 999.0: position.y = pos
 	end_fov = fov
 	shift_allowed = false
 	if not perm:
-		await get_tree().create_timer(time).timeout
+		await get_tree().create_timer(time, true, false, true).timeout
 		position.y = 1.7
-		end_fov = 90
+		end_fov = 75
 		shift_allowed = true
+
+func shiftend() -> void:
+	position.y = 1.7
+	end_fov = 75
+	shift_allowed = true
