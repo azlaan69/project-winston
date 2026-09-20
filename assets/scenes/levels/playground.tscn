@@ -6,11 +6,11 @@
 diffuse_mode = 3
 specular_mode = 1
 albedo_texture = ExtResource("1_vtfwl")
-uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_scale = Vector3(0.2, 0.2, 0.2)
 uv1_triplanar = true
 uv1_triplanar_sharpness = 150.0
 uv1_world_triplanar = true
-texture_filter = 0
+texture_filter = 4
 stencil_flags = 2
 stencil_outline_thickness = 0.375
 

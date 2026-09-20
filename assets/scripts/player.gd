@@ -29,6 +29,7 @@ var wall_running : bool = false
 
 var move_velocity: Vector3
 var jump_velocity: Vector3
+var walj_velocity: Vector3
 var wall_velocity: Vector3
 var slide_velocity: Vector3
 var dash_velocity: Vector3
@@ -54,6 +55,7 @@ var dash_buffer: float = 0.0
 var shoot_buffer: float = 0.0
 var switch_buffer: float = 0.0
 var hat_buffer: float = 0.0
+var walj_lockout: float = 0.0
 var iframe_timer: float = 0.0
 var sword_logging : bool = true
 
@@ -153,6 +155,7 @@ func _physics_process(delta: float) -> void:
 		deal_shot()
 	
 	if iframe_timer > 0.0: iframe_timer -= delta
+	if walj_lockout > 0.0: walj_lockout -= delta
 	
 	if sword_hitbox.monitoring: deal_swing()
 	
@@ -165,17 +168,17 @@ func _physics_process(delta: float) -> void:
 	grapplestuff(delta)
 	combatstuff(delta)
 	
-	velocity = move_velocity + jump_velocity + wall_velocity + dash_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity
+	velocity = move_velocity + jump_velocity + wall_velocity + walj_velocity + dash_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity
 
 	move_and_slide()
 
 	if wallcheck.is_colliding(): wall_normal = wallcheck.get_collision_normal(0)
 	else: wall_normal = Vector3.ZERO
-	if is_on_wall() and wall_normal.length() > 0.1:
-		dash_velocity = Vector3.ZERO
-		slide_velocity = slide_velocity.slide(wall_normal)
-		grapple_velocity = grapple_velocity.slide(wall_normal) / 5
-		wall_velocity = wall_velocity.slide(wall_normal)
+	#if is_on_wall() and wall_normal.length() > 0.1:
+		#dash_velocity = Vector3.ZERO
+		#slide_velocity = slide_velocity.slide(wall_normal)
+		#grapple_velocity = grapple_velocity.slide(wall_normal) / 5
+		#wall_velocity = wall_velocity.slide(wall_normal)
 
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * Settings.sens
@@ -197,13 +200,18 @@ func disable_freefly():
 
 
 func movestuff(delta) -> void:
+	if walj_lockout > 0.0:
+		move_velocity = Vector3.ZERO
+		return
+		
 	if move_dir:
-		if not is_on_floor() and is_on_wall(): base_speed = 5.0
-		else: base_speed = 7.0
+		base_speed = 5.0 if (not is_on_floor() and is_on_wall()) else 7.0
+		
 		move_velocity = move_velocity.move_toward(move_dir * base_speed, 50.0 * delta)
 	else:
-		if not is_on_floor() and not is_on_wall(): move_velocity = move_velocity.move_toward(Vector3.ZERO, 1.0 * delta)
-		else: move_velocity = move_velocity.move_toward(Vector3.ZERO, 100.0 * delta)
+		var air_drag = 2.0 if not is_on_floor() else 100.0
+		move_velocity = move_velocity.move_toward(Vector3.ZERO, air_drag * delta)
+			
 		if move_velocity.length_squared() < 0.01: move_velocity = Vector3.ZERO
 
 func dash(delta) -> void:
@@ -238,7 +246,7 @@ func slide(delta) -> void:
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
 		var speed = maxf(20.0, Vector3(velocity.x, 0.0, velocity.z).length())
-		var increment =  Vector3(slide_velocity.x, velocity.y * 3.0, slide_velocity.z).length() / 2.0
+		var increment =  Vector3(slide_velocity.x, velocity.y * 5.0, slide_velocity.z).length() / 2.0
 		slide_velocity = ((speed + increment) * dir).slide(get_floor_normal())
 	else:
 		if slide_velocity.length() > 0.0:
@@ -282,12 +290,20 @@ func jump(delta) -> void:
 		var jump_force = 14.0
 		jump_buffer = 0.0
 		
-		if near_wall and not is_on_floor():
+		if (wall_running or near_wall) and not is_on_floor():
+			var flattened_wall = Vector3(wall_velocity.x, 0.0, wall_velocity.z).length()
+			var launch_speed = clamp(flattened_wall * 1.1, 28.0, 42.0)
+			var look_dir = -head.global_transform.basis.z
+			var eject_dir = (wall_normal * 1.0 + look_dir * 1.2).normalized()
+			#jump_velocity = (eject_dir * launch_speed) + Vector3(0.0, 12.0, 0.0)
+			walj_velocity = eject_dir * launch_speed
+			walj_velocity.y = 12.0
+			
+			#walj_lockout = 0.05
+			#jump_velocity = Vector3(0.0, 12.0, 0.0)
 			wall_velocity = Vector3.ZERO
 			move_velocity = Vector3.ZERO
-			var launch_speed = clamp(wall_velocity.length() * 0.8, 15.0, 30.0)
-			var eject_dir = (wall_normal * 1.2 + -transform.basis.z * 0.9).normalized()
-			jump_velocity = (eject_dir * launch_speed) + Vector3(0.0, 12.0, 0.0)
+			wall_running = false
 			return
 		
 		if slide_velocity.length() > 20.0:
@@ -317,26 +333,51 @@ func jump(delta) -> void:
 		jump_velocity = jump_velocity.move_toward(Vector3.ZERO, 25.0 * delta)
 
 func wall(delta) -> void:
-	if near_wall and not is_on_floor() and move_velocity.length() > 1.0 and wall_normal.length() > 0.1:
-		var forward = -transform.basis.z
-		if move_dir and abs(forward.dot(wall_normal)) < 0.6:
-			if wall_run_speed == 0 and not wall_running:
-				var sample_velocity = jump_velocity + wall_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity
-				var entry_speed = sample_velocity.length() * 1.5
-				wall_run_speed = maxf(base_speed * 1.5, entry_speed)
-				wall_running = true
-			
-			wall_run_speed = move_toward(wall_run_speed, 0.0, 10.0 * delta)
-			var run_dir = forward.slide(wall_normal).normalized()
-			wall_velocity = run_dir * wall_run_speed
-			wall_velocity.y = 0.0
-			jump_velocity = Vector3.ZERO
-			grav_velocity = Vector3.ZERO
-			return
 	
-	wall_running = false
-	wall_run_speed = 0.0
-	wall_velocity = wall_velocity.move_toward(Vector3.ZERO, 25.0 * delta)
+	var decay = 1.5 if !(is_on_floor() or is_on_wall()) else 5.0
+	walj_velocity = walj_velocity * exp(-decay * delta)
+	if walj_velocity.length_squared() < 0.01 or is_on_floor(): walj_velocity = Vector3.ZERO
+	
+	if near_wall and not is_on_floor() and move_dir.length() > 0.1 and wall_normal.length() > 0.1:
+		var forward = -transform.basis.z
+		if abs(forward.dot(wall_normal)) < 0.75:
+			if not wall_running:
+				var entry_dash = dash_velocity.limit_length(35.0)
+				var incoming = move_velocity + jump_velocity + slide_velocity + entry_dash + grapple_velocity + external_velocity
+				
+				if incoming.length() < base_speed * 1.5:
+					incoming = forward * (base_speed * 1.5)
+				incoming = incoming
+				
+				wall_velocity = incoming.slide(wall_normal)
+				
+				jump_velocity = Vector3.ZERO
+				grav_velocity = Vector3.ZERO
+				dash_velocity = Vector3.ZERO
+				
+				slide_velocity = slide_velocity.slide(wall_normal) / 1.5
+				grapple_velocity = grapple_velocity.slide(wall_normal) / 2
+				
+				wall_running = true
+
+			var speed = wall_velocity.length()
+			speed = move_toward(speed, base_speed * 1.2, 12.0 * delta)
+			
+			var wall_tangent = forward.slide(wall_normal).normalized()
+			var current_dir = wall_velocity.normalized()
+			var target_dir = current_dir.lerp(wall_tangent, 4.0 * delta).normalized()
+			
+			wall_velocity = target_dir * speed
+			
+			wall_velocity += (get_gravity() * 0.2) * delta
+			return
+
+	if wall_running:
+		wall_running = false
+		move_velocity = wall_velocity
+		wall_velocity = Vector3.ZERO
+	else:
+		wall_velocity = wall_velocity.lerp(Vector3.ZERO, 15.0 * delta)
 
 
 func grav(delta) -> void:

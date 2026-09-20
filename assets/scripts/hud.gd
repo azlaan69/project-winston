@@ -13,12 +13,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	$Label.text = "FPS: %s\nTOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nSLIDE VEL: %s\nGRAV VEL: %s\nWALL N: %s\nGRAPPLE SPEED: %.s" % [
-	str(player.hat.state.find_key(player.hat.current_state)),
+	$Label.text = "FPS: %s\nTOT VEL: %s\nWALL VEL: %s\nJUMP VEL: %s\nWALJ VEL: %s\nGRAV VEL: %s\nWALL N: %s\nGRAPPLE SPEED: %.s" % [
+	str(Engine.get_frames_per_second()),
 	str(player.velocity.round()),
 	str(player.wall_velocity.round()),
 	str(player.jump_velocity.round()),
-	str(player.slide_velocity.round()),
+	str(player.walj_velocity.round()),
 	str(player.grav_velocity.round()),
 	str(player.wall_normal.snapped(Vector3(0.01, 0.01, 0.01))),
 	round(player.grapple_speed)
