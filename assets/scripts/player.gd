@@ -517,12 +517,13 @@ func combatstuff(delta) -> void:
 				
 			
 			if Input.is_action_pressed("secondary") and !is_switching and pistol_timeslow_timer.time_left <= 0.0:
-				juice.shift(999.0, 30, 1.0)
+				juice.shift(999.0, 5, 1.0)
 				PhysUtil.undulate(0.25, 1.0)
+				pistol_timeslow_timer.start()
 			elif Input.is_action_just_released("secondary"):
 				Engine.time_scale = 1.0
 				juice.shiftend()
-				pistol_timeslow_timer.start()
+				
 			
 		wpn.SWORD:
 			if Input.is_action_just_pressed("primary") and !is_switching:
