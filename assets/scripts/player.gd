@@ -57,6 +57,7 @@ var switch_buffer: float = 0.0
 var hat_buffer: float = 0.0
 var walj_lockout: float = 0.0
 var iframe_timer: float = 0.0
+var bounce_timer: float = 0.0
 var sword_logging : bool = true
 
 
@@ -156,6 +157,7 @@ func _physics_process(delta: float) -> void:
 	
 	if iframe_timer > 0.0: iframe_timer -= delta
 	if walj_lockout > 0.0: walj_lockout -= delta
+	if bounce_timer > 0.0: bounce_timer -= delta
 	
 	if sword_hitbox.monitoring: deal_swing()
 	
@@ -465,8 +467,8 @@ func grapplestuff(delta) -> void:
 
 func combatstuff(delta) -> void:
 	
-	external_velocity = external_velocity.lerp(Vector3.ZERO, 4.0 * delta)
-	if external_velocity.length_squared() < 0.5: external_velocity = Vector3.ZERO
+	external_velocity = external_velocity.move_toward(Vector3.ZERO, 4.0 * delta)
+	if external_velocity.length_squared() < 0.5 or (is_on_floor() and bounce_timer <= 0.0): external_velocity = Vector3.ZERO
 	
 	if hat_buffer > 0.0 and hat.current_state == hat.state.EQUIPPED:
 		var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
@@ -515,9 +517,10 @@ func combatstuff(delta) -> void:
 				
 			
 			if Input.is_action_pressed("secondary") and !is_switching and pistol_timeslow_timer.is_stopped():
-				pistol_timeslow_timer.start()
-				Engine.time_scale = 0.5
-			elif Input.is_action_just_released("secondary") or pistol_timeslow_timer.time_left <= 0.0:
+				PhysUtil.undulate(0.25, 1.0)
+				#pistol_timeslow_timer.start()
+				#Engine.time_scale = 0.5
+			elif Input.is_action_just_released("secondary"):
 				Engine.time_scale = 1.0
 			
 		wpn.SWORD:
@@ -549,6 +552,11 @@ func hit(hit_data: Dictionary) -> void:
 	
 	var trauma = hit_data["damage"] / 50.0
 	juice.add_trauma(trauma)
+
+func kb_add(kb: float, dir: Vector3) -> void:
+	external_velocity += kb * dir
+	juice.add_trauma(0.1)
+	bounce_timer = 0.5
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0

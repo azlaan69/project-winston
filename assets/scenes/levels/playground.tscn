@@ -143,6 +143,14 @@ size = Vector3(13, 12, 8.151855)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, -10, -25)
 size = Vector3(150, 100, 150)
 
+[node name="arena" type="CSGCylinder3D" parent="platform1" unique_id=1973570898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50.571037, 0)
+radius = 40.0
+
+[node name="arena" type="CSGCylinder3D" parent="platform1/arena" unique_id=1697017995]
+operation = 2
+radius = 36.0
+
 [node name="platform1hollower" type="CSGBox3D" parent="." unique_id=793663552]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 18, -25)
 operation = 2
@@ -157,6 +165,55 @@ size = Vector3(25, 25, 30)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 54, 35)
 radius = 5.0
 height = 29.0
+sides = 4
+smooth_faces = false
+
+[node name="b16" type="CSGCylinder3D" parent="." unique_id=984700661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, 62.25, 26)
+radius = 5.0
+height = 45.5
+sides = 4
+smooth_faces = false
+
+[node name="b1" type="CSGCylinder3D" parent="b16" unique_id=1318977847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67, -12.25, -20)
+radius = 5.0
+height = 20.5
+sides = 4
+smooth_faces = false
+
+[node name="b15" type="CSGCylinder3D" parent="." unique_id=1053622780]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 49.75, 11)
+radius = 5.0
+height = 20.5
+sides = 4
+smooth_faces = false
+
+[node name="b5" type="CSGCylinder3D" parent="." unique_id=928924379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 54, 13)
+radius = 5.0
+height = 29.0
+sides = 4
+smooth_faces = false
+
+[node name="b13" type="CSGCylinder3D" parent="." unique_id=550100763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 57.25, 30)
+radius = 5.0
+height = 35.5
+sides = 4
+smooth_faces = false
+
+[node name="b14" type="CSGCylinder3D" parent="." unique_id=532158588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 136, 57.5, 19)
+radius = 5.0
+height = 35.5
+sides = 4
+smooth_faces = false
+
+[node name="b6" type="CSGCylinder3D" parent="." unique_id=1125842702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 62.25, 32)
+radius = 5.0
+height = 45.5
 sides = 4
 smooth_faces = false
 
@@ -195,24 +252,9 @@ height = 59.0
 sides = 4
 smooth_faces = false
 
-[node name="b5" type="CSGBox3D" parent="." unique_id=529523740]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 55, -50)
-size = Vector3(60, 30, 20)
-
-[node name="b8" type="CSGCylinder3D" parent="b5" unique_id=202387004]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -5.0000014, 29)
-radius = 5.0
-height = 39.5
-sides = 4
-smooth_faces = false
-
-[node name="b6" type="CSGBox3D" parent="." unique_id=1962438261]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 50, 0)
-size = Vector3(50, 20, 20)
-
 [node name="b7" type="CSGBox3D" parent="." unique_id=1974612310]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 70, 45, -65)
-size = Vector3(30, 10, 20)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 70, 44, -65)
+size = Vector3(30, 8, 20)
 
 [node name="b8" type="CSGCylinder3D" parent="." unique_id=91511620]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.07488, 59.732616, -75)
@@ -222,15 +264,54 @@ sides = 4
 smooth_faces = false
 
 [node name="b12" type="CSGCylinder3D" parent="." unique_id=231381648]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.07488, 59.732616, -87)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.07489, 59.732616, -87)
 radius = 5.0
 height = 39.5
+sides = 4
+smooth_faces = false
+
+[node name="b18" type="CSGCylinder3D" parent="." unique_id=838365499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 134.07489, 56.170116, -73)
+radius = 5.0
+height = 32.375
+sides = 4
+smooth_faces = false
+
+[node name="b20" type="CSGCylinder3D" parent="." unique_id=1800686995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 157.07489, 52.170116, -78)
+radius = 5.0
+height = 24.375
+sides = 4
+smooth_faces = false
+
+[node name="b21" type="CSGCylinder3D" parent="." unique_id=1343091974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.07489, 52.170116, -55)
+radius = 5.0
+height = 24.375
+sides = 4
+smooth_faces = false
+
+[node name="b22" type="CSGCylinder3D" parent="." unique_id=1334106233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 169.07489, 57.076366, -59)
+radius = 5.0
+height = 34.1875
+sides = 4
+smooth_faces = false
+
+[node name="b19" type="CSGCylinder3D" parent="." unique_id=443726794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.07489, 51.482616, -58)
+radius = 5.0
+height = 27.75
 sides = 4
 smooth_faces = false
 
 [node name="b9" type="CSGBox3D" parent="." unique_id=82657023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, 60, -80)
 size = Vector3(20, 40, 20)
+
+[node name="b17" type="CSGBox3D" parent="." unique_id=420751406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.5, 65, -79.5)
+size = Vector3(15, 50, 15)
 
 [node name="randombigtube5" type="CSGCylinder3D" parent="." unique_id=491860728]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 177, 17.75, -24)
@@ -278,9 +359,10 @@ sides = 16
 smooth_faces = false
 
 [node name="borders1" type="CSGBox3D" parent="." unique_id=1939908387]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 44.5, -25)
-size = Vector3(150, 10, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 47, -25)
+size = Vector3(150, 16, 150)
 
 [node name="borders1" type="CSGBox3D" parent="borders1" unique_id=633405910]
 operation = 2
-size = Vector3(145, 10, 145)
+size = Vector3(145, 16, 145)
+metadata/_edit_lock_ = true

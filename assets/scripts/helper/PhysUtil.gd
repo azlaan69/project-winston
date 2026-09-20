@@ -39,6 +39,11 @@ func hitstop(dur: float = 0.1) -> void:
 	await get_tree().create_timer(dur, true, false, true).timeout
 	Engine.time_scale = 1.0
 
+func undulate(amount: float = 0.5, dur: float = 0.1) -> void:
+	Engine.time_scale = amount
+	await get_tree().create_timer(dur, true, false, true).timeout
+	Engine.time_scale = 1.0
+
 func ghost(root: Node3D, mat: StandardMaterial3D, duration: float) -> void:
 	if not root or not mat: return
 	var ghost = root.duplicate()
