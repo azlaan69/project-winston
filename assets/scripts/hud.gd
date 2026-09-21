@@ -40,6 +40,12 @@ func _process(delta: float) -> void:
 	
 	speed = lerp(speed, player.velocity.length(), 6.0 * delta)
 	
+	var intensity = remap(speed, 15.0, 40.0, 10, 20)
+	intensity = clamp(intensity, 10, 20)
+	
+	$Wind.material.set_shader_parameter("animation_speed", intensity)
+	$Wind.visible = (speed > 15.0)
+	
 	if hit_time > 0.0: hit_time -= delta
 	
 	$HatHud/Equipped.visible = (player.hat.current_state == player.hat.state.EQUIPPED and player.hat.can_use)

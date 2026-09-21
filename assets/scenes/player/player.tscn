@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dllew3uk4ian2" path="res://assets/scripts/juice.gd" id="2_5v77c"]
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_omksk"]
 [ext_resource type="PackedScene" uid="uid://ccg0v0u1m5tuq" path="res://assets/models/hand_mod.tscn" id="4_wg42c"]
+[ext_resource type="PackedScene" uid="uid://mhn4ltkb1vde" path="res://assets/models/hand_mod2.tscn" id="5_xvhxs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg42c"]
 cull_mode = 1
@@ -1222,13 +1223,14 @@ disable_specular_occlusion = true
 metallic_specular = 0.0
 disable_receive_shadows = true
 
-[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("ghost") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("ghost", "anim_funny") groups=["player"]]
 slide_on_ceiling = false
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
 base_speed = 10.0
 ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot")
 ghost_mat = SubResource("StandardMaterial3D_xvhxs")
+anim_funny = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Hand2/AnimationPlayer")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -1336,14 +1338,18 @@ environment = SubResource("Environment_g20y1")
 size = 0.765
 
 [node name="Hand" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=1395875087 instance=ExtResource("4_wg42c")]
-transform = Transform3D(-0.47212982, -0.09080707, 0.1372861, -0.045525387, 0.47279924, 0.15616746, -0.15817976, 0.13496262, -0.4547133, -0.8375, 0.8995, -0.792)
+transform = Transform3D(-0.47212982, -0.09080707, 0.13728607, -0.045525387, 0.47279924, 0.15616743, -0.15817976, 0.13496262, -0.4547132, -0.8375, 0.8995, -0.792)
+visible = false
+
+[node name="Hand2" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=634213073 instance=ExtResource("5_xvhxs")]
+transform = Transform3D(0.4851561, 0.17884076, -0.1874555, -0.23747386, 0.46606869, -0.16995935, 0.103584506, 0.23085925, 0.48833826, -0.87, 1.0025, -0.8325)
 
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=443423592]
 unique_name_in_owner = true
 transform = Transform3D(0.99575377, 0.04467098, 0.08048213, 0, 0.8743478, -0.48529968, -0.09204814, 0.48323947, 0.8706356, 0.08808589, 1.1201602, -1.5870181)
 
 [node name="SwordPivot" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=913439823]
-transform = Transform3D(1.0000002, -7.450581e-09, -1.4901161e-08, 0, 1.0000002, -5.9604645e-08, 7.450581e-09, -5.9604645e-08, 1, -0.09204821, 0.4832396, 0.8706362)
+transform = Transform3D(1.0000002, 4.440891e-16, -7.450579e-09, 0, 1.0000002, 5.960463e-08, 7.450581e-09, -5.9604645e-08, 1, -0.09204821, 0.4832396, 0.8706362)
 
 [node name="SwordMesh" type="MeshInstance3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot" unique_id=638523858]
 layers = 524288
@@ -1598,5 +1604,8 @@ ignore_time_scale = true
 
 [connection signal="timeout" from="Dash_CD" to="." method="_on_dash_cd_timeout"]
 [connection signal="body_entered" from="Head/CameraPivot/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
+[connection signal="animation_finished" from="Head/CameraPivot/WeaponLayer/SubViewport/Hand2/AnimationPlayer" to="." method="grapple_animation_finished"]
 [connection signal="animation_finished" from="Head/CameraPivot/WeaponLayer/SubViewport/SwordPlayer" to="." method="_on_sword_player_animation_finished"]
 [connection signal="timeout" from="timers/ComboTimer" to="." method="_on_combo_timer_timeout"]
+
+[editable path="Head/CameraPivot/WeaponLayer/SubViewport/Hand2"]

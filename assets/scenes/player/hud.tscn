@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://boafba55hdap6" path="res://assets/shaders/hud_outline.gdshader" id="2_dw83o"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="3_5kx6n"]
 [ext_resource type="Shader" uid="uid://cvqw2xccf733i" path="res://assets/shaders/filter1.gdshader" id="4_dw83o"]
+[ext_resource type="Shader" uid="uid://c1tscolnhmeib" path="res://assets/scenes/player/hud_trails.gdshader" id="5_5kx6n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4rah4"]
 font_size = 32
@@ -72,6 +73,24 @@ gradient = SubResource("Gradient_qeb3f")
 shader = ExtResource("4_dw83o")
 shader_parameter/threshold = 0.50000002375
 shader_parameter/effect_strength = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bio77"]
+frequency = 0.1143
+offset = Vector3(508.77, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5kx6n"]
+noise = SubResource("FastNoiseLite_bio77")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_seyvw"]
+shader = ExtResource("5_5kx6n")
+shader_parameter/noise = SubResource("NoiseTexture2D_5kx6n")
+shader_parameter/line_color = Color(1, 1, 1, 0.5882353)
+shader_parameter/line_count = 1.0000000149012
+shader_parameter/line_density = 0.400000019
+shader_parameter/line_faloff = 0.400000019
+shader_parameter/mask_size = 0.1
+shader_parameter/mask_edge = 0.5
+shader_parameter/animation_speed = 0.5
 
 [node name="Overlay" type="CanvasLayer" unique_id=320630329]
 
@@ -559,6 +578,16 @@ polygon = PackedVector2Array(-114, 24, -216, 55, -110, 28, -1, 0)
 [node name="Filter" type="ColorRect" parent="HUD" unique_id=833829134]
 visible = false
 material = SubResource("ShaderMaterial_lnytp")
+layout_mode = 0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 1960.0
+offset_bottom = 1120.0
+mouse_filter = 2
+color = Color(1, 1, 0, 1)
+
+[node name="Wind" type="ColorRect" parent="HUD" unique_id=1432034965]
+material = SubResource("ShaderMaterial_seyvw")
 layout_mode = 0
 offset_left = -40.0
 offset_top = -40.0

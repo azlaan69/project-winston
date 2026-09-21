@@ -95,6 +95,8 @@ const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 @onready var sword_hitbox = %SwordHitbox
 @onready var parry_hitbox = %ParryHitbox
 
+@export var anim_funny: AnimationPlayer
+
 @onready var guns: Node3D = %PistolsParent
 @onready var sword: Node3D = %Sword
 
@@ -417,6 +419,12 @@ func crouch_end() -> void:
 
 
 func grapplestuff(delta) -> void:
+	if Input.is_action_pressed("taunt") and anim_funny.current_animation != "point":
+		anim_funny.play("fuhyu")
+	
+	if Input.is_action_just_released("grapple"):
+		anim_funny.play("pointend")
+	
 	if Input.is_action_pressed("grapple"):
 		hat_timer.start()
 		var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
@@ -429,8 +437,10 @@ func grapplestuff(delta) -> void:
 				var dist = target.position - global_position
 				grapple_speed = dist.length()
 				grapple_velocity = dist.normalized() * 40.0
+				if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
 		
 	else:
+		
 		var decay = 8.0
 		if !is_on_floor(): decay = 1.0
 		else: decay = 8.0
@@ -648,3 +658,11 @@ func _on_sword_player_animation_finished(anim_name: StringName) -> void:
 			combo.start(0.3)
 		"sheath":
 			combo_step = 0
+
+
+func grapple_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"pointstart":
+			anim_funny.play("pointhold")
+		_:
+			anim_funny.play("idle")

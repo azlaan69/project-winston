@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://mhn4ltkb1vde"]
+
+[ext_resource type="PackedScene" uid="uid://c8wkmjqgxtirg" path="res://assets/models/idontevenknow.gltf" id="1_lw3jm"]
+[ext_resource type="Texture2D" uid="uid://t70ddw1vhfym" path="res://assets/models/idontevenknow_0.png" id="2_nhvwq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lw3jm"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
+albedo_texture = ExtResource("2_nhvwq")
+
+[node name="blockbench_export" unique_id=634213073 instance=ExtResource("1_lw3jm")]
+
+[node name="armature" parent="." index="0" unique_id=2112410853]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+
+[node name="Skeleton3D" parent="armature" index="0" unique_id=1551673]
+bones/0/rotation = Quaternion(-0.6272114, -0.3265056, 0.3265056, 0.6272114)
+bones/1/rotation = Quaternion(-0.059864227, 0.026340894, -0.40188438, 0.9133517)
+bones/2/rotation = Quaternion(0.06538756, -0.0014267617, -0.021768177, 0.99762154)
+bones/3/rotation = Quaternion(-0.19509035, 0, 0, 0.98078537)
+bones/4/rotation = Quaternion(-0.46174866, 0, 0, 0.88701093)
+bones/5/rotation = Quaternion(-0.91531146, 0, 0, 0.40274668)
+bones/6/rotation = Quaternion(-0.57343996, 0.012512504, -0.017869707, 0.81895715)
+bones/7/rotation = Quaternion(-0.90544516, -0.03953259, 0.01843435, 0.42221603)
+bones/9/rotation = Quaternion(-0.10886688, 0, 0, 0.99405634)
+
+[node name="beveled_cuboid" parent="armature/Skeleton3D" index="0" unique_id=1012308082]
+layers = 524288
+surface_material_override/0 = SubResource("StandardMaterial3D_lw3jm")
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1453974911]
+autoplay = &"idle"
+blend_times = [&"pointhold", &"pointend", 0.25, &"pointhold", &"pointhold", 0.25, &"pointhold", &"pointstart", 0.25]
