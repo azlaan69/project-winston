@@ -90,7 +90,9 @@ func _physics_process(delta: float) -> void:
 				telegraph_timer += delta
 				var target = -transform.basis.z
 				movement = target * speed * 1.5
-				PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
+				if ghost_timer <= 0.0: 
+					PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
+					ghost_timer = 0.005
 				
 			else:
 				if anim.current_animation != "kick": anim.play("kick")
@@ -100,7 +102,9 @@ func _physics_process(delta: float) -> void:
 			rotate_towards(dir, look_speed, delta)
 			var target = -Vector3(dir.x, 0, dir.z).normalized()
 			movement = target * speed * 1.5
-			PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
+			if ghost_timer <= 0.0: 
+				PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
+				ghost_timer = 0.005
 			if cooldown <= 0.0:
 				change_state(state.IDLE)
 		
@@ -110,7 +114,9 @@ func _physics_process(delta: float) -> void:
 			strafe = flat_dir.cross(Vector3.UP) * side
 			#movement = movement.lerp(strafe * speed * 0.6, accel * delta)
 			movement = strafe * speed * 1.5
-			PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
+			if ghost_timer <= 0.0: 
+				PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
+				ghost_timer = 0.005
 			
 			if dist < 10.0: change_state(state.KICK)
 			elif cooldown <= 0.0: 

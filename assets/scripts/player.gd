@@ -36,6 +36,7 @@ var dash_velocity: Vector3
 var grapple_velocity: Vector3
 var grav_velocity: Vector3
 var external_velocity: Vector3
+var kb_velocity: Vector3
 
 
 var input_dir = 0.0
@@ -172,7 +173,7 @@ func _physics_process(delta: float) -> void:
 	grapplestuff(delta)
 	combatstuff(delta)
 	
-	velocity = move_velocity + jump_velocity + wall_velocity + walj_velocity + dash_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity
+	velocity = move_velocity + jump_velocity + wall_velocity + walj_velocity + dash_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity + kb_velocity
 
 	move_and_slide()
 
@@ -479,6 +480,8 @@ func combatstuff(delta) -> void:
 	
 	external_velocity = external_velocity.move_toward(Vector3.ZERO, 4.0 * delta)
 	if external_velocity.length_squared() < 0.5 or (is_on_floor() and bounce_timer <= 0.0): external_velocity = Vector3.ZERO
+	kb_velocity = kb_velocity.lerp(Vector3.ZERO, 4.0 * delta)
+	if kb_velocity.length_squared() < 0.5: kb_velocity = Vector3.ZERO
 	
 	if hat_buffer > 0.0 and hat.current_state == hat.state.EQUIPPED:
 		var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
@@ -559,7 +562,7 @@ func hit(hit_data: Dictionary) -> void:
 	
 	hp -= hit_data["damage"]
 	var modifier = 1.0 if is_on_floor() else 2.0
-	external_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
+	kb_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
 	iframe_timer = 0.15
 	
 	var trauma = hit_data["damage"] / 50.0

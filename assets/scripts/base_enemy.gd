@@ -15,6 +15,7 @@ extends CharacterBody3D
 var player = null
 
 var iframe_timer: float = 0.0
+var ghost_timer: float = 0.0
 var distance: Vector3 = Vector3.ZERO
 var dir = distance.normalized()
 var kb_velocity = Vector3.ZERO
@@ -29,6 +30,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	if iframe_timer > 0.0: iframe_timer -= delta
+	if ghost_timer > 0.0: ghost_timer -= delta
 	if kb_velocity.length() > 0.5: kb_velocity = kb_velocity * exp(-4 * delta)
 	if kb_velocity.length() <= 0.5: kb_velocity = Vector3.ZERO
 	
