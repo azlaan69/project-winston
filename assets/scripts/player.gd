@@ -420,10 +420,10 @@ func crouch_end() -> void:
 
 
 func grapplestuff(delta) -> void:
-	if Input.is_action_pressed("taunt") and anim_funny.current_animation != "point":
+	if Input.is_action_pressed("taunt") and anim_funny.current_animation != "pointhold":
 		anim_funny.play("fuhyu")
 	
-	if Input.is_action_just_released("grapple"):
+	if Input.is_action_just_released("grapple") and anim_funny.current_animation == "pointhold":
 		anim_funny.play("pointend")
 	
 	if Input.is_action_pressed("grapple"):
@@ -439,6 +439,8 @@ func grapplestuff(delta) -> void:
 				grapple_speed = dist.length()
 				grapple_velocity = dist.normalized() * 40.0
 				if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
+			else:
+				anim_funny.play("pointend")
 		
 	else:
 		
