@@ -85,11 +85,11 @@ func _physics_process(delta: float) -> void:
 				change_state(state.IDLE)
 			
 		state.KICK:
-			if dist > 2.0 and anim.current_animation != "kick" and telegraph_timer <= 0.5:
+			if dist > 2.0 and anim.current_animation != "kick" and telegraph_timer <= 1.0:
 				rotate_towards(dir, look_speed * 2, delta * 2)
 				telegraph_timer += delta
 				var target = -transform.basis.z
-				movement = target * speed * 1.5
+				movement = target * speed * 2.0
 				if ghost_timer <= 0.0: 
 					PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
 					ghost_timer = 0.005
@@ -119,9 +119,12 @@ func _physics_process(delta: float) -> void:
 				ghost_timer = 0.005
 			
 			if dist < 10.0: change_state(state.KICK)
-			elif cooldown <= 0.0: 
-				movement = Vector3.ZERO
-				change_state(state.IDLE)
+			elif cooldown <= 0.0:
+				if randf() > 0.5:
+					movement = Vector3.ZERO
+					change_state(state.IDLE)
+				else:
+					change_state(state.KICK)
 		
 		state.STAGGER:
 			movement = Vector3.ZERO

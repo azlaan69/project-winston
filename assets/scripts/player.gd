@@ -423,7 +423,7 @@ func grapplestuff(delta) -> void:
 	if Input.is_action_pressed("taunt") and anim_funny.current_animation != "pointhold":
 		anim_funny.play("fuhyu")
 	
-	if Input.is_action_just_released("grapple") and anim_funny.current_animation == "pointhold":
+	if Input.is_action_just_released("grapple") and (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"):
 		anim_funny.play("pointend")
 	
 	if Input.is_action_pressed("grapple"):
@@ -431,6 +431,7 @@ func grapplestuff(delta) -> void:
 		var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
 		if target and (target.position - global_position).length() > 5.0:
 			grav_velocity = Vector3.ZERO
+			external_velocity = Vector3.ZERO
 			var point = target.collider
 			if point.is_in_group("grapple"):
 				if grapple_speed >= 0.0: hat_timer.start()
