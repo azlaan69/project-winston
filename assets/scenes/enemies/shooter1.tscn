@@ -30,7 +30,7 @@ script = ExtResource("1_xoxhl")
 mask_material = ExtResource("5_pe1q6")
 
 [node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 931774970) index="2" unique_id=958046270]
-transform = Transform3D(0.6642458, -0.32139173, -0.67489374, 0.47206333, 0.8803958, 0.045362927, 0.5795942, -0.34872577, 0.73651725, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.6642457, -0.32139173, -0.6748937, 0.4720633, 0.8803958, 0.045362923, 0.57959414, -0.34872577, 0.73651725, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1193048049) index="1" unique_id=1034599267]
 transform = Transform3D(0.9252015, -0.2716394, 0.26497868, 0.14177774, 0.89514965, 0.42261818, -0.3519953, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)
