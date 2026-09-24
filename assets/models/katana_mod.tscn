@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://orj02lwtn8h5"]
+
+[ext_resource type="PackedScene" uid="uid://ddbg208nhjff7" path="res://assets/models/katana.gltf" id="1_q2cil"]
+[ext_resource type="Texture2D" uid="uid://bo3na03yaij4q" path="res://assets/models/katana_0.png" id="2_jdq3v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6frpq"]
+diffuse_mode = 3
+specular_mode = 1
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
+albedo_texture = ExtResource("2_jdq3v")
+fixed_size = true
+
+[node name="blockbench_export" unique_id=1421738015 instance=ExtResource("1_q2cil")]
+
+[node name="beveled_cuboid" parent="root" parent_id_path=PackedInt32Array(312042801) index="0" unique_id=1012305000]
+layers = 524288
+surface_material_override/0 = SubResource("StandardMaterial3D_6frpq")

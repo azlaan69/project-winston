@@ -1,9 +1,14 @@
 extends CharacterBody3D
 
-@export var can_move : bool = true
-@export var has_gravity : bool = true
-@export var can_jump : bool = true
-@export var can_dash : bool = false
+@export_group("actuallyneedts_weapons")
+@export var pistol: Node3D
+
+@export_group("actuallyneedts_anim")
+
+@export var anim_funny: AnimationPlayer
+@export var anim_katana: AnimationPlayer
+@export var anim_pistol: AnimationPlayer
+
 @export var can_freefly : bool = true
 
 @export_group("Speeds")
@@ -64,7 +69,7 @@ var sword_logging : bool = true
 
 enum wpn { GUNS, SWORD }
 var current_wpn = wpn.SWORD
-var shoot_l : bool = false
+var shoot_l : bool = true
 var combo_step : int = 1
 var trailing: bool = false
 
@@ -96,7 +101,7 @@ const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 @onready var sword_hitbox = %SwordHitbox
 @onready var parry_hitbox = %ParryHitbox
 
-@export var anim_funny: AnimationPlayer
+
 
 @onready var guns: Node3D = %PistolsParent
 @onready var sword: Node3D = %Sword
@@ -502,19 +507,19 @@ func combatstuff(delta) -> void:
 		
 		match current_wpn:
 			wpn.GUNS:
-				anim_gun.play("drop")
-				await anim_gun.animation_finished
+				anim_pistol.play("throw")
+				await anim_pistol.animation_finished
 
 				sword.visible = true
 				anim_sword.play("ready")
-				guns.visible = false
+				pistol.visible = false
 				current_wpn = wpn.SWORD
 			wpn.SWORD:
 				anim_sword.play("drop")
 				await anim_sword.animation_finished
 				
-				guns.visible = true
-				anim_gun.play("ready")
+				pistol.visible = true
+				anim_pistol.play("pullout")
 				sword.visible = false
 				current_wpn = wpn.GUNS
 		is_switching = false
@@ -523,11 +528,12 @@ func combatstuff(delta) -> void:
 	match current_wpn:
 		wpn.GUNS:
 			if Input.is_action_pressed("primary") and !is_switching:
-				if !anim_gun.is_playing():
-					if shoot_l: anim_gun.play("L_shoot")
-					else: anim_gun.play("R_shoot")
-					hud.hit_time = 0.2
-					shoot_l = !shoot_l
+				if anim_pistol.current_animation != "shoot":
+					anim_pistol.play("shoot")
+					#if shoot_l: anim_gun.play("L_shoot")
+					#else: anim_gun.play("R_shoot")
+					#hud.hit_time = 0.2
+					#shoot_l = !shoot_l
 					shoot_buffer = 0.05
 					return
 				

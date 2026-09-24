@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_omksk"]
 [ext_resource type="PackedScene" uid="uid://b0vux8tlebaiy" path="res://assets/models/pistol_mod.tscn" id="5_ij6fu"]
 [ext_resource type="PackedScene" uid="uid://mhn4ltkb1vde" path="res://assets/models/hand_mod2.tscn" id="5_xvhxs"]
+[ext_resource type="PackedScene" uid="uid://orj02lwtn8h5" path="res://assets/models/katana_mod.tscn" id="6_ij6fu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg42c"]
 cull_mode = 1
@@ -1151,14 +1152,16 @@ disable_specular_occlusion = true
 metallic_specular = 0.0
 disable_receive_shadows = true
 
-[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("ghost", "anim_funny") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "ghost") groups=["player"]]
 slide_on_ceiling = false
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
+pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol")
+anim_funny = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Hand2/AnimationPlayer")
+anim_pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol/AnimationPlayer")
 base_speed = 10.0
 ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot")
 ghost_mat = SubResource("StandardMaterial3D_xvhxs")
-anim_funny = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Hand2/AnimationPlayer")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -1236,7 +1239,7 @@ debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="SwordHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=470632088]
 unique_name_in_owner = true
-transform = Transform3D(0.9957247, 0.044782154, 0.08078913, 0, 0.8746197, -0.4848095, -0.0923706, 0.4827369, 0.87088025, 0.086, -0.58, -1.58)
+transform = Transform3D(0.99572456, 0.044782154, 0.08078913, 0, 0.8746197, -0.4848095, -0.09237059, 0.4827369, 0.87088025, 0.086, -0.58, -1.58)
 visible = false
 monitoring = false
 
@@ -1268,15 +1271,34 @@ size = 0.765
 [node name="Hand2" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=634213073 instance=ExtResource("5_xvhxs")]
 transform = Transform3D(0.4851561, 0.17884077, -0.18745549, -0.23747386, 0.46606869, -0.16995932, 0.1035845, 0.23085922, 0.4883383, -0.87, 1.0025, -0.8325)
 
+[node name="Skeleton3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Hand2/armature" parent_id_path=PackedInt32Array(634213073, 1040913851) index="0" unique_id=1393141005]
+bones/0/rotation = Quaternion(-0.70710677, 0, 0, 0.70710677)
+bones/1/rotation = Quaternion(0, 0, -0.21643962, 0.976296)
+bones/2/rotation = Quaternion(0, 0, -0.021814885, 0.99976206)
+bones/3/rotation = Quaternion(0, 0, 0, 1)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/5/rotation = Quaternion(0, 0, 0, 1)
+bones/6/rotation = Quaternion(0, 0, -0.021814885, 0.99976206)
+bones/7/rotation = Quaternion(0, 0, 0.04361939, 0.99904823)
+bones/9/rotation = Quaternion(0, 0, 0, 1)
+
 [node name="Pistol" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=1012686963 instance=ExtResource("5_ij6fu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52, 0.54, -0.9025)
+transform = Transform3D(0.7, 0, 0, 0, 0.6973363, 0.061009016, 0, -0.061009016, 0.6973363, 0.51, 0.7325, -0.675)
+visible = false
+
+[node name="root" parent="Head/CameraPivot/WeaponLayer/SubViewport/Pistol" index="1" unique_id=614176032]
+transform = Transform3D(0.86780965, -0.49632493, -0.023825463, 0.4944947, 0.8673306, -0.056678236, 0.048795372, 0.037404366, 0.9981081, 0.05279625, 0.47971812, 0.16766563)
 
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=443423592]
 unique_name_in_owner = true
 transform = Transform3D(0.99575377, 0.04467098, 0.08048213, 0, 0.8743478, -0.48529968, -0.09204814, 0.48323947, 0.8706356, 0.08808589, 1.1201602, -1.5870181)
 
+[node name="Sword" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=1421738015 instance=ExtResource("6_ij6fu")]
+transform = Transform3D(-1.1455268e-07, -0.13142006, -1.4942318, -1.4694108, 0.30022484, -0.02640514, 0.3013838, 1.4637601, -0.12874006, 0.63156074, -0.101805344, -0.68883055)
+
 [node name="SwordPivot" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=913439823]
 transform = Transform3D(1.0000002, 4.440891e-16, -7.450579e-09, 0, 1.0000002, 5.960463e-08, 7.450581e-09, -5.9604645e-08, 1, -0.09204821, 0.4832396, 0.8706362)
+visible = false
 
 [node name="SwordMesh" type="MeshInstance3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot" unique_id=638523858]
 layers = 524288
@@ -1525,7 +1547,6 @@ one_shot = true
 
 [node name="PistolSecondaryTimer" type="Timer" parent="timers" unique_id=1411021427]
 process_callback = 0
-wait_time = 2.0
 one_shot = true
 ignore_time_scale = true
 
@@ -1536,3 +1557,4 @@ ignore_time_scale = true
 [connection signal="timeout" from="timers/ComboTimer" to="." method="_on_combo_timer_timeout"]
 
 [editable path="Head/CameraPivot/WeaponLayer/SubViewport/Hand2"]
+[editable path="Head/CameraPivot/WeaponLayer/SubViewport/Pistol"]

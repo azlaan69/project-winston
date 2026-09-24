@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dlqtdq7rksno7" path="res://assets/models/pistol.gltf" id="1_d78mf"]
 [ext_resource type="Texture2D" uid="uid://civm04dc2mo0g" path="res://assets/models/pistol_1.png" id="2_s1hws"]
+[ext_resource type="Texture2D" uid="uid://udibwo6n43vx" path="res://assets/textures/pistol_emission.png" id="3_s1hws"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_re4jr"]
 cull_mode = 2
@@ -11,15 +12,26 @@ disable_fog = true
 disable_specular_occlusion = true
 albedo_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
 albedo_texture = ExtResource("2_s1hws")
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 4.0
+emission_texture = ExtResource("3_s1hws")
+texture_filter = 5
+stencil_mode = 3
+stencil_flags = 2
 
 [node name="blockbench_export" unique_id=1012686963 instance=ExtResource("1_d78mf")]
 
-[node name="beveled_cuboid" parent="." index="0" unique_id=635322416]
+[node name="beveled_cuboid" parent="." index="0" unique_id=1523837022]
 visible = false
 
-[node name="root" parent="." index="1" unique_id=1969989226]
-transform = Transform3D(0.8678097, -0.46007997, 0.18770353, 0.49449492, 0.76253206, -0.4171565, 0.048795387, 0.45483094, 0.8892399, 0.052796453, 0.47971833, 0.16766566)
+[node name="root" parent="." index="1" unique_id=614176032]
+transform = Transform3D(0.8678096, -0.496325, -0.023825463, 0.49449477, 0.86733055, -0.056678236, 0.048795376, 0.03740436, 0.9981081, 0.05279625, 0.47971812, 0.16766563)
 
-[node name="beveled_cuboid2" parent="root" index="0" unique_id=1368948480]
+[node name="beveled_cuboid2" parent="root" index="0" unique_id=503371702]
 layers = 524288
 surface_material_override/0 = SubResource("StandardMaterial3D_re4jr")
+
+[node name="AnimationPlayer" parent="." index="2" unique_id=541183017]
+autoplay = &"idle"
