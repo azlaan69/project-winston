@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var anim_funny: AnimationPlayer
 @export var anim_katana: AnimationPlayer
 @export var anim_pistol: AnimationPlayer
+@export var marker_pistol: Marker3D
 
 @export var can_freefly : bool = true
 
@@ -75,6 +76,7 @@ var trailing: bool = false
 
 
 const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
+const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
 
 
 @onready var head: Node3D = $Head
@@ -530,6 +532,13 @@ func combatstuff(delta) -> void:
 			if Input.is_action_pressed("primary") and !is_switching:
 				if anim_pistol.current_animation != "shoot":
 					anim_pistol.play("shoot")
+					
+					var tracer = tracerP.instantiate()
+					get_parent().add_child(tracer)
+					var start = marker_pistol.global_position
+					var end = %Camera3D.global_position + (-%Camera3D.global_transform.basis.z * 100.0)
+					tracer.init(start, end)
+					
 					#if shoot_l: anim_gun.play("L_shoot")
 					#else: anim_gun.play("R_shoot")
 					#hud.hit_time = 0.2
@@ -594,6 +603,7 @@ func deal_shot() -> void:
 	for offset in offsets:
 		var result = PhysUtil.raycast_from_cam(%Camera3D, 1000.0, [get_rid()], offset)
 		if result:
+			
 			var body = result.collider
 			if body and body.has_method("hit"):
 				var fx = hitfx.instantiate()

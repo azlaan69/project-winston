@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ch1hjenogu8su"]
+
+[ext_resource type="Script" uid="uid://d1ogjln7lhgg0" path="res://assets/scripts/tracer_pistol.gd" id="1_pbdut"]
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_seyvw"]
+size = 0.1
+sections = 2
+section_length = 0.25
+
+[sub_resource type="Gradient" id="Gradient_vseqf"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.35686275, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5pvhp"]
+gradient = SubResource("Gradient_vseqf")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhb04"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(3.2944162, 3.2944162, 3.2944162, 1)
+albedo_texture = SubResource("GradientTexture2D_5pvhp")
+emission_enabled = true
+emission_energy_multiplier = 4.0
+emission_texture = SubResource("GradientTexture2D_5pvhp")
+stencil_mode = 3
+stencil_flags = 2
+
+[node name="tracer_pistol" type="Node3D" unique_id=1808949074]
+script = ExtResource("1_pbdut")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=401333941]
+transform = Transform3D(3.535534, -1.5454312e-07, -3.535534, -3.535534, -1.5454312e-07, -3.535534, 0, 5, -2.1855696e-07, -1.9936124e-09, -1.9936124e-09, -1.25)
+mesh = SubResource("RibbonTrailMesh_seyvw")
+surface_material_override/0 = SubResource("StandardMaterial3D_nhb04")

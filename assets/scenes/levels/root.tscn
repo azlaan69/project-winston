@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bu0wdb3r6xfqs" path="res://assets/scenes/player/hud.tscn" id="7_uum53"]
 [ext_resource type="PackedScene" uid="uid://cv0vve3eftqu8" path="res://assets/scenes/player/settings_menu.tscn" id="8_vsmvd"]
 [ext_resource type="PackedScene" uid="uid://xkh2maewipsq" path="res://assets/scenes/enemies/grapple_point.tscn" id="9_uum53"]
-[ext_resource type="Script" uid="uid://tswcwwphp6m3" path="res://assets/scripts/launch_point.gd" id="10_vseqf"]
+[ext_resource type="PackedScene" uid="uid://bfhhq4f0ewqyr" path="res://assets/scenes/enemies/launch_point.tscn" id="10_ocygg"]
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
@@ -35,15 +35,6 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Arr
 cell_height = 0.1
 agent_radius = 1.0
 agent_max_climb = 0.1
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
-size = Vector3(20, 1, 20)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vseqf"]
-albedo_color = Color(0, 1, 1, 1)
-emission_enabled = true
-emission = Color(0, 0.87690145, 1.353256, 1)
-emission_energy_multiplier = 4.0
 
 [node name="Root" type="Node3D" unique_id=1696301327]
 
@@ -162,20 +153,5 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 124, 70, -25)
 [node name="GrapplePoint11" parent="." unique_id=1291419563 instance=ExtResource("9_uum53")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 177, 41, -24)
 
-[node name="LaunchPoint" type="Area3D" parent="." unique_id=1790171307]
+[node name="LaunchPoint" parent="." unique_id=1238854364 instance=ExtResource("10_ocygg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 41, -25)
-collision_layer = 8
-script = ExtResource("10_vseqf")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LaunchPoint" unique_id=1541791861]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.5, -1.9936124e-09)
-shape = SubResource("BoxShape3D_seyvw")
-debug_color = Color(1, 0, 0.69803923, 1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="LaunchPoint" unique_id=1138045199]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.5, -1.9936124e-09)
-radius = 10.0
-height = 1.0
-material = SubResource("StandardMaterial3D_vseqf")
-
-[connection signal="body_entered" from="LaunchPoint" to="LaunchPoint" method="_on_body_entered"]

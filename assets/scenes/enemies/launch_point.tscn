@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bfhhq4f0ewqyr"]
+
+[ext_resource type="Script" uid="uid://tswcwwphp6m3" path="res://assets/scripts/launch_point.gd" id="1_d8lth"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vseqf"]
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 0.87690145, 1.353256, 1)
+emission_energy_multiplier = 4.0
+
+[node name="LaunchPoint" type="Area3D" unique_id=1238854364]
+collision_layer = 8
+script = ExtResource("1_d8lth")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1775642817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.5, -1.9936124e-09)
+shape = SubResource("BoxShape3D_seyvw")
+debug_color = Color(1, 0, 0.69803923, 1)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=2034959741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.5, -1.9936124e-09)
+radius = 10.0
+height = 1.0
+material = SubResource("StandardMaterial3D_vseqf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
