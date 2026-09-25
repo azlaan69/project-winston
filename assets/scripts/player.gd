@@ -395,7 +395,7 @@ func grav(delta) -> void:
 	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 5.0 :
 		grav_velocity += get_gravity() * delta
 		grav_velocity *= pow(1.2, delta)
-		was_near_wall = false
+		was_near_wall = false 
 	elif near_wall and wall_velocity.length() < 5.0:
 		if not was_near_wall:
 			if grav_velocity.y < -2.0:

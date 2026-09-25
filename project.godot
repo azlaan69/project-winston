@@ -120,6 +120,7 @@ taunt={
 
 [physics]
 
+common/physics_ticks_per_second=120
 3d/physics_engine="Jolt Physics"
 3d/default_gravity=14.0
 common/physics_interpolation=true

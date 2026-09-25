@@ -45,17 +45,18 @@ func undulate(amount: float = 0.5, dur: float = 0.1) -> void:
 	Engine.time_scale = 1.0
 
 func ghost(root: Node3D, mat: StandardMaterial3D, duration: float) -> void:
-	if not root or not mat: return
-	var ghost = root.duplicate()
-	get_parent().add_child(ghost)
-	ghost.global_transform = root.global_transform
-	
-	var ghost_mat = mat.duplicate() as StandardMaterial3D
-	
-	for child in ghost.find_children("*", "MeshInstance3D", true, false):
-		var mesh_child = child as MeshInstance3D
-		mesh_child.material_override = ghost_mat
-	
-	var tween = create_tween()
-	tween.tween_property(ghost_mat, "albedo_color:a", 0.0, duration)
-	tween.tween_callback(ghost.queue_free)
+	return
+	#if not root or not mat: return
+	#var ghost = root.duplicate()
+	#get_parent().add_child(ghost)
+	#ghost.global_transform = root.global_transform
+	#
+	#var ghost_mat = mat.duplicate() as StandardMaterial3D
+	#q
+	#for child in ghost.find_children("*", "MeshInstance3D", true, false):
+		#var mesh_child = child as MeshInstance3D
+		#mesh_child.material_override = ghost_mat
+	#
+	#var tween = create_tween()
+	#tween.tween_property(ghost_mat, "albedo_color:a", 0.0, duration)
+	#tween.tween_callback(ghost.queue_free)
