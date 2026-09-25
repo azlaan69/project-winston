@@ -4,22 +4,24 @@ extends CharacterBody3D
 @export var pistol: Node3D
 
 @export_group("actuallyneedts_anim")
-
 @export var anim_funny: AnimationPlayer
 @export var anim_katana: AnimationPlayer
 @export var anim_pistol: AnimationPlayer
 @export var marker_pistol: Marker3D
-
 @export var can_freefly : bool = true
 
-@export_group("Speeds")
-@export var base_speed : float = 7.0
-@export var freefly_speed : float = 30.0
+@export_group("audio")
+@export var shoot_fx: AudioStreamPlayer3D
+
+
 
 @export_group("Trails")
 @export var ghost : Node3D
 @export var ghost_mat : StandardMaterial3D
 
+
+var base_speed : float = 7.0
+var freefly_speed : float = 30.0
 
 var look_rotation : Vector2
 var move_speed : float = 0.0
@@ -532,6 +534,10 @@ func combatstuff(delta) -> void:
 			if Input.is_action_pressed("primary") and !is_switching:
 				if anim_pistol.current_animation != "shoot":
 					anim_pistol.play("shoot")
+					
+					shoot_fx.pitch_scale = randf_range(0.8, 1.3)
+					shoot_fx.volume_linear = randf_range(-5.0, 2.0)
+					shoot_fx.play()
 					
 					var tracer = tracerP.instantiate()
 					get_parent().add_child(tracer)

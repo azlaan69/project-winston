@@ -1563,6 +1563,7 @@ ignore_time_scale = true
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="audio" unique_id=1252968103]
 stream = ExtResource("7_5v77c")
+area_mask = 1
 
 [connection signal="timeout" from="Dash_CD" to="." method="_on_dash_cd_timeout"]
 [connection signal="body_entered" from="Head/CameraPivot/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
