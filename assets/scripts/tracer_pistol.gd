@@ -1,7 +1,7 @@
 extends Node3D
 
 var pos : Vector3
-var speed := 120.0
+var speed := 150.0
 var length := 0.5
 var timer = 1.0
 var is_set := false

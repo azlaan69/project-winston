@@ -32,6 +32,6 @@ stencil_flags = 2
 script = ExtResource("1_pbdut")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=401333941]
-transform = Transform3D(3.535534, -1.5454312e-07, -3.535534, -3.535534, -1.5454312e-07, -3.535534, 0, 5, -2.1855696e-07, -1.9936124e-09, -1.9936124e-09, -1.25)
+transform = Transform3D(1.767767, -3.2006923e-08, -1.7677671, -1.7677671, -7.727155e-08, -1.767767, -3.2006923e-08, 2.5, -7.727155e-08, -1.9936124e-09, -1.9936124e-09, -0.625)
 mesh = SubResource("RibbonTrailMesh_seyvw")
 surface_material_override/0 = SubResource("StandardMaterial3D_nhb04")

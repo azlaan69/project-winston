@@ -302,7 +302,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.08808589, 1.1201602, -1.5870181), Vector3(-0.09985442, 1.1201243, -1.4908164), Vector3(-0.4710944, 1.1200535, -1.3007883), Vector3(-0.7367628, 1.1200029, -1.1647995), Vector3(-0.752, 1.12, -1.157), Vector3(-0.7538218, 1.1199996, -1.1560674), Vector3(-0.571792, 1.1200343, -1.2492437), Vector3(-0.14911711, 1.120115, -1.4656), Vector3(0.08808589, 1.1201602, -1.5870181)]
 }
 tracks/1/type = "value"
@@ -314,7 +314,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.09757464, 1.5247586, 0.52636904), Vector3(-0.20761645, 2.59339, 0.9190135), Vector3(-0.5982295, 3.9611278, 1.4215577), Vector3(-0.715585, 4.37205, 1.5725417), Vector3(-0.7183133, 4.381603, 1.5760518), Vector3(-0.45099282, 3.4455762, 1.2321299), Vector3(0.16288096, 1.2960875, 0.44234902), Vector3(0.506706, 0.092178695, 0)]
 }
 tracks/2/type = "value"
@@ -326,7 +326,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [false, false, false, false, false, false, false, false, false]
 }
 tracks/3/type = "value"
@@ -350,7 +350,7 @@ tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.088, -0.5, -1.587), Vector3(-0.059030272, -0.40796578, -1.54435), Vector3(-0.34909302, -0.22639978, -1.4602097), Vector3(-0.55564624, -0.09710694, -1.4002935), Vector3(-0.567, -0.09, -1.397), Vector3(-0.568462, -0.08908483, -1.3965759), Vector3(-0.4252106, -0.17875364, -1.4381297), Vector3(-0.0962486, -0.38466883, -1.5335538), Vector3(0.088, -0.5, -1.587)]
 }
 tracks/5/type = "value"
@@ -362,7 +362,7 @@ tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.24331881, 1.0568871, 0), Vector3(-0.2757304, 2.9580085, 0), Vector3(-0.6437729, 4.3060384, 0), Vector3(-0.6632251, 4.377286, 0), Vector3(-0.6658366, 4.386851, 0), Vector3(-0.4099674, 3.449679, 0), Vector3(0.17760956, 1.2975605, 0), Vector3(0.506706, 0.092178695, 0)]
 }
 
@@ -1300,7 +1300,6 @@ transform = Transform3D(0.86780965, -0.49632493, -0.023825463, 0.4944947, 0.8673
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=443423592]
 unique_name_in_owner = true
 transform = Transform3D(0.99575377, 0.04467098, 0.08048213, 0, 0.8743478, -0.48529968, -0.09204814, 0.48323947, 0.8706356, 0.08808589, 1.1201602, -1.5870181)
-visible = false
 
 [node name="Sword" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=1421738015 instance=ExtResource("6_ij6fu")]
 transform = Transform3D(-1.1455268e-07, -0.13142006, -1.4942318, -1.4694108, 0.30022484, -0.02640514, 0.3013838, 1.4637601, -0.12874006, 0.63156074, -0.101805344, -0.68883055)
