@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cv0vve3eftqu8" path="res://assets/scenes/player/settings_menu.tscn" id="8_vsmvd"]
 [ext_resource type="PackedScene" uid="uid://xkh2maewipsq" path="res://assets/scenes/enemies/grapple_point.tscn" id="9_uum53"]
 [ext_resource type="PackedScene" uid="uid://bfhhq4f0ewqyr" path="res://assets/scenes/enemies/launch_point.tscn" id="10_ocygg"]
+[ext_resource type="PackedScene" uid="uid://ba0a5dddfgxuc" path="res://assets/models/treat.tscn" id="11_ocygg"]
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
@@ -155,3 +156,6 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 177, 41, -24)
 
 [node name="LaunchPoint" parent="." unique_id=1238854364 instance=ExtResource("10_ocygg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 41, -25)
+
+[node name="treat" parent="." unique_id=1166696138 instance=ExtResource("11_ocygg")]
+transform = Transform3D(-3.4641275e-08, 0, -0.7925, 0, 0.7925, 0, 0.7925, 0, -3.4641275e-08, 64, 39.36412, 0)

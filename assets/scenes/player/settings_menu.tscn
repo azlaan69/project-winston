@@ -79,7 +79,7 @@ grow_horizontal = 2
 z_index = 1
 layout_mode = 2
 text = "REDSHIFT PLAYTEST 
-0.3"
+0.3.5 (WIP)"
 label_settings = SubResource("LabelSettings_seyvw")
 horizontal_alignment = 1
 vertical_alignment = 1

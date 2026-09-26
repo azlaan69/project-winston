@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ba0a5dddfgxuc"]
+
+[ext_resource type="PackedScene" uid="uid://cjpsjo7637rw6" path="res://assets/models/whatamidoing.gltf" id="1_xrmgd"]
+[ext_resource type="Texture2D" uid="uid://tvod5uqdctuq" path="res://assets/models/whatamidoing_0.png" id="2_kn2qp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kn2qp"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_kn2qp")
+stencil_mode = 3
+stencil_flags = 2
+
+[node name="treat" unique_id=1166696138 instance=ExtResource("1_xrmgd")]
+
+[node name="mesh" parent="." index="0" unique_id=1469482581]
+surface_material_override/0 = SubResource("StandardMaterial3D_kn2qp")

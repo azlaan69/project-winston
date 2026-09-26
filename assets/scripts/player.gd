@@ -449,12 +449,12 @@ func grapplestuff(delta) -> void:
 				grapple_speed = dist.length()
 				grapple_velocity = dist.normalized() * 40.0
 				if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
-				if not is_instance_valid(active_hook):
-					active_hook = hook.instantiate()
-					get_parent().add_child(active_hook)
-					active_hook.global_transform = marker_grapple.global_transform
-				
-				active_hook.update(target.position)
+				#if not is_instance_valid(active_hook):
+					#active_hook = hook.instantiate()
+					#get_parent().add_child(active_hook)
+					#active_hook.global_transform = marker_grapple.global_transform
+				#
+				#active_hook.update(target.position)
 				
 			else:
 				anim_funny.play("pointend")
