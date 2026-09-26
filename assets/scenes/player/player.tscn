@@ -25,6 +25,7 @@ albedo_color = Color(0, 0.87058824, 1, 0.78431374)
 emission_enabled = true
 emission = Color(0, 1.5942107, 1.8247963, 1)
 emission_energy_multiplier = 2.0
+fixed_size = true
 stencil_mode = 3
 stencil_flags = 2
 
@@ -66,7 +67,7 @@ material = SubResource("ShaderMaterial_jfawc")
 size = Vector2(3, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
-size = Vector3(3.5, 2, 2.5)
+size = Vector3(2, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 1.2, 3.5)
@@ -210,6 +211,20 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.5061455, 0.09250246, 0)]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%Sword/../../../../..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"parry_state"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ihpx8"]
@@ -365,6 +380,23 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.24331881, 1.0568871, 0), Vector3(-0.2757304, 2.9580085, 0), Vector3(-0.6437729, 4.3060384, 0), Vector3(-0.6632251, 4.377286, 0), Vector3(-0.6658366, 4.386851, 0), Vector3(-0.4099674, 3.449679, 0), Vector3(0.17760956, 1.2975605, 0), Vector3(0.506706, 0.092178695, 0)]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%Sword/../../../../..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"parry_state"
+}, {
+"args": [false],
+"method": &"parry_state"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_p4ou1"]
 resource_name = "ready"
@@ -442,6 +474,20 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector3(0.506706, 0.092178695, 0), Vector3(0.506706, 0.092178695, 0), Vector3(0.506706, 0.092178695, 0), Vector3(0.506706, 0.092178695, 0)]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%Sword/../../../../..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"parry_state"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_lokl3"]
 resource_name = "sheath"
@@ -518,6 +564,20 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.506706, 0.092178695, 0)]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%Sword/../../../../..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"parry_state"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ryfec"]
@@ -1153,7 +1213,7 @@ disable_specular_occlusion = true
 metallic_specular = 0.0
 disable_receive_shadows = true
 
-[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "shoot_fx", "ghost") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "marker_grapple", "shoot_fx", "ghost") groups=["player"]]
 slide_on_ceiling = false
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
@@ -1161,8 +1221,9 @@ pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol")
 anim_funny = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Hand2/AnimationPlayer")
 anim_pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol/AnimationPlayer")
 marker_pistol = NodePath("Head/CameraPivot/Markers/PistolMarker")
+marker_grapple = NodePath("Head/CameraPivot/Markers/GrappleMarker")
 shoot_fx = NodePath("audio/AudioStreamPlayer3D")
-ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/SwordPivot")
+ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/Sword")
 ghost_mat = SubResource("StandardMaterial3D_xvhxs")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
@@ -1173,7 +1234,6 @@ mesh = SubResource("CapsuleMesh_ucva2")
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=2059166067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-visible = false
 shape = SubResource("CapsuleShape3D_iof21")
 debug_color = Color(18.892157, 0, 18.892157, 1)
 
@@ -1188,19 +1248,16 @@ debug_shape_custom_color = Color(1, 1, 1, 1)
 
 [node name="CeilingChecker" type="ShapeCast3D" parent="." unique_id=1193824407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-visible = false
 shape = SubResource("CylinderShape3D_nhb04")
 target_position = Vector3(0, -1.5, 0)
 debug_shape_custom_color = Color(0, 1, 1, 1)
 
 [node name="WallCheckLeft" type="RayCast3D" parent="." unique_id=1072597026]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 target_position = Vector3(-1, 0, 0)
 
 [node name="WallCheckRight" type="RayCast3D" parent="." unique_id=477660948]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 target_position = Vector3(1, 0, 0)
 
 [node name="Head" type="Node3D" parent="." unique_id=243913613 node_paths=PackedStringArray("player", "camera", "shake")]
@@ -1216,6 +1273,9 @@ shake = NodePath("CameraPivot")
 
 [node name="PistolMarker" type="Marker3D" parent="Head/CameraPivot/Markers" unique_id=1662730893]
 transform = Transform3D(0.6131046, -0.33779073, 6.3329935e-08, 0.32597977, 0.5916672, -0.18348615, 0.088542774, 0.16070889, 0.67552406, 0.40349558, -0.31146443, -1.6734045)
+
+[node name="GrappleMarker" type="Marker3D" parent="Head/CameraPivot/Markers" unique_id=1091896036]
+transform = Transform3D(0.8228312, 0.5400419, -0.17692815, -0.5279743, 0.84163815, 0.113526955, 0.21021879, 0, 0.97765434, -0.7264559, -0.63507664, -0.9184071)
 
 [node name="DebugCam" type="Camera3D" parent="Head/CameraPivot" unique_id=2044831973]
 transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 2.9999998, 3)
@@ -1238,10 +1298,9 @@ mesh = SubResource("QuadMesh_seyvw")
 
 [node name="ParryHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=138266649]
 unique_name_in_owner = true
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/ParryHitbox" unique_id=1315296259]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, -0.5)
 shape = SubResource("BoxShape3D_nhb04")
 debug_color = Color(1, 0, 0, 0.41960785)
 
@@ -1280,15 +1339,8 @@ size = 0.765
 transform = Transform3D(0.4851561, 0.17884077, -0.18745549, -0.23747386, 0.46606869, -0.16995932, 0.1035845, 0.23085922, 0.4883383, -0.87, 1.0025, -0.8325)
 
 [node name="Skeleton3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Hand2/armature" parent_id_path=PackedInt32Array(634213073, 1040913851) index="0" unique_id=1393141005]
-bones/0/rotation = Quaternion(-0.70710677, 0, 0, 0.70710677)
-bones/1/rotation = Quaternion(0, 0, -0.21643962, 0.976296)
-bones/2/rotation = Quaternion(0, 0, -0.021814885, 0.99976206)
-bones/3/rotation = Quaternion(0, 0, 0, 1)
-bones/4/rotation = Quaternion(0, 0, 0, 1)
-bones/5/rotation = Quaternion(0, 0, 0, 1)
-bones/6/rotation = Quaternion(0, 0, -0.021814885, 0.99976206)
-bones/7/rotation = Quaternion(0, 0, 0.04361939, 0.99904823)
-bones/9/rotation = Quaternion(0, 0, 0, 1)
+bones/4/rotation = Quaternion(-0.4617486, 0, 0, 0.8870108)
+bones/8/rotation = Quaternion(0.08713501, -0.0019012926, -0.021731874, 0.9959577)
 
 [node name="Pistol" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=1012686963 instance=ExtResource("5_ij6fu")]
 transform = Transform3D(0.7, 0, 0, 0, 0.6973363, 0.061009016, 0, -0.061009016, 0.6973363, 0.51, 0.7325, -0.675)
@@ -1302,7 +1354,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.99575377, 0.04467098, 0.08048213, 0, 0.8743478, -0.48529968, -0.09204814, 0.48323947, 0.8706356, 0.08808589, 1.1201602, -1.5870181)
 
 [node name="Sword" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=1421738015 instance=ExtResource("6_ij6fu")]
-transform = Transform3D(-1.1455268e-07, -0.13142006, -1.4942318, -1.4694108, 0.30022484, -0.02640514, 0.3013838, 1.4637601, -0.12874006, 0.63156074, -0.101805344, -0.68883055)
+transform = Transform3D(-1.11758716e-07, -0.13142005, -1.4942317, -1.4694109, 0.3002248, -0.02640514, 0.3013838, 1.46376, -0.12874004, 0.63156074, -0.101805344, -0.68883055)
 
 [node name="SwordPivot" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=913439823]
 transform = Transform3D(1.0000002, 4.440891e-16, -7.450579e-09, 0, 1.0000002, 5.960463e-08, 7.450581e-09, -5.9604645e-08, 1, -0.09204821, 0.4832396, 0.8706362)

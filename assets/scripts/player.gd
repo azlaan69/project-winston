@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var anim_katana: AnimationPlayer
 @export var anim_pistol: AnimationPlayer
 @export var marker_pistol: Marker3D
+@export var marker_grapple: Marker3D
 @export var can_freefly : bool = true
 
 @export_group("audio")
@@ -32,7 +33,9 @@ var crouching : bool = false
 var crouch_end_requested : bool = false
 var downhill : bool = false
 var is_switching : bool = false
+var is_parrying : bool = false
 var wall_running : bool = false
+var active_hook : Node3D = null
 
 
 var move_velocity: Vector3
@@ -79,6 +82,7 @@ var trailing: bool = false
 
 const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
+const hook = preload("res://assets/scenes/player/grapple_hook.tscn")
 
 
 @onready var head: Node3D = $Head
@@ -172,6 +176,7 @@ func _physics_process(delta: float) -> void:
 	if bounce_timer > 0.0: bounce_timer -= delta
 	
 	if sword_hitbox.monitoring: deal_swing()
+	if is_parrying: deal_parry()
 	
 	movestuff(delta)
 	grav(delta)
@@ -188,12 +193,7 @@ func _physics_process(delta: float) -> void:
 
 	if wallcheck.is_colliding(): wall_normal = wallcheck.get_collision_normal(0)
 	else: wall_normal = Vector3.ZERO
-	#if is_on_wall() and wall_normal.length() > 0.1:
-		#dash_velocity = Vector3.ZERO
-		#slide_velocity = slide_velocity.slide(wall_normal)
-		#grapple_velocity = grapple_velocity.slide(wall_normal) / 5
-		#wall_velocity = wall_velocity.slide(wall_normal)
-
+	
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * Settings.sens
 	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-85), deg_to_rad(85))
@@ -449,10 +449,29 @@ func grapplestuff(delta) -> void:
 				grapple_speed = dist.length()
 				grapple_velocity = dist.normalized() * 40.0
 				if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
+				if not is_instance_valid(active_hook):
+					active_hook = hook.instantiate()
+					get_parent().add_child(active_hook)
+					active_hook.global_transform = marker_grapple.global_transform
+				
+				active_hook.update(target.position)
+				
 			else:
 				anim_funny.play("pointend")
+				#if is_instance_valid(active_hook): 
+					#active_hook.queue_free()
+					#active_hook = null
+		
+		#else:
+			#if is_instance_valid(active_hook):
+				#active_hook.queue_free()
+				#active_hook = null
 		
 	else:
+		
+		#if is_instance_valid(active_hook): 
+			#active_hook.queue_free()
+			#active_hook = null
 		
 		var decay = 8.0
 		if !is_on_floor(): decay = 1.0
@@ -536,7 +555,7 @@ func combatstuff(delta) -> void:
 					anim_pistol.play("shoot")
 					
 					shoot_fx.pitch_scale = randf_range(0.8, 1.3)
-					shoot_fx.volume_linear = randf_range(-5.0, 2.0)
+					shoot_fx.volume_db = randf_range(-5.0, 2.0)
 					shoot_fx.play()
 					
 					var tracer = tracerP.instantiate()
@@ -627,15 +646,6 @@ func deal_shot() -> void:
 				break
 
 func deal_swing() -> void:
-	for proj in parry_hitbox.get_overlapping_areas():
-		if proj.is_in_group("projectile") and proj.parriable:
-			trailing = true
-			var angle = -%Camera3D.global_transform.basis.z
-			proj.deflect(angle)
-			var trauma = proj.hit_data["damage"] / 100.0
-			juice.add_trauma(trauma)
-			var hitstop_time = trauma / 2
-			PhysUtil.hitstop(hitstop_time)
 	
 	for body in sword_hitbox.get_overlapping_bodies():
 		
@@ -653,6 +663,18 @@ func deal_swing() -> void:
 			}
 			body.hit(hit_data)
 
+func deal_parry() -> void:
+	for proj in parry_hitbox.get_overlapping_areas():
+		if proj.is_in_group("projectile") and proj.parriable:
+			PhysUtil.ghost(ghost, ghost_mat, 0.05)
+			var angle = -%Camera3D.global_transform.basis.z
+			proj.deflect(angle)
+			anim_sword.play("sheath", 0.1)
+			var trauma = proj.hit_data["damage"] / 70.0
+			juice.add_trauma(trauma)
+			var hitstop_time = trauma / 2
+			PhysUtil.hitstop(hitstop_time)
+
 func weapon_setup() -> void:
 	match current_wpn:
 		wpn.SWORD:
@@ -664,6 +686,9 @@ func weapon_setup() -> void:
 			sword.visible = false
 			guns.visible = true
 			anim_gun.play("ready")
+
+func parry_state(yes: bool = false) -> void:
+	is_parrying = yes
 
 func _on_dash_cd_timeout() -> void:
 	if dash_charges < 3: dash_charges += 1

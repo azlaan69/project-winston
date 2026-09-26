@@ -92,7 +92,7 @@ func _physics_process(delta: float) -> void:
 				movement = target * speed * 2.0
 				if ghost_timer <= 0.0: 
 					PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
-					ghost_timer = 0.01
+					ghost_timer = 0.05
 				
 			else:
 				if anim.current_animation != "kick": anim.play("kick")
@@ -104,7 +104,7 @@ func _physics_process(delta: float) -> void:
 			movement = target * speed * 1.5
 			if ghost_timer <= 0.0: 
 				PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
-				ghost_timer = 0.01
+				ghost_timer = 0.05
 			if cooldown <= 0.0:
 				change_state(state.IDLE)
 		
@@ -116,7 +116,7 @@ func _physics_process(delta: float) -> void:
 			movement = strafe * speed * 1.5
 			if ghost_timer <= 0.0: 
 				PhysUtil.ghost(optional_ghostroot, optional_ghostmat, 0.1)
-				ghost_timer = 0.01
+				ghost_timer = 0.05
 			
 			if dist < 10.0: change_state(state.KICK)
 			elif cooldown <= 0.0:

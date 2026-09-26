@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bwhixii5p3qb7"]
+
+[ext_resource type="Script" uid="uid://bi4lkssbh63ui" path="res://assets/scripts/grapple_hook.gd" id="1_a47v6"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_vqn6i"]
+resource_local_to_scene = true
+
+[node name="grapple_hook" type="Node3D" unique_id=393264586]
+script = ExtResource("1_a47v6")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1757766499]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("ImmediateMesh_vqn6i")
