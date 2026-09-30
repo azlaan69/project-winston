@@ -13,6 +13,18 @@ height = 2.9995117
 [sub_resource type="SphereShape3D" id="SphereShape3D_xoxhl"]
 radius = 0.4
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pe1q6"]
+particle_flag_align_y = true
+inherit_velocity_ratio = 1.0
+radial_velocity_min = 4.9999776
+radial_velocity_max = 9.999977
+attractor_interaction_enabled = false
+scale_max = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ncam4"]
+material = ExtResource("2_satdh")
+size = Vector3(0.1, 0.1, 0.1)
+
 [node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim", "optional_ghostroot") groups=["enemy"]]
 script = ExtResource("1_yknt1")
 armhinge = NodePath("shooter_burst/root/pelvis/torso/arms")
@@ -30,7 +42,7 @@ script = ExtResource("1_xoxhl")
 mask_material = ExtResource("5_pe1q6")
 
 [node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 931774970) index="2" unique_id=958046270]
-transform = Transform3D(0.6642457, -0.32139173, -0.6748937, 0.4720633, 0.8803958, 0.045362923, 0.57959414, -0.34872577, 0.73651725, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.66424567, -0.32139173, -0.6748936, 0.47206324, 0.8803958, 0.04536292, 0.5795941, -0.34872577, 0.7365172, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1193048049) index="1" unique_id=1034599267]
 transform = Transform3D(0.9252015, -0.2716394, 0.26497868, 0.14177774, 0.89514965, 0.42261818, -0.3519953, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)
@@ -56,6 +68,17 @@ pixel_size = 0.01
 billboard = 1
 no_depth_test = true
 font_size = 128
+
+[node name="hitfx" type="GPUParticles3D" parent="." unique_id=438204608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.247101, 0)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.8
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_pe1q6")
+draw_pass_1 = SubResource("BoxMesh_ncam4")
 
 [connection signal="animation_finished" from="shooter_burst/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="shooter_burst/root/pelvis/legs/thighR/kneeR/Area3D" to="." method="_on_area_3d_body_entered"]
