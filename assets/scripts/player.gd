@@ -9,6 +9,7 @@ extends CharacterBody3D
 @export var anim_pistol: AnimationPlayer
 @export var marker_pistol: Marker3D
 @export var marker_grapple: Marker3D
+@export var grapple_rope: Node3D
 @export var can_freefly : bool = true
 
 @export_group("audio")
@@ -35,7 +36,7 @@ var downhill : bool = false
 var is_switching : bool = false
 var is_parrying : bool = false
 var wall_running : bool = false
-var active_hook : Node3D = null
+var grappling : bool = false
 
 
 var move_velocity: Vector3
@@ -177,6 +178,8 @@ func _physics_process(delta: float) -> void:
 	
 	if sword_hitbox.monitoring: deal_swing()
 	if is_parrying: deal_parry()
+	
+	grapple_rope.visible = grappling
 	
 	movestuff(delta)
 	grav(delta)
@@ -436,43 +439,32 @@ func grapplestuff(delta) -> void:
 		anim_funny.play("pointend")
 	
 	if Input.is_action_pressed("grapple"):
-		hat_timer.start()
 		var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
 		if target and (target.position - global_position).length() > 5.0:
-			grav_velocity = Vector3.ZERO
-			external_velocity = Vector3.ZERO
 			var point = target.collider
 			if point.is_in_group("grapple"):
+				grappling = true
+				grav_velocity = Vector3.ZERO
+				external_velocity = Vector3.ZERO
 				if grapple_speed >= 0.0: hat_timer.start()
 				
 				var dist = target.position - global_position
 				grapple_speed = dist.length()
 				grapple_velocity = dist.normalized() * 40.0
+				grapple_rope.look_at(target.position - Vector3(0, 0.2, 0))
+				grapple_rope.scale = Vector3(1, 1, dist.length() - 1.5)
 				if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
-				#if not is_instance_valid(active_hook):
-					#active_hook = hook.instantiate()
-					#get_parent().add_child(active_hook)
-					#active_hook.global_transform = marker_grapple.global_transform
-				#
-				#active_hook.update(target.position)
 				
 			else:
+				grappling = false
 				anim_funny.play("pointend")
-				#if is_instance_valid(active_hook): 
-					#active_hook.queue_free()
-					#active_hook = null
-		
-		#else:
-			#if is_instance_valid(active_hook):
-				#active_hook.queue_free()
-				#active_hook = null
+		else:
+			grappling = false
+			if (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"): anim_funny.play("pointend")
 		
 	else:
 		
-		#if is_instance_valid(active_hook): 
-			#active_hook.queue_free()
-			#active_hook = null
-		
+		grappling = false
 		var decay = 8.0
 		if !is_on_floor(): decay = 1.0
 		else: decay = 8.0

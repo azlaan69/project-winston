@@ -20,6 +20,9 @@ var max_yaw = deg_to_rad(18.0)
 var decay = 3.0
 var noise_speed = 350.0
 
+var bob_time := 0.0
+
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	noise.seed = randi()
@@ -36,6 +39,15 @@ func _process(delta: float) -> void:
 			end_y = 0.8
 		else:
 			end_y = 1.7
+		
+		bob_time += delta * player.move_velocity.length()
+		camera.transform.origin = Vector3(
+			cos(bob_time * 2.4 * 0.5) * 0.1,
+			sin(bob_time * 2.4) * 0.1,
+			0.0
+		)
+		
+		
 		
 		if player.near_wall and not player.is_on_floor():
 			end_fov /= 1.15
