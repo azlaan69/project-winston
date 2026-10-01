@@ -37,6 +37,7 @@ var is_switching : bool = false
 var is_parrying : bool = false
 var wall_running : bool = false
 var grappling : bool = false
+var grap_scale : float = 0.0
 
 
 var move_velocity: Vector3
@@ -179,7 +180,6 @@ func _physics_process(delta: float) -> void:
 	if sword_hitbox.monitoring: deal_swing()
 	if is_parrying: deal_parry()
 	
-	grapple_rope.visible = grappling
 	
 	movestuff(delta)
 	grav(delta)
@@ -432,6 +432,9 @@ func crouch_end() -> void:
 
 
 func grapplestuff(delta) -> void:
+	var scale_factor = 20.0 if grappling else 50.0
+	grapple_rope.scale = grapple_rope.scale.move_toward(Vector3(1, 1, grap_scale), scale_factor * delta)
+	
 	if Input.is_action_pressed("taunt") and anim_funny.current_animation != "pointhold":
 		anim_funny.play("fuhyu")
 	
@@ -452,19 +455,23 @@ func grapplestuff(delta) -> void:
 				grapple_speed = dist.length()
 				grapple_velocity = dist.normalized() * 40.0
 				grapple_rope.look_at(target.position - Vector3(0, 0.2, 0))
-				grapple_rope.scale = Vector3(1, 1, dist.length() - 1.5)
+				grap_scale = dist.length() / 1.5
+				
 				if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
 				
 			else:
 				grappling = false
+				grap_scale = 0.0
 				anim_funny.play("pointend")
 		else:
 			grappling = false
+			grap_scale = 0.0
 			if (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"): anim_funny.play("pointend")
 		
 	else:
 		
 		grappling = false
+		grap_scale = 0.0
 		var decay = 8.0
 		if !is_on_floor(): decay = 1.0
 		else: decay = 8.0
