@@ -434,6 +434,7 @@ func crouch_end() -> void:
 func grapplestuff(delta) -> void:
 	var scale_factor = 20.0 if grappling else 50.0
 	grapple_rope.scale = grapple_rope.scale.move_toward(Vector3(1, 1, grap_scale), scale_factor * delta)
+	grapple_rope.visible = (grapple_rope.scale != Vector3(1, 1, 0))
 	
 	if Input.is_action_pressed("taunt") and anim_funny.current_animation != "pointhold":
 		anim_funny.play("fuhyu")
@@ -443,7 +444,7 @@ func grapplestuff(delta) -> void:
 	
 	if Input.is_action_pressed("grapple"):
 		var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
-		if target and (target.position - global_position).length() > 5.0:
+		if target and (target.collider.global_position - global_position).length() > 10.0:
 			var point = target.collider
 			if point.is_in_group("grapple"):
 				grappling = true

@@ -5,6 +5,7 @@ extends Control
 
 var speed: float = 0.0
 var hit_time: float = 0.0
+var bob_time: float = 0.0
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody3D
@@ -71,3 +72,9 @@ func _process(delta: float) -> void:
 	$Crosshair/Sword.visible = (!$Crosshair/Gun.visible)
 	
 	#$Filter.visible = ((player.iframe_timer / 2) > 0.1)
+	
+	bob_time += delta * player.move_velocity.length()
+	position = Vector2(
+		cos(bob_time * 2.0 * 0.5) * 3.0,
+		-sin(bob_time * 2.0) * 3.0,
+	)

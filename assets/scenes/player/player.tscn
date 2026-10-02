@@ -84,6 +84,7 @@ albedo_color = Color(0, 0.6431373, 1, 1)
 emission_enabled = true
 emission_energy_multiplier = 2.0
 emission_texture = SubResource("NoiseTexture2D_2pygs")
+disable_receive_shadows = true
 stencil_mode = 3
 stencil_flags = 2
 
@@ -1289,12 +1290,13 @@ target_position = Vector3(-1, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(1, 0, 0)
 
-[node name="Head" type="Node3D" parent="." unique_id=243913613 node_paths=PackedStringArray("player", "camera", "shake")]
+[node name="Head" type="Node3D" parent="." unique_id=243913613 node_paths=PackedStringArray("player", "camera", "shake", "wpns_cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 script = ExtResource("2_5v77c")
 player = NodePath("..")
 camera = NodePath("CameraPivot/Camera3D")
 shake = NodePath("CameraPivot")
+wpns_cam = NodePath("CameraPivot/WeaponLayer/SubViewport/WpnCam")
 
 [node name="CameraPivot" type="Node3D" parent="Head" unique_id=2116535625]
 
@@ -1330,6 +1332,7 @@ transform = Transform3D(0.4851561, 0.1788408, -0.18745548, -0.23747388, 0.466068
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D/Rope" unique_id=294029850]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.46659184, -0.08170453, -0.7249494)
+cast_shadow = 0
 mesh = SubResource("CylinderMesh_5pvhp")
 
 [node name="ParryHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=138266649]

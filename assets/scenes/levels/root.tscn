@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cv0vve3eftqu8" path="res://assets/scenes/player/settings_menu.tscn" id="8_vsmvd"]
 [ext_resource type="PackedScene" uid="uid://xkh2maewipsq" path="res://assets/scenes/enemies/grapple_point.tscn" id="9_uum53"]
 [ext_resource type="PackedScene" uid="uid://bfhhq4f0ewqyr" path="res://assets/scenes/enemies/launch_point.tscn" id="10_ocygg"]
-[ext_resource type="PackedScene" uid="uid://ba0a5dddfgxuc" path="res://assets/models/treat.tscn" id="11_ocygg"]
+[ext_resource type="PackedScene" uid="uid://bf3rgfwuswav2" path="res://assets/models/some_processed.tscn" id="11_ocygg"]
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 1
@@ -49,7 +49,7 @@ directional_shadow_max_distance = 500.0
 environment = SubResource("Environment_vvh5c")
 
 [node name="Player" parent="." unique_id=500862226 instance=ExtResource("1_y2pyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 45, 27)
+transform = Transform3D(-0.0058691604, 0, 0.9999828, 0, 1, 0, -0.9999828, 0, -0.0058691604, 110.168335, 40.00736, -13.911224)
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_1jmg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106, 2, 68)
@@ -87,12 +87,13 @@ line_spacing = 8.0
 [node name="enemies" type="Node3D" parent="." unique_id=1039829579]
 
 [node name="shooter4" parent="enemies" unique_id=58307371 instance=ExtResource("5_uum53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 41, -29)
+transform = Transform3D(-0.46519822, 0, -0.8852065, 0, 1, 0, 0.8852065, 0, -0.46519822, 104.76202, 41, -18.076534)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1352092768]
 navigation_mesh = SubResource("NavigationMesh_seyvw")
 
 [node name="playground" parent="NavigationRegion3D" unique_id=1184370340 instance=ExtResource("5_7qu1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17804337, 0, -0.311409)
 
 [node name="NavigationLink3D" type="NavigationLink3D" parent="NavigationRegion3D" unique_id=404365419]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 43, 34)
@@ -157,5 +158,5 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 177, 41, -24)
 [node name="LaunchPoint" parent="." unique_id=1238854364 instance=ExtResource("10_ocygg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 41, -25)
 
-[node name="treat" parent="." unique_id=1166696138 instance=ExtResource("11_ocygg")]
-transform = Transform3D(-3.4641275e-08, 0, -0.7925, 0, 0.7925, 0, 0.7925, 0, -3.4641275e-08, 64, 39.36412, 0)
+[node name="some" parent="." unique_id=1791357581 instance=ExtResource("11_ocygg")]
+transform = Transform3D(-0.077898875, 0, 0.2270061, 0, 0.24, 0, -0.2270061, 0, -0.077898875, 105.41494, 40.14658, -13.910232)

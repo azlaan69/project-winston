@@ -3,6 +3,7 @@ extends Node3D
 @export var player: CharacterBody3D
 @export var camera: Camera3D
 @export var shake: Node3D
+@export var wpns_cam: Camera3D
 
 var shift_allowed: bool = true
 var end_fov: float = 90
@@ -42,10 +43,16 @@ func _process(delta: float) -> void:
 		
 		bob_time += delta * player.move_velocity.length()
 		camera.transform.origin = Vector3(
-			cos(bob_time * 2.4 * 0.5) * 0.1,
-			sin(bob_time * 2.4) * 0.1,
+			cos(bob_time * 2.0 * 0.5) * 0.1,
+			sin(bob_time * 2.0) * 0.1,
 			0.0
 		)
+		wpns_cam.transform.origin = Vector3(
+			cos(bob_time * 1.0 * 0.5) * 0.02,
+			1.5 + sin(bob_time * 1.0) * 0.01,
+			0.0
+		)
+		
 		
 		
 		

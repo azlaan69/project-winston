@@ -10,6 +10,7 @@ point_size = 10.0
 resource_local_to_scene = true
 
 [node name="grapple_hook" type="Node3D" unique_id=393264586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 script = ExtResource("1_a47v6")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1757766499]
