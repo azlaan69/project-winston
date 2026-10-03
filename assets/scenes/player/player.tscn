@@ -1241,7 +1241,7 @@ disable_specular_occlusion = true
 metallic_specular = 0.0
 disable_receive_shadows = true
 
-[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "marker_grapple", "grapple_rope", "shoot_fx", "ghost") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "grapple_rope", "shoot_fx", "ghost") groups=["player"]]
 slide_on_ceiling = false
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
@@ -1249,7 +1249,6 @@ pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol")
 anim_funny = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Hand/AnimationPlayer")
 anim_pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol/AnimationPlayer")
 marker_pistol = NodePath("Head/CameraPivot/Markers/PistolMarker")
-marker_grapple = NodePath("Head/CameraPivot/Markers/GrappleMarker")
 grapple_rope = NodePath("Head/CameraPivot/Camera3D/Rope")
 shoot_fx = NodePath("audio/AudioStreamPlayer3D")
 ghost = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Sword/Sword")
@@ -1305,9 +1304,6 @@ wpns_cam = NodePath("CameraPivot/WeaponLayer/SubViewport/WpnCam")
 [node name="PistolMarker" type="Marker3D" parent="Head/CameraPivot/Markers" unique_id=1662730893]
 transform = Transform3D(0.6131046, -0.33779073, 6.3329935e-08, 0.32597977, 0.5916672, -0.18348615, 0.088542774, 0.16070889, 0.67552406, 0.40349558, -0.31146443, -1.6734045)
 
-[node name="GrappleMarker" type="Marker3D" parent="Head/CameraPivot/Markers" unique_id=1091896036]
-transform = Transform3D(0.8228312, 0.5400419, -0.17692815, -0.5279743, 0.84163815, 0.113526955, 0.21021879, 0, 0.97765434, -0.7264559, -0.63507664, -0.9184071)
-
 [node name="DebugCam" type="Camera3D" parent="Head/CameraPivot" unique_id=2044831973]
 transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 2.9999998, 3)
 current = true
@@ -1328,10 +1324,10 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_seyvw")
 
 [node name="Rope" type="Node3D" parent="Head/CameraPivot/Camera3D" unique_id=396675748]
-transform = Transform3D(0.4851561, 0.1788408, -0.18745548, -0.23747388, 0.46606874, -0.16995932, 0.103584476, 0.23085925, 0.4883383, -0.72209156, -0.6195115, -0.74858046)
+transform = Transform3D(0.88210195, 0.32516506, -0.3408281, -0.43177065, 0.84739757, -0.3090169, 0.18833542, 0.419744, 0.8878877, -0.88824576, -0.69604504, -0.76933545)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D/Rope" unique_id=294029850]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.46659184, -0.08170453, -0.7249494)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.371139e-08, -1)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_5pvhp")
 

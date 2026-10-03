@@ -8,7 +8,6 @@ extends CharacterBody3D
 @export var anim_katana: AnimationPlayer
 @export var anim_pistol: AnimationPlayer
 @export var marker_pistol: Marker3D
-@export var marker_grapple: Marker3D
 @export var grapple_rope: Node3D
 @export var can_freefly : bool = true
 
@@ -59,6 +58,8 @@ var wall_normal: Vector3
 
 var wall_run_speed = 0.0
 var grapple_speed = 0.0 
+var grap_pos: Vector3
+var grap_node: Node3D
 
 
 var hp = 100
@@ -355,7 +356,7 @@ func wall(delta) -> void:
 	walj_velocity = walj_velocity * exp(-decay * delta)
 	if walj_velocity.length_squared() < 0.01 or is_on_floor(): walj_velocity = Vector3.ZERO
 	
-	if near_wall and not is_on_floor() and move_dir.length() > 0.1 and wall_normal.length() > 0.1:
+	if near_wall and (not is_on_floor()) and move_dir.length() > 0.1 and wall_normal.length() > 0.1:
 		var forward = -transform.basis.z
 		if abs(forward.dot(wall_normal)) < 0.75:
 			if not wall_running:
@@ -439,39 +440,34 @@ func grapplestuff(delta) -> void:
 	if Input.is_action_pressed("taunt") and anim_funny.current_animation != "pointhold":
 		anim_funny.play("fuhyu")
 	
-	if Input.is_action_just_released("grapple") and (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"):
-		anim_funny.play("pointend")
-	
-	if Input.is_action_pressed("grapple"):
-		var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
-		if target and (target.collider.global_position - global_position).length() > 10.0:
-			var point = target.collider
-			if point.is_in_group("grapple"):
-				grappling = true
-				grav_velocity = Vector3.ZERO
-				external_velocity = Vector3.ZERO
-				if grapple_speed >= 0.0: hat_timer.start()
-				
-				var dist = target.position - global_position
-				grapple_speed = dist.length()
-				grapple_velocity = dist.normalized() * 40.0
-				grapple_rope.look_at(target.position - Vector3(0, 0.2, 0))
-				grap_scale = dist.length() / 1.5
-				
-				if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
-				
-			else:
-				grappling = false
-				grap_scale = 0.0
-				anim_funny.play("pointend")
+	if Input.is_action_just_pressed("grapple"):
+		if grappling:
+			grap_stop()
 		else:
-			grappling = false
-			grap_scale = 0.0
-			if (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"): anim_funny.play("pointend")
+			grap_start()
+	if grappling and Input.is_action_just_pressed("jump"): grap_stop()
+	
+	if grappling:
+		if is_instance_valid(grap_node):
+			grap_pos = grap_node.global_position
 		
+		var dist_vec := grap_pos - global_position
+		var dist = dist_vec.length()
+		if dist < 10.0: 
+			grap_stop()
+		else:
+			grav_velocity = Vector3.ZERO
+			external_velocity = Vector3.ZERO
+			if grapple_speed >= 0.0: hat_timer.start()
+			
+			grapple_speed = dist
+			grapple_velocity = dist_vec.normalized() * 40.0
+			grappling = true
+			grapple_rope.look_at(grap_pos - Vector3(0, 0.5, 0))
+			grap_scale = dist
+			if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
 	else:
 		
-		grappling = false
 		grap_scale = 0.0
 		var decay = 8.0
 		if !is_on_floor(): decay = 1.0
@@ -481,31 +477,65 @@ func grapplestuff(delta) -> void:
 		
 		if grapple_velocity.length_squared() < 0.5: grapple_velocity = Vector3.ZERO
 		if is_on_floor() and abs(grapple_velocity.y) >= 0.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
-		
-	#if Input.is_action_just_pressed("r") and hat.can_use:
-		#match hat.current_state:
-			#
-			#hat.state.EQUIPPED:
-				#juice.shift(1.7, 70, 0.2)
-				#await get_tree().create_timer(0.2).timeout
-				#var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-				#var speed = 30.0 + velocity.length()
-				#hat.launch(facing, speed)
-			#
-			#hat.state.LAUNCHED:
-				#if not hat.used: hat_timer.start()
-				#grav_velocity.y /= 5
-				#hat.used = true
-				#var pull_dir: Vector3 = (hat.global_position - global_position).normalized()
-				#hat_velocity = pull_dir * 35.0
+	
+	#if Input.is_action_pressed("grapple"):
+		#var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
+		#if target and (target.collider.global_position - global_position).length() > 10.0:
+			#var point = target.collider
+			#if point.is_in_group("grapple"):
+				#
+				#grav_velocity = Vector3.ZERO
+				#external_velocity = Vector3.ZERO
+				#if grapple_speed >= 0.0: hat_timer.start()
+				#
+				#var dist = target.position - global_position
+				#grapple_speed = dist.length()
+				#grapple_velocity = dist.normalized() * 40.0
+				#grappling = true
+				#grapple_rope.look_at(target.collider.global_position - Vector3(0, 0.5, 0))
+				#grap_scale = dist.length()
+				#
+				#if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
+				#
+			#else:
+				#grappling = false
+				#grap_scale = 0.0
+				#anim_funny.play("pointend")
+		#else:
+			#grappling = false
+			#grap_scale = 0.0
+			#if (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"): anim_funny.play("pointend")
 		#
-			#hat.state.LANDED:
-				#if not hat.used:
-					#juice.shift(1.7, 60, 0.4)
-					#await get_tree().create_timer(0.4).timeout
-					#global_position = hat.global_position + Vector3(0, 1.0, 0)
-					#hat.reset()
-					#juice.shift(1.7, 110, 0.1)
+	#else:
+		#
+		#grappling = false
+		#grap_scale = 0.0
+		#var decay = 8.0
+		#if !is_on_floor(): decay = 1.0
+		#else: decay = 8.0
+		#grapple_velocity *= exp(-decay * delta)
+		#grapple_speed *= exp(-decay * delta)
+		#
+		#if grapple_velocity.length_squared() < 0.5: grapple_velocity = Vector3.ZERO
+		#if is_on_floor() and abs(grapple_velocity.y) >= 0.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
+		
+
+func grap_start() -> void:
+	var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
+	if target and (target.collider.global_position - global_position).length() > 10.0:
+		if target.collider.is_in_group("grapple"):
+			grappling = true
+			grap_pos = target.position
+			grap_node = target.collider
+			return
+	
+	grap_stop()
+
+func grap_stop() -> void:
+	grappling = false
+	grap_node = null
+	grap_scale = 0.0
+	if (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"): anim_funny.play("pointend")
 
 func combatstuff(delta) -> void:
 	

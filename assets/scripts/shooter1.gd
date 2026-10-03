@@ -198,4 +198,5 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 func hit(hit_data) -> void:
 	super(hit_data)
 	hitanim.play("hit")
+	$hitfx.restart()
 	if hit_data["damage"] > 5.0: change_state(state.STAGGER)

@@ -42,7 +42,7 @@ script = ExtResource("1_xoxhl")
 mask_material = ExtResource("5_pe1q6")
 
 [node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 931774970) index="2" unique_id=958046270]
-transform = Transform3D(0.66424567, -0.32139173, -0.6748936, 0.47206324, 0.8803958, 0.04536292, 0.5795941, -0.34872577, 0.7365172, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.6642456, -0.32139173, -0.6748936, 0.4720632, 0.8803958, 0.045362916, 0.579594, -0.34872577, 0.73651713, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1193048049) index="1" unique_id=1034599267]
 transform = Transform3D(0.9252015, -0.2716394, 0.26497868, 0.14177774, 0.89514965, 0.42261818, -0.3519953, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)
@@ -73,6 +73,7 @@ font_size = 128
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.247101, 0)
 emitting = false
 amount = 16
+lifetime = 0.5
 one_shot = true
 explosiveness = 0.8
 randomness = 1.0
@@ -82,5 +83,6 @@ draw_pass_1 = SubResource("BoxMesh_ncam4")
 
 [connection signal="animation_finished" from="shooter_burst/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="shooter_burst/root/pelvis/legs/thighR/kneeR/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="finished" from="hitfx" to="." method="_on_hitfx_finished"]
 
 [editable path="shooter_burst"]

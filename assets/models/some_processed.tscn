@@ -26,13 +26,13 @@ stencil_flags = 2
 
 [node name="some" unique_id=1791357581 instance=ExtResource("1_h8kah")]
 
-[node name="metarig" parent="." index="0" unique_id=287834508]
+[node name="metarig" parent="." index="0" unique_id=988785387]
 visible = false
 
-[node name="Skeleton3D" parent="metarig" index="0" unique_id=2066879268]
+[node name="Skeleton3D" parent="metarig" index="0" unique_id=1227164684]
 visible = false
 
-[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(742756050) index="0" unique_id=943195951]
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(673136433) index="0" unique_id=326802058]
 bones/8/rotation = Quaternion(0.9917924, -0.0037952983, 0.00045064482, -0.12780179)
 bones/20/rotation = Quaternion(0.9917924, 0.0037979472, -0.0004711888, -0.12780172)
 bones/23/rotation = Quaternion(-0.005585266, -0.10677135, 0.9917171, -0.07117526)
@@ -131,411 +131,411 @@ bones/408/position = Vector3(-0.23341398, 0.056532666, 1.327132)
 bones/408/rotation = Quaternion(-0.26072803, 0.2569318, -0.56517595, 0.7393126)
 bones/408/scale = Vector3(1.0000001, 15.787642, 0.9999999)
 
-[node name="hair" parent="rig/Skeleton3D" index="0" unique_id=952183492]
+[node name="hair" parent="rig/Skeleton3D" index="0" unique_id=42497691]
 surface_material_override/0 = ExtResource("2_nwflp")
 
-[node name="Mesh" parent="rig/Skeleton3D" index="1" unique_id=1753167470]
+[node name="Mesh" parent="rig/Skeleton3D" index="1" unique_id=667736540]
 surface_material_override/0 = SubResource("StandardMaterial3D_xrmgd")
 surface_material_override/1 = SubResource("StandardMaterial3D_c51ca")
 
-[node name="WGT-rig_breast_L" parent="." index="2" unique_id=490549144]
+[node name="WGT-rig_breast_L" parent="." index="2" unique_id=1466322822]
 visible = false
 
-[node name="WGT-rig_breast_R" parent="." index="3" unique_id=1189758515]
+[node name="WGT-rig_breast_R" parent="." index="3" unique_id=968998836]
 visible = false
 
-[node name="WGT-rig_chest" parent="." index="4" unique_id=189769201]
+[node name="WGT-rig_chest" parent="." index="4" unique_id=1275119521]
 visible = false
 
-[node name="WGT-rig_f_index_01_L" parent="." index="5" unique_id=2052611989]
+[node name="WGT-rig_f_index_01_L" parent="." index="5" unique_id=546873059]
 visible = false
 
-[node name="WGT-rig_f_index_01_L_001" parent="." index="6" unique_id=1538090882]
+[node name="WGT-rig_f_index_01_L_001" parent="." index="6" unique_id=356170062]
 visible = false
 
-[node name="WGT-rig_f_index_01_R" parent="." index="7" unique_id=209468170]
+[node name="WGT-rig_f_index_01_R" parent="." index="7" unique_id=86423798]
 visible = false
 
-[node name="WGT-rig_f_index_01_R_001" parent="." index="8" unique_id=1521477686]
+[node name="WGT-rig_f_index_01_R_001" parent="." index="8" unique_id=371189442]
 visible = false
 
-[node name="WGT-rig_f_index_01_master_L" parent="." index="9" unique_id=35628538]
+[node name="WGT-rig_f_index_01_master_L" parent="." index="9" unique_id=693992362]
 visible = false
 
-[node name="WGT-rig_f_index_01_master_R" parent="." index="10" unique_id=168334424]
+[node name="WGT-rig_f_index_01_master_R" parent="." index="10" unique_id=1757980695]
 visible = false
 
-[node name="WGT-rig_f_index_02_L" parent="." index="11" unique_id=1400953741]
+[node name="WGT-rig_f_index_02_L" parent="." index="11" unique_id=816856282]
 visible = false
 
-[node name="WGT-rig_f_index_02_R" parent="." index="12" unique_id=711113478]
+[node name="WGT-rig_f_index_02_R" parent="." index="12" unique_id=2107806814]
 visible = false
 
-[node name="WGT-rig_f_index_03_L" parent="." index="13" unique_id=288969602]
+[node name="WGT-rig_f_index_03_L" parent="." index="13" unique_id=1430201370]
 visible = false
 
-[node name="WGT-rig_f_index_03_R" parent="." index="14" unique_id=1470493227]
+[node name="WGT-rig_f_index_03_R" parent="." index="14" unique_id=450029451]
 visible = false
 
-[node name="WGT-rig_f_middle_01_L" parent="." index="15" unique_id=961952260]
+[node name="WGT-rig_f_middle_01_L" parent="." index="15" unique_id=691021947]
 visible = false
 
-[node name="WGT-rig_f_middle_01_L_001" parent="." index="16" unique_id=2069506497]
+[node name="WGT-rig_f_middle_01_L_001" parent="." index="16" unique_id=1484569594]
 visible = false
 
-[node name="WGT-rig_f_middle_01_R" parent="." index="17" unique_id=1029220572]
+[node name="WGT-rig_f_middle_01_R" parent="." index="17" unique_id=224132547]
 visible = false
 
-[node name="WGT-rig_f_middle_01_R_001" parent="." index="18" unique_id=1323900165]
+[node name="WGT-rig_f_middle_01_R_001" parent="." index="18" unique_id=1691429701]
 visible = false
 
-[node name="WGT-rig_f_middle_01_master_L" parent="." index="19" unique_id=2137982397]
+[node name="WGT-rig_f_middle_01_master_L" parent="." index="19" unique_id=180911226]
 visible = false
 
-[node name="WGT-rig_f_middle_01_master_R" parent="." index="20" unique_id=319161996]
+[node name="WGT-rig_f_middle_01_master_R" parent="." index="20" unique_id=1571538440]
 visible = false
 
-[node name="WGT-rig_f_middle_02_L" parent="." index="21" unique_id=117091260]
+[node name="WGT-rig_f_middle_02_L" parent="." index="21" unique_id=10170506]
 visible = false
 
-[node name="WGT-rig_f_middle_02_R" parent="." index="22" unique_id=985623432]
+[node name="WGT-rig_f_middle_02_R" parent="." index="22" unique_id=60664441]
 visible = false
 
-[node name="WGT-rig_f_middle_03_L" parent="." index="23" unique_id=1419506429]
+[node name="WGT-rig_f_middle_03_L" parent="." index="23" unique_id=124655225]
 visible = false
 
-[node name="WGT-rig_f_middle_03_R" parent="." index="24" unique_id=1223816464]
+[node name="WGT-rig_f_middle_03_R" parent="." index="24" unique_id=1514502198]
 visible = false
 
-[node name="WGT-rig_f_pinky_01_L" parent="." index="25" unique_id=2031493543]
+[node name="WGT-rig_f_pinky_01_L" parent="." index="25" unique_id=1416448843]
 visible = false
 
-[node name="WGT-rig_f_pinky_01_L_001" parent="." index="26" unique_id=217231474]
+[node name="WGT-rig_f_pinky_01_L_001" parent="." index="26" unique_id=2121718375]
 visible = false
 
-[node name="WGT-rig_f_pinky_01_R" parent="." index="27" unique_id=1224420011]
+[node name="WGT-rig_f_pinky_01_R" parent="." index="27" unique_id=791009355]
 visible = false
 
-[node name="WGT-rig_f_pinky_01_R_001" parent="." index="28" unique_id=807580689]
+[node name="WGT-rig_f_pinky_01_R_001" parent="." index="28" unique_id=1265273174]
 visible = false
 
-[node name="WGT-rig_f_pinky_01_master_L" parent="." index="29" unique_id=1247889028]
+[node name="WGT-rig_f_pinky_01_master_L" parent="." index="29" unique_id=1514313143]
 visible = false
 
-[node name="WGT-rig_f_pinky_01_master_R" parent="." index="30" unique_id=1430961876]
+[node name="WGT-rig_f_pinky_01_master_R" parent="." index="30" unique_id=1405154554]
 visible = false
 
-[node name="WGT-rig_f_pinky_02_L" parent="." index="31" unique_id=901244819]
+[node name="WGT-rig_f_pinky_02_L" parent="." index="31" unique_id=1963827429]
 visible = false
 
-[node name="WGT-rig_f_pinky_02_R" parent="." index="32" unique_id=188575451]
+[node name="WGT-rig_f_pinky_02_R" parent="." index="32" unique_id=2015923079]
 visible = false
 
-[node name="WGT-rig_f_pinky_03_L" parent="." index="33" unique_id=641948918]
+[node name="WGT-rig_f_pinky_03_L" parent="." index="33" unique_id=2060154249]
 visible = false
 
-[node name="WGT-rig_f_pinky_03_R" parent="." index="34" unique_id=1960395580]
+[node name="WGT-rig_f_pinky_03_R" parent="." index="34" unique_id=1744662572]
 visible = false
 
-[node name="WGT-rig_f_ring_01_L" parent="." index="35" unique_id=1559975381]
+[node name="WGT-rig_f_ring_01_L" parent="." index="35" unique_id=2103409953]
 visible = false
 
-[node name="WGT-rig_f_ring_01_L_001" parent="." index="36" unique_id=1377616764]
+[node name="WGT-rig_f_ring_01_L_001" parent="." index="36" unique_id=1067020910]
 visible = false
 
-[node name="WGT-rig_f_ring_01_R" parent="." index="37" unique_id=407717254]
+[node name="WGT-rig_f_ring_01_R" parent="." index="37" unique_id=1575744393]
 visible = false
 
-[node name="WGT-rig_f_ring_01_R_001" parent="." index="38" unique_id=954886853]
+[node name="WGT-rig_f_ring_01_R_001" parent="." index="38" unique_id=943482297]
 visible = false
 
-[node name="WGT-rig_f_ring_01_master_L" parent="." index="39" unique_id=895566920]
+[node name="WGT-rig_f_ring_01_master_L" parent="." index="39" unique_id=255702588]
 visible = false
 
-[node name="WGT-rig_f_ring_01_master_R" parent="." index="40" unique_id=1109044217]
+[node name="WGT-rig_f_ring_01_master_R" parent="." index="40" unique_id=636465813]
 visible = false
 
-[node name="WGT-rig_f_ring_02_L" parent="." index="41" unique_id=898484583]
+[node name="WGT-rig_f_ring_02_L" parent="." index="41" unique_id=641492017]
 visible = false
 
-[node name="WGT-rig_f_ring_02_R" parent="." index="42" unique_id=1459663681]
+[node name="WGT-rig_f_ring_02_R" parent="." index="42" unique_id=1460220980]
 visible = false
 
-[node name="WGT-rig_f_ring_03_L" parent="." index="43" unique_id=1490228728]
+[node name="WGT-rig_f_ring_03_L" parent="." index="43" unique_id=1389986615]
 visible = false
 
-[node name="WGT-rig_f_ring_03_R" parent="." index="44" unique_id=1853513352]
+[node name="WGT-rig_f_ring_03_R" parent="." index="44" unique_id=392770865]
 visible = false
 
-[node name="WGT-rig_foot_fk_L" parent="." index="45" unique_id=1713563818]
+[node name="WGT-rig_foot_fk_L" parent="." index="45" unique_id=490480740]
 visible = false
 
-[node name="WGT-rig_foot_fk_R" parent="." index="46" unique_id=1150102745]
+[node name="WGT-rig_foot_fk_R" parent="." index="46" unique_id=602139311]
 visible = false
 
-[node name="WGT-rig_foot_heel_ik_L" parent="." index="47" unique_id=2035331866]
+[node name="WGT-rig_foot_heel_ik_L" parent="." index="47" unique_id=1370724365]
 visible = false
 
-[node name="WGT-rig_foot_heel_ik_R" parent="." index="48" unique_id=1169621803]
+[node name="WGT-rig_foot_heel_ik_R" parent="." index="48" unique_id=945966270]
 visible = false
 
-[node name="WGT-rig_foot_ik_L" parent="." index="49" unique_id=1547440384]
+[node name="WGT-rig_foot_ik_L" parent="." index="49" unique_id=1855790021]
 visible = false
 
-[node name="WGT-rig_foot_ik_R" parent="." index="50" unique_id=2105128845]
+[node name="WGT-rig_foot_ik_R" parent="." index="50" unique_id=828884733]
 visible = false
 
-[node name="WGT-rig_foot_spin_ik_L" parent="." index="51" unique_id=1262284141]
+[node name="WGT-rig_foot_spin_ik_L" parent="." index="51" unique_id=395944508]
 visible = false
 
-[node name="WGT-rig_foot_spin_ik_R" parent="." index="52" unique_id=1390931558]
+[node name="WGT-rig_foot_spin_ik_R" parent="." index="52" unique_id=1458578184]
 visible = false
 
-[node name="WGT-rig_foot_tweak_L" parent="." index="53" unique_id=88963015]
+[node name="WGT-rig_foot_tweak_L" parent="." index="53" unique_id=834898274]
 visible = false
 
-[node name="WGT-rig_foot_tweak_R" parent="." index="54" unique_id=1754920959]
+[node name="WGT-rig_foot_tweak_R" parent="." index="54" unique_id=1541699661]
 visible = false
 
-[node name="WGT-rig_forearm_fk_L" parent="." index="55" unique_id=861287337]
+[node name="WGT-rig_forearm_fk_L" parent="." index="55" unique_id=1348574345]
 visible = false
 
-[node name="WGT-rig_forearm_fk_R" parent="." index="56" unique_id=555665707]
+[node name="WGT-rig_forearm_fk_R" parent="." index="56" unique_id=753118536]
 visible = false
 
-[node name="WGT-rig_forearm_tweak_L" parent="." index="57" unique_id=103183721]
+[node name="WGT-rig_forearm_tweak_L" parent="." index="57" unique_id=1819828519]
 visible = false
 
-[node name="WGT-rig_forearm_tweak_L_001" parent="." index="58" unique_id=1713502169]
+[node name="WGT-rig_forearm_tweak_L_001" parent="." index="58" unique_id=1555804050]
 visible = false
 
-[node name="WGT-rig_forearm_tweak_R" parent="." index="59" unique_id=1525555773]
+[node name="WGT-rig_forearm_tweak_R" parent="." index="59" unique_id=462786880]
 visible = false
 
-[node name="WGT-rig_forearm_tweak_R_001" parent="." index="60" unique_id=76665350]
+[node name="WGT-rig_forearm_tweak_R_001" parent="." index="60" unique_id=1955803662]
 visible = false
 
-[node name="WGT-rig_hand_fk_L" parent="." index="61" unique_id=452896800]
+[node name="WGT-rig_hand_fk_L" parent="." index="61" unique_id=830130716]
 visible = false
 
-[node name="WGT-rig_hand_fk_R" parent="." index="62" unique_id=789451193]
+[node name="WGT-rig_hand_fk_R" parent="." index="62" unique_id=1771818608]
 visible = false
 
-[node name="WGT-rig_hand_ik_L" parent="." index="63" unique_id=239084918]
+[node name="WGT-rig_hand_ik_L" parent="." index="63" unique_id=1142533921]
 visible = false
 
-[node name="WGT-rig_hand_ik_R" parent="." index="64" unique_id=1784979011]
+[node name="WGT-rig_hand_ik_R" parent="." index="64" unique_id=722874768]
 visible = false
 
-[node name="WGT-rig_hand_tweak_L" parent="." index="65" unique_id=2133563081]
+[node name="WGT-rig_hand_tweak_L" parent="." index="65" unique_id=1951906921]
 visible = false
 
-[node name="WGT-rig_hand_tweak_R" parent="." index="66" unique_id=71061426]
+[node name="WGT-rig_hand_tweak_R" parent="." index="66" unique_id=1488258732]
 visible = false
 
-[node name="WGT-rig_hips" parent="." index="67" unique_id=59224358]
+[node name="WGT-rig_hips" parent="." index="67" unique_id=742844097]
 visible = false
 
-[node name="WGT-rig_palm_L" parent="." index="68" unique_id=369200484]
+[node name="WGT-rig_palm_L" parent="." index="68" unique_id=1033193415]
 visible = false
 
-[node name="WGT-rig_palm_R" parent="." index="69" unique_id=133866176]
+[node name="WGT-rig_palm_R" parent="." index="69" unique_id=1923236472]
 visible = false
 
-[node name="WGT-rig_root" parent="." index="70" unique_id=1681364729]
+[node name="WGT-rig_root" parent="." index="70" unique_id=228660983]
 visible = false
 
-[node name="WGT-rig_shin_fk_L" parent="." index="71" unique_id=202105047]
+[node name="WGT-rig_shin_fk_L" parent="." index="71" unique_id=1776629560]
 visible = false
 
-[node name="WGT-rig_shin_fk_R" parent="." index="72" unique_id=2024929953]
+[node name="WGT-rig_shin_fk_R" parent="." index="72" unique_id=1593802795]
 visible = false
 
-[node name="WGT-rig_shin_tweak_L" parent="." index="73" unique_id=151309622]
+[node name="WGT-rig_shin_tweak_L" parent="." index="73" unique_id=1157488045]
 visible = false
 
-[node name="WGT-rig_shin_tweak_L_001" parent="." index="74" unique_id=1145266684]
+[node name="WGT-rig_shin_tweak_L_001" parent="." index="74" unique_id=1740603552]
 visible = false
 
-[node name="WGT-rig_shin_tweak_R" parent="." index="75" unique_id=137392326]
+[node name="WGT-rig_shin_tweak_R" parent="." index="75" unique_id=867516748]
 visible = false
 
-[node name="WGT-rig_shin_tweak_R_001" parent="." index="76" unique_id=381534852]
+[node name="WGT-rig_shin_tweak_R_001" parent="." index="76" unique_id=384742299]
 visible = false
 
-[node name="WGT-rig_shoulder_L" parent="." index="77" unique_id=1600659601]
+[node name="WGT-rig_shoulder_L" parent="." index="77" unique_id=175954517]
 visible = false
 
-[node name="WGT-rig_shoulder_R" parent="." index="78" unique_id=1261167912]
+[node name="WGT-rig_shoulder_R" parent="." index="78" unique_id=205637686]
 visible = false
 
-[node name="WGT-rig_spine_fk" parent="." index="79" unique_id=964619771]
+[node name="WGT-rig_spine_fk" parent="." index="79" unique_id=928215555]
 visible = false
 
-[node name="WGT-rig_spine_fk_001" parent="." index="80" unique_id=1033884606]
+[node name="WGT-rig_spine_fk_001" parent="." index="80" unique_id=1968031171]
 visible = false
 
-[node name="WGT-rig_spine_fk_002" parent="." index="81" unique_id=1459319539]
+[node name="WGT-rig_spine_fk_002" parent="." index="81" unique_id=1556962852]
 visible = false
 
-[node name="WGT-rig_spine_fk_003" parent="." index="82" unique_id=63654559]
+[node name="WGT-rig_spine_fk_003" parent="." index="82" unique_id=313353970]
 visible = false
 
-[node name="WGT-rig_spine_fk_004" parent="." index="83" unique_id=1480732866]
+[node name="WGT-rig_spine_fk_004" parent="." index="83" unique_id=1805671561]
 visible = false
 
-[node name="WGT-rig_spine_fk_005" parent="." index="84" unique_id=1517699143]
+[node name="WGT-rig_spine_fk_005" parent="." index="84" unique_id=1366154553]
 visible = false
 
-[node name="WGT-rig_thigh_fk_L" parent="." index="85" unique_id=428823055]
+[node name="WGT-rig_thigh_fk_L" parent="." index="85" unique_id=1660395403]
 visible = false
 
-[node name="WGT-rig_thigh_fk_R" parent="." index="86" unique_id=1044250880]
+[node name="WGT-rig_thigh_fk_R" parent="." index="86" unique_id=858183288]
 visible = false
 
-[node name="WGT-rig_thigh_ik_L" parent="." index="87" unique_id=160446081]
+[node name="WGT-rig_thigh_ik_L" parent="." index="87" unique_id=1886387302]
 visible = false
 
-[node name="WGT-rig_thigh_ik_R" parent="." index="88" unique_id=725743563]
+[node name="WGT-rig_thigh_ik_R" parent="." index="88" unique_id=37992427]
 visible = false
 
-[node name="WGT-rig_thigh_ik_target_L" parent="." index="89" unique_id=829194059]
+[node name="WGT-rig_thigh_ik_target_L" parent="." index="89" unique_id=476671441]
 visible = false
 
-[node name="WGT-rig_thigh_ik_target_R" parent="." index="90" unique_id=1638341964]
+[node name="WGT-rig_thigh_ik_target_R" parent="." index="90" unique_id=2029756121]
 visible = false
 
-[node name="WGT-rig_thigh_parent_L" parent="." index="91" unique_id=1578588829]
+[node name="WGT-rig_thigh_parent_L" parent="." index="91" unique_id=1180074907]
 visible = false
 
-[node name="WGT-rig_thigh_parent_R" parent="." index="92" unique_id=1799612149]
+[node name="WGT-rig_thigh_parent_R" parent="." index="92" unique_id=404959730]
 visible = false
 
-[node name="WGT-rig_thigh_tweak_L" parent="." index="93" unique_id=1899963827]
+[node name="WGT-rig_thigh_tweak_L" parent="." index="93" unique_id=1271885914]
 visible = false
 
-[node name="WGT-rig_thigh_tweak_L_001" parent="." index="94" unique_id=1814620674]
+[node name="WGT-rig_thigh_tweak_L_001" parent="." index="94" unique_id=2023896608]
 visible = false
 
-[node name="WGT-rig_thigh_tweak_R" parent="." index="95" unique_id=752786955]
+[node name="WGT-rig_thigh_tweak_R" parent="." index="95" unique_id=286360226]
 visible = false
 
-[node name="WGT-rig_thigh_tweak_R_001" parent="." index="96" unique_id=1495119010]
+[node name="WGT-rig_thigh_tweak_R_001" parent="." index="96" unique_id=712285209]
 visible = false
 
-[node name="WGT-rig_thumb_01_L" parent="." index="97" unique_id=1943286119]
+[node name="WGT-rig_thumb_01_L" parent="." index="97" unique_id=1873807686]
 visible = false
 
-[node name="WGT-rig_thumb_01_L_001" parent="." index="98" unique_id=1588798618]
+[node name="WGT-rig_thumb_01_L_001" parent="." index="98" unique_id=298528358]
 visible = false
 
-[node name="WGT-rig_thumb_01_R" parent="." index="99" unique_id=1963355406]
+[node name="WGT-rig_thumb_01_R" parent="." index="99" unique_id=3452066]
 visible = false
 
-[node name="WGT-rig_thumb_01_R_001" parent="." index="100" unique_id=327423964]
+[node name="WGT-rig_thumb_01_R_001" parent="." index="100" unique_id=917953344]
 visible = false
 
-[node name="WGT-rig_thumb_01_master_L" parent="." index="101" unique_id=1634799906]
+[node name="WGT-rig_thumb_01_master_L" parent="." index="101" unique_id=1047258944]
 visible = false
 
-[node name="WGT-rig_thumb_01_master_R" parent="." index="102" unique_id=1448715792]
+[node name="WGT-rig_thumb_01_master_R" parent="." index="102" unique_id=648449501]
 visible = false
 
-[node name="WGT-rig_thumb_02_L" parent="." index="103" unique_id=741937177]
+[node name="WGT-rig_thumb_02_L" parent="." index="103" unique_id=825448140]
 visible = false
 
-[node name="WGT-rig_thumb_02_R" parent="." index="104" unique_id=553054264]
+[node name="WGT-rig_thumb_02_R" parent="." index="104" unique_id=132028709]
 visible = false
 
-[node name="WGT-rig_thumb_03_L" parent="." index="105" unique_id=2040673673]
+[node name="WGT-rig_thumb_03_L" parent="." index="105" unique_id=709061705]
 visible = false
 
-[node name="WGT-rig_thumb_03_R" parent="." index="106" unique_id=54520555]
+[node name="WGT-rig_thumb_03_R" parent="." index="106" unique_id=60783130]
 visible = false
 
-[node name="WGT-rig_toe_fk_L" parent="." index="107" unique_id=1594650833]
+[node name="WGT-rig_toe_fk_L" parent="." index="107" unique_id=1804467855]
 visible = false
 
-[node name="WGT-rig_toe_fk_R" parent="." index="108" unique_id=494541754]
+[node name="WGT-rig_toe_fk_R" parent="." index="108" unique_id=1976463384]
 visible = false
 
-[node name="WGT-rig_toe_ik_L" parent="." index="109" unique_id=631275222]
+[node name="WGT-rig_toe_ik_L" parent="." index="109" unique_id=1474077475]
 visible = false
 
-[node name="WGT-rig_toe_ik_R" parent="." index="110" unique_id=749171771]
+[node name="WGT-rig_toe_ik_R" parent="." index="110" unique_id=33406098]
 visible = false
 
-[node name="WGT-rig_torso" parent="." index="111" unique_id=597950437]
+[node name="WGT-rig_torso" parent="." index="111" unique_id=1177293024]
 visible = false
 
-[node name="WGT-rig_tweak_spine" parent="." index="112" unique_id=1232040370]
+[node name="WGT-rig_tweak_spine" parent="." index="112" unique_id=820580668]
 visible = false
 
-[node name="WGT-rig_tweak_spine_001" parent="." index="113" unique_id=229440150]
+[node name="WGT-rig_tweak_spine_001" parent="." index="113" unique_id=86047231]
 visible = false
 
-[node name="WGT-rig_tweak_spine_002" parent="." index="114" unique_id=1842253666]
+[node name="WGT-rig_tweak_spine_002" parent="." index="114" unique_id=1475260267]
 visible = false
 
-[node name="WGT-rig_tweak_spine_003" parent="." index="115" unique_id=303290866]
+[node name="WGT-rig_tweak_spine_003" parent="." index="115" unique_id=920264335]
 visible = false
 
-[node name="WGT-rig_tweak_spine_004" parent="." index="116" unique_id=440559216]
+[node name="WGT-rig_tweak_spine_004" parent="." index="116" unique_id=1521128485]
 visible = false
 
-[node name="WGT-rig_tweak_spine_005" parent="." index="117" unique_id=911815244]
+[node name="WGT-rig_tweak_spine_005" parent="." index="117" unique_id=815918993]
 visible = false
 
-[node name="WGT-rig_tweak_spine_006" parent="." index="118" unique_id=501990194]
+[node name="WGT-rig_tweak_spine_006" parent="." index="118" unique_id=1818001511]
 visible = false
 
-[node name="WGT-rig_upper_arm_fk_L" parent="." index="119" unique_id=2107335931]
+[node name="WGT-rig_upper_arm_fk_L" parent="." index="119" unique_id=1884465164]
 visible = false
 
-[node name="WGT-rig_upper_arm_fk_R" parent="." index="120" unique_id=1484152910]
+[node name="WGT-rig_upper_arm_fk_R" parent="." index="120" unique_id=713707032]
 visible = false
 
-[node name="WGT-rig_upper_arm_ik_L" parent="." index="121" unique_id=507582292]
+[node name="WGT-rig_upper_arm_ik_L" parent="." index="121" unique_id=146863543]
 visible = false
 
-[node name="WGT-rig_upper_arm_ik_R" parent="." index="122" unique_id=728349065]
+[node name="WGT-rig_upper_arm_ik_R" parent="." index="122" unique_id=2044825890]
 visible = false
 
-[node name="WGT-rig_upper_arm_ik_target_L" parent="." index="123" unique_id=1957207656]
+[node name="WGT-rig_upper_arm_ik_target_L" parent="." index="123" unique_id=1872480544]
 visible = false
 
-[node name="WGT-rig_upper_arm_ik_target_R" parent="." index="124" unique_id=1549419323]
+[node name="WGT-rig_upper_arm_ik_target_R" parent="." index="124" unique_id=162372229]
 visible = false
 
-[node name="WGT-rig_upper_arm_parent_L" parent="." index="125" unique_id=1082760832]
+[node name="WGT-rig_upper_arm_parent_L" parent="." index="125" unique_id=80776898]
 visible = false
 
-[node name="WGT-rig_upper_arm_parent_R" parent="." index="126" unique_id=1472695072]
+[node name="WGT-rig_upper_arm_parent_R" parent="." index="126" unique_id=259507959]
 visible = false
 
-[node name="WGT-rig_upper_arm_tweak_L" parent="." index="127" unique_id=1713312096]
+[node name="WGT-rig_upper_arm_tweak_L" parent="." index="127" unique_id=557385797]
 visible = false
 
-[node name="WGT-rig_upper_arm_tweak_L_001" parent="." index="128" unique_id=1458922428]
+[node name="WGT-rig_upper_arm_tweak_L_001" parent="." index="128" unique_id=299315710]
 visible = false
 
-[node name="WGT-rig_upper_arm_tweak_R" parent="." index="129" unique_id=263346619]
+[node name="WGT-rig_upper_arm_tweak_R" parent="." index="129" unique_id=1154455268]
 visible = false
 
-[node name="WGT-rig_upper_arm_tweak_R_001" parent="." index="130" unique_id=1922854723]
+[node name="WGT-rig_upper_arm_tweak_R_001" parent="." index="130" unique_id=1464488071]
 visible = false
 
-[node name="WGT-rig_VIS_thigh_ik_pole_L" parent="." index="131" unique_id=2100463547]
+[node name="WGT-rig_VIS_thigh_ik_pole_L" parent="." index="131" unique_id=907256365]
 visible = false
 
-[node name="WGT-rig_VIS_thigh_ik_pole_R" parent="." index="132" unique_id=249385189]
+[node name="WGT-rig_VIS_thigh_ik_pole_R" parent="." index="132" unique_id=2045558593]
 visible = false
 
-[node name="WGT-rig_VIS_upper_arm_ik_pole_L" parent="." index="133" unique_id=1332599254]
+[node name="WGT-rig_VIS_upper_arm_ik_pole_L" parent="." index="133" unique_id=667623131]
 visible = false
 
-[node name="WGT-rig_VIS_upper_arm_ik_pole_R" parent="." index="134" unique_id=506767503]
+[node name="WGT-rig_VIS_upper_arm_ik_pole_R" parent="." index="134" unique_id=2021390725]
 visible = false
 
-[node name="AnimationPlayer" parent="." index="135" unique_id=490846718]
+[node name="AnimationPlayer" parent="." index="135" unique_id=453342720]
 autoplay = &"idle"

@@ -41,15 +41,17 @@ func _process(delta: float) -> void:
 		else:
 			end_y = 1.7
 		
-		bob_time += delta * player.move_velocity.length()
+		var factor = 2 if player.near_wall else 1
+		var factor2 = 1.0 if player.is_on_floor() else 0.5
+		bob_time += delta * clamp(player.velocity.length(), 0.0, 15.0) * factor2
 		camera.transform.origin = Vector3(
-			cos(bob_time * 2.0 * 0.5) * 0.1,
-			sin(bob_time * 2.0) * 0.1,
+			cos(bob_time * 2.0 * 0.5) * 0.1 * factor,
+			sin(bob_time * 2.0) * 0.1 * factor,
 			0.0
 		)
 		wpns_cam.transform.origin = Vector3(
-			cos(bob_time * 1.0 * 0.5) * 0.02,
-			1.5 + sin(bob_time * 1.0) * 0.01,
+			cos(bob_time * 2.0 * 0.5) * 0.02 * factor,
+			1.5 + sin(bob_time * 2.0) * 0.01 * factor,
 			0.0
 		)
 		
@@ -95,7 +97,7 @@ func add_trauma(amount: float) -> void:
 	trauma = clamp(trauma + amount, 0.0, 1.0)
 
 func apply_shake() -> void:
-	var amount = pow(trauma, 0.5)
+	var amount = pow(trauma, 0.3)
 	
 	camera.h_offset = max_offset.x * amount * noise.get_noise_2d(noise_offset, 0.0)
 	shake.rotation.x = max_pitch * amount * noise.get_noise_2d(noise_offset + 100.0, 0.0)

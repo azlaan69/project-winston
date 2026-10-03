@@ -75,6 +75,6 @@ func _process(delta: float) -> void:
 	
 	bob_time += delta * player.move_velocity.length()
 	position = Vector2(
-		cos(bob_time * 2.0 * 0.5) * 3.0,
-		-sin(bob_time * 2.0) * 3.0,
+		cos(bob_time * 1.0 * 0.5) * 2.0,
+		-sin(bob_time * 1.0) * 2.0,
 	)
