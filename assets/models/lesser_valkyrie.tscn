@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bwlnqi7ycc0k2"]
 
-[ext_resource type="PackedScene" uid="uid://cxdvnmx6vv3ls" path="res://assets/models/lesser_valkyrie_raw.gltf" id="1_q0fj2"]
+[ext_resource type="PackedScene" uid="uid://cxdvnmx6vv3ls" path="res://assets/models/raw_import/lesser_valkyrie_raw.gltf" id="1_q0fj2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y70v5"]
 cull_mode = 2

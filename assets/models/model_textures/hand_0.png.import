@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvoyc7w2rcyit"
-path.s3tc="res://.godot/imported/some_face.png-43deeee9760166e3da3f8cfd878ddf9c.s3tc.ctex"
+uid="uid://dk8nvq33yh52r"
+path.s3tc="res://.godot/imported/hand_0.png-d8c60e9b0cbc932d225343a5156e554d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "8091f6e10be8429f09551b8def8abb6b"
+"md5": "bf144571bbd2731cc115c5d380234f46"
 }
 
 [deps]
 
-source_file="res://assets/models/some_face.png"
-dest_files=["res://.godot/imported/some_face.png-43deeee9760166e3da3f8cfd878ddf9c.s3tc.ctex"]
+source_file="res://assets/models/model_textures/hand_0.png"
+dest_files=["res://.godot/imported/hand_0.png-d8c60e9b0cbc932d225343a5156e554d.s3tc.ctex"]
 
 [params]
 

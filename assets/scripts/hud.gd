@@ -51,6 +51,7 @@ func _process(delta: float) -> void:
 	
 	$HatHud/Equipped.visible = (player.hat.current_state == player.hat.state.EQUIPPED and player.hat.can_use)
 	$HatHud/Launched.visible = (player.hat.current_state == player.hat.state.LAUNCHED and player.hat.can_use)
+	$HatHud/Return.visible = (player.hat.current_state == player.hat.state.RETURN and player.hat.can_use)
 	$HatHud/Landed.visible = (player.hat.current_state == player.hat.state.LANDED and player.hat.can_use)
 	$HatHud/CD.visible = (not player.hat.can_use)
 
@@ -71,9 +72,8 @@ func _process(delta: float) -> void:
 	$Crosshair/Gun.visible = (player.current_wpn == player.wpn.GUNS)
 	$Crosshair/Sword.visible = (!$Crosshair/Gun.visible)
 	
-	#$Filter.visible = ((player.iframe_timer / 2) > 0.1)
-	
-	bob_time += delta * player.move_velocity.length()
+	$Filter.visible = false
+	bob_time += delta * clamp(player.velocity.length(), 0.0, 15.0)
 	position = Vector2(
 		cos(bob_time * 1.0 * 0.5) * 2.0,
 		-sin(bob_time * 1.0) * 2.0,

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c8wkmjqgxtirg"
-path="res://.godot/imported/idontevenknow.gltf-91e25824e80f19d6dcc4cddd372c56da.scn"
+path="res://.godot/imported/idontevenknow.gltf-f7f818abe61b377a56d01f82b47e9ade.scn"
 
 [deps]
 
-source_file="res://assets/models/idontevenknow.gltf"
-dest_files=["res://.godot/imported/idontevenknow.gltf-91e25824e80f19d6dcc4cddd372c56da.scn"]
+source_file="res://assets/models/raw_import/idontevenknow.gltf"
+dest_files=["res://.godot/imported/idontevenknow.gltf-f7f818abe61b377a56d01f82b47e9ade.scn"]
 
 [params]
 

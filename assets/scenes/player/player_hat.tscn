@@ -22,7 +22,7 @@ stencil_mode = 3
 stencil_flags = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
-size = Vector3(1.5, 0.5, 1.5)
+size = Vector3(1.5, 0.5722656, 1.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq8os"]
 no_depth_test = true
@@ -31,7 +31,7 @@ emission_enabled = true
 emission = Color(0, 0.87058824, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
-size = Vector3(1, 2, 1)
+size = Vector3(3, 3, 3)
 
 [sub_resource type="Environment" id="Environment_60jfb"]
 background_mode = 1
@@ -62,8 +62,7 @@ ghost = NodePath("Node3D")
 ghostmat = SubResource("StandardMaterial3D_60jfb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=572414648]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18613282, 0)
 shape = SubResource("BoxShape3D_nhb04")
 debug_color = Color(0.43137255, 1, 1, 1)
 
@@ -86,22 +85,23 @@ light_energy = 4.0
 light_size = 20.0
 omni_range = 20.0
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1493100362]
-visible = false
+[node name="Area3D" type="Area3D" parent="." unique_id=1493100362 groups=["grapple"]]
+collision_layer = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=566005512]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=566005512 groups=["grapple"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06640625, 0)
 shape = SubResource("BoxShape3D_seyvw")
-debug_color = Color(0.9968185, 0, 0.18827581, 0.41960785)
+debug_color = Color(1, 1, 1, 1)
 
 [node name="CD" type="Timer" parent="." unique_id=1265748938]
 one_shot = true
 
 [node name="ReturnTimer" type="Timer" parent="." unique_id=431610399]
+one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=517083336]
 environment = SubResource("Environment_60jfb")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="CD" to="." method="_on_cd_timeout"]
 [connection signal="timeout" from="ReturnTimer" to="." method="_on_return_timer_timeout"]

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj4p6ys40jbep"
-path.s3tc="res://.godot/imported/some_some_texture.png-d818d540fd80174832710eef36d25cf6.s3tc.ctex"
+uid="uid://dajhb3jhr7bhr"
+path.s3tc="res://.godot/imported/idontevenknow_0.png-07fbd2e004de40595854b6593a82d16b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "51e84f5f9b5a82006fa2920c40b75842"
+"md5": "5ee1f82080fc248f26243724b8fbddaf"
 }
 
 [deps]
 
-source_file="res://assets/models/some_some_texture.png"
-dest_files=["res://.godot/imported/some_some_texture.png-d818d540fd80174832710eef36d25cf6.s3tc.ctex"]
+source_file="res://assets/models/raw_import/idontevenknow_0.png"
+dest_files=["res://.godot/imported/idontevenknow_0.png-07fbd2e004de40595854b6593a82d16b.s3tc.ctex"]
 
 [params]
 

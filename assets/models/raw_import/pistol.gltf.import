@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b0cmcrmh1biow"
-path="res://.godot/imported/some.glb-03027460430a0de549c243c95331961f.scn"
+uid="uid://dlqtdq7rksno7"
+path="res://.godot/imported/pistol.gltf-ef12c27545dafefcbfb6cb8d2025ea21.scn"
 
 [deps]
 
-source_file="res://assets/models/some.glb"
-dest_files=["res://.godot/imported/some.glb-03027460430a0de549c243c95331961f.scn"]
+source_file="res://assets/models/raw_import/pistol.gltf"
+dest_files=["res://.godot/imported/pistol.gltf-ef12c27545dafefcbfb6cb8d2025ea21.scn"]
 
 [params]
 
@@ -23,7 +23,7 @@ nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
-meshes/ensure_tangents=false
+meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
 meshes/light_baking=1

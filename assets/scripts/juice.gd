@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 			end_y = 1.7
 		
 		var factor = 2 if player.near_wall else 1 
-		var factor2 = 1.0 if player.is_on_floor() else 0.2
+		var factor2 = 1.0 if (player.is_on_floor() and !player.crouching) else 0.2
 		bob_time += delta * clamp(player.velocity.length(), 0.0, 15.0) * factor2
 		camera.transform.origin = Vector3(
 			cos(bob_time * 2.0 * 0.5) * 0.1 * factor,

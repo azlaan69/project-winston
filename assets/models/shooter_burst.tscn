@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://djto08je026bj"]
 
-[ext_resource type="PackedScene" uid="uid://cjvwuaupt5rs2" path="res://assets/models/shooter_burst.gltf" id="1_25ivc"]
+[ext_resource type="PackedScene" uid="uid://cjvwuaupt5rs2" path="res://assets/models/raw_import/shooter_burst.gltf" id="1_25ivc"]
 [ext_resource type="Material" uid="uid://dk02aibc4ug4v" path="res://assets/models/mats/magentar.tres" id="2_50cgn"]
 [ext_resource type="Material" uid="uid://cxhounkdseaou" path="res://assets/models/mats/glowingsmth.tres" id="3_50cgn"]
 [ext_resource type="Material" uid="uid://dvau0kuv3r04e" path="res://assets/models/mats/darkmagentar.tres" id="3_j3lu3"]

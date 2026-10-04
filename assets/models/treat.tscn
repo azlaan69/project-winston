@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ba0a5dddfgxuc"]
 
-[ext_resource type="Texture2D" uid="uid://tvod5uqdctuq" path="res://assets/models/whatamidoing_0.png" id="2_kn2qp"]
+[ext_resource type="Texture2D" uid="uid://tvod5uqdctuq" path="res://assets/models/model_textures/whatamidoing_0.png" id="2_kn2qp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kn2qp"]
 cull_mode = 2

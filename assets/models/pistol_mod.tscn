@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b0vux8tlebaiy"]
 
-[ext_resource type="PackedScene" uid="uid://dlqtdq7rksno7" path="res://assets/models/pistol.gltf" id="1_d78mf"]
-[ext_resource type="Texture2D" uid="uid://civm04dc2mo0g" path="res://assets/models/pistol_1.png" id="2_s1hws"]
+[ext_resource type="PackedScene" uid="uid://dlqtdq7rksno7" path="res://assets/models/raw_import/pistol.gltf" id="1_d78mf"]
+[ext_resource type="Texture2D" uid="uid://civm04dc2mo0g" path="res://assets/models/model_textures/pistol_1.png" id="2_s1hws"]
 [ext_resource type="Texture2D" uid="uid://udibwo6n43vx" path="res://assets/textures/pistol_emission.png" id="3_s1hws"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_re4jr"]

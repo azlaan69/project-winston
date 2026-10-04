@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cjvwuaupt5rs2"
-path="res://.godot/imported/shooter_burst.gltf-cfb3f611b538e54e02c00b2758317b66.scn"
+uid="uid://ddbg208nhjff7"
+path="res://.godot/imported/katana.gltf-0eabcd639f90e26f223ecd5c2cae1327.scn"
 
 [deps]
 
-source_file="res://assets/models/shooter_burst.gltf"
-dest_files=["res://.godot/imported/shooter_burst.gltf-cfb3f611b538e54e02c00b2758317b66.scn"]
+source_file="res://assets/models/raw_import/katana.gltf"
+dest_files=["res://.godot/imported/katana.gltf-0eabcd639f90e26f223ecd5c2cae1327.scn"]
 
 [params]
 

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo3na03yaij4q"
-path.s3tc="res://.godot/imported/katana_0.png-ae0e3074448e2207faf2240dea9a8c30.s3tc.ctex"
+uid="uid://t70ddw1vhfym"
+path.s3tc="res://.godot/imported/idontevenknow_0.png-82d5ae1ba152e168b81d77e2e3870aa1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "51017ff10659a65a139682211692025e"
+"md5": "5ee1f82080fc248f26243724b8fbddaf"
 }
 
 [deps]
 
-source_file="res://assets/models/katana_0.png"
-dest_files=["res://.godot/imported/katana_0.png-ae0e3074448e2207faf2240dea9a8c30.s3tc.ctex"]
+source_file="res://assets/models/model_textures/idontevenknow_0.png"
+dest_files=["res://.godot/imported/idontevenknow_0.png-82d5ae1ba152e168b81d77e2e3870aa1.s3tc.ctex"]
 
 [params]
 

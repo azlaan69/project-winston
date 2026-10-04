@@ -92,44 +92,6 @@ shader_parameter/mask_size = 0.1
 shader_parameter/mask_edge = 0.5
 shader_parameter/animation_speed = 0.5
 
-[sub_resource type="Animation" id="Animation_5kx6n"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_bio77"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -5)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_rge2d"]
-_data = {
-&"RESET": SubResource("Animation_5kx6n"),
-&"idle": SubResource("Animation_bio77")
-}
-
 [node name="Overlay" type="CanvasLayer" unique_id=320630329]
 
 [node name="HUD" type="Control" parent="." unique_id=174345578]
@@ -137,6 +99,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -0.56308544
+offset_bottom = -0.56311035
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -452,6 +416,109 @@ color = Color(0, 0, 0, 1)
 offset = Vector2(-195.31604, -49.981857)
 polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
 
+[node name="Return" type="Node2D" parent="HUD/HatHud" unique_id=59165895]
+position = Vector2(35, 7)
+rotation = 0.8063421
+scale = Vector2(-1, 1)
+
+[node name="Hat1" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=287742420]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat2" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=1384017693]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat3" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=497650950]
+position = Vector2(24, -12)
+rotation = -0.27059722
+scale = Vector2(0.8724311, 1.1472255)
+skew = 0.04182434
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="Hat4" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=2039336427]
+self_modulate = Color(1, 1, 1, 0.49019608)
+position = Vector2(73.085205, 12.692917)
+rotation = -0.2705972
+scale = Vector2(0.817, 1.072)
+skew = 0.04182422
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat5" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=1690044547]
+self_modulate = Color(1, 1, 1, 0.49019608)
+position = Vector2(73.085205, 12.692917)
+rotation = -0.2705972
+scale = Vector2(0.817, 1.072)
+skew = 0.04182422
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat6" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=825893578]
+self_modulate = Color(1, 1, 1, 0.49019608)
+position = Vector2(73.085205, 12.692917)
+rotation = -0.2705972
+scale = Vector2(0.817, 1.072)
+skew = 0.04182422
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="Hat7" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=1706007872]
+self_modulate = Color(1, 1, 1, 0.27450982)
+position = Vector2(143.1405, 52.9832)
+rotation = -0.27059722
+scale = Vector2(0.6970001, 0.9060001)
+skew = 0.04182422
+color = Color(0, 1, 1, 1)
+offset = Vector2(45.48584, -76.8002)
+antialiased = true
+polygon = PackedVector2Array(5.81958, 23.317383, -40.658447, 146.04736, 50, 200)
+
+[node name="Hat8" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=2137498808]
+self_modulate = Color(1, 1, 1, 0.27450982)
+position = Vector2(143.1405, 52.9832)
+rotation = -0.27059722
+scale = Vector2(0.6970001, 0.9060001)
+skew = 0.04182422
+color = Color(0, 0.45490196, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -124.989746, 94.94751, -200.55688, 49.7511)
+
+[node name="Hat9" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=662946787]
+self_modulate = Color(1, 1, 1, 0.27450982)
+position = Vector2(143.1405, 52.9832)
+rotation = -0.27059722
+scale = Vector2(0.6970001, 0.9060001)
+skew = 0.04182422
+color = Color(0, 0.7294118, 1, 1)
+offset = Vector2(45.48584, -76.80023)
+polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
+
+[node name="HatOutline" type="Polygon2D" parent="HUD/HatHud/Return" unique_id=1670962688]
+position = Vector2(23.999878, -12)
+rotation = 0.06764819
+scale = Vector2(0.9903433, 0.8011409)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-195.31604, -49.981857)
+polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
+
 [node name="Landed" type="Node2D" parent="HUD/HatHud" unique_id=1851789400]
 visible = false
 
@@ -492,6 +559,7 @@ offset = Vector2(-195.31604, -49.981857)
 polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
 
 [node name="CD" type="Node2D" parent="HUD/HatHud" unique_id=767369058]
+visible = false
 
 [node name="Hat1" type="Polygon2D" parent="HUD/HatHud/CD" unique_id=1712782819]
 position = Vector2(24, -12)
@@ -637,6 +705,3 @@ offset_right = 1960.0
 offset_bottom = 1120.0
 mouse_filter = 2
 color = Color(1, 1, 0, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD" unique_id=158942318]
-libraries/ = SubResource("AnimationLibrary_rge2d")

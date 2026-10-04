@@ -85,7 +85,6 @@ var trailing: bool = false
 
 const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
 const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
-const hook = preload("res://assets/scenes/player/grapple_hook.tscn")
 
 
 @onready var head: Node3D = $Head
@@ -249,7 +248,7 @@ func dash(delta) -> void:
 			dash_dir = -head.global_transform.basis.z
 			dash_impulse = 170.0
 		else:
-			dash_dir = move_dir
+			dash_dir = move_dir if move_dir else -transform.basis.z
 			dash_impulse = 100.0 if is_on_floor() else 140.0
 		dash_velocity = (dash_dir * dash_impulse)
 		dash_charges -= 1 if not cam_allowed else 2
@@ -377,7 +376,9 @@ func wall(delta) -> void:
 				grapple_velocity = grapple_velocity.slide(wall_normal) / 2
 				
 				wall_running = true
-
+			jump_velocity = Vector3.ZERO
+			grav_velocity = Vector3.ZERO
+			dash_velocity = Vector3.ZERO
 			var speed = wall_velocity.length()
 			speed = move_toward(speed, base_speed * 1.2, 12.0 * delta)
 			
@@ -523,6 +524,7 @@ func grapplestuff(delta) -> void:
 func grap_start() -> void:
 	var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
 	if target and (target.collider.global_position - global_position).length() > 10.0:
+		print(target.collider)
 		if target.collider.is_in_group("grapple"):
 			grappling = true
 			grap_pos = target.position
@@ -544,9 +546,15 @@ func combatstuff(delta) -> void:
 	kb_velocity = kb_velocity.lerp(Vector3.ZERO, 4.0 * delta)
 	if kb_velocity.length_squared() < 0.5: kb_velocity = Vector3.ZERO
 	
-	if hat_buffer > 0.0 and hat.current_state == hat.state.EQUIPPED:
+	if hat_buffer > 0.0:
 		var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-		hat.launch(facing, 35.0, 0.5)
+		if hat.current_state == hat.state.EQUIPPED and hat.can_use:
+			hat.launch(facing, 35.0, 1.0)
+			hat_buffer = 0.0
+		elif hat.current_state == hat.state.LAUNCHED or hat.current_state == hat.state.LANDED:
+			hat.rebound()
+			hat_buffer = 0.0
+		
 	
 	if switch_buffer > 0.0 and not is_switching:
 		switch_buffer = 0.0

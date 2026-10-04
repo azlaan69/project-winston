@@ -5,6 +5,7 @@ var current_state = state.EQUIPPED
 
 var used: bool = false
 var can_use: bool = true
+var speed : float = 40.0
 
 @export var ghost: Node3D
 @export var ghostmat: StandardMaterial3D
@@ -13,47 +14,77 @@ var can_use: bool = true
 @onready var cd = $CD
 @onready var return_timer = $ReturnTimer
 @onready var light = $Node3D/CSGCombiner3D/CSGPolygon3D/OmniLight3D
+@onready var mesh = $Node3D
+@onready var collider = $CollisionShape3D
 
 func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 4
 
 func _physics_process(delta: float) -> void:
-	if player and current_state == state.EQUIPPED:
-		rotation.y = 0
-		freeze = true
-		$CollisionShape3D.disabled = true
-		global_position = player.global_position + Vector3(0, 2, 0)
+	var active = (current_state != state.EQUIPPED)
+	visible = active
+	light.visible = active
 	
-	elif current_state == state.LAUNCHED:
-		rotation.y += 30
-		$CollisionShape3D.disabled = false
-	
-	elif current_state == state.RETURN:
-		rotation.y += 30
-		var dist = (player.global_position - global_position)
-		var dir = dist.normalized()
-		var speed = maxf(10.0, linear_velocity.length())
-		linear_velocity = lerp(linear_velocity, dir * speed, delta * 50.0)
-		#if dist.length() < 3.0: reset()
-	
-	if global_position.y < -35 and global_position.y - player.global_position.y < -20: reset()
-	
-	if cd.time_left > 0.0: can_use = false
-	else: can_use = true
-	
-	visible = (current_state != state.EQUIPPED)
-	light.visible = (current_state != state.EQUIPPED)
+	match current_state:
+		state.EQUIPPED:
+			freeze = true
+			collider.disabled = true
+			global_position = player.global_position + Vector3(0, 2, 0)
+		
+		state.LAUNCHED:
+			freeze = false
+			mesh.rotation.y += 30 * delta
+			collider.disabled = false
+		
+		state.RETURN:
+			freeze = false
+			mesh.rotation.y += 30 * delta
+			collider.disabled = true
+			var target_pos = player.global_position + Vector3(0, 1.5, 0)
+			var dir_to_player = (target_pos - global_position).normalized()
+			linear_velocity = linear_velocity.lerp(dir_to_player * speed, delta * 15.0)
+			
+			look_at(player.global_position)
+			if global_position.distance_to(target_pos) < 2.0: reset()
+		
+		state.LANDED:
+			freeze = true
+			collider.disabled = true
+			
+	#if player and current_state == state.EQUIPPED:
+		#rotation.y = 0
+		#freeze = true
+		#$CollisionShape3D.disabled = true
+		#global_position = player.global_position + Vector3(0, 2, 0)
+	#
+	#elif current_state == state.LAUNCHED:
+		#mesh.rotation.y += 30
+		#$CollisionShape3D.disabled = false
+	#
+	#elif current_state == state.RETURN:
+		#mesh.rotation.y += 30
+		#var dist = global_position - player.global_position
+		#if dist.length() < 10.0: reset()
+	#
+	if global_position.y < -35.0 and global_position.y - player.global_position.y < -20.0: reset()
+	#
+	#if cd.time_left > 0.0: can_use = false
+	#else: can_use = true
 
 func launch(dir: Vector3, speed: float, dur: float) -> void:
 	global_position = player.global_position + dir + Vector3(0, 2, 0)
+	global_rotation = Vector3.ZERO
 	current_state = state.LAUNCHED
 	freeze = false
 	$CollisionShape3D.disabled = false
 	linear_velocity = dir * speed
 	return_timer.start(dur)
 
-func fling() -> void:
+func rebound() -> void:
+	current_state = state.RETURN
+
+func fragment() -> void:
 	pass
 
 func reset() -> void:
@@ -66,26 +97,24 @@ func reset() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if current_state == state.LAUNCHED and not body.is_in_group("player"):
-		current_state = state.LANDED
-		freeze = true
-		$CollisionShape3D.disabled = true
-		if used: 
-			await get_tree().create_timer(1.0).timeout
-			reset()
-
-#func _on_area_3d_body_entered(body: Node3D) -> void:
-	#if current_state == state.LANDED:
-		#if (body.is_in_group("player") or body == player):
-			#player.grapple__velocity.y = 40.0
-		#elif body.has_method("hit"):
-			#body.velocity.y *= -1
-			#if body.movement: body.movement.y *= -1
-		#else:
-			#return
-		#await get_tree().create_timer(0.2).timeout
-		#if current_state == state.LANDED:
-			#reset()
-
+		if !body.is_in_group("enemy"):
+			current_state = state.LANDED
+			freeze = true
+			collider.disabled = true
+			return_timer.start(2.0)
+		elif body.is_in_group("projectile"):
+			fragment()
+		elif body.is_in_group("enemy"):
+			var hit_data = {
+				"damage": 5.0,
+				"type": "HAT",
+				"knockback": 5.0,
+				"dir": global_transform.basis.z
+			}
+			body.hit(hit_data)
 
 func _on_return_timer_timeout() -> void:
-	current_state = state.RETURN
+	if current_state == state.LAUNCHED or current_state == state.LANDED: current_state = state.RETURN
+
+func _on_cd_timeout() -> void:
+	can_use = true

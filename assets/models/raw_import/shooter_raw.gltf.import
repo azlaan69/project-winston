@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://styj31cx5pi0"
-path="res://.godot/imported/shooter_raw.gltf-0b655d546cd2d95dfa62e8ee5dfaef96.scn"
+path="res://.godot/imported/shooter_raw.gltf-8bd1dfcc0f8bf0691a6e0829a5d6af31.scn"
 
 [deps]
 
-source_file="res://assets/models/shooter_raw.gltf"
-dest_files=["res://.godot/imported/shooter_raw.gltf-0b655d546cd2d95dfa62e8ee5dfaef96.scn"]
+source_file="res://assets/models/raw_import/shooter_raw.gltf"
+dest_files=["res://.godot/imported/shooter_raw.gltf-8bd1dfcc0f8bf0691a6e0829a5d6af31.scn"]
 
 [params]
 

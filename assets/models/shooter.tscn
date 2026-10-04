@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c14w2r6atrydk"]
 
-[ext_resource type="PackedScene" uid="uid://styj31cx5pi0" path="res://assets/models/shooter_raw.gltf" id="1_n42nq"]
+[ext_resource type="PackedScene" uid="uid://styj31cx5pi0" path="res://assets/models/raw_import/shooter_raw.gltf" id="1_n42nq"]
 [ext_resource type="Script" uid="uid://toacpq84dsr1" path="res://assets/scripts/helper/shaderhelper.gd" id="2_hrg67"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bkg1h"]

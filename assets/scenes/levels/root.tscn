@@ -12,19 +12,30 @@
 [ext_resource type="PackedScene" uid="uid://bfhhq4f0ewqyr" path="res://assets/scenes/enemies/launch_point.tscn" id="10_ocygg"]
 [ext_resource type="PackedScene" uid="uid://bf3rgfwuswav2" path="res://assets/models/some_processed.tscn" id="11_ocygg"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_phms8"]
+sky_top_color = Color(0.24571449, 2.1057204e-08, 0.083825864, 1)
+sky_horizon_color = Color(1, 0, 0.43137255, 1)
+sky_curve = 0.05
+ground_bottom_color = Color(0.24571449, 2.1057204e-08, 0.083825864, 1)
+ground_horizon_color = Color(1, 0, 0.43137255, 1)
+ground_curve = 0.05
+
+[sub_resource type="Sky" id="Sky_ocygg"]
+sky_material = SubResource("ProceduralSkyMaterial_phms8")
+
 [sub_resource type="Environment" id="Environment_vvh5c"]
-background_mode = 1
-background_color = Color(1, 0, 0.43137255, 1)
+background_mode = 2
+sky = SubResource("Sky_ocygg")
 ambient_light_source = 2
-ambient_light_color = Color(8.663535e-07, 0.6018311, 0.60183114, 1)
-ambient_light_energy = 1.5
-reflected_light_source = 1
+ambient_light_color = Color(0, 1, 1, 1)
+ambient_light_energy = 0.1
 tonemap_mode = 3
 tonemap_exposure = 0.5
-tonemap_white = 16.0
 glow_enabled = true
-adjustment_contrast = 500.0
-adjustment_saturation = 0.0
+glow_normalized = true
+adjustment_enabled = true
+adjustment_contrast = 1.25
+adjustment_saturation = 1.2
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vbg00"]
 bounce = 0.1
@@ -39,9 +50,17 @@ agent_max_climb = 0.1
 [node name="Root" type="Node3D" unique_id=1696301327]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=675200441]
-transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
-light_energy = 0.564
+transform = Transform3D(-0.8660253, -0.25, 0.43301275, 0, 0.86602527, 0.5, -0.5, 0.43301263, -0.75, -1.9936124e-09, 300, -1.9936124e-09)
+light_color = Color(0, 1, 1, 1)
 shadow_enabled = true
+shadow_bias = 0.01
+directional_shadow_max_distance = 500.0
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=495189393]
+transform = Transform3D(0.86602527, 0.25, -0.43301263, 0, 0.8660254, 0.49999994, 0.49999994, -0.4330127, 0.7499999, -1.9936124e-09, 300, -1.9936124e-09)
+light_color = Color(1, 0, 0.43137255, 1)
+shadow_enabled = true
+shadow_bias = 0.01
 directional_shadow_max_distance = 500.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1699014821]
@@ -52,7 +71,6 @@ transform = Transform3D(-0.0058691604, 0, 0.9999828, 0, 1, 0, -0.9999828, 0, -0.
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_1jmg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106, 2, 68)
-visible = false
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Instructions" type="Label3D" parent="." unique_id=890364319]
@@ -114,6 +132,7 @@ end_position = Vector3(-2, 6, -4)
 
 [node name="tease" parent="." unique_id=1979071613 instance=ExtResource("7_1jmg1")]
 transform = Transform3D(-1.5298986e-07, 0, 3.5, 0, 3.5, 0, -3.5, 0, -1.5298986e-07, -149, 0, 0)
+visible = false
 
 [node name="Label3D" type="Label3D" parent="tease" unique_id=492402929]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3199399, 0.5714286, -1.3428993)

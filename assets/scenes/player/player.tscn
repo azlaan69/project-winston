@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dllew3uk4ian2" path="res://assets/scripts/juice.gd" id="2_5v77c"]
 [ext_resource type="Shader" uid="uid://cifn0frdxenv5" path="res://assets/shaders/loml.gdshader" id="2_omksk"]
 [ext_resource type="PackedScene" uid="uid://b0vux8tlebaiy" path="res://assets/models/pistol_mod.tscn" id="5_ij6fu"]
-[ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="5_n7aby"]
 [ext_resource type="PackedScene" uid="uid://mhn4ltkb1vde" path="res://assets/models/hand_mod2.tscn" id="5_xvhxs"]
 [ext_resource type="PackedScene" uid="uid://orj02lwtn8h5" path="res://assets/models/katana_mod.tscn" id="6_ij6fu"]
 [ext_resource type="AudioStream" uid="uid://r61t1qwlakep" path="res://assets/sfx/player_shootfx.wav" id="7_5v77c"]
@@ -77,14 +76,23 @@ seamless = true
 as_normal_map = true
 bump_strength = 32.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5v77c"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.005
+fov_override = 80.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g25m"]
-next_pass = ExtResource("5_n7aby")
+next_pass = SubResource("StandardMaterial3D_5v77c")
 transparency = 1
 albedo_color = Color(0, 0.6431373, 1, 1)
 emission_enabled = true
 emission_energy_multiplier = 2.0
 emission_texture = SubResource("NoiseTexture2D_2pygs")
 disable_receive_shadows = true
+fov_override = 80.0
 stencil_mode = 3
 stencil_flags = 2
 
@@ -1324,7 +1332,7 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_seyvw")
 
 [node name="Rope" type="Node3D" parent="Head/CameraPivot/Camera3D" unique_id=396675748]
-transform = Transform3D(0.88210195, 0.32516506, -0.3408281, -0.43177065, 0.84739757, -0.3090169, 0.18833542, 0.419744, 0.8878877, -0.88824576, -0.69604504, -0.76933545)
+transform = Transform3D(0.882102, 0.32516506, -0.3408281, -0.4317707, 0.8473977, -0.30901694, 0.18833543, 0.41974407, 0.8878877, -1.0544949, -0.84677726, -0.33624184)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D/Rope" unique_id=294029850]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.371139e-08, -1)
@@ -1373,7 +1381,7 @@ size = 0.765
 [node name="Hand" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=634213073 instance=ExtResource("5_xvhxs")]
 transform = Transform3D(0.4851561, 0.17884077, -0.18745549, -0.23747386, 0.46606869, -0.16995932, 0.1035845, 0.23085922, 0.4883383, -0.87, 1.0025, -0.8325)
 
-[node name="Skeleton3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Hand/armature" parent_id_path=PackedInt32Array(634213073, 1040913851) index="0" unique_id=1393141005]
+[node name="Skeleton3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Hand/armature" parent_id_path=PackedInt32Array(634213073, 791700305) index="0" unique_id=1033374375]
 bones/4/rotation = Quaternion(-0.4617486, 0, 0, 0.8870108)
 bones/8/rotation = Quaternion(0.08713501, -0.0019012926, -0.021731874, 0.9959577)
 
@@ -1381,7 +1389,7 @@ bones/8/rotation = Quaternion(0.08713501, -0.0019012926, -0.021731874, 0.9959577
 transform = Transform3D(0.7, 0, 0, 0, 0.6973363, 0.061009016, 0, -0.061009016, 0.6973363, 0.51, 0.7325, -0.675)
 visible = false
 
-[node name="root" parent="Head/CameraPivot/WeaponLayer/SubViewport/Pistol" index="1" unique_id=614176032]
+[node name="root" parent="Head/CameraPivot/WeaponLayer/SubViewport/Pistol" index="1" unique_id=649350265]
 transform = Transform3D(0.86780965, -0.49632493, -0.023825463, 0.4944947, 0.8673306, -0.056678236, 0.048795372, 0.037404366, 0.9981081, 0.05279625, 0.47971812, 0.16766563)
 
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=443423592]

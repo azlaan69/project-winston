@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bf3rgfwuswav2"]
 
-[ext_resource type="PackedScene" uid="uid://b0cmcrmh1biow" path="res://assets/models/some.glb" id="1_h8kah"]
-[ext_resource type="Texture2D" uid="uid://dj4p6ys40jbep" path="res://assets/models/some_some_texture.png" id="2_3nl72"]
+[ext_resource type="PackedScene" uid="uid://b0cmcrmh1biow" path="res://assets/models/raw_import/some.glb" id="1_h8kah"]
+[ext_resource type="Texture2D" uid="uid://dj4p6ys40jbep" path="res://assets/models/model_textures/some_some_texture.png" id="2_3nl72"]
 [ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="2_nwflp"]
 [ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="4_nwflp"]
-[ext_resource type="Texture2D" uid="uid://dvoyc7w2rcyit" path="res://assets/models/some_face.png" id="5_5ht13"]
+[ext_resource type="Texture2D" uid="uid://dvoyc7w2rcyit" path="res://assets/models/model_textures/some_face.png" id="5_5ht13"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xrmgd"]
 next_pass = ExtResource("4_nwflp")
@@ -19,7 +19,7 @@ stencil_flags = 2
 next_pass = ExtResource("4_nwflp")
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(1.5720325, 1.5720325, 1.5720325, 1)
+albedo_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
 albedo_texture = ExtResource("5_5ht13")
 stencil_mode = 3
 stencil_flags = 2

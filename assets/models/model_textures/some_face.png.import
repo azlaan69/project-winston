@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xh180c7xts24"
-path.s3tc="res://.godot/imported/pistol_2.png-f61ab8e1f6baec9c4a7251a09759e7a4.s3tc.ctex"
+uid="uid://dvoyc7w2rcyit"
+path.s3tc="res://.godot/imported/some_face.png-0f0f53c0ba7079c65193b224780069d8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "d1c152e9e2efebfa0015237f446eeef4"
+"md5": "8091f6e10be8429f09551b8def8abb6b"
 }
 
 [deps]
 
-source_file="res://assets/models/pistol_2.png"
-dest_files=["res://.godot/imported/pistol_2.png-f61ab8e1f6baec9c4a7251a09759e7a4.s3tc.ctex"]
+source_file="res://assets/models/model_textures/some_face.png"
+dest_files=["res://.godot/imported/some_face.png-0f0f53c0ba7079c65193b224780069d8.s3tc.ctex"]
 
 [params]
 

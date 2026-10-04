@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c3cucvar8wj4m"
-path="res://.godot/imported/hand.gltf-e50d97733271d7d6e0f44ca3fceee442.scn"
+path="res://.godot/imported/hand.gltf-6a0a3b705a41a02b737fe2d60553fb84.scn"
 
 [deps]
 
-source_file="res://assets/models/hand.gltf"
-dest_files=["res://.godot/imported/hand.gltf-e50d97733271d7d6e0f44ca3fceee442.scn"]
+source_file="res://assets/models/raw_import/hand.gltf"
+dest_files=["res://.godot/imported/hand.gltf-6a0a3b705a41a02b737fe2d60553fb84.scn"]
 
 [params]
 

@@ -8,7 +8,7 @@ uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nea
 uniform float line_thickness : hint_range(0.5, 5.0) = 2.0;
 uniform float normal_threshold : hint_range(0.01, 2.0) = 0.35;
 uniform float depth_threshold : hint_range(0.0001, 0.05) = 0.002;
-uniform vec4 line_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform vec4 line_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 
 void vertex() {
 	POSITION = vec4(VERTEX.xy * 2.0, 0.0, 1.0);
