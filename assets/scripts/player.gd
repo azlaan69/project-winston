@@ -200,7 +200,7 @@ func _physics_process(delta: float) -> void:
 	
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * Settings.sens
-	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-85), deg_to_rad(85))
+	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-89), deg_to_rad(89))
 	look_rotation.y -= rot_input.x * Settings.sens
 	transform.basis = Basis()
 	rotate_y(look_rotation.y)

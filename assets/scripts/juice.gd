@@ -33,16 +33,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if shift_allowed:
 		var speed = Vector2(player.velocity.x, player.velocity.z).length()
-		end_fov = remap(clamp(speed, 0.0, 70.0), 0.0, 30.0, 80.0, 110.0)
-		end_fov = clamp(end_fov, 80.0, 110.0)
+		end_fov = remap(clamp(speed, 0.0, 30.0), 0.0, 30.0, 80.0, 120.0)
+		end_fov = clamp(end_fov, 80.0, 120.0)
 		
 		if player.crouching and player.is_on_floor():
 			end_y = 0.8
 		else:
 			end_y = 1.7
 		
-		var factor = 2 if player.near_wall else 1
-		var factor2 = 1.0 if player.is_on_floor() else 0.5
+		var factor = 2 if player.near_wall else 1 
+		var factor2 = 1.0 if player.is_on_floor() else 0.2
 		bob_time += delta * clamp(player.velocity.length(), 0.0, 15.0) * factor2
 		camera.transform.origin = Vector3(
 			cos(bob_time * 2.0 * 0.5) * 0.1 * factor,
