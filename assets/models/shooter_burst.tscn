@@ -635,163 +635,163 @@ autoplay = &"idle"
 [node name="hitanim" type="AnimationPlayer" parent="." index="1" unique_id=239485969]
 libraries/ = SubResource("AnimationLibrary_0x8be")
 
-[node name="cylinder" parent="root/pelvis" parent_id_path=PackedInt32Array(742992889) index="0" unique_id=1191009465]
+[node name="cylinder" parent="root/pelvis" parent_id_path=PackedInt32Array(901597669) index="0" unique_id=923670023]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder2" parent="root/pelvis/torso" parent_id_path=PackedInt32Array(1057458373) index="0" unique_id=1953177112]
+[node name="cylinder2" parent="root/pelvis/torso" parent_id_path=PackedInt32Array(197483103) index="0" unique_id=111916714]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder3" parent="root/pelvis/torso" parent_id_path=PackedInt32Array(1057458373) index="1" unique_id=172474439]
+[node name="cylinder3" parent="root/pelvis/torso" parent_id_path=PackedInt32Array(197483103) index="1" unique_id=1729955097]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder4" parent="root/pelvis/torso" parent_id_path=PackedInt32Array(1057458373) index="2" unique_id=1637900581]
+[node name="cylinder4" parent="root/pelvis/torso" parent_id_path=PackedInt32Array(197483103) index="2" unique_id=653210187]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="armR" parent="root/pelvis/torso/arms" parent_id_path=PackedInt32Array(1193048049) index="0" unique_id=931774970]
+[node name="armR" parent="root/pelvis/torso/arms" parent_id_path=PackedInt32Array(1738677987) index="0" unique_id=1854335590]
 transform = Transform3D(0.42932084, -0.8370944, -0.33905244, 0.8165274, 0.5201853, -0.25037998, 0.3859618, -0.1693523, 0.9068369, -0.001046875, 0.01171875, -0.2349075)
 
-[node name="cylinder5" parent="root/pelvis/torso/arms/armR" index="0" unique_id=397537488]
+[node name="cylinder5" parent="root/pelvis/torso/arms/armR" index="0" unique_id=966596201]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="cylinder22" parent="root/pelvis/torso/arms/armR" index="1" unique_id=1933713224]
+[node name="cylinder22" parent="root/pelvis/torso/arms/armR" index="1" unique_id=1857466884]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="forearmR" parent="root/pelvis/torso/arms/armR" index="2" unique_id=958046270]
-transform = Transform3D(0.6642461, -0.32139173, -0.6748939, 0.47206357, 0.8803958, 0.045362934, 0.57959443, -0.34872577, 0.7365174, 0.019514374, -0.37838376, 0.000906875)
+[node name="forearmR" parent="root/pelvis/torso/arms/armR" index="2" unique_id=304160541]
+transform = Transform3D(0.6642459, -0.32139173, -0.6748938, 0.47206345, 0.8803958, 0.04536293, 0.5795943, -0.34872577, 0.73651737, 0.019514374, -0.37838376, 0.000906875)
 
-[node name="cylinder23" parent="root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=1882375754]
+[node name="cylinder23" parent="root/pelvis/torso/arms/armR/forearmR" index="0" unique_id=1493824369]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder6" parent="root/pelvis/torso/arms/armR/forearmR" index="1" unique_id=673301960]
+[node name="cylinder6" parent="root/pelvis/torso/arms/armR/forearmR" index="1" unique_id=35904115]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder7" parent="root/pelvis/torso/arms/armR/forearmR" index="2" unique_id=2005452291]
+[node name="cylinder7" parent="root/pelvis/torso/arms/armR/forearmR" index="2" unique_id=1939953933]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="armL" parent="root/pelvis/torso/arms" parent_id_path=PackedInt32Array(1193048049) index="1" unique_id=1034599267]
+[node name="armL" parent="root/pelvis/torso/arms" parent_id_path=PackedInt32Array(1738677987) index="1" unique_id=1218810756]
 transform = Transform3D(0.9252016, -0.2716394, 0.26497868, 0.14177775, 0.89514965, 0.42261818, -0.35199535, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)
 
-[node name="cylinder8" parent="root/pelvis/torso/arms/armL" index="0" unique_id=1650985982]
+[node name="cylinder8" parent="root/pelvis/torso/arms/armL" index="0" unique_id=1055650047]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="cylinder24" parent="root/pelvis/torso/arms/armL" index="1" unique_id=402992227]
+[node name="cylinder24" parent="root/pelvis/torso/arms/armL" index="1" unique_id=1735646439]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="fofrontmR" parent="root/pelvis/torso/arms/armL" index="2" unique_id=1186568015]
+[node name="fofrontmR" parent="root/pelvis/torso/arms/armL" index="2" unique_id=29607961]
 transform = Transform3D(0.0811974, -0.99532586, -0.05228208, 0.99546707, 0.08359173, -0.045362987, 0.04952131, -0.048361734, 0.99760145, 0.019514374, -0.37838376, -0.000906875)
 
-[node name="cylinder25" parent="root/pelvis/torso/arms/armL/fofrontmR" index="0" unique_id=1227777254]
+[node name="cylinder25" parent="root/pelvis/torso/arms/armL/fofrontmR" index="0" unique_id=137690939]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder9" parent="root/pelvis/torso/arms/armL/fofrontmR" index="1" unique_id=2048270325]
+[node name="cylinder9" parent="root/pelvis/torso/arms/armL/fofrontmR" index="1" unique_id=1348521324]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder10" parent="root/pelvis/torso/arms/armL/fofrontmR" index="2" unique_id=327227979]
+[node name="cylinder10" parent="root/pelvis/torso/arms/armL/fofrontmR" index="2" unique_id=2042281393]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="gun" parent="root/pelvis/torso/arms/armL/fofrontmR" index="3" unique_id=10002148]
+[node name="gun" parent="root/pelvis/torso/arms/armL/fofrontmR" index="3" unique_id=1732427282]
 transform = Transform3D(0.99568945, 0.08308248, 0.041226856, -0.09120169, 0.9578898, 0.272267, -0.016870162, -0.27485338, 0.96133816, -0.035800736, -0.61737055, -0.014169958)
 
 [node name="Marker3D" type="Marker3D" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="0" unique_id=248389339]
 transform = Transform3D(0.99568963, -0.07815478, -0.049941797, 0.08308248, 0.9909205, 0.10570693, 0.041226853, -0.109400526, 0.99314237, 0.109903336, -0.8327697, 0.0032590628)
 
-[node name="deco1" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="1" unique_id=1492996086]
+[node name="deco1" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="1" unique_id=69508691]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="deco2" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="2" unique_id=13452812]
+[node name="deco2" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="2" unique_id=1147149287]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="deco3" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="3" unique_id=33086668]
+[node name="deco3" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="3" unique_id=261155690]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="deco4" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="4" unique_id=1398826622]
+[node name="deco4" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="4" unique_id=532930245]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="beveled_cuboid" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="5" unique_id=520558812]
+[node name="beveled_cuboid" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="5" unique_id=176155415]
 surface_material_override/0 = ExtResource("3_j3lu3")
 
-[node name="deco5" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="6" unique_id=900850199]
+[node name="deco5" parent="root/pelvis/torso/arms/armL/fofrontmR/gun" index="6" unique_id=936075296]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="cylinder11" parent="root/pelvis/torso/head" parent_id_path=PackedInt32Array(115720798) index="0" unique_id=1306249295]
+[node name="cylinder11" parent="root/pelvis/torso/head" parent_id_path=PackedInt32Array(723345607) index="0" unique_id=428826418]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="mesh" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="0" unique_id=1683832329]
+[node name="mesh" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="0" unique_id=329151403]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh2" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="1" unique_id=263923497]
+[node name="mesh2" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="1" unique_id=1748270334]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh3" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="2" unique_id=894412787]
+[node name="mesh3" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="2" unique_id=1813377396]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh4" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="3" unique_id=1853292935]
+[node name="mesh4" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="3" unique_id=512706946]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh5" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="4" unique_id=1651001581]
+[node name="mesh5" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="4" unique_id=890825667]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh6" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="5" unique_id=190139868]
+[node name="mesh6" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="5" unique_id=577280411]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh7" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="6" unique_id=1878776339]
+[node name="mesh7" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="6" unique_id=1916703101]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh8" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="7" unique_id=298771096]
+[node name="mesh8" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="7" unique_id=1815833234]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh9" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="8" unique_id=806838319]
+[node name="mesh9" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="8" unique_id=817657161]
 surface_material_override/0 = ExtResource("4_74au5")
 
-[node name="mesh10" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="9" unique_id=2065038133]
+[node name="mesh10" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="9" unique_id=898998902]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="mesh11" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(955514278) index="10" unique_id=2007328465]
+[node name="mesh11" parent="root/pelvis/torso/head/modificationhood" parent_id_path=PackedInt32Array(1237698900) index="10" unique_id=232609371]
 surface_material_override/0 = ExtResource("3_j3lu3")
 
-[node name="mesh12" parent="root/pelvis/torso/modificationtorso" parent_id_path=PackedInt32Array(1266482114) index="0" unique_id=371267638]
+[node name="mesh12" parent="root/pelvis/torso/modificationtorso" parent_id_path=PackedInt32Array(1495342310) index="0" unique_id=1547717396]
 surface_material_override/0 = ExtResource("3_j3lu3")
 
-[node name="mesh13" parent="root/pelvis/torso/modificationtorso/modificationhead" parent_id_path=PackedInt32Array(1043284990) index="0" unique_id=1538889346]
+[node name="mesh13" parent="root/pelvis/torso/modificationtorso/modificationhead" parent_id_path=PackedInt32Array(354064710) index="0" unique_id=995889574]
 surface_material_override/0 = ExtResource("3_j3lu3")
 
-[node name="mesh14" parent="root/pelvis/torso/modificationtorso/modificationshoulder" parent_id_path=PackedInt32Array(1121633650) index="0" unique_id=1153258340]
+[node name="mesh14" parent="root/pelvis/torso/modificationtorso/modificationshoulder" parent_id_path=PackedInt32Array(211049021) index="0" unique_id=887625810]
 surface_material_override/0 = ExtResource("3_j3lu3")
 
-[node name="thighL" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(678095314) index="0" unique_id=1844497481]
+[node name="thighL" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(90375253) index="0" unique_id=1336968631]
 transform = Transform3D(0.965925, -0.24999996, -0.06698728, 0.25881878, 0.93301255, 0.25000003, -2.2351722e-08, -0.25881907, 0.96592575, 0.015625, 0.029596874, 0.10013937)
 
-[node name="cylinder12" parent="root/pelvis/legs/thighL" index="0" unique_id=1173470689]
+[node name="cylinder12" parent="root/pelvis/legs/thighL" index="0" unique_id=931314395]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="cylinder26" parent="root/pelvis/legs/thighL" index="1" unique_id=562641508]
+[node name="cylinder26" parent="root/pelvis/legs/thighL" index="1" unique_id=1798832530]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="kneeL" parent="root/pelvis/legs/thighL" index="2" unique_id=1600353821]
+[node name="kneeL" parent="root/pelvis/legs/thighL" index="2" unique_id=2147375926]
 transform = Transform3D(0.8660254, 0.48296297, 0.12940946, -0.482963, 0.875, -0.03349364, -0.12940955, -0.03349366, 0.9910247, -0.041484375, -0.56381, -0.018114375)
 
-[node name="cylinder27" parent="root/pelvis/legs/thighL/kneeL" index="0" unique_id=2061566795]
+[node name="cylinder27" parent="root/pelvis/legs/thighL/kneeL" index="0" unique_id=1753783795]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder13" parent="root/pelvis/legs/thighL/kneeL" index="1" unique_id=998838035]
+[node name="cylinder13" parent="root/pelvis/legs/thighL/kneeL" index="1" unique_id=590767285]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="mesh15" parent="root/pelvis/legs/thighL/kneeL/modificationknee2" parent_id_path=PackedInt32Array(874712171) index="0" unique_id=174924638]
+[node name="mesh15" parent="root/pelvis/legs/thighL/kneeL/modificationknee2" parent_id_path=PackedInt32Array(211872075) index="0" unique_id=1479987019]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder14" parent="root/pelvis/legs/thighL/kneeL" index="3" unique_id=663404767]
+[node name="cylinder14" parent="root/pelvis/legs/thighL/kneeL" index="3" unique_id=1118861347]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="thighR" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(678095314) index="1" unique_id=891735659]
+[node name="thighR" parent="root/pelvis/legs" parent_id_path=PackedInt32Array(90375253) index="1" unique_id=458126446]
 transform = Transform3D(0.96592546, -0.24999988, 0.066987276, 0.25881895, 0.93301225, -0.24999996, 1.4901156e-08, 0.25881895, 0.9659255, 0.015625, 0.029596874, -0.10013937)
 
-[node name="cylinder15" parent="root/pelvis/legs/thighR" index="0" unique_id=675631251]
+[node name="cylinder15" parent="root/pelvis/legs/thighR" index="0" unique_id=469116035]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="cylinder28" parent="root/pelvis/legs/thighR" index="1" unique_id=1341626852]
+[node name="cylinder28" parent="root/pelvis/legs/thighR" index="1" unique_id=756268806]
 surface_material_override/0 = ExtResource("3_50cgn")
 
-[node name="kneeR" parent="root/pelvis/legs/thighR" index="2" unique_id=904168987]
+[node name="kneeR" parent="root/pelvis/legs/thighR" index="2" unique_id=977012987]
 transform = Transform3D(0.8660254, 0.48296297, -0.12940946, -0.482963, 0.875, 0.03349364, 0.12940955, 0.03349366, 0.9910247, -0.041484375, -0.56381, 0.018114375)
 
 [node name="Area3D" type="Area3D" parent="root/pelvis/legs/thighR/kneeR" index="0" unique_id=1897229500]
@@ -802,14 +802,14 @@ monitoring = false
 transform = Transform3D(0.22297059, -0.974842, -2.965331e-06, 0.9748382, 0.22297175, -2.225861e-07, 2.4586916e-07, -8.940697e-07, 1.0000161, -0.29959762, -0.16963926, -0.21266134)
 shape = SubResource("CapsuleShape3D_25ivc")
 
-[node name="cylinder29" parent="root/pelvis/legs/thighR/kneeR" index="1" unique_id=1761885084]
+[node name="cylinder29" parent="root/pelvis/legs/thighR/kneeR" index="1" unique_id=1140050786]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder16" parent="root/pelvis/legs/thighR/kneeR" index="2" unique_id=1806762895]
+[node name="cylinder16" parent="root/pelvis/legs/thighR/kneeR" index="2" unique_id=1392206865]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="mesh16" parent="root/pelvis/legs/thighR/kneeR/modificationknee" parent_id_path=PackedInt32Array(1513830477) index="0" unique_id=595327869]
+[node name="mesh16" parent="root/pelvis/legs/thighR/kneeR/modificationknee" parent_id_path=PackedInt32Array(1795560406) index="0" unique_id=1511587790]
 surface_material_override/0 = ExtResource("2_50cgn")
 
-[node name="cylinder17" parent="root/pelvis/legs/thighR/kneeR" index="4" unique_id=724623564]
+[node name="cylinder17" parent="root/pelvis/legs/thighR/kneeR" index="4" unique_id=1620723330]
 surface_material_override/0 = ExtResource("2_50cgn")
