@@ -7,7 +7,7 @@
 cull_mode = 2
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(1.5720325, 1.5720325, 1.5720325, 1)
+albedo_color = Color(2.1168277, 2.1168277, 2.1168277, 1)
 albedo_texture = ExtResource("2_nhvwq")
 
 [node name="blockbench_export" unique_id=634213073 instance=ExtResource("1_lw3jm")]
@@ -16,15 +16,16 @@ albedo_texture = ExtResource("2_nhvwq")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="Skeleton3D" parent="armature" index="0" unique_id=1033374375]
-bones/0/rotation = Quaternion(-0.6272114, -0.3265056, 0.3265056, 0.6272114)
-bones/1/rotation = Quaternion(-0.059864227, 0.026340894, -0.40188438, 0.9133517)
-bones/2/rotation = Quaternion(0.06538756, -0.0014267617, -0.021768177, 0.99762154)
-bones/3/rotation = Quaternion(-0.19509035, 0, 0, 0.98078537)
-bones/4/rotation = Quaternion(-0.46174866, 0, 0, 0.88701093)
-bones/5/rotation = Quaternion(-0.91531146, 0, 0, 0.40274668)
-bones/6/rotation = Quaternion(-0.57343996, 0.012512504, -0.017869707, 0.81895715)
-bones/7/rotation = Quaternion(-0.90544516, -0.03953259, 0.01843435, 0.42221603)
-bones/9/rotation = Quaternion(-0.10886688, 0, 0, 0.99405634)
+bones/0/rotation = Quaternion(-0.67596924, -0.1814932, -0.038797397, 0.71317637)
+bones/1/rotation = Quaternion(0, 0, -0.27982903, 0.96004987)
+bones/2/rotation = Quaternion(0.043609012, -0.000951552, -0.021794124, 0.9988105)
+bones/3/rotation = Quaternion(-0.25881907, 0, 0, 0.96592593)
+bones/4/rotation = Quaternion(0.087155744, 0, 0, 0.9961947)
+bones/5/rotation = Quaternion(-0.32143947, 0, 0, 0.9469301)
+bones/6/rotation = Quaternion(0.10884096, -0.0023749184, -0.021685224, 0.9938198)
+bones/7/rotation = Quaternion(-0.3620931, -0.015809327, 0.040653612, 0.9311209)
+bones/8/rotation = Quaternion(0.08713501, -0.0019012926, -0.021731874, 0.9959577)
+bones/9/rotation = Quaternion(-0.21643962, 0, 0, 0.976296)
 
 [node name="beveled_cuboid" parent="armature/Skeleton3D" index="0" unique_id=1380139680]
 layers = 524288

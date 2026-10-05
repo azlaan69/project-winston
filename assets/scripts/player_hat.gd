@@ -5,7 +5,7 @@ var current_state = state.EQUIPPED
 
 var used: bool = false
 var can_use: bool = true
-var speed : float = 40.0
+var fly_speed : float = 40.0
 
 @export var ghost: Node3D
 @export var ghostmat: StandardMaterial3D
@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 			collider.disabled = true
 			var target_pos = player.global_position + Vector3(0, 1.5, 0)
 			var dir_to_player = (target_pos - global_position).normalized()
-			linear_velocity = linear_velocity.lerp(dir_to_player * speed, delta * 15.0)
+			linear_velocity = linear_velocity.lerp(dir_to_player * fly_speed, delta * 15.0)
 			
 			look_at(player.global_position)
 			if global_position.distance_to(target_pos) < 2.0: reset()
@@ -52,32 +52,15 @@ func _physics_process(delta: float) -> void:
 			freeze = true
 			collider.disabled = true
 			
-	#if player and current_state == state.EQUIPPED:
-		#rotation.y = 0
-		#freeze = true
-		#$CollisionShape3D.disabled = true
-		#global_position = player.global_position + Vector3(0, 2, 0)
-	#
-	#elif current_state == state.LAUNCHED:
-		#mesh.rotation.y += 30
-		#$CollisionShape3D.disabled = false
-	#
-	#elif current_state == state.RETURN:
-		#mesh.rotation.y += 30
-		#var dist = global_position - player.global_position
-		#if dist.length() < 10.0: reset()
-	#
 	if global_position.y < -35.0 and global_position.y - player.global_position.y < -20.0: reset()
-	#
-	#if cd.time_left > 0.0: can_use = false
-	#else: can_use = true
+
 
 func launch(dir: Vector3, speed: float, dur: float) -> void:
 	global_position = player.global_position + dir + Vector3(0, 2, 0)
 	global_rotation = Vector3.ZERO
 	current_state = state.LAUNCHED
 	freeze = false
-	$CollisionShape3D.disabled = false
+	collider.disabled = false
 	linear_velocity = dir * speed
 	return_timer.start(dur)
 
@@ -96,7 +79,7 @@ func reset() -> void:
 	cd.start()
 
 func _on_body_entered(body: Node) -> void:
-	if current_state == state.LAUNCHED and not body.is_in_group("player"):
+	if (current_state == state.LAUNCHED or current_state == state.RETURN) and not body.is_in_group("player"):
 		if !body.is_in_group("enemy"):
 			current_state = state.LANDED
 			freeze = true
@@ -112,6 +95,7 @@ func _on_body_entered(body: Node) -> void:
 				"dir": global_transform.basis.z
 			}
 			body.hit(hit_data)
+			current_state = state.RETURN
 
 func _on_return_timer_timeout() -> void:
 	if current_state == state.LAUNCHED or current_state == state.LANDED: current_state = state.RETURN

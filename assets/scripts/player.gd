@@ -459,7 +459,7 @@ func grapplestuff(delta) -> void:
 		else:
 			grav_velocity = Vector3.ZERO
 			external_velocity = Vector3.ZERO
-			if grapple_speed >= 0.0: hat_timer.start()
+			if grapple_velocity.length() >= 0.0: hat_timer.start()
 			
 			grapple_speed = dist
 			grapple_velocity = dist_vec.normalized() * 40.0
@@ -478,48 +478,6 @@ func grapplestuff(delta) -> void:
 		
 		if grapple_velocity.length_squared() < 0.5: grapple_velocity = Vector3.ZERO
 		if is_on_floor() and abs(grapple_velocity.y) >= 0.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
-	
-	#if Input.is_action_pressed("grapple"):
-		#var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
-		#if target and (target.collider.global_position - global_position).length() > 10.0:
-			#var point = target.collider
-			#if point.is_in_group("grapple"):
-				#
-				#grav_velocity = Vector3.ZERO
-				#external_velocity = Vector3.ZERO
-				#if grapple_speed >= 0.0: hat_timer.start()
-				#
-				#var dist = target.position - global_position
-				#grapple_speed = dist.length()
-				#grapple_velocity = dist.normalized() * 40.0
-				#grappling = true
-				#grapple_rope.look_at(target.collider.global_position - Vector3(0, 0.5, 0))
-				#grap_scale = dist.length()
-				#
-				#if anim_funny.current_animation != "pointstart" and anim_funny.current_animation != "pointhold": anim_funny.play("pointstart")
-				#
-			#else:
-				#grappling = false
-				#grap_scale = 0.0
-				#anim_funny.play("pointend")
-		#else:
-			#grappling = false
-			#grap_scale = 0.0
-			#if (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"): anim_funny.play("pointend")
-		#
-	#else:
-		#
-		#grappling = false
-		#grap_scale = 0.0
-		#var decay = 8.0
-		#if !is_on_floor(): decay = 1.0
-		#else: decay = 8.0
-		#grapple_velocity *= exp(-decay * delta)
-		#grapple_speed *= exp(-decay * delta)
-		#
-		#if grapple_velocity.length_squared() < 0.5: grapple_velocity = Vector3.ZERO
-		#if is_on_floor() and abs(grapple_velocity.y) >= 0.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
-		
 
 func grap_start() -> void:
 	var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
@@ -653,6 +611,7 @@ func kb_add(kb: float, dir: Vector3) -> void:
 	external_velocity += kb * dir
 	juice.add_trauma(0.1)
 	bounce_timer = 0.5
+	grav_velocity = Vector3.ZERO
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0

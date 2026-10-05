@@ -1383,7 +1383,6 @@ transform = Transform3D(0.4851561, 0.17884077, -0.18745549, -0.23747386, 0.46606
 
 [node name="Skeleton3D" parent="Head/CameraPivot/WeaponLayer/SubViewport/Hand/armature" parent_id_path=PackedInt32Array(634213073, 791700305) index="0" unique_id=1033374375]
 bones/4/rotation = Quaternion(-0.4617486, 0, 0, 0.8870108)
-bones/8/rotation = Quaternion(0.08713501, -0.0019012926, -0.021731874, 0.9959577)
 
 [node name="Pistol" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=1012686963 instance=ExtResource("5_ij6fu")]
 transform = Transform3D(0.7, 0, 0, 0, 0.6973363, 0.061009016, 0, -0.061009016, 0.6973363, 0.51, 0.7325, -0.675)

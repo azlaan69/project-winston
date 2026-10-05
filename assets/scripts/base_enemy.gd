@@ -57,7 +57,7 @@ func rotate_towards(target: Vector3, turn_speed: float, delta: float) -> void:
 func hit(hit_data: Dictionary) -> void:
 	if iframe_timer > 0.0: return
 	hp -= hit_data["damage"]
-	iframe_timer = 0.2
+	iframe_timer = 0.05
 	var flat_kb = hit_data["dir"] * hit_data["knockback"]
 	kb_velocity = Vector3(flat_kb.x, 0.0, flat_kb.z)
 

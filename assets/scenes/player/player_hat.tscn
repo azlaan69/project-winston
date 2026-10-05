@@ -33,20 +33,6 @@ emission = Color(0, 0.87058824, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(3, 3, 3)
 
-[sub_resource type="Environment" id="Environment_60jfb"]
-background_mode = 1
-background_color = Color(1, 0, 0.43137255, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0, 0.68649316, 0.6864933, 1)
-tonemap_mode = 3
-tonemap_exposure = 0.2
-tonemap_white = 16.0
-glow_enabled = true
-glow_bloom = 1.0
-glow_hdr_threshold = 1.5
-adjustment_contrast = 500.0
-adjustment_saturation = 0.0
-
 [node name="Hat" type="RigidBody3D" unique_id=1332287299 node_paths=PackedStringArray("ghost")]
 collision_layer = 2
 axis_lock_angular_x = true
@@ -94,13 +80,11 @@ shape = SubResource("BoxShape3D_seyvw")
 debug_color = Color(1, 1, 1, 1)
 
 [node name="CD" type="Timer" parent="." unique_id=1265748938]
+wait_time = 2.0
 one_shot = true
 
 [node name="ReturnTimer" type="Timer" parent="." unique_id=431610399]
 one_shot = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=517083336]
-environment = SubResource("Environment_60jfb")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="CD" to="." method="_on_cd_timeout"]

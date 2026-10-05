@@ -53,7 +53,7 @@ func _process(delta: float) -> void:
 	$HatHud/Launched.visible = (player.hat.current_state == player.hat.state.LAUNCHED and player.hat.can_use)
 	$HatHud/Return.visible = (player.hat.current_state == player.hat.state.RETURN and player.hat.can_use)
 	$HatHud/Landed.visible = (player.hat.current_state == player.hat.state.LANDED and player.hat.can_use)
-	$HatHud/CD.visible = (not player.hat.can_use)
+	$HatHud/CD.visible = (player.hat.cd.time_left > 0.1)
 
 	$HatHud/HatBG/CD.value = 1.0 - (player.hat.cd.time_left / player.hat.cd.wait_time)
 	$SpeedText.text = str(int(round(speed)))
