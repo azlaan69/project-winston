@@ -77,6 +77,7 @@ func reset() -> void:
 	global_position = player.global_position + Vector3(0, 2, 0)
 	used = false
 	cd.start()
+	player.play_sfx(player.hat_reload_fx, false)
 
 func _on_body_entered(body: Node) -> void:
 	if (current_state == state.LAUNCHED or current_state == state.RETURN) and not body.is_in_group("player"):
@@ -102,3 +103,4 @@ func _on_return_timer_timeout() -> void:
 
 func _on_cd_timeout() -> void:
 	can_use = true
+	

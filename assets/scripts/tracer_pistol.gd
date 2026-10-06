@@ -18,3 +18,4 @@ func _process(delta: float) -> void:
 	timer -= delta
 	global_position = global_position.move_toward(pos, speed * delta)
 	if (global_position - pos).length() < length or timer <= 0.0: queue_free()
+	$MeshInstance3D.rotation.x += 40 * delta

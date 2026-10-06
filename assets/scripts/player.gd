@@ -12,7 +12,10 @@ extends CharacterBody3D
 @export var can_freefly : bool = true
 
 @export_group("audio")
-@export var shoot_fx: AudioStreamPlayer3D
+@export var sfx: AudioStreamPlayer3D
+@export var shoot_fx: AudioStream
+@export var hat_reload_fx: AudioStream
+@export var katana_swing_fx: AudioStream
 
 
 
@@ -240,6 +243,7 @@ func dash(delta) -> void:
 		slide_velocity = Vector3.ZERO
 		grapple_velocity = Vector3.ZERO
 		wall_velocity = Vector3.ZERO
+		iframe_timer = 0.2
 		dashjump_timer.start()
 		var dash_dir = -head.global_transform.basis.z
 		var dash_impulse = 100.0
@@ -402,7 +406,7 @@ func wall(delta) -> void:
 func grav(delta) -> void:
 	var rising = jump_velocity.y > 4.0
 	if not is_on_floor() and not near_wall and not rising and dash_velocity.length() <= 5.0 :
-		grav_velocity += get_gravity() * delta
+		grav_velocity += (get_gravity() * 1.1) * delta
 		grav_velocity *= pow(1.2, delta)
 		was_near_wall = false 
 	elif near_wall and wall_velocity.length() < 5.0:
@@ -549,10 +553,7 @@ func combatstuff(delta) -> void:
 			if Input.is_action_pressed("primary") and !is_switching:
 				if anim_pistol.current_animation != "shoot":
 					anim_pistol.play("shoot")
-					
-					shoot_fx.pitch_scale = randf_range(0.8, 1.3)
-					shoot_fx.volume_db = randf_range(-5.0, 2.0)
-					shoot_fx.play()
+					play_sfx(shoot_fx, true)
 					
 					var tracer = tracerP.instantiate()
 					get_parent().add_child(tracer)
@@ -595,6 +596,15 @@ func combatstuff(delta) -> void:
 				combo.stop()
 				anim_sword.play("parry")
 
+func play_sfx(stream: AudioStream, randomize: bool = true) -> void:
+	sfx.stream = stream
+	if randomize:
+		sfx.pitch_scale = randf_range(0.8, 1.3)
+		sfx.volume_db = randf_range(-5.0, 2.0)
+	sfx.play()
+
+func play_swing_fx_helper() -> void:
+	play_sfx(katana_swing_fx)
 
 func hit(hit_data: Dictionary) -> void:
 	if iframe_timer > 0.0: return
@@ -675,13 +685,13 @@ func deal_parry() -> void:
 func weapon_setup() -> void:
 	match current_wpn:
 		wpn.SWORD:
-			guns.visible = false
+			pistol.visible = false
 			sword.visible = true
 			anim_sword.play("ready")
 			combo_step = 0
 		wpn.GUNS:
 			sword.visible = false
-			guns.visible = true
+			pistol.visible = true
 			anim_gun.play("ready")
 
 func parry_state(yes: bool = false) -> void:

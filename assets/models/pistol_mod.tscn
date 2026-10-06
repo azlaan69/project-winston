@@ -14,7 +14,7 @@ albedo_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
 albedo_texture = ExtResource("2_s1hws")
 metallic_specular = 0.0
 emission_enabled = true
-emission_energy_multiplier = 4.0
+emission_energy_multiplier = 2.0
 emission_texture = ExtResource("3_s1hws")
 texture_filter = 5
 stencil_mode = 3
@@ -22,15 +22,15 @@ stencil_flags = 2
 
 [node name="blockbench_export" unique_id=1012686963 instance=ExtResource("1_d78mf")]
 
-[node name="beveled_cuboid" parent="." index="0" unique_id=1523837022]
+[node name="beveled_cuboid" parent="." index="0" unique_id=2086931388]
 visible = false
 
-[node name="root" parent="." index="1" unique_id=614176032]
+[node name="root" parent="." index="1" unique_id=649350265]
 transform = Transform3D(0.8678096, -0.496325, -0.023825463, 0.49449477, 0.86733055, -0.056678236, 0.048795376, 0.03740436, 0.9981081, 0.05279625, 0.47971812, 0.16766563)
 
-[node name="beveled_cuboid2" parent="root" index="0" unique_id=503371702]
+[node name="beveled_cuboid2" parent="root" index="0" unique_id=1510922157]
 layers = 524288
 surface_material_override/0 = SubResource("StandardMaterial3D_re4jr")
 
-[node name="AnimationPlayer" parent="." index="2" unique_id=541183017]
+[node name="AnimationPlayer" parent="." index="2" unique_id=1243890215]
 autoplay = &"idle"
