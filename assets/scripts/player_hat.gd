@@ -26,6 +26,7 @@ func _physics_process(delta: float) -> void:
 	var active = (current_state != state.EQUIPPED)
 	visible = active
 	light.visible = active
+	if current_state != state.EQUIPPED: look_at(player.global_position)
 	
 	match current_state:
 		state.EQUIPPED:
@@ -41,12 +42,11 @@ func _physics_process(delta: float) -> void:
 		state.RETURN:
 			freeze = false
 			mesh.rotation.y += 30 * delta
-			collider.disabled = false
+			collider.disabled = true
 			var target_pos = player.global_position + Vector3(0, 1.5, 0)
 			var dir_to_player = (target_pos - global_position).normalized()
-			linear_velocity = linear_velocity.lerp(dir_to_player * fly_speed, delta * 15.0)
 			
-			look_at(player.global_position)
+			linear_velocity = linear_velocity.lerp(dir_to_player * fly_speed, delta * 15.0)
 			if global_position.distance_to(target_pos) < 2.0 and !player.is_parrying: reset()
 		
 		state.LANDED:
@@ -64,10 +64,12 @@ func launch(dir: Vector3, speed: float, dur: float) -> void:
 	collider.disabled = false
 	linear_velocity = dir * speed
 	return_timer.start(dur)
+	can_use = false
 
 func deflect(angle: Vector3) -> void:
 	current_state = state.LAUNCHED
-	linear_velocity = angle * 50.0
+	linear_velocity = angle * 40.0
+	return_timer.start(1)
 
 func rebound() -> void:
 	current_state = state.RETURN

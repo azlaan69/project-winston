@@ -1277,7 +1277,6 @@ fov = 80.0
 
 [node name="Filter" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D" unique_id=1827838936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
-visible = false
 layers = 524289
 material_override = SubResource("ShaderMaterial_y2pyw")
 extra_cull_margin = 16384.0
@@ -1356,6 +1355,7 @@ transform = Transform3D(0.86780965, -0.49632493, -0.023825463, 0.4944947, 0.8673
 [node name="Sword" type="Node3D" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=443423592]
 unique_name_in_owner = true
 transform = Transform3D(0.99575377, 0.04467098, 0.08048213, 0, 0.8743478, -0.48529968, -0.09204814, 0.48323947, 0.8706356, 0.08808589, 1.1201602, -1.5870181)
+visible = false
 
 [node name="Sword" parent="Head/CameraPivot/WeaponLayer/SubViewport/Sword" unique_id=1421738015 instance=ExtResource("6_ij6fu")]
 transform = Transform3D(-1.11758716e-07, -0.13142005, -1.4942317, -1.4694109, 0.3002248, -0.02640514, 0.3013838, 1.46376, -0.12874004, 0.63156074, -0.101805344, -0.68883055)

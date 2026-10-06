@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bwlnqi7ycc0k2"]
 
 [ext_resource type="PackedScene" uid="uid://cxdvnmx6vv3ls" path="res://assets/models/raw_import/lesser_valkyrie_raw.gltf" id="1_q0fj2"]
+[ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="2_q0fj2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y70v5"]
 cull_mode = 2
@@ -23,119 +24,85 @@ stencil_flags = 2
 diffuse_mode = 3
 specular_mode = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxk3g"]
-transparency = 1
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(1, 0, 0.43529412, 0.39215687)
-emission_enabled = true
-emission = Color(1.8247963, 0, 0.8116174, 1)
-emission_energy_multiplier = 16.0
-stencil_mode = 3
-stencil_flags = 2
-
-[sub_resource type="Environment" id="Environment_l2gas"]
-background_mode = 1
-background_color = Color(1, 0, 0.43137255, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0, 0.68649316, 0.6864933, 1)
-tonemap_mode = 3
-tonemap_exposure = 0.2
-tonemap_white = 16.0
-glow_enabled = true
-glow_bloom = 1.0
-glow_hdr_threshold = 1.5
-adjustment_contrast = 500.0
-adjustment_saturation = 0.0
-
 [node name="blockbench_export" unique_id=1979071613 instance=ExtResource("1_q0fj2")]
 
-[node name="chest1" parent="torso" parent_id_path=PackedInt32Array(325462503) index="0" unique_id=697791640]
+[node name="chest1" parent="torso" parent_id_path=PackedInt32Array(736631683) index="0" unique_id=65995873]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="chest2" parent="torso" parent_id_path=PackedInt32Array(325462503) index="1" unique_id=318411042]
+[node name="chest2" parent="torso" parent_id_path=PackedInt32Array(736631683) index="1" unique_id=2014667823]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="clavicle" parent="torso" parent_id_path=PackedInt32Array(325462503) index="2" unique_id=518826998]
+[node name="clavicle" parent="torso" parent_id_path=PackedInt32Array(736631683) index="2" unique_id=1034252845]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 
-[node name="pelvis1" parent="pelvis" parent_id_path=PackedInt32Array(105267935) index="0" unique_id=333013212]
+[node name="pelvis1" parent="pelvis" parent_id_path=PackedInt32Array(1172371767) index="0" unique_id=1925871241]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 
-[node name="pelvis3" parent="pelvis" parent_id_path=PackedInt32Array(105267935) index="1" unique_id=643652186]
+[node name="pelvis3" parent="pelvis" parent_id_path=PackedInt32Array(1172371767) index="1" unique_id=939536055]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="pelvis2" parent="pelvis" parent_id_path=PackedInt32Array(105267935) index="2" unique_id=1856618020]
+[node name="pelvis2" parent="pelvis" parent_id_path=PackedInt32Array(1172371767) index="2" unique_id=144782912]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 
-[node name="pelvis4" parent="pelvis" parent_id_path=PackedInt32Array(105267935) index="3" unique_id=163938909]
+[node name="pelvis4" parent="pelvis" parent_id_path=PackedInt32Array(1172371767) index="3" unique_id=764619411]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="thighR" parent="thighL" parent_id_path=PackedInt32Array(31885470) index="0" unique_id=148659956]
+[node name="thighR" parent="thighL" parent_id_path=PackedInt32Array(1003390019) index="0" unique_id=1986315652]
 surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
 
-[node name="thighR2" parent="thighR3" parent_id_path=PackedInt32Array(456183100) index="0" unique_id=1840451202]
+[node name="thighR2" parent="thighR3" parent_id_path=PackedInt32Array(1535969771) index="0" unique_id=412820930]
 surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
 
-[node name="mesh" parent="kneeL" parent_id_path=PackedInt32Array(1901676579) index="0" unique_id=268606743]
+[node name="mesh" parent="kneeL" parent_id_path=PackedInt32Array(449687964) index="0" unique_id=849348073]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="mesh2" parent="kneeR" parent_id_path=PackedInt32Array(408639081) index="0" unique_id=46496442]
+[node name="mesh2" parent="kneeR" parent_id_path=PackedInt32Array(273211943) index="0" unique_id=1391718825]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="mesh3" parent="shoulderL" parent_id_path=PackedInt32Array(35430175) index="0" unique_id=448955006]
+[node name="mesh3" parent="shoulderL" parent_id_path=PackedInt32Array(287683753) index="0" unique_id=1378737802]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="mesh4" parent="shoulderR" parent_id_path=PackedInt32Array(1812098163) index="0" unique_id=491198889]
+[node name="mesh4" parent="shoulderR" parent_id_path=PackedInt32Array(345564980) index="0" unique_id=1699648548]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="mesh5" parent="armL" parent_id_path=PackedInt32Array(1964223762) index="0" unique_id=319493586]
+[node name="mesh5" parent="armL" parent_id_path=PackedInt32Array(567115846) index="0" unique_id=46184662]
 surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
 
-[node name="mesh6" parent="armR" parent_id_path=PackedInt32Array(1725853401) index="0" unique_id=32354801]
+[node name="mesh6" parent="armR" parent_id_path=PackedInt32Array(1080836082) index="0" unique_id=1737618482]
 surface_material_override/0 = SubResource("StandardMaterial3D_l2gas")
 
-[node name="mesh7" parent="forearmL" parent_id_path=PackedInt32Array(1498409717) index="0" unique_id=1320943872]
+[node name="mesh7" parent="forearmL" parent_id_path=PackedInt32Array(1122772816) index="0" unique_id=1549494985]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 
-[node name="mesh8" parent="forearmR" parent_id_path=PackedInt32Array(48890029) index="0" unique_id=419926681]
+[node name="mesh8" parent="forearmR" parent_id_path=PackedInt32Array(1921016645) index="0" unique_id=248939387]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 
-[node name="pyramid" parent="head" parent_id_path=PackedInt32Array(1731650133) index="0" unique_id=1893101582]
-surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
+[node name="pyramid" parent="head" parent_id_path=PackedInt32Array(389514329) index="0" unique_id=1043908416]
+surface_material_override/0 = ExtResource("2_q0fj2")
 
-[node name="pyramid2" parent="head" parent_id_path=PackedInt32Array(1731650133) index="1" unique_id=1434971531]
+[node name="pyramid2" parent="head" parent_id_path=PackedInt32Array(389514329) index="1" unique_id=209306500]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="mesh9" parent="skirtR" parent_id_path=PackedInt32Array(1651105252) index="0" unique_id=1643554135]
+[node name="mesh9" parent="skirtR" parent_id_path=PackedInt32Array(1516197727) index="0" unique_id=174607314]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="mesh10" parent="skirtL" parent_id_path=PackedInt32Array(18898322) index="0" unique_id=735901295]
+[node name="mesh10" parent="skirtL" parent_id_path=PackedInt32Array(1233202114) index="0" unique_id=1454247105]
 surface_material_override/0 = SubResource("StandardMaterial3D_y70v5")
 
-[node name="mesh11" parent="skirtR2" parent_id_path=PackedInt32Array(1156507451) index="0" unique_id=661845426]
+[node name="mesh11" parent="skirtR2" parent_id_path=PackedInt32Array(31086712) index="0" unique_id=615992711]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 
-[node name="mesh12" parent="skirtL2" parent_id_path=PackedInt32Array(853915598) index="0" unique_id=1204218221]
+[node name="mesh12" parent="skirtL2" parent_id_path=PackedInt32Array(833044643) index="0" unique_id=1884699189]
 surface_material_override/0 = SubResource("StandardMaterial3D_41bhd")
 
-[node name="mesh13" parent="wingL2" parent_id_path=PackedInt32Array(1344285459) index="0" unique_id=1904288947]
-surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
+[node name="mesh13" parent="wingL2" parent_id_path=PackedInt32Array(2071711920) index="0" unique_id=1246070316]
+surface_material_override/0 = ExtResource("2_q0fj2")
 
-[node name="mesh14" parent="wingR2" parent_id_path=PackedInt32Array(1530930285) index="0" unique_id=1156833613]
-surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
+[node name="mesh14" parent="wingR2" parent_id_path=PackedInt32Array(787180722) index="0" unique_id=963215223]
+surface_material_override/0 = ExtResource("2_q0fj2")
 
-[node name="mesh15" parent="wingL1" parent_id_path=PackedInt32Array(1300800982) index="0" unique_id=1051484445]
-surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
+[node name="mesh15" parent="wingL1" parent_id_path=PackedInt32Array(657728676) index="0" unique_id=2136735750]
+surface_material_override/0 = ExtResource("2_q0fj2")
 
-[node name="mesh16" parent="wingR1" parent_id_path=PackedInt32Array(1196917650) index="0" unique_id=1038787184]
-surface_material_override/0 = SubResource("StandardMaterial3D_yxk3g")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="21" unique_id=1520655968]
-environment = SubResource("Environment_l2gas")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="22" unique_id=1195503717]
-transform = Transform3D(1, 0, 0, 0, 0.03489931, 0.99939084, 0, -0.99939084, 0.03489931, 0, 200, 0)
-shadow_enabled = true
-editor_only = true
-directional_shadow_max_distance = 500.0
+[node name="mesh16" parent="wingR1" parent_id_path=PackedInt32Array(1809837456) index="0" unique_id=1046994631]
+surface_material_override/0 = ExtResource("2_q0fj2")

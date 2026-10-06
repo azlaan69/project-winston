@@ -551,7 +551,6 @@ offset = Vector2(45.48584, -76.80023)
 polygon = PackedVector2Array(5.81958, 23.317383, -39.606445, 145.12793, -124.95361, 94.20001)
 
 [node name="HatOutline" type="Polygon2D" parent="HUD/HatHud/Landed" unique_id=1782438276]
-visible = false
 position = Vector2(-4.939947, 3.3575163)
 rotation = -1.3080866
 scale = Vector2(0.9903432, 0.8011409)

@@ -69,7 +69,6 @@ environment = SubResource("Environment_vvh5c")
 transform = Transform3D(-0.0058691604, 0, 0.9999828, 0, 1, 0, -0.9999828, 0, -0.0058691604, 110.168335, 40.00736, -13.911224)
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_1jmg1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106, 2, 68)
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
 
 [node name="Instructions" type="Label3D" parent="." unique_id=890364319]
@@ -130,14 +129,16 @@ start_position = Vector3(2, -4, -4)
 end_position = Vector3(-2, 6, -4)
 
 [node name="tease" parent="." unique_id=1979071613 instance=ExtResource("7_1jmg1")]
-transform = Transform3D(-1.5298986e-07, 0, 3.5, 0, 3.5, 0, -3.5, 0, -1.5298986e-07, -149, 0, 0)
-visible = false
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, 57.5, 40.487316, -3.500009)
 
 [node name="Label3D" type="Label3D" parent="tease" unique_id=492402929]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3199399, 0.5714286, -1.3428993)
 text = "SOON"
 font = ExtResource("4_uum53")
 font_size = 128
+
+[node name="tease2" parent="." unique_id=1791357581 instance=ExtResource("11_ocygg")]
+transform = Transform3D(-1.0490733e-08, 0, 0.24, 0, 0.24000001, 0, -0.24, 0, -1.0490733e-08, 56.21495, 40.554745, -15.830231)
 
 [node name="misc" type="Node3D" parent="." unique_id=961188970]
 
@@ -172,8 +173,8 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 124, 70, -25)
 [node name="GrapplePoint11" parent="." unique_id=1291419563 instance=ExtResource("9_uum53")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 177, 41, -24)
 
+[node name="GrapplePoint3" parent="." unique_id=1103928914 instance=ExtResource("9_uum53")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 132.5, 9, 85)
+
 [node name="LaunchPoint" parent="." unique_id=1238854364 instance=ExtResource("10_ocygg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 41, -25)
-
-[node name="some" parent="." unique_id=1791357581 instance=ExtResource("11_ocygg")]
-transform = Transform3D(-0.077898875, 0, 0.2270061, 0, 0.24, 0, -0.2270061, 0, -0.077898875, 105.41494, 40.14658, -13.910232)

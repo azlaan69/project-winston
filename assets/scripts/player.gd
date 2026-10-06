@@ -76,6 +76,7 @@ var hat_buffer: float = 0.0
 var walj_lockout: float = 0.0
 var iframe_timer: float = 0.0
 var bounce_timer: float = 0.0
+var slide_cooldown: float = 0.0
 var sword_logging : bool = true
 
 
@@ -175,6 +176,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("hat_trick"): hat_buffer = 0.5
 	if hat_buffer > 0.0: hat_buffer -= delta
 	
+	slide_cooldown = maxf(0.0, slide_cooldown - delta)
+	
 	if shoot_buffer > 0.0:
 		shoot_buffer -= delta
 		deal_shot()
@@ -270,8 +273,14 @@ func slide(delta) -> void:
 		crouch_start()
 		var dir = move_dir if move_dir else -transform.basis.z
 		var speed = maxf(20.0, Vector3(velocity.x, 0.0, velocity.z).length())
-		var increment =  Vector3(slide_velocity.x, velocity.y * 5.0, slide_velocity.z).length() / 2.0
+		var increment = 0.0
+		
+		if slide_cooldown <= 0.0:
+			increment =  Vector3(slide_velocity.x, velocity.y * 5.0, slide_velocity.z).length() / 2.0
+			slide_cooldown = 2.0
+			
 		slide_velocity = ((speed + increment) * dir).slide(get_floor_normal())
+		
 	else:
 		if slide_velocity.length() > 0.0:
 			var target_dir = -transform.basis.z if (not move_dir and is_on_floor()) else move_dir
@@ -313,6 +322,7 @@ func jump(delta) -> void:
 		grav_velocity.y = 0.0
 		var jump_force = 14.0
 		jump_buffer = 0.0
+		slide_cooldown = 0.0
 		
 		if (wall_running or near_wall) and not is_on_floor():
 			var flattened_wall = Vector3(wall_velocity.x, 0.0, wall_velocity.z).length()
@@ -601,7 +611,7 @@ func combatstuff(delta) -> void:
 
 func play_sfx(stream: AudioStream, randomize: bool = true) -> void:
 	sfx.stream = stream
-	if randomize:
+	if randomize == true:
 		sfx.pitch_scale = randf_range(0.8, 1.3)
 		sfx.volume_db = randf_range(-5.0, 2.0)
 	sfx.play()
@@ -682,16 +692,21 @@ func deal_parry() -> void:
 			proj.deflect(angle)
 			anim_sword.play("sheath", 0.1)
 			trauma = proj.hit_data["damage"] / 70.0
+			parry_connect(trauma)
 		
 		if proj.is_in_group("hat") and (hat.current_state == hat.state.RETURN or hat.current_state == hat.state.LAUNCHED):
 			var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-			hat.launch(facing, 50.0, 1.0)
-			trauma = 0.0
-				
-		PhysUtil.ghost(ghost, ghost_mat, 0.05)
-		juice.add_trauma(trauma)
-		var hitstop_time = trauma / 2
-		PhysUtil.hitstop(hitstop_time)
+			hat.deflect(facing)
+			trauma = 0.01
+			parry_connect(trauma)
+			
+		
+
+func parry_connect(trauma) -> void:
+	PhysUtil.ghost(ghost, ghost_mat, 0.05)
+	juice.add_trauma(trauma)
+	var hitstop_time = maxf(0.1, trauma / 2)
+	PhysUtil.hitstop(hitstop_time)
 
 func weapon_setup() -> void:
 	match current_wpn:
