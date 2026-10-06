@@ -8,3 +8,10 @@
 *.zip
 build/
 exports/
+
+*.import
+export_presets.cfg
+bin/
+
+.DS_Store
+*.tmp
