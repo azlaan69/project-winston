@@ -114,13 +114,16 @@ const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
 @onready var sword_hitbox = %SwordHitbox
 @onready var parry_hitbox = %ParryHitbox
 
+@onready var outline_filter = $Head/CameraPivot/Camera3D/Filter
 
-
-@onready var guns: Node3D = %PistolsParent
 @onready var sword: Node3D = %Sword
 
 func _ready() -> void:
 	
+	var current_method = ProjectSettings.get_setting("rendering/renderer/rendering_method")
+	var is_gl = (current_method == "gl_compatibility")
+	
+	outline_filter.visible = !is_gl
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
 	

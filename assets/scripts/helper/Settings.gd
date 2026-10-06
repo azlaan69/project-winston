@@ -11,6 +11,11 @@ func change_sens(val: float) -> void:
 func quit() -> void:
 	get_tree().quit()
 
+func restart_game() -> void:
+	OS.set_restart_on_exit(true)
+	get_tree().paused = false
+	get_tree().quit()
+	
 func reset() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()

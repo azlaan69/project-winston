@@ -62,7 +62,7 @@ shader = ExtResource("2_omksk")
 shader_parameter/line_thickness = 2.0
 shader_parameter/normal_threshold = 0.35
 shader_parameter/depth_threshold = 0.002
-shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_color = Color(1, 1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_seyvw"]
 material = SubResource("ShaderMaterial_jfawc")
@@ -115,7 +115,7 @@ background_mode = 1
 background_color = Color(1, 1, 1, 1)
 tonemap_mode = 2
 tonemap_exposure = 0.5
-tonemap_white = 16.0
+tonemap_white = 27.45
 glow_enabled = true
 glow_hdr_threshold = 1.5
 
@@ -1277,6 +1277,7 @@ fov = 80.0
 
 [node name="Filter" type="MeshInstance3D" parent="Head/CameraPivot/Camera3D" unique_id=1827838936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+visible = false
 layers = 524289
 material_override = SubResource("ShaderMaterial_y2pyw")
 extra_cull_margin = 16384.0

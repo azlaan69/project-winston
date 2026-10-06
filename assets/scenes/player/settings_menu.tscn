@@ -94,8 +94,7 @@ layout_mode = 2
 [node name="Text" type="Label" parent="Control/VBoxContainer/Resolution" unique_id=152547281]
 z_index = 1
 layout_mode = 2
-text = "
-Resolution
+text = "Resolution
 "
 label_settings = SubResource("LabelSettings_vsmvd")
 vertical_alignment = 1
@@ -118,7 +117,35 @@ popup/item_3/id = 3
 color = Color(0, 0, 0, 1)
 invert_enabled = true
 invert_border = 3.0
-polygon = PackedVector2Array(575, 1, 575, 100, -1, 100, 0, 0)
+polygon = PackedVector2Array(575, 0, 575, 100, 0, 100, 0, 0)
+
+[node name="Renderer" type="VBoxContainer" parent="Control/VBoxContainer" unique_id=2064932072]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Control/VBoxContainer/Renderer" unique_id=2050525751]
+z_index = 1
+layout_mode = 2
+text = "
+Renderer - Restart Required
+"
+label_settings = SubResource("LabelSettings_vsmvd")
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Renderer" unique_id=685457238]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Vulkan"
+popup/item_0/id = 0
+popup/item_1/text = "OpenGL"
+popup/item_1/id = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="Control/VBoxContainer/Renderer/OptionButton" unique_id=577243051]
+color = Color(0, 0, 0, 1)
+invert_enabled = true
+invert_border = 3.0
+polygon = PackedVector2Array(575, 0, 575, 65, 0, 65, 0, 0)
 
 [node name="Fullscreen" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=450923239]
 layout_mode = 2
@@ -129,7 +156,6 @@ custom_minimum_size = Vector2(520, 0)
 clip_contents = true
 layout_mode = 2
 text = "
-
 Fullscreen
 "
 label_settings = SubResource("LabelSettings_uum53")
@@ -151,10 +177,8 @@ layout_mode = 2
 z_index = 1
 layout_mode = 2
 text = "
-
 Sensitivity"
 label_settings = SubResource("LabelSettings_vseqf")
-vertical_alignment = 1
 
 [node name="SensSlider" type="HSlider" parent="Control/VBoxContainer/Sens" unique_id=472769777]
 layout_mode = 2
@@ -222,9 +246,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -400.0
+offset_top = -390.0
 offset_right = 300.0
-offset_bottom = 400.0
+offset_bottom = 480.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -234,9 +258,10 @@ color = Color(0, 0, 0, 0.5882353)
 color = Color(0, 0, 0, 1)
 invert_enabled = true
 invert_border = 5.0
-polygon = PackedVector2Array(600, 0, 600, 800, 0, 800, 0, 0)
+polygon = PackedVector2Array(600, 0, 600, 870, 0, 867, 0, 0)
 
 [connection signal="item_selected" from="Control/VBoxContainer/Resolution/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="Control/VBoxContainer/Renderer/OptionButton" to="." method="on_renderer_selected"]
 [connection signal="toggled" from="Control/VBoxContainer/Fullscreen/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="value_changed" from="Control/VBoxContainer/Sens/SensSlider" to="." method="_on_sens_slider_value_changed"]
 [connection signal="pressed" from="Control/VBoxContainer/Reset/Button" to="." method="_on_reset_pressed"]

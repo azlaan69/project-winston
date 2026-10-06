@@ -3,6 +3,11 @@ extends CanvasLayer
 func _ready() -> void:
 	self.hide()
 	$Control/VBoxContainer/Resolution/OptionButton.select(0)
+	var current_renderer = ProjectSettings.get_setting("rendering/renderer/rendering_method")
+	if current_renderer == "gl_compatibility":
+		$Control/VBoxContainer/Renderer/OptionButton.select(1)
+	elif current_renderer == "forward_plus":
+		$Control/VBoxContainer/Renderer/OptionButton.select(0)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -47,3 +52,13 @@ func _on_quit_pressed() -> void:
 
 func _on_reset_pressed() -> void:
 	Settings.reset()
+
+func on_renderer_selected(index: int) -> void:
+	match index:
+		0:
+			ProjectSettings.set_setting("rendering/renderer/rendering_method", "forward_plus")
+		1:
+			ProjectSettings.set_setting("rendering/renderer/rendering_method", "gl_compatibility")
+	
+	ProjectSettings.save()
+	Settings.restart_game()
