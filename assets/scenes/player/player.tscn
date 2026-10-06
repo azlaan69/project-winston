@@ -105,7 +105,7 @@ bottom_radius = 0.1
 radial_segments = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
-size = Vector3(2, 2, 1)
+size = Vector3(2, 2, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 1.2, 3.5)
@@ -1293,6 +1293,7 @@ mesh = SubResource("CylinderMesh_5pvhp")
 
 [node name="ParryHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=138266649]
 unique_name_in_owner = true
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/ParryHitbox" unique_id=1315296259]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, -0.5)

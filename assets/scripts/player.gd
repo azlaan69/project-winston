@@ -674,16 +674,24 @@ func deal_swing() -> void:
 			body.hit(hit_data)
 
 func deal_parry() -> void:
-	for proj in parry_hitbox.get_overlapping_areas():
+	var targets = parry_hitbox.get_overlapping_areas() + parry_hitbox.get_overlapping_bodies()
+	var trauma = 0
+	for proj in targets:
 		if proj.is_in_group("projectile") and proj.parriable:
-			PhysUtil.ghost(ghost, ghost_mat, 0.05)
 			var angle = -%Camera3D.global_transform.basis.z
 			proj.deflect(angle)
 			anim_sword.play("sheath", 0.1)
-			var trauma = proj.hit_data["damage"] / 70.0
-			juice.add_trauma(trauma)
-			var hitstop_time = trauma / 2
-			PhysUtil.hitstop(hitstop_time)
+			trauma = proj.hit_data["damage"] / 70.0
+		
+		if proj.is_in_group("hat") and (hat.current_state == hat.state.RETURN or hat.current_state == hat.state.LAUNCHED):
+			var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
+			hat.launch(facing, 50.0, 1.0)
+			trauma = 0.0
+				
+		PhysUtil.ghost(ghost, ghost_mat, 0.05)
+		juice.add_trauma(trauma)
+		var hitstop_time = trauma / 2
+		PhysUtil.hitstop(hitstop_time)
 
 func weapon_setup() -> void:
 	match current_wpn:

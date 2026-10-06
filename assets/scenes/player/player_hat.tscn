@@ -33,7 +33,7 @@ emission = Color(0, 0.87058824, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(3, 3, 3)
 
-[node name="Hat" type="RigidBody3D" unique_id=1332287299 node_paths=PackedStringArray("ghost")]
+[node name="Hat" type="RigidBody3D" unique_id=1332287299 node_paths=PackedStringArray("ghost") groups=["hat"]]
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -71,8 +71,8 @@ light_energy = 4.0
 light_size = 20.0
 omni_range = 20.0
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1493100362 groups=["grapple"]]
-collision_layer = 4
+[node name="Area3D" type="Area3D" parent="." unique_id=1493100362 groups=["grapple", "hat"]]
+collision_layer = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=566005512 groups=["grapple"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06640625, 0)
