@@ -27,7 +27,7 @@ var current_state = state.AIRBORNE
 var last_state = state.AIRBORNE
 
 var fall_time := 0.0
-var slide_add_limit = 20.0
+var slide_add_limit = 10.0
 
 
 var base_speed : float = 7.0
@@ -244,7 +244,7 @@ func change_state(new_state) -> void:
 func walk_process(delta) -> void:
 	var walk_speed = 7.0
 	var accel = 90.0
-	var friction = 70.0
+	var friction = 50.0 if (last_state == state.SLIDING or last_state == state.AIRBORNE) else 70.0
 	
 	if move_dir.length_squared() > 0.0:
 		var target_vel = move_dir * walk_speed
@@ -278,27 +278,32 @@ func slide_process(delta) -> void:
 		velocity += velocity.normalized() * 35.0 * delta
 	else:
 		
+		var decay = 2.0
 		var h_vel = Vector2(velocity.x, velocity.z)
-		var current_speed = h_vel.length()
-		var new_speed = move_toward(current_speed, 0.0, 12.0 * delta)
-		if current_speed > 0.0:
-			var h_dir = h_vel / current_speed
-			velocity.x = h_dir.x * new_speed
-			velocity.z = h_dir.y * new_speed
+		h_vel *= exp(-decay * delta)
+		
+		velocity.x = h_vel.x
+		velocity.z = h_vel.y
 		
 	if jump_buffer > 0.0 and is_on_floor():
 		
 		jump_buffer = 0.0
-		velocity.y = remap(velocity.length(), 0.0, 50.0, 2.0, 12.0)
-		if velocity.length() < slide_add_limit:
-			velocity.x *= 1.01
-			velocity.z *= 1.01
 		
+		var h_vel = Vector2(velocity.x, velocity.z)
+		var h_speed = h_vel.length()
+		var h_dir = h_vel / h_speed
+		var capped_speed = minf(h_speed + 2.0, 30.0)
+		
+		velocity.x = capped_speed * h_dir.x
+		velocity.z = capped_speed * h_dir.y 
+		
+		velocity.y = remap(capped_speed, 0.0, 30.0, 2.0, 11.0)
+	
 		change_state(state.AIRBORNE)
 		return
 	
 	var hspeed = Vector3(velocity.x, 0.0, velocity.z).length()
-	if hspeed < 3.0:
+	if hspeed < 8.0:
 		change_state(state.WALKING)
 		return
 	
@@ -315,16 +320,26 @@ func air_process(delta) -> void:
 	var h_vel = Vector2(velocity.x, velocity.z)
 	var current_hspeed = h_vel.length()
 	
-	if move_dir.length_squared() > 0.0 and abs(move_dir.dot(velocity.normalized())) < 0.6:
-		var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
+	if move_dir.length_squared() > 0.0:
+		if last_state == state.SLIDING:
+			if abs(move_dir.dot(velocity.normalized())) < 0.6:
+				var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
+				
+				if current_hspeed > 0.0:
+					var current_h_dir = h_vel / current_hspeed
+					var factor = 1.0
+					var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta)
+					h_vel = new_h_dir * current_hspeed
 		
-		if current_hspeed > 12.0:
-			var current_h_dir = h_vel / current_hspeed
-			var new_h_dir = current_h_dir.slerp(target_h_dir, 1.0 * delta)
-			h_vel = new_h_dir * current_hspeed
+		else:
+			var air_accel = 40.0
+			var air_cap = 12.0
+			
+			var target_h_vel = Vector2(move_dir.x, move_dir.z).normalized() * air_cap
+			h_vel = h_vel.move_toward(target_h_vel, air_accel * delta)
 			
 			
-	var air_drag = 0.2
+	var air_drag = 0.2 if last_state == state.SLIDING else 0.05
 	h_vel *= exp(-air_drag * delta)
 	velocity.x = h_vel.x
 	velocity.z = h_vel.y
