@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 	str(player.walj_velocity.round()),
 	str(player.grav_velocity.round()),
 	str(player.wall_normal.snapped(Vector3(0.01, 0.01, 0.01))),
-	player.pistol_timeslow_timer.time_left
+	player.near_wall
 	]
 	var dash_charges = player.dash_charges
 	var time_left = player.dash_cd.time_left

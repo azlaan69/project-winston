@@ -17,11 +17,8 @@ extends CharacterBody3D
 @export var hat_reload_fx: AudioStream
 @export var katana_swing_fx: AudioStream
 
-
-
-@export_group("Trails")
-@export var ghost : Node3D
-@export var ghost_mat : StandardMaterial3D
+@export_group("components")
+@export var wpn_manager: Node3D
 
 
 var base_speed : float = 7.0
@@ -95,29 +92,21 @@ const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
 @onready var collider: CollisionShape3D = $Collider
 @onready var hat: RigidBody3D = get_node("../Hat")
 
-@onready var dash_cd: Timer = $timers/Dash_CD
-@onready var combo: Timer = %ComboTimer
-@onready var hat_timer: Timer = $timers/HatNoYKillWindow
-@onready var downhill_timer: Timer = $timers/DownhillEndWindow
-@onready var dashjump_timer: Timer = $timers/DashJumpWindow
-@onready var pistol_timeslow_timer: Timer = $timers/PistolSecondaryTimer
+@onready var dash_cd: Timer = %Dash_CD
+@onready var hat_timer: Timer = %HatNoYKillWindow
+@onready var downhill_timer: Timer = %DownhillEndWindow
+@onready var dashjump_timer: Timer = %DashJumpWindow
 
 @onready var juice = $Head
 @onready var hud: Control
 
-@onready var wallcheck: ShapeCast3D = $WallChecker
-@onready var wallcheck_r: RayCast3D = $WallCheckRight
-@onready var wallcheck_l: RayCast3D = $WallCheckLeft
-@onready var ceilingcheck: ShapeCast3D = $CeilingChecker
+@onready var wallcheck: ShapeCast3D = %WallChecker
+@onready var wallcheck_r: RayCast3D = %WallCheckRight
+@onready var wallcheck_l: RayCast3D = %WallCheckLeft
+@onready var ceilingcheck: ShapeCast3D = %CeilingChecker
 
-@onready var anim_gun: AnimationPlayer = %PistolPlayer
-@onready var anim_sword = %SwordPlayer
-@onready var sword_hitbox = %SwordHitbox
-@onready var parry_hitbox = %ParryHitbox
 
-@onready var outline_filter = $Head/CameraPivot/Camera3D/Filter
-
-@onready var sword: Node3D = %Sword
+@onready var outline_filter = %Filter
 
 func _ready() -> void:
 	
@@ -127,8 +116,6 @@ func _ready() -> void:
 	outline_filter.visible = !is_gl
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
-	
-	weapon_setup()
 	
 func _unhandled_input(event: InputEvent) -> void:
 	
@@ -140,10 +127,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			enable_freefly()
 		else:
 			disable_freefly()
-
-func _process(delta: float) -> void:
-	if trailing: 
-		PhysUtil.ghost(ghost, ghost_mat, 0.05)
 
 
 func _physics_process(delta: float) -> void:
@@ -170,24 +153,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash"): dash_buffer = 0.2
 	if dash_buffer > 0.0: dash_buffer -= delta
 	
-	if Input.is_action_just_pressed("switch_weapon"): switch_buffer = 0.5
-	if switch_buffer > 0.0: switch_buffer -= delta
-	
-	if Input.is_action_just_pressed("hat_trick"): hat_buffer = 0.5
-	if hat_buffer > 0.0: hat_buffer -= delta
-	
 	slide_cooldown = maxf(0.0, slide_cooldown - delta)
-	
-	if shoot_buffer > 0.0:
-		shoot_buffer -= delta
-		deal_shot()
 	
 	if iframe_timer > 0.0: iframe_timer -= delta
 	if walj_lockout > 0.0: walj_lockout -= delta
 	if bounce_timer > 0.0: bounce_timer -= delta
 	
-	if sword_hitbox.monitoring: deal_swing()
-	if is_parrying: deal_parry()
 	
 	
 	movestuff(delta)
@@ -426,7 +397,6 @@ func grav(delta) -> void:
 				grav_velocity.y = -2.0
 				was_near_wall = true
 		grav_velocity += get_gravity() / 20 * delta
-		
 
 	else:
 		grav_velocity = Vector3.ZERO
@@ -519,97 +489,9 @@ func combatstuff(delta) -> void:
 	kb_velocity = kb_velocity.lerp(Vector3.ZERO, 4.0 * delta)
 	if kb_velocity.length_squared() < 0.5: kb_velocity = Vector3.ZERO
 	
-	if hat_buffer > 0.0:
-		var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-		if hat.current_state == hat.state.EQUIPPED and hat.can_use:
-			hat.launch(facing, 35.0, 1.0)
-			hat_buffer = 0.0
-		elif hat.current_state == hat.state.LAUNCHED or hat.current_state == hat.state.LANDED:
-			hat.rebound()
-			hat_buffer = 0.0
-		
-	
-	if switch_buffer > 0.0 and not is_switching:
-		switch_buffer = 0.0
-		
-		is_switching = true
-		combo_step = 0
-		shoot_buffer = 0.0
-		anim_sword.stop()
-		anim_gun.stop()
-		combo.stop()
-		
-		match current_wpn:
-			wpn.GUNS:
-				anim_pistol.play("throw")
-				await anim_pistol.animation_finished
-
-				sword.visible = true
-				anim_sword.play("ready")
-				pistol.visible = false
-				current_wpn = wpn.SWORD
-			wpn.SWORD:
-				anim_sword.play("drop")
-				await anim_sword.animation_finished
-				
-				pistol.visible = true
-				anim_pistol.play("pullout")
-				sword.visible = false
-				current_wpn = wpn.GUNS
-		is_switching = false
-		return
-	
-	match current_wpn:
-		wpn.GUNS:
-			if Input.is_action_pressed("primary") and !is_switching:
-				if anim_pistol.current_animation != "shoot":
-					anim_pistol.play("shoot")
-					play_sfx(shoot_fx, true)
-					
-					var tracer = tracerP.instantiate()
-					get_parent().add_child(tracer)
-					var start = marker_pistol.global_position
-					var end = %Camera3D.global_position + (-%Camera3D.global_transform.basis.z * 100.0)
-					tracer.init(start, end)
-					
-					#if shoot_l: anim_gun.play("L_shoot")
-					#else: anim_gun.play("R_shoot")
-					#hud.hit_time = 0.2
-					#shoot_l = !shoot_l
-					shoot_buffer = 0.05
-					return
-				
-			
-			if Input.is_action_pressed("secondary") and !is_switching and pistol_timeslow_timer.time_left <= 0.0:
-				juice.shift(999.0, 5, 0.5)
-				PhysUtil.undulate(0.25, 0.5)
-				pistol_timeslow_timer.start()
-			elif Input.is_action_just_released("secondary"):
-				Engine.time_scale = 1.0
-				juice.shiftend()
-				
-			
-		wpn.SWORD:
-			if Input.is_action_just_pressed("primary") and !is_switching:
-				combo.stop()
-				match combo_step:
-					0:
-						anim_sword.play("swing1")
-					1:
-						anim_sword.play("swing2")
-					2:
-						anim_sword.play("swing3")
-					3:
-						pass
-			
-			elif Input.is_action_just_pressed("secondary") and !is_switching:
-				anim_sword.stop()
-				combo.stop()
-				anim_sword.play("parry")
-
-func play_sfx(stream: AudioStream, randomize: bool = true) -> void:
+func play_sfx(stream: AudioStream, do_random: bool = true) -> void:
 	sfx.stream = stream
-	if randomize == true:
+	if do_random == true:
 		sfx.pitch_scale = randf_range(0.8, 1.3)
 		sfx.volume_db = randf_range(-5.0, 2.0)
 	sfx.play()
@@ -634,115 +516,11 @@ func kb_add(kb: float, dir: Vector3) -> void:
 	bounce_timer = 0.5
 	grav_velocity = Vector3.ZERO
 
-func deal_shot() -> void:
-	shoot_buffer = 0.0
-	var cam = %Camera3D
-	
-	var offsets = [
-		Vector3.ZERO,
-		cam.global_transform.basis.x * 0.35, cam.global_transform.basis.x * -0.35,
-		cam.global_transform.basis.y * 0.35, cam.global_transform.basis.y * -0.35
-	]
-	for offset in offsets:
-		var result = PhysUtil.raycast_from_cam(%Camera3D, 1000.0, [get_rid()], offset)
-		if result:
-			
-			var body = result.collider
-			if body and body.has_method("hit"):
-				var fx = hitfx.instantiate()
-				body.add_child(fx)
-				fx.global_position = result.position.lerp(body.global_position + (-body.transform.basis.z * 2), 0.2)
-				fx.anim = "pistol"
-				
-				var hit_data = {
-					"damage": 2.5, # replace with function bichazz
-					"type": "GUN",
-					"knockback": 0.0,
-					"dir": -global_transform.basis.z
-				}
-				body.hit(hit_data)
-				break
-
-func deal_swing() -> void:
-	
-	for body in sword_hitbox.get_overlapping_bodies():
-		
-		if body != self and body.has_method("hit") and not body.iframe_timer > 0.0:
-			var fx = hitfx.instantiate()
-			body.add_child(fx)
-			fx.global_position = body.global_position + (-body.transform.basis.z * 1.0)
-			fx.anim = "sword"
-			
-			var hit_data = {
-				"damage": 5.0,
-				"type": "SWORD",
-				"knockback": 10.0,
-				"dir": -global_transform.basis.z
-			}
-			body.hit(hit_data)
-
-func deal_parry() -> void:
-	var targets = parry_hitbox.get_overlapping_areas() + parry_hitbox.get_overlapping_bodies()
-	var trauma = 0
-	for proj in targets:
-		if proj.is_in_group("projectile") and proj.parriable:
-			var angle = -%Camera3D.global_transform.basis.z
-			proj.deflect(angle)
-			anim_sword.play("sheath", 0.1)
-			trauma = proj.hit_data["damage"] / 70.0
-			parry_connect(trauma)
-		
-		if proj.is_in_group("hat") and (hat.current_state == hat.state.RETURN or hat.current_state == hat.state.LAUNCHED):
-			var facing = -$Head/CameraPivot/Camera3D.global_transform.basis.z
-			hat.deflect(facing)
-			trauma = 0.01
-			parry_connect(trauma)
-			
-		
-
-func parry_connect(trauma) -> void:
-	PhysUtil.ghost(ghost, ghost_mat, 0.05)
-	juice.add_trauma(trauma)
-	var hitstop_time = maxf(0.1, trauma / 2)
-	PhysUtil.hitstop(hitstop_time)
-
-func weapon_setup() -> void:
-	match current_wpn:
-		wpn.SWORD:
-			pistol.visible = false
-			sword.visible = true
-			anim_sword.play("ready")
-			combo_step = 0
-		wpn.GUNS:
-			sword.visible = false
-			pistol.visible = true
-			anim_gun.play("ready")
-
 func parry_state(yes: bool = false) -> void:
-	is_parrying = yes
+	wpn_manager.parry_state(yes)
 
 func _on_dash_cd_timeout() -> void:
 	if dash_charges < 3: dash_charges += 1
-
-func _on_combo_timer_timeout() -> void:
-	combo_step = 0
-	anim_sword.play("sheath", 0.15)
-
-func _on_sword_player_animation_finished(anim_name: StringName) -> void:
-	trailing = false
-	match anim_name:
-		"swing1":
-			combo_step = 1
-			combo.start(0.6)
-		"swing2":
-			combo_step = 2
-			combo.start(0.6)
-		"swing3":
-			combo_step = 0
-			combo.start(0.3)
-		"sheath":
-			combo_step = 0
-
 
 func grapple_animation_finished(anim_name: StringName) -> void:
 	match anim_name:

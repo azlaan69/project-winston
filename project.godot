@@ -38,6 +38,7 @@ enemy=""
 projectile=""
 grapple=""
 hat=""
+hitfx=""
 
 [input]
 

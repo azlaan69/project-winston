@@ -8,6 +8,8 @@ var can_use: bool = true
 var fly_speed : float = 40.0
 var parriable = true
 
+var wpn_manager = null
+
 @export var ghost: Node3D
 @export var ghostmat: StandardMaterial3D
 
@@ -21,6 +23,7 @@ var parriable = true
 func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 4
+	wpn_manager = player.get_node_or_null("WeaponManager")
 
 func _physics_process(delta: float) -> void:
 	var active = (current_state != state.EQUIPPED)
@@ -47,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			var dir_to_player = (target_pos - global_position).normalized()
 			
 			linear_velocity = linear_velocity.lerp(dir_to_player * fly_speed, delta * 15.0)
-			if global_position.distance_to(target_pos) < 2.0 and !player.is_parrying: reset()
+			if global_position.distance_to(target_pos) < 2.0 and !wpn_manager.is_parrying: reset()
 		
 		state.LANDED:
 			freeze = true
