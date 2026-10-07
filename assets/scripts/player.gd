@@ -258,14 +258,17 @@ func walk_process(delta) -> void:
 	if slide_buffer > 0.0:
 		slide_buffer = 0.0
 		change_state(state.SLIDING)
+		return
 	
 	if jump_buffer > 0.0:
 		jump_buffer = 0.0
 		velocity.y = 12.0
 		change_state(state.AIRBORNE)
+		return
 	
 	if not is_on_floor():
 		change_state(state.AIRBORNE)
+		return
 
 func slide_process(delta) -> void:
 	var floor_normal = get_floor_normal()
@@ -286,19 +289,22 @@ func slide_process(delta) -> void:
 	if jump_buffer > 0.0 and is_on_floor():
 		
 		jump_buffer = 0.0
-		velocity.y = remap(velocity.length(), 0.0, 50.0, 6.0, 14.0)
+		velocity.y = remap(velocity.length(), 0.0, 50.0, 2.0, 12.0)
 		if velocity.length() < slide_add_limit:
 			velocity.x *= 1.01
 			velocity.z *= 1.01
 		
 		change_state(state.AIRBORNE)
+		return
 	
 	var hspeed = Vector3(velocity.x, 0.0, velocity.z).length()
 	if hspeed < 3.0:
 		change_state(state.WALKING)
+		return
 	
 	if not is_on_floor():
 		change_state(state.AIRBORNE)
+		return
 
 func air_process(delta) -> void:
 	
@@ -318,14 +324,15 @@ func air_process(delta) -> void:
 			h_vel = new_h_dir * current_hspeed
 			
 			
-	var air_drag = 0.1
-	h_vel = lerp(h_vel, Vector2.ZERO, air_drag * delta)
+	var air_drag = 0.2
+	h_vel *= exp(-air_drag * delta)
 	velocity.x = h_vel.x
 	velocity.z = h_vel.y
 
 		
 	if is_on_floor():
 		change_state(state.WALKING)
+		return
 
 func wall_process(delta) -> void:
 	pass
