@@ -31,7 +31,10 @@ ambient_light_sky_contribution = 0.75
 tonemap_mode = 3
 tonemap_exposure = 0.5
 glow_enabled = true
+glow_levels/3 = 0.0
+glow_levels/4 = 0.0
 glow_normalized = true
+glow_blend_mode = 0
 adjustment_enabled = true
 adjustment_contrast = 1.25
 adjustment_saturation = 1.2
@@ -66,7 +69,7 @@ directional_shadow_max_distance = 500.0
 environment = SubResource("Environment_vvh5c")
 
 [node name="Player" parent="." unique_id=500862226 instance=ExtResource("1_y2pyw")]
-transform = Transform3D(-0.0058691604, 0, 0.9999828, 0, 1, 0, -0.9999828, 0, -0.0058691604, 110.168335, 40.00736, -13.911224)
+transform = Transform3D(-0.0058691604, 0, 0.9999828, 0, 1, 0, -0.9999828, 0, -0.0058691604, 8.794589, 84.10018, 318.07687)
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_1jmg1")]
 physics_material_override = SubResource("PhysicsMaterial_vbg00")
@@ -108,7 +111,7 @@ transform = Transform3D(-0.46519822, 0, -0.8852065, 0, 1, 0, 0.8852065, 0, -0.46
 navigation_mesh = SubResource("NavigationMesh_seyvw")
 
 [node name="playground" parent="NavigationRegion3D" unique_id=1184370340 instance=ExtResource("5_7qu1s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17804337, 0, -0.311409)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10313797, -0.26226234, 0.34222794)
 
 [node name="NavigationLink3D" type="NavigationLink3D" parent="NavigationRegion3D" unique_id=404365419]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 43, 34)

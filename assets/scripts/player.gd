@@ -95,7 +95,7 @@ const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
 @onready var collider: CollisionShape3D = $Collider
 @onready var hat: RigidBody3D = get_node("../Hat")
 
-@onready var dash_cd: Timer = $Dash_CD
+@onready var dash_cd: Timer = $timers/Dash_CD
 @onready var combo: Timer = %ComboTimer
 @onready var hat_timer: Timer = $timers/HatNoYKillWindow
 @onready var downhill_timer: Timer = $timers/DownhillEndWindow
@@ -159,7 +159,7 @@ func _physics_process(delta: float) -> void:
 	
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	near_wall = (wallcheck.is_colliding())
+	near_wall = (wallcheck.is_colliding() or is_on_wall())
 	
 	if Input.is_action_just_pressed("jump"): jump_buffer = 0.2
 	if jump_buffer > 0.0: jump_buffer -= delta
@@ -213,6 +213,7 @@ func rotate_look(rot_input : Vector2):
 	transform.basis = Basis()
 	rotate_y(look_rotation.y)
 	head.rotation.x = look_rotation.x
+
 
 
 func enable_freefly():
@@ -295,8 +296,11 @@ func slide(delta) -> void:
 			var floor_angle = get_floor_angle()
 			var true_down = Vector3.DOWN.slide(floor_normal).normalized()
 			var slide_dir = slide_velocity.normalized()
-			downhill = slide_dir.dot(true_down) > 0.3
-			if is_on_floor() and floor_angle > 0.26 and downhill:
+			
+			var facing_down = -transform.basis.z.dot(true_down) > 0.1
+			
+			downhill = is_on_floor() and facing_down and slide_dir.dot(true_down) > 0.3 and floor_angle > 0.26  
+			if downhill:
 				var slope_accel = floor_angle * 150.0
 				slide_velocity += slide_dir * (slope_accel * delta)
 					
@@ -312,6 +316,7 @@ func slide(delta) -> void:
 	if slide_velocity.length() <= 2.0:
 		crouch_end()
 	if crouch_end_requested: crouch_end()
+	
 	if !is_on_floor():
 		if downhill_timer.is_stopped(): downhill_timer.start()
 		await downhill_timer.timeout
@@ -325,31 +330,24 @@ func jump(delta) -> void:
 		slide_cooldown = 0.0
 		
 		if (wall_running or near_wall) and not is_on_floor():
+			
+			var current_vel = Vector3(velocity.x, 0, velocity.z).length()
 			var flattened_wall = Vector3(wall_velocity.x, 0.0, wall_velocity.z).length()
-			var launch_speed = clamp(flattened_wall * 1.1, 28.0, 42.0)
+			var launch_speed = clamp(maxf(flattened_wall, current_vel) * 1.5, 30.0, 50.0)
 			var look_dir = -head.global_transform.basis.z
-			var eject_dir = (wall_normal * 1.0 + look_dir * 1.2).normalized()
-			#jump_velocity = (eject_dir * launch_speed) + Vector3(0.0, 12.0, 0.0)
+			var eject_dir = (wall_normal * 1.0 + look_dir * 1.2 + Vector3.UP * 0.6).normalized()
 			walj_velocity = eject_dir * launch_speed
 			walj_velocity.y = 12.0
-			
-			#walj_lockout = 0.05
-			#jump_velocity = Vector3(0.0, 12.0, 0.0)
+
 			wall_velocity = Vector3.ZERO
 			move_velocity = Vector3.ZERO
 			wall_running = false
 			return
 		
-		if slide_velocity.length() > 20.0:
+		if slide_velocity.length() > 40.0:
 			if downhill:
 				jump_force += slide_velocity.length() * 0.4
 				slide_velocity *= 0.6
-			#else:
-				#var slide_speed = slide_velocity.length()
-				#if slide_speed <= 10.0:
-					#jump_force = remap(slide_speed, 0.0, 10.0, 0.0, 12.0)
-				#else:
-					#jump_force = remap(slide_speed, 10.0, 25.0, 12.0, 14.0)
 		
 		elif !dashjump_timer.is_stopped():
 			var launch_speed = 30.0

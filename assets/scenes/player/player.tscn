@@ -1199,6 +1199,7 @@ albedo_color = Color(1, 0, 0.43137255, 1)
 
 [node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "grapple_rope", "sfx", "ghost") groups=["player"]]
 slide_on_ceiling = false
+wall_min_slide_angle = 0.5235988
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
 pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol")
@@ -1224,9 +1225,6 @@ mesh = SubResource("CapsuleMesh_ucva2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_iof21")
 debug_color = Color(18.892157, 0, 18.892157, 1)
-
-[node name="Dash_CD" type="Timer" parent="." unique_id=606288445]
-one_shot = true
 
 [node name="WallChecker" type="ShapeCast3D" parent="." unique_id=1572026001]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -1564,6 +1562,9 @@ autoplay = &"idle"
 
 [node name="timers" type="Node3D" parent="." unique_id=1059074658]
 
+[node name="Dash_CD" type="Timer" parent="timers" unique_id=606288445]
+one_shot = true
+
 [node name="HatNoYKillWindow" type="Timer" parent="timers" unique_id=2065463793]
 wait_time = 0.1
 one_shot = true
@@ -1591,10 +1592,10 @@ ignore_time_scale = true
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="audio" unique_id=1252968103]
 stream = ExtResource("7_5v77c")
 
-[connection signal="timeout" from="Dash_CD" to="." method="_on_dash_cd_timeout"]
 [connection signal="body_entered" from="Head/CameraPivot/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
 [connection signal="animation_finished" from="Head/CameraPivot/WeaponLayer/SubViewport/Hand/AnimationPlayer" to="." method="grapple_animation_finished"]
 [connection signal="animation_finished" from="Head/CameraPivot/WeaponLayer/SubViewport/SwordPlayer" to="." method="_on_sword_player_animation_finished"]
+[connection signal="timeout" from="timers/Dash_CD" to="." method="_on_dash_cd_timeout"]
 [connection signal="timeout" from="timers/ComboTimer" to="." method="_on_combo_timer_timeout"]
 
 [editable path="Head/CameraPivot/WeaponLayer/SubViewport/Hand"]
