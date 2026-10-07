@@ -69,7 +69,7 @@ func _process(delta: float) -> void:
 		else:
 			var strafe_input := Input.get_axis("left", "right")
 			var strafe_factor = 5.0
-			if player.slide_velocity.length() > 2.0 and player.is_on_floor(): strafe_factor = 10.0
+			if (player.slide_velocity.length() > 2.0 or player.current_state == player.state.SLIDING) and player.is_on_floor(): strafe_factor = 10.0
 			elif player.is_on_floor(): strafe_factor = 5.0
 			elif !player.is_on_floor(): strafe_factor = 2.5
 			if strafe_input != 0:

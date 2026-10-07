@@ -1114,50 +1114,6 @@ _data = {
 &"ready": SubResource("Animation_dp6ml")
 }
 
-[sub_resource type="Animation" id="Animation_5v77c"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Sword/SwordPivot/SwordMesh:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_n7aby"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Sword/SwordPivot/SwordMesh:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1, 1.0625, 1.125, 1.1875, 1.25, 1.3125, 1.375, 1.4375, 1.5, 1.5625, 1.625, 1.6875, 1.75, 1.8125, 1.875, 1.9375, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.000561523, 0), Vector3(0, 0.0021484368, 0), Vector3(0, 0.004614259, 0), Vector3(0, 0.0078125, 0), Vector3(0, 0.011596678, 0), Vector3(0, 0.015820313, 0), Vector3(0, 0.020336915, 0), Vector3(0, 0.025, 0), Vector3(0, 0.029663086, 0), Vector3(0, 0.034179688, 0), Vector3(0, 0.03840332, 0), Vector3(0, 0.0421875, 0), Vector3(0, 0.045385744, 0), Vector3(0, 0.047851563, 0), Vector3(0, 0.049438477, 0), Vector3(0, 0.05, 0), Vector3(0, 0.049438477, 0), Vector3(0, 0.047851563, 0), Vector3(0, 0.04538574, 0), Vector3(0, 0.0421875, 0), Vector3(0, 0.038403325, 0), Vector3(0, 0.034179688, 0), Vector3(0, 0.029663086, 0), Vector3(0, 0.025, 0), Vector3(0, 0.020336915, 0), Vector3(0, 0.015820315, 0), Vector3(0, 0.01159668, 0), Vector3(0, 0.007812499, 0), Vector3(0, 0.0046142573, 0), Vector3(0, 0.0021484382, 0), Vector3(0, 0.0005615242, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_wg42c"]
-resource_name = "temp"
-length = 2.0
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0g25m"]
-_data = {
-&"RESET": SubResource("Animation_5v77c"),
-&"idle": SubResource("Animation_n7aby"),
-&"temp": SubResource("Animation_wg42c")
-}
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg42c"]
 cull_mode = 1
 shading_mode = 0
@@ -1218,7 +1174,7 @@ debug_shape_custom_color = Color(1, 1, 1, 1)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 shape = SubResource("CylinderShape3D_nhb04")
-target_position = Vector3(0, -1.5, 0)
+target_position = Vector3(0, -0.5, 0)
 debug_shape_custom_color = Color(0, 1, 1, 1)
 
 [node name="WallCheckLeft" type="RayCast3D" parent="." unique_id=1072597026]
@@ -1361,10 +1317,6 @@ libraries/ = SubResource("AnimationLibrary_i6fpi")
 unique_name_in_owner = true
 root_node = NodePath("")
 libraries/ = SubResource("AnimationLibrary_df3o5")
-
-[node name="Idler" type="AnimationPlayer" parent="Head/CameraPivot/WeaponLayer/SubViewport" unique_id=696808009]
-libraries/ = SubResource("AnimationLibrary_0g25m")
-autoplay = &"idle"
 
 [node name="Visuals" type="Node3D" parent="Head" unique_id=1082375378]
 

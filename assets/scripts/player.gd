@@ -20,6 +20,15 @@ extends CharacterBody3D
 @export_group("components")
 @export var wpn_manager: Node3D
 
+var use_new_controller: bool = true
+
+enum state { WALKING, SLIDING, AIRBORNE, WALL, GRAPPLING }
+var current_state = state.AIRBORNE
+var last_state = state.AIRBORNE
+
+var fall_time := 0.0
+var slide_add_limit = 20.0
+
 
 var base_speed : float = 7.0
 var freefly_speed : float = 30.0
@@ -127,6 +136,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			enable_freefly()
 		else:
 			disable_freefly()
+	
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F2:
+		use_new_controller = !use_new_controller
 
 
 func _physics_process(delta: float) -> void:
@@ -140,43 +152,64 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("reset"): get_tree().reload_current_scene()
 	
-	input_dir = Input.get_vector("left", "right", "forward", "back")
-	move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	near_wall = (wallcheck.is_colliding() or is_on_wall())
-	
 	if Input.is_action_just_pressed("jump"): jump_buffer = 0.2
-	if jump_buffer > 0.0: jump_buffer -= delta
-	
 	if Input.is_action_just_pressed("slide"): slide_buffer = 0.5
-	if slide_buffer > 0.0: slide_buffer -= delta
-	
 	if Input.is_action_just_pressed("dash"): dash_buffer = 0.2
-	if dash_buffer > 0.0: dash_buffer -= delta
 	
-	slide_cooldown = maxf(0.0, slide_cooldown - delta)
+	jump_buffer = maxf(0.0, jump_buffer - delta)
+	slide_buffer = maxf(0.0, slide_buffer - delta)
+	dash_buffer = maxf(0.0, dash_buffer - delta)
 	
-	if iframe_timer > 0.0: iframe_timer -= delta
-	if walj_lockout > 0.0: walj_lockout -= delta
-	if bounce_timer > 0.0: bounce_timer -= delta
-	
-	
-	
-	movestuff(delta)
-	grav(delta)
-	dash(delta)
-	slide(delta)
-	jump(delta)
-	wall(delta)
-	grapplestuff(delta)
-	combatstuff(delta)
-	
-	velocity = move_velocity + jump_velocity + wall_velocity + walj_velocity + dash_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity + kb_velocity
+	if use_new_controller:
+		input_dir = Input.get_vector("left", "right", "forward", "back")
+		move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		
+		match current_state:
+			state.WALKING:
+				walk_process(delta)
+			state.SLIDING:
+				slide_process(delta)
+			state.AIRBORNE:
+				air_process(delta)
+			state.WALL:
+				wall_process(delta)
+			state.GRAPPLING:
+				grapple_process(delta)
+		
+		move_and_slide()
+		
+	else:
+		
+		input_dir = Input.get_vector("left", "right", "forward", "back")
+		move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		near_wall = (wallcheck.is_colliding() or is_on_wall())
+		
+		
+		slide_cooldown = maxf(0.0, slide_cooldown - delta)
+		
+		if iframe_timer > 0.0: iframe_timer -= delta
+		if walj_lockout > 0.0: walj_lockout -= delta
+		if bounce_timer > 0.0: bounce_timer -= delta
+		
+		
+		
+		movestuff(delta)
+		grav(delta)
+		dash(delta)
+		slide(delta)
+		jump(delta)
+		wall(delta)
+		grapplestuff(delta)
+		combatstuff(delta)
+		
+		velocity = move_velocity + jump_velocity + wall_velocity + walj_velocity + dash_velocity + slide_velocity + grapple_velocity + grav_velocity + external_velocity + kb_velocity
 
-	move_and_slide()
+		move_and_slide()
 
-	if wallcheck.is_colliding(): wall_normal = wallcheck.get_collision_normal(0)
-	else: wall_normal = Vector3.ZERO
+		if wallcheck.is_colliding(): wall_normal = wallcheck.get_collision_normal(0)
+		else: wall_normal = Vector3.ZERO
 	
+
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * Settings.sens
 	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-89), deg_to_rad(89))
@@ -184,8 +217,6 @@ func rotate_look(rot_input : Vector2):
 	transform.basis = Basis()
 	rotate_y(look_rotation.y)
 	head.rotation.x = look_rotation.x
-
-
 
 func enable_freefly():
 	collider.disabled = true
@@ -195,6 +226,121 @@ func enable_freefly():
 func disable_freefly():
 	collider.disabled = false
 	freeflying = false
+
+func change_state(new_state) -> void:
+	if new_state == current_state: return
+	
+	last_state = current_state
+	current_state = new_state
+	
+	crouch_end()
+	
+	match current_state:
+		state.SLIDING:
+			enter_slide()
+		state.AIRBORNE:
+			fall_time = 0.0
+
+func walk_process(delta) -> void:
+	var walk_speed = 7.0
+	var accel = 90.0
+	var friction = 70.0
+	
+	if move_dir.length_squared() > 0.0:
+		var target_vel = move_dir * walk_speed
+		velocity.x = move_toward(velocity.x, target_vel.x, accel * delta)
+		velocity.z = move_toward(velocity.z, target_vel.z, accel * delta)
+	
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
+		velocity.z = move_toward(velocity.z, 0.0, friction * delta)
+	
+	if slide_buffer > 0.0:
+		slide_buffer = 0.0
+		change_state(state.SLIDING)
+	
+	if jump_buffer > 0.0:
+		jump_buffer = 0.0
+		velocity.y = 12.0
+		change_state(state.AIRBORNE)
+	
+	if not is_on_floor():
+		change_state(state.AIRBORNE)
+
+func slide_process(delta) -> void:
+	var floor_normal = get_floor_normal()
+	var slope_dot = velocity.normalized().dot(floor_normal)
+	
+	if slope_dot > 0.1:
+		velocity += velocity.normalized() * 35.0 * delta
+	else:
+		
+		var h_vel = Vector2(velocity.x, velocity.z)
+		var current_speed = h_vel.length()
+		var new_speed = move_toward(current_speed, 0.0, 12.0 * delta)
+		if current_speed > 0.0:
+			var h_dir = h_vel / current_speed
+			velocity.x = h_dir.x * new_speed
+			velocity.z = h_dir.y * new_speed
+		
+	if jump_buffer > 0.0 and is_on_floor():
+		
+		jump_buffer = 0.0
+		velocity.y = remap(velocity.length(), 0.0, 50.0, 6.0, 14.0)
+		if velocity.length() < slide_add_limit:
+			velocity.x *= 1.01
+			velocity.z *= 1.01
+		
+		change_state(state.AIRBORNE)
+	
+	var hspeed = Vector3(velocity.x, 0.0, velocity.z).length()
+	if hspeed < 3.0:
+		change_state(state.WALKING)
+	
+	if not is_on_floor():
+		change_state(state.AIRBORNE)
+
+func air_process(delta) -> void:
+	
+	fall_time += delta
+	var gravity = 14.0 * pow(1.7, fall_time)
+	velocity.y -= gravity * delta
+	
+	var h_vel = Vector2(velocity.x, velocity.z)
+	var current_hspeed = h_vel.length()
+	
+	if move_dir.length_squared() > 0.0 and abs(move_dir.dot(velocity.normalized())) < 0.6:
+		var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
+		
+		if current_hspeed > 12.0:
+			var current_h_dir = h_vel / current_hspeed
+			var new_h_dir = current_h_dir.slerp(target_h_dir, 1.0 * delta)
+			h_vel = new_h_dir * current_hspeed
+			
+			
+	var air_drag = 0.1
+	h_vel = lerp(h_vel, Vector2.ZERO, air_drag * delta)
+	velocity.x = h_vel.x
+	velocity.z = h_vel.y
+
+		
+	if is_on_floor():
+		change_state(state.WALKING)
+
+func wall_process(delta) -> void:
+	pass
+
+func grapple_process(delta) -> void:
+	pass
+
+func enter_slide() -> void:
+	var slide_dir = move_dir if move_dir != Vector3.ZERO else -transform.basis.z
+	var current_hspeed = Vector3(velocity.x, 0.0, velocity.z).length()
+	var launch_speed = current_hspeed + maxf(12.0, current_hspeed * 0.2)
+	
+	velocity.x = slide_dir.x * launch_speed
+	velocity.z = slide_dir.z * launch_speed
+	crouch_start()
 
 
 func movestuff(delta) -> void:
