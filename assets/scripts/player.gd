@@ -21,6 +21,7 @@ extends CharacterBody3D
 @export var wpn_manager: Node3D
 
 var use_new_controller: bool = true
+var use_debug_cam: bool = false
 
 enum state { WALKING, SLIDING, AIRBORNE, WALL, GRAPPLING }
 var current_state = state.AIRBORNE
@@ -28,6 +29,7 @@ var last_state = state.AIRBORNE
 
 var fall_time := 0.0
 var slide_add_limit = 10.0
+var w_data : Dictionary = {}
 
 
 var base_speed : float = 7.0
@@ -100,6 +102,7 @@ const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
 @onready var hat: RigidBody3D = get_node("../Hat")
+@onready var camera: Camera3D = %Camera3D
 
 @onready var dash_cd: Timer = %Dash_CD
 @onready var hat_timer: Timer = %HatNoYKillWindow
@@ -114,7 +117,7 @@ const tracerP = preload("res://assets/scenes/player/tracer_pistol.tscn")
 @onready var wallcheck_l: RayCast3D = %WallCheckLeft
 @onready var ceilingcheck: ShapeCast3D = %CeilingChecker
 
-
+@onready var debug_cam = %DebugCam
 @onready var outline_filter = %Filter
 
 func _ready() -> void:
@@ -139,9 +142,20 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_F2:
 		use_new_controller = !use_new_controller
+		
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F3:
+		use_debug_cam = !use_debug_cam
 
 
 func _physics_process(delta: float) -> void:
+	
+	debug_cam.current = use_debug_cam
+	camera.current = !use_debug_cam
+	collider.visible = use_debug_cam
+	wallcheck.visible = use_debug_cam
+	wallcheck_r.visible = use_debug_cam
+	wallcheck_l.visible = use_debug_cam
+	ceilingcheck.visible = use_debug_cam
 	
 	if can_freefly and freeflying:
 		input_dir = Input.get_vector("left", "right", "forward", "back")
@@ -163,6 +177,11 @@ func _physics_process(delta: float) -> void:
 	if use_new_controller:
 		input_dir = Input.get_vector("left", "right", "forward", "back")
 		move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		w_data = _fetch_normal()
+		near_wall = w_data.valid and !is_on_floor()
+		
+		wallcheck_l.enabled = (jump_buffer <= 0.0)
+		wallcheck_r.enabled = (jump_buffer <= 0.0)
 		
 		match current_state:
 			state.WALKING:
@@ -327,7 +346,7 @@ func air_process(delta) -> void:
 				
 				if current_hspeed > 0.0:
 					var current_h_dir = h_vel / current_hspeed
-					var factor = 1.0
+					var factor = 2.0
 					var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta)
 					h_vel = new_h_dir * current_hspeed
 		
@@ -348,9 +367,67 @@ func air_process(delta) -> void:
 	if is_on_floor():
 		change_state(state.WALKING)
 		return
+	
+	if near_wall:
+		change_state(state.WALL)
+		return
 
 func wall_process(delta) -> void:
-	pass
+	
+	if not near_wall or is_on_floor():
+		change_state(state.AIRBORNE)
+		return
+	
+	velocity.y = 0.0
+	
+	var w_normal = w_data.normal
+	
+	var h_vel = Vector2(velocity.x, velocity.z)
+	var speed = h_vel.length()
+	
+	var projected_3d = velocity.slide(w_normal)
+	var projected_h = Vector2(projected_3d.x, projected_3d.z).normalized()
+	
+	var tangent_3d = w_normal.cross(Vector3.UP).normalized()
+	var look_dir = -transform.basis.z
+	var look_h = Vector2(look_dir.x, look_dir.z)
+	
+	if look_h.dot(Vector2(tangent_3d.x, tangent_3d.z)) < 0.0:
+		tangent_3d = -tangent_3d
+	
+	var tangent_h = Vector2(tangent_3d.x, tangent_3d.z)
+	
+	var final_h_dir = projected_h.slerp(tangent_h, 8.0 * delta).normalized()
+	var sticky_force = -w_normal * 2.0
+	
+	var target_speed = speed
+	
+	if move_dir.length_squared() == 0.0 or move_dir.dot(velocity.normalized()) < -0.3:
+		target_speed = move_toward(speed, 0.0, 45.0 * delta)
+	else:
+		target_speed *= exp(-0.4 * delta)
+	
+	var final_h_vel = final_h_dir * target_speed
+	
+	velocity.x = final_h_vel.x + sticky_force.x
+	velocity.z = final_h_vel.y + sticky_force.z
+	
+	velocity.y = move_toward(velocity.y, -1.5, 4.0 * delta)
+	
+	if jump_buffer > 0.0:
+		
+		jump_buffer = 0.0
+		
+		var eject_h = (w_normal * 1.3 + Vector3(look_dir.x, 0.0, look_dir.z) * 0.9).normalized()
+		var launch_speed = clampf(speed * 1.2, 22.0, 42.0)
+		
+		velocity.x = eject_h.x * launch_speed
+		velocity.z = eject_h.z * launch_speed
+		velocity.y = launch_speed * 0.5
+		
+		change_state(state.AIRBORNE)
+		return
+	
 
 func grapple_process(delta) -> void:
 	pass
@@ -364,6 +441,16 @@ func enter_slide() -> void:
 	velocity.z = slide_dir.z * launch_speed
 	crouch_start()
 
+func _fetch_normal() -> Dictionary:
+	if wallcheck.is_colliding():
+		return {"valid": true, "normal": wallcheck.get_collision_normal(0)}
+	
+	if jump_buffer <= 0.0:
+		if wallcheck_l.is_colliding():
+			return {"valid": true, "normal": wallcheck_l.get_collision_normal()}
+		if wallcheck_r.is_colliding():
+			return {"valid": true, "normal": wallcheck_r.get_collision_normal()}
+	return {"valid": false, "normal": Vector3.ZERO}
 
 func movestuff(delta) -> void:
 	if walj_lockout > 0.0:
@@ -633,7 +720,7 @@ func grapplestuff(delta) -> void:
 		if is_on_floor() and abs(grapple_velocity.y) >= 0.0 and hat_timer.time_left <= 0.0: grapple_velocity.y = 0
 
 func grap_start() -> void:
-	var target = PhysUtil.raycast_from_cam(%Camera3D, 200.0, [get_rid()], Vector3.ZERO, true, 4)
+	var target = PhysUtil.raycast_from_cam(camera, 200.0, [get_rid()], Vector3.ZERO, true, 4)
 	if target and (target.collider.global_position - global_position).length() > 10.0:
 		print(target.collider)
 		if target.collider.is_in_group("grapple"):

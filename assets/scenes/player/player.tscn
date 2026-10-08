@@ -25,10 +25,11 @@ radius = 0.4
 height = 1.8
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_seyvw"]
-height = 0.5
+height = 0.75
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nhb04"]
 height = 1.0
+radius = 0.25
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y2pyw"]
 render_priority = 0
@@ -87,7 +88,7 @@ bottom_radius = 0.1
 radial_segments = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
-size = Vector3(2, 2, 5)
+size = Vector3(2, 1, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(1, 1.2, 3.5)
@@ -1137,7 +1138,7 @@ stencil_flags = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "grapple_rope", "sfx", "wpn_manager") groups=["player"]]
 slide_on_ceiling = false
-wall_min_slide_angle = 0.5235988
+wall_min_slide_angle = 3.1415927
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
 pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol")
@@ -1153,6 +1154,7 @@ wpn_manager = NodePath("WeaponManager")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=762445280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+visible = false
 layers = 262144
 material_override = SubResource("StandardMaterial3D_iof21")
 cast_shadow = 0
@@ -1165,27 +1167,27 @@ debug_color = Color(18.892157, 0, 18.892157, 1)
 
 [node name="WallChecker" type="ShapeCast3D" parent="." unique_id=1572026001]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.75, -1.9936124e-09)
 shape = SubResource("CylinderShape3D_seyvw")
-target_position = Vector3(0, 0, 0)
+target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(1, 1, 1, 1)
 
 [node name="CeilingChecker" type="ShapeCast3D" parent="." unique_id=1193824407]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 2, -1.9936124e-09)
 shape = SubResource("CylinderShape3D_nhb04")
-target_position = Vector3(0, -0.5, 0)
+target_position = Vector3(0, -0.75, 0)
 debug_shape_custom_color = Color(0, 1, 1, 1)
 
 [node name="WallCheckLeft" type="RayCast3D" parent="." unique_id=1072597026]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-target_position = Vector3(-1, 0, 0)
+target_position = Vector3(-1.5, 0, 0)
 
 [node name="WallCheckRight" type="RayCast3D" parent="." unique_id=477660948]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-target_position = Vector3(1, 0, 0)
+target_position = Vector3(1.5, 0, 0)
 
 [node name="Head" type="Node3D" parent="." unique_id=243913613 node_paths=PackedStringArray("player", "camera", "shake", "wpns_cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -1203,8 +1205,8 @@ wpns_cam = NodePath("CameraPivot/WeaponLayer/SubViewport/WpnCam")
 transform = Transform3D(0.6131046, -0.33779073, 6.3329935e-08, 0.32597977, 0.5916672, -0.18348615, 0.088542774, 0.16070889, 0.67552406, 0.40349558, -0.31146443, -1.6734045)
 
 [node name="DebugCam" type="Camera3D" parent="Head/CameraPivot" unique_id=2044831973]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 2.9999998, 3)
-current = true
 fov = 90.0
 size = 5.0
 
@@ -1235,7 +1237,7 @@ unique_name_in_owner = true
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/ParryHitbox" unique_id=1315296259]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -0.5)
 shape = SubResource("BoxShape3D_nhb04")
 debug_color = Color(1, 0, 0, 0.41960785)
 
