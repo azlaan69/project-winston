@@ -28,9 +28,10 @@ var current_state = state.AIRBORNE
 var last_state = state.AIRBORNE
 
 var fall_time := 0.0
-var slide_add_limit = 10.0
-var w_data : Dictionary = {}
-
+var slide_add_limit := 10.0
+var w_data := {"valid": false, "normal": Vector3.ZERO}
+var last_w_normal := Vector3.ZERO
+var normal_valid := false
 
 var base_speed : float = 7.0
 var freefly_speed : float = 30.0
@@ -151,11 +152,6 @@ func _physics_process(delta: float) -> void:
 	
 	debug_cam.current = use_debug_cam
 	camera.current = !use_debug_cam
-	collider.visible = use_debug_cam
-	wallcheck.visible = use_debug_cam
-	wallcheck_r.visible = use_debug_cam
-	wallcheck_l.visible = use_debug_cam
-	ceilingcheck.visible = use_debug_cam
 	
 	if can_freefly and freeflying:
 		input_dir = Input.get_vector("left", "right", "forward", "back")
@@ -169,6 +165,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"): jump_buffer = 0.2
 	if Input.is_action_just_pressed("slide"): slide_buffer = 0.5
 	if Input.is_action_just_pressed("dash"): dash_buffer = 0.2
+	if Input.is_action_just_pressed("grapple"):
+		if not grappling:
+			grap_start()
+		else:
+			change_state(state.AIRBORNE)
 	
 	jump_buffer = maxf(0.0, jump_buffer - delta)
 	slide_buffer = maxf(0.0, slide_buffer - delta)
@@ -177,11 +178,15 @@ func _physics_process(delta: float) -> void:
 	if use_new_controller:
 		input_dir = Input.get_vector("left", "right", "forward", "back")
 		move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		
 		w_data = _fetch_normal()
 		near_wall = w_data.valid and !is_on_floor()
 		
 		wallcheck_l.enabled = (jump_buffer <= 0.0)
 		wallcheck_r.enabled = (jump_buffer <= 0.0)
+		
+		var reel_speed = 50.0 if current_state == state.GRAPPLING else 40.0
+		grapple_rope.scale = grapple_rope.scale.move_toward(Vector3(1, 1, grap_scale), reel_speed * delta)
 		
 		match current_state:
 			state.WALKING:
@@ -229,22 +234,6 @@ func _physics_process(delta: float) -> void:
 		else: wall_normal = Vector3.ZERO
 	
 
-func rotate_look(rot_input : Vector2):
-	look_rotation.x -= rot_input.y * Settings.sens
-	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-89), deg_to_rad(89))
-	look_rotation.y -= rot_input.x * Settings.sens
-	transform.basis = Basis()
-	rotate_y(look_rotation.y)
-	head.rotation.x = look_rotation.x
-
-func enable_freefly():
-	collider.disabled = true
-	freeflying = true
-	velocity = Vector3.ZERO
-
-func disable_freefly():
-	collider.disabled = false
-	freeflying = false
 
 func change_state(new_state) -> void:
 	if new_state == current_state: return
@@ -252,13 +241,20 @@ func change_state(new_state) -> void:
 	last_state = current_state
 	current_state = new_state
 	
+	grappling = false
+	grap_scale = 0
+	
 	crouch_end()
 	
 	match current_state:
+		state.WALKING:
+			last_w_normal = Vector3.ZERO
 		state.SLIDING:
 			enter_slide()
 		state.AIRBORNE:
 			fall_time = 0.0
+		state.GRAPPLING:
+			grap_start()
 
 func walk_process(delta) -> void:
 	var walk_speed = 7.0
@@ -311,7 +307,7 @@ func slide_process(delta) -> void:
 		var h_vel = Vector2(velocity.x, velocity.z)
 		var h_speed = h_vel.length()
 		var h_dir = h_vel / h_speed
-		var capped_speed = minf(h_speed + 2.0, 30.0)
+		var capped_speed = h_speed + 0.2
 		
 		velocity.x = capped_speed * h_dir.x
 		velocity.z = capped_speed * h_dir.y 
@@ -340,7 +336,7 @@ func air_process(delta) -> void:
 	var current_hspeed = h_vel.length()
 	
 	if move_dir.length_squared() > 0.0:
-		if last_state == state.SLIDING:
+		if last_state == state.SLIDING or last_state == state.WALL:
 			if abs(move_dir.dot(velocity.normalized())) < 0.9:
 				var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
 				
@@ -375,6 +371,7 @@ func air_process(delta) -> void:
 func wall_process(delta) -> void:
 	
 	if not near_wall or is_on_floor():
+		last_w_normal = Vector3.ZERO
 		change_state(state.AIRBORNE)
 		return
 	
@@ -398,14 +395,14 @@ func wall_process(delta) -> void:
 	var tangent_h = Vector2(tangent_3d.x, tangent_3d.z)
 	
 	var final_h_dir = projected_h.slerp(tangent_h, 8.0 * delta).normalized()
-	var sticky_force = -w_normal * 2.0
+	var sticky_force = -w_normal * 1.0
 	
 	var target_speed = speed
 	
 	if move_dir.length_squared() == 0.0 or move_dir.dot(velocity.normalized()) < -0.3:
-		target_speed = move_toward(speed, 0.0, 45.0 * delta)
+		target_speed = move_toward(speed, 0.0, 60.0 * delta)
 	else:
-		target_speed *= exp(-0.4 * delta)
+		target_speed *= exp(-0.2 * delta)
 	
 	var final_h_vel = final_h_dir * target_speed
 	
@@ -417,6 +414,7 @@ func wall_process(delta) -> void:
 	if jump_buffer > 0.0:
 		
 		jump_buffer = 0.0
+		last_w_normal = w_normal
 		
 		var eject_h = (w_normal * 1.3 + Vector3(look_dir.x, 0.0, look_dir.z) * 0.9).normalized()
 		var launch_speed = clampf(speed * 1.2, 22.0, 42.0)
@@ -430,7 +428,50 @@ func wall_process(delta) -> void:
 	
 
 func grapple_process(delta) -> void:
-	pass
+	if jump_buffer > 0.0 or not grappling:
+		jump_buffer = 0.0
+		velocity.y = maxf(velocity.y + 4.0, 10.0)
+		change_state(state.AIRBORNE)
+		return
+	
+	if is_instance_valid(grap_node):
+		grap_pos = grap_node.global_position
+	
+	var to_anchor = grap_pos - global_position
+	var current_dist = to_anchor.length()
+	var rope_dir = to_anchor.normalized()
+	
+	if current_dist < 5.0:
+		change_state(state.AIRBORNE)
+		return
+
+	var pull_speed = 35.0
+	
+	if input_dir.y < -0.1:
+		pull_speed = 45.0
+		
+	grap_scale = move_toward(grap_scale, 4.0, pull_speed * delta)
+	
+	var inward_speed = velocity.dot(rope_dir)
+	if inward_speed < pull_speed:
+		velocity += rope_dir * (pull_speed * 1.5) * delta
+	
+	if move_dir.length_squared() != 0.0:
+		
+		var swing_tangent = move_dir.slide(rope_dir).normalized()
+		velocity += swing_tangent * 50.0 * delta
+	
+	if current_dist > grap_scale:
+		global_position = grap_pos - (rope_dir * grap_scale)
+		var vel_outward = velocity.dot(-rope_dir)
+		if vel_outward > 0.0:
+			velocity += rope_dir * vel_outward
+	
+	velocity.y -= 18.0 * delta
+	velocity *= exp(-0.3 * delta)
+	
+	grapple_rope.look_at(grap_pos)
+
 
 func enter_slide() -> void:
 	var slide_dir = move_dir if move_dir != Vector3.ZERO else -transform.basis.z
@@ -442,15 +483,59 @@ func enter_slide() -> void:
 	crouch_start()
 
 func _fetch_normal() -> Dictionary:
+	
+	var normal = Vector3.ZERO
+	var found = false
+	
 	if wallcheck.is_colliding():
-		return {"valid": true, "normal": wallcheck.get_collision_normal(0)}
+		found = true
+		normal = wallcheck.get_collision_normal(0)
 	
 	if jump_buffer <= 0.0:
 		if wallcheck_l.is_colliding():
-			return {"valid": true, "normal": wallcheck_l.get_collision_normal()}
+			found = true
+			normal = wallcheck_l.get_collision_normal()
 		if wallcheck_r.is_colliding():
-			return {"valid": true, "normal": wallcheck_r.get_collision_normal()}
+			found = true
+			normal = wallcheck_r.get_collision_normal()
+	
+	if found:
+		var flat_norm = Vector3(normal.x, 0.0, normal.z).normalized()
+		
+		if _check_normal(flat_norm):
+			return {"valid": true, "normal": flat_norm}
+	
 	return {"valid": false, "normal": Vector3.ZERO}
+
+func _check_normal(normal: Vector3) -> bool:
+	if normal == Vector3.ZERO: return false
+	
+	var flat_detected := Vector3(normal.x, 0.0, normal.z).normalized()
+	var flat_last := Vector3(last_w_normal.x, 0.0, last_w_normal.z).normalized()
+	
+	if last_w_normal != Vector3.ZERO and flat_detected.dot(flat_last) > 0.9:
+		return false
+	
+	return true
+
+
+func rotate_look(rot_input : Vector2):
+	look_rotation.x -= rot_input.y * Settings.sens
+	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-89), deg_to_rad(89))
+	head.rotation.x = look_rotation.x
+	
+	var yaw_delta = -rot_input.x * Settings.sens
+	rotate_y(yaw_delta)
+
+func enable_freefly():
+	collider.disabled = true
+	freeflying = true
+	velocity = Vector3.ZERO
+
+func disable_freefly():
+	collider.disabled = false
+	freeflying = false
+
 
 func movestuff(delta) -> void:
 	if walj_lockout > 0.0:
@@ -721,12 +806,14 @@ func grapplestuff(delta) -> void:
 
 func grap_start() -> void:
 	var target = PhysUtil.raycast_from_cam(camera, 200.0, [get_rid()], Vector3.ZERO, true, 4)
-	if target and (target.collider.global_position - global_position).length() > 10.0:
-		print(target.collider)
-		if target.collider.is_in_group("grapple"):
+	if target:
+		var dist_vec = target.collider.global_position - global_position
+		if target.collider.is_in_group("grapple") and dist_vec.length() > 6.0:
 			grappling = true
+			grap_scale = dist_vec.length()
 			grap_pos = target.position
 			grap_node = target.collider
+			change_state(state.GRAPPLING)
 			return
 	
 	grap_stop()
