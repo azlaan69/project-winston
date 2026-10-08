@@ -341,7 +341,7 @@ func air_process(delta) -> void:
 	
 	if move_dir.length_squared() > 0.0:
 		if last_state == state.SLIDING:
-			if abs(move_dir.dot(velocity.normalized())) < 0.6:
+			if abs(move_dir.dot(velocity.normalized())) < 0.9:
 				var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
 				
 				if current_hspeed > 0.0:
