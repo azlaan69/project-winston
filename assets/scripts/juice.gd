@@ -45,8 +45,8 @@ func _process(delta: float) -> void:
 		var factor2 = 1.0 if (player.is_on_floor() and !player.crouching) else 0.2
 		bob_time += delta * clamp(player.velocity.length(), 0.0, 15.0) * factor2
 		camera.transform.origin = Vector3(
-			cos(bob_time * 2.0 * 0.5) * 0.1 * factor,
-			sin(bob_time * 2.0) * 0.1 * factor,
+			cos(bob_time * 1.0 * 0.5) * 0.1 * factor,
+			sin(bob_time * 1.0) * 0.1 * factor,
 			0.0
 		)
 		wpns_cam.transform.origin = Vector3(

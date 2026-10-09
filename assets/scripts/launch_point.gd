@@ -7,6 +7,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player") and cooldown <= 0.0:
-		var launchdir = global_transform.basis.y.normalized()
+		var launchdir = Vector3.UP
 		body.kb_add(30.0, launchdir)
-		cooldown = 0.1
+		cooldown = 2.0

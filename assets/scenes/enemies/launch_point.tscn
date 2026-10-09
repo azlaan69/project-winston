@@ -1,15 +1,21 @@
 [gd_scene format=3 uid="uid://bfhhq4f0ewqyr"]
 
 [ext_resource type="Script" uid="uid://tswcwwphp6m3" path="res://assets/scripts/launch_point.gd" id="1_d8lth"]
+[ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="2_bkdy3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
-size = Vector3(20, 1, 20)
+size = Vector3(8, 1, 8)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vseqf"]
-albedo_color = Color(0, 1, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hewmy"]
+next_pass = ExtResource("2_bkdy3")
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0, 0.6431373, 1, 1)
 emission_enabled = true
-emission = Color(0, 0.87690145, 1.353256, 1)
+emission = Color(0, 0.6431373, 1, 1)
 emission_energy_multiplier = 4.0
+stencil_mode = 3
+stencil_flags = 2
 
 [node name="LaunchPoint" type="Area3D" unique_id=1238854364]
 collision_layer = 8
@@ -22,8 +28,8 @@ debug_color = Color(1, 0, 0.69803923, 1)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=2034959741]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.5, -1.9936124e-09)
-radius = 10.0
+radius = 6.0
 height = 1.0
-material = SubResource("StandardMaterial3D_vseqf")
+material = SubResource("StandardMaterial3D_hewmy")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

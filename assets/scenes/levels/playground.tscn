@@ -365,8 +365,8 @@ smooth_faces = false
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1043787089]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 6, 1, -13)
-size = Vector3(20, 10, 2)
+size = Vector3(20, 15, 2)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1080223193]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, -15, -2, -33)
-size = Vector3(20, 10, 2)
+size = Vector3(20, 15, 2)

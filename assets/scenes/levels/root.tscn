@@ -181,3 +181,6 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 132.5, 9, 85)
 
 [node name="LaunchPoint" parent="." unique_id=1238854364 instance=ExtResource("10_ocygg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 41, -25)
+
+[node name="LaunchPoint2" parent="." unique_id=1012566716 instance=ExtResource("10_ocygg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 41, -25)

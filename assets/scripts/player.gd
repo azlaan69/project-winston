@@ -33,6 +33,8 @@ var w_data := {"valid": false, "normal": Vector3.ZERO}
 var last_w_normal := Vector3.ZERO
 var normal_valid := false
 
+var knockback_velocity := Vector3.ZERO
+
 var base_speed : float = 7.0
 var freefly_speed : float = 30.0
 
@@ -165,11 +167,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"): jump_buffer = 0.2
 	if Input.is_action_just_pressed("slide"): slide_buffer = 0.5
 	if Input.is_action_just_pressed("dash"): dash_buffer = 0.2
-	if Input.is_action_just_pressed("grapple"):
-		if not grappling:
-			grap_start()
-		else:
-			change_state(state.AIRBORNE)
 	
 	jump_buffer = maxf(0.0, jump_buffer - delta)
 	slide_buffer = maxf(0.0, slide_buffer - delta)
@@ -179,6 +176,12 @@ func _physics_process(delta: float) -> void:
 		input_dir = Input.get_vector("left", "right", "forward", "back")
 		move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		
+		if Input.is_action_just_pressed("grapple"):
+			if not grappling:
+				grap_start()
+			else:
+				grap_stop()
+		
 		w_data = _fetch_normal()
 		var look_dot = -transform.basis.z.dot(w_data.normal)
 		near_wall = w_data.valid and !is_on_floor() and look_dot > -0.85 and look_dot < 0.35
@@ -186,8 +189,11 @@ func _physics_process(delta: float) -> void:
 		wallcheck_l.enabled = (jump_buffer <= 0.0)
 		wallcheck_r.enabled = (jump_buffer <= 0.0)
 		
-		var reel_speed = 50.0 if current_state == state.GRAPPLING else 40.0
+		var reel_speed = 100.0 if grappling else 60.0
 		grapple_rope.scale = grapple_rope.scale.move_toward(Vector3(1, 1, grap_scale), reel_speed * delta)
+		grapple_rope.visible = (grapple_rope.scale.z != 0.0)
+		
+		var kb_decay = 12.0
 		
 		match current_state:
 			state.WALKING:
@@ -201,7 +207,13 @@ func _physics_process(delta: float) -> void:
 			state.GRAPPLING:
 				grapple_process(delta)
 		
+		var total_velocity = velocity + knockback_velocity
+		velocity = total_velocity
+		
 		move_and_slide()
+		
+		velocity -= knockback_velocity
+		knockback_velocity = knockback_velocity.move_toward(Vector3.ZERO, knockback_velocity.length() * kb_decay * delta)
 		
 	else:
 		
@@ -242,9 +254,7 @@ func change_state(new_state) -> void:
 	last_state = current_state
 	current_state = new_state
 	
-	grappling = false
-	grap_scale = 0
-	
+	grap_stop()
 	crouch_end()
 	
 	match current_state:
@@ -258,7 +268,7 @@ func change_state(new_state) -> void:
 			grap_start()
 
 func walk_process(delta) -> void:
-	var walk_speed = 7.0
+	var walk_speed = 12.0
 	var accel = 90.0
 	var friction = 50.0 if (last_state == state.SLIDING or last_state == state.AIRBORNE) else 70.0
 	
@@ -333,24 +343,24 @@ func air_process(delta) -> void:
 	fall_time += delta
 	var gravity = 14.0 * pow(1.7, fall_time)
 	velocity.y -= gravity * delta
+	velocity.y = maxf(-999.0, velocity.y)
 	
 	var h_vel = Vector2(velocity.x, velocity.z)
 	var current_hspeed = h_vel.length()
 	
 	if move_dir.length_squared() > 0.0:
-		if last_state == state.SLIDING or last_state == state.WALL or last_state == state.GRAPPLING:
+		if current_hspeed > 5.0:
+			var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
+			
 			if abs(move_dir.dot(velocity.normalized())) < 0.9:
-				var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
-				
-				if current_hspeed > 0.0:
-					var current_h_dir = h_vel / current_hspeed
-					var factor = 1.5
-					var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta)
-					h_vel = new_h_dir * current_hspeed
+				var current_h_dir = h_vel / current_hspeed
+				var factor = 1.5
+				var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta)
+				h_vel = new_h_dir * current_hspeed
 		
 		else:
 			var air_accel = 40.0
-			var air_cap = 12.0
+			var air_cap = maxf(velocity.length(), 12.0)
 			
 			var target_h_vel = Vector2(move_dir.x, move_dir.z).normalized() * air_cap
 			h_vel = h_vel.move_toward(target_h_vel, air_accel * delta)
@@ -428,7 +438,7 @@ func wall_process(delta) -> void:
 	
 
 func grapple_process(delta) -> void:
-	if jump_buffer > 0.0 or not grappling:
+	if jump_buffer > 0.0:
 		jump_buffer = 0.0
 		velocity.y = maxf(velocity.y + 4.0, 10.0)
 		change_state(state.AIRBORNE)
@@ -441,24 +451,28 @@ func grapple_process(delta) -> void:
 	var current_dist = to_anchor.length()
 	var rope_dir = to_anchor.normalized()
 	
-	if current_dist < 10.0:
+	var dist_threshold = 8.0 if !grap_node else 1.0
+	
+	if current_dist < dist_threshold or not grappling:
 		change_state(state.AIRBORNE)
 		return
 
-	var target_dir = rope_dir
-	var pull_speed = maxf(40.0, velocity.length())
+	var target_dir = rope_dir 
+	var pull_speed = maxf(40.0, velocity.length() - 0.2 * delta)
 	
-	if move_dir.length() > 0.0:
-		var swing_tangent = move_dir.slide(rope_dir).normalized()
-		target_dir = (rope_dir + swing_tangent * 2.0).normalized()
+	if absf(input_dir.x) > 0.1:
+		var swing_tangent = (transform.basis.x * input_dir.x).normalized()
+		target_dir = (rope_dir + swing_tangent).normalized()
 	
 	if input_dir.y < -0.1:
-		pull_speed += 15.0 * delta
+		pull_speed += 25.0 * delta
+	elif input_dir.y > 0.1:
+		pull_speed = maxf(20.0, pull_speed - 20.0 * delta)
 	
 	velocity = velocity.move_toward(target_dir * pull_speed, 120.0 * delta)
 	
 	grapple_rope.look_at(grap_pos)
-	grap_scale = move_toward(grap_scale, 4.0, pull_speed * delta)
+	grap_scale = current_dist
 
 func enter_slide() -> void:
 	var slide_dir = move_dir if move_dir != Vector3.ZERO else -transform.basis.z
@@ -478,14 +492,14 @@ func _fetch_normal() -> Dictionary:
 		found = true
 		normal = wallcheck.get_collision_normal(0)
 	
-	if jump_buffer <= 0.0:
-		if wallcheck_l.is_colliding():
-			found = true
-			normal = wallcheck_l.get_collision_normal()
-		if wallcheck_r.is_colliding():
-			found = true
-			normal = wallcheck_r.get_collision_normal()
-	
+	#if jump_buffer <= 0.0:
+		#if wallcheck_l.is_colliding():
+			#found = true
+			#normal = wallcheck_l.get_collision_normal()
+		#if wallcheck_r.is_colliding():
+			#found = true
+			#normal = wallcheck_r.get_collision_normal()
+	#
 	if found:
 		var flat_norm = Vector3(normal.x, 0.0, normal.z).normalized()
 		
@@ -505,6 +519,13 @@ func _check_normal(normal: Vector3) -> bool:
 	
 	return true
 
+func add_impulse(impulse: float, dir: Vector3) -> void:
+	if dir.length_squared() == 0.0:
+		dir = transform.basis.z
+	if dir.normalized().dot(Vector3.UP) > 0.7:
+		velocity.y = maxf(0.0, velocity.y)
+		current_state = state.WALKING
+	velocity += impulse * dir.normalized()
 
 func rotate_look(rot_input : Vector2):
 	look_rotation.x -= rot_input.y * Settings.sens
@@ -809,6 +830,7 @@ func grap_stop() -> void:
 	grappling = false
 	grap_node = null
 	grap_scale = 0.0
+	grap_pos = Vector3.ZERO
 	if (anim_funny.current_animation == "pointhold" or anim_funny.current_animation == "pointstart"): anim_funny.play("pointend")
 
 func combatstuff(delta) -> void:
@@ -844,6 +866,7 @@ func kb_add(kb: float, dir: Vector3) -> void:
 	juice.add_trauma(0.1)
 	bounce_timer = 0.5
 	grav_velocity = Vector3.ZERO
+	if use_new_controller: add_impulse(kb, dir)
 
 func parry_state(yes: bool = false) -> void:
 	wpn_manager.parry_state(yes)

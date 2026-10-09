@@ -3,43 +3,32 @@
 [ext_resource type="Script" uid="uid://cm740uabr8twg" path="res://assets/scripts/helper/settings_menu.gd" id="1_wqr00"]
 [ext_resource type="Theme" uid="uid://c8tpo5girt22e" path="res://assets/themes/theme1.tres" id="2_p33p1"]
 [ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="3_3buot"]
+[ext_resource type="FontFile" uid="uid://cghxj8c3cj86b" path="res://assets/fonts/Ethnocentric-Regular.otf" id="3_p33p1"]
+[ext_resource type="FontFile" uid="uid://c5dur021isqa" path="res://assets/fonts/Xolonium-Regular.ttf" id="4_3buot"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_seyvw"]
-font = ExtResource("3_3buot")
-font_size = 32
-outline_size = 5
+[sub_resource type="LabelSettings" id="LabelSettings_3buot"]
+font = ExtResource("3_p33p1")
+font_size = 70
+font_color = Color(0.7936079, 0, 0.33622095, 1)
+outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
+stacked_shadow_count = 1
 
-[sub_resource type="LabelSettings" id="LabelSettings_vsmvd"]
-font = ExtResource("3_3buot")
-font_size = 20
-outline_size = 5
+[sub_resource type="LabelSettings" id="LabelSettings_p33p1"]
+font = ExtResource("3_p33p1")
+font_size = 70
+font_color = Color(0, 0.87058824, 1, 1)
+outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_uum53"]
-font = ExtResource("3_3buot")
-font_size = 20
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 5
-shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_vseqf"]
-font = ExtResource("3_3buot")
-font_size = 20
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 5
-shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_ocygg"]
-font = ExtResource("3_3buot")
-font_size = 18
-outline_size = 5
+font = ExtResource("4_3buot")
+font_size = 28
+outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
@@ -75,17 +64,34 @@ offset_right = 288.0
 offset_bottom = 467.0
 grow_horizontal = 2
 
-[node name="IntroText" type="Label" parent="Control/VBoxContainer" unique_id=1563028315]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=1706890324]
+custom_minimum_size = Vector2(0, 72)
+clip_contents = true
+layout_mode = 2
+alignment = 1
+
+[node name="IntroText" type="Label" parent="Control/VBoxContainer/HBoxContainer" unique_id=1563028315]
 z_index = 1
 layout_mode = 2
-text = "REDSHIFT PLAYTEST 
-0.3.5 (WIP)"
-label_settings = SubResource("LabelSettings_seyvw")
+text = "RED"
+label_settings = SubResource("LabelSettings_3buot")
+
+[node name="IntroText2" type="Label" parent="Control/VBoxContainer/HBoxContainer" unique_id=53998428]
+z_index = 1
+layout_mode = 2
+text = "SHIFT"
+label_settings = SubResource("LabelSettings_p33p1")
+
+[node name="IntroText3" type="Label" parent="Control/VBoxContainer" unique_id=890778974]
+z_index = 1
+layout_mode = 2
+text = "PLAYTEST 0.3.5 (WIP)"
+label_settings = SubResource("LabelSettings_uum53")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HSeparator3" type="HSeparator" parent="Control/VBoxContainer" unique_id=552623288]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 
 [node name="Resolution" type="VBoxContainer" parent="Control/VBoxContainer" unique_id=1835909185]
@@ -93,10 +99,10 @@ layout_mode = 2
 
 [node name="Text" type="Label" parent="Control/VBoxContainer/Resolution" unique_id=152547281]
 z_index = 1
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Resolution
-"
-label_settings = SubResource("LabelSettings_vsmvd")
+text = "Resolution"
+label_settings = SubResource("LabelSettings_uum53")
 vertical_alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Resolution" unique_id=1136970420]
@@ -124,11 +130,10 @@ layout_mode = 2
 
 [node name="Text" type="Label" parent="Control/VBoxContainer/Renderer" unique_id=2050525751]
 z_index = 1
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "
-Renderer - Restart Required
-"
-label_settings = SubResource("LabelSettings_vsmvd")
+text = "Renderer - Restart Required"
+label_settings = SubResource("LabelSettings_uum53")
 vertical_alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Renderer" unique_id=685457238]
@@ -152,12 +157,10 @@ layout_mode = 2
 
 [node name="Text" type="Label" parent="Control/VBoxContainer/Fullscreen" unique_id=774902836]
 z_index = 1
-custom_minimum_size = Vector2(520, 0)
+custom_minimum_size = Vector2(520, 50)
 clip_contents = true
 layout_mode = 2
-text = "
-Fullscreen
-"
+text = "Fullscreen"
 label_settings = SubResource("LabelSettings_uum53")
 vertical_alignment = 1
 clip_text = true
@@ -169,6 +172,10 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_3buot")
 button_pressed = true
 
+[node name="HSeparator2" type="HSeparator" parent="Control/VBoxContainer" unique_id=2082762405]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
 [node name="Sens" type="VBoxContainer" parent="Control/VBoxContainer" unique_id=1565795960]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
@@ -176,9 +183,8 @@ layout_mode = 2
 [node name="Text" type="Label" parent="Control/VBoxContainer/Sens" unique_id=1486221102]
 z_index = 1
 layout_mode = 2
-text = "
-Sensitivity"
-label_settings = SubResource("LabelSettings_vseqf")
+text = "Sensitivity"
+label_settings = SubResource("LabelSettings_uum53")
 
 [node name="SensSlider" type="HSlider" parent="Control/VBoxContainer/Sens" unique_id=472769777]
 layout_mode = 2
@@ -189,7 +195,7 @@ step = 0.0005
 value = 0.001
 
 [node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer" unique_id=1820778053]
-custom_minimum_size = Vector2(0, 75)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Reset" type="BoxContainer" parent="Control/VBoxContainer" unique_id=1052749947]
@@ -228,12 +234,12 @@ invert_enabled = true
 invert_border = 3.0
 polygon = PackedVector2Array(575, 1, 575, 59, 1, 59, 0, 0)
 
-[node name="IntroText2" type="Label" parent="Control/VBoxContainer" unique_id=925975402]
+[node name="OutroText" type="Label" parent="Control/VBoxContainer" unique_id=925975402]
 z_index = 1
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "
-Thanks for playing!"
-label_settings = SubResource("LabelSettings_ocygg")
+text = "Thanks for playing!"
+label_settings = SubResource("LabelSettings_uum53")
 horizontal_alignment = 1
 vertical_alignment = 1
 

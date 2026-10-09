@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://bu0wdb3r6xfqs"]
 
 [ext_resource type="Script" uid="uid://sykghv0lbrf6" path="res://assets/scripts/hud.gd" id="1_lnytp"]
+[ext_resource type="FontFile" uid="uid://c5dur021isqa" path="res://assets/fonts/Xolonium-Regular.ttf" id="2_5kx6n"]
 [ext_resource type="Shader" uid="uid://boafba55hdap6" path="res://assets/shaders/hud_outline.gdshader" id="2_dw83o"]
-[ext_resource type="FontFile" uid="uid://cen23aorlw7l3" path="res://assets/fonts/PressStart2P.ttf" id="3_5kx6n"]
 [ext_resource type="Shader" uid="uid://cvqw2xccf733i" path="res://assets/shaders/filter1.gdshader" id="4_dw83o"]
 [ext_resource type="Shader" uid="uid://c1tscolnhmeib" path="res://assets/scenes/player/hud_trails.gdshader" id="5_5kx6n"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_4rah4"]
-font_size = 32
-font_color = Color(0, 1, 0, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_5kx6n"]
+font = ExtResource("2_5kx6n")
+font_size = 30
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
@@ -55,9 +55,9 @@ colors = PackedColorArray(1, 0, 0.43137255, 1)
 gradient = SubResource("Gradient_g83mg")
 
 [sub_resource type="LabelSettings" id="LabelSettings_seyvw"]
-font = ExtResource("3_5kx6n")
-font_size = 30
-outline_size = 3
+font = ExtResource("2_5kx6n")
+font_size = 40
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_omksk"]
@@ -107,13 +107,14 @@ mouse_filter = 2
 script = ExtResource("1_lnytp")
 
 [node name="Label" type="Label" parent="HUD" unique_id=1129181077]
+top_level = true
 layout_mode = 0
 offset_left = 25.0
 offset_top = 10.0
 offset_right = 97.0
 offset_bottom = 55.0
-text = "0,0,0"
-label_settings = SubResource("LabelSettings_4rah4")
+text = "FPS: 0"
+label_settings = SubResource("LabelSettings_5kx6n")
 
 [node name="DashHud" type="Node2D" parent="HUD" unique_id=1460663545]
 position = Vector2(48.999935, 1032)
@@ -221,10 +222,10 @@ polygon = PackedVector2Array(33.428467, 1.7435303, 141.42847, 1.7435303, 141.404
 
 [node name="SpeedText" type="Label" parent="HUD" unique_id=1763459783]
 layout_mode = 0
-offset_left = 564.0
-offset_top = 981.0
-offset_right = 629.40454
-offset_bottom = 1082.1199
+offset_left = 562.0
+offset_top = 978.5631
+offset_right = 627.40454
+offset_bottom = 1079.683
 text = "24"
 label_settings = SubResource("LabelSettings_seyvw")
 horizontal_alignment = 1
@@ -274,7 +275,6 @@ invert_border = 4.0
 polygon = PackedVector2Array(1.7531738, 161.2427, 383.19678, 159.3219, 382.65613, 1.7309189, 0.00012207031, -1.5258789e-05)
 
 [node name="Equipped" type="Node2D" parent="HUD/HatHud" unique_id=2033476757]
-visible = false
 
 [node name="Hat1" type="Polygon2D" parent="HUD/HatHud/Equipped" unique_id=144633]
 position = Vector2(24, -12)
@@ -416,6 +416,7 @@ offset = Vector2(-195.31604, -49.981857)
 polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
 
 [node name="Return" type="Node2D" parent="HUD/HatHud" unique_id=59165895]
+visible = false
 position = Vector2(35, 7)
 rotation = 0.8063421
 scale = Vector2(-1, 1)
@@ -558,6 +559,7 @@ offset = Vector2(-195.31604, -49.981857)
 polygon = PackedVector2Array(220.34058, -42.22455, 316.79016, 184.90086, 56.414185, 69.08899, 67.49609, 68.16086, 308.1847, 175.61295, 219.53784, -38.404076, 67.49609, 68.16086, 56.414185, 69.08899)
 
 [node name="CD" type="Node2D" parent="HUD/HatHud" unique_id=767369058]
+visible = false
 
 [node name="Hat1" type="Polygon2D" parent="HUD/HatHud/CD" unique_id=1712782819]
 position = Vector2(24, -12)
