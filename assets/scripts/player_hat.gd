@@ -16,7 +16,6 @@ var wpn_manager = null
 @onready var player = get_node("../Player")
 @onready var cd = $CD
 @onready var return_timer = $ReturnTimer
-@onready var light = $Node3D/CSGCombiner3D/CSGPolygon3D/OmniLight3D
 @onready var mesh = $Node3D
 @onready var collider = $CollisionShape3D
 
@@ -26,9 +25,7 @@ func _ready() -> void:
 	wpn_manager = player.get_node_or_null("WeaponManager")
 
 func _physics_process(delta: float) -> void:
-	var active = (current_state != state.EQUIPPED)
-	visible = active
-	light.visible = active
+	visible = (current_state != state.EQUIPPED)
 	if current_state != state.EQUIPPED: look_at(player.global_position)
 	
 	match current_state:
