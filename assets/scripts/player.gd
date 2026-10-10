@@ -164,7 +164,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("reset"): get_tree().reload_current_scene()
 	
-	if Input.is_action_just_pressed("jump"): jump_buffer = 0.2
+	if Input.is_action_just_pressed("jump"): jump_buffer = 0.5
 	if Input.is_action_just_pressed("slide"): slide_buffer = 0.5
 	if Input.is_action_just_pressed("dash"): dash_buffer = 0.2
 	
@@ -184,7 +184,7 @@ func _physics_process(delta: float) -> void:
 		
 		w_data = _fetch_normal()
 		var look_dot = -transform.basis.z.dot(w_data.normal)
-		near_wall = w_data.valid and !is_on_floor() and look_dot > -0.85 and look_dot < 0.35
+		near_wall = w_data.valid and !is_on_floor() and look_dot > -0.9 and look_dot < 0.6
 		
 		wallcheck_l.enabled = (jump_buffer <= 0.0)
 		wallcheck_r.enabled = (jump_buffer <= 0.0)
@@ -207,8 +207,7 @@ func _physics_process(delta: float) -> void:
 			state.GRAPPLING:
 				grapple_process(delta)
 		
-		var total_velocity = velocity + knockback_velocity
-		velocity = total_velocity
+		if is_on_ceiling(): velocity.y = 0
 		
 		move_and_slide()
 		
@@ -304,7 +303,7 @@ func slide_process(delta) -> void:
 		velocity += velocity.normalized() * 35.0 * delta
 	else:
 		
-		var decay = 2.0
+		var decay = 1.0
 		var h_vel = Vector2(velocity.x, velocity.z)
 		h_vel *= exp(-decay * delta)
 		
@@ -319,7 +318,7 @@ func slide_process(delta) -> void:
 		var h_speed = h_vel.length()
 		var speed = Vector3(velocity.x, velocity.y * 2, velocity.z).length()
 		var h_dir = h_vel / h_speed
-		var capped_speed = speed + 0.2
+		var capped_speed = speed
 		
 		velocity.x = capped_speed * h_dir.x
 		velocity.z = capped_speed * h_dir.y 
@@ -341,7 +340,7 @@ func slide_process(delta) -> void:
 func air_process(delta) -> void:
 	
 	fall_time += delta
-	var gravity = 14.0 * pow(1.7, fall_time)
+	var gravity = 14.0 * pow(1.5, fall_time)
 	velocity.y -= gravity * delta
 	velocity.y = maxf(-999.0, velocity.y)
 	
@@ -349,14 +348,16 @@ func air_process(delta) -> void:
 	var current_hspeed = h_vel.length()
 	
 	if move_dir.length_squared() > 0.0:
-		if current_hspeed > 5.0:
+		if current_hspeed > 5.0 and move_dir.dot(velocity.normalized()) > -0.9:
 			var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
-			
-			if abs(move_dir.dot(velocity.normalized())) < 0.9:
-				var current_h_dir = h_vel / current_hspeed
-				var factor = 1.5
-				var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta)
-				h_vel = new_h_dir * current_hspeed
+			var current_h_dir = h_vel / current_hspeed
+			var factor = 1.5
+			var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta)
+			h_vel = new_h_dir * current_hspeed
+				
+		elif move_dir.dot(velocity.normalized()) < -0.9:
+			var target_speed = move_toward(current_hspeed, 0.0, 15.0 * delta)
+			h_vel = h_vel.normalized() * target_speed
 		
 		else:
 			var air_accel = 40.0
@@ -410,9 +411,9 @@ func wall_process(delta) -> void:
 	var target_speed = speed
 	
 	if move_dir.length_squared() == 0.0 or move_dir.dot(velocity.normalized()) < -0.3:
-		target_speed = move_toward(speed, 0.0, 20.0 * delta)
+		target_speed = move_toward(speed, 10.0, 10.0 * delta)
 	else:
-		target_speed *= exp(-0.2 * delta)
+		target_speed *= exp(-0.1 * delta)
 	
 	var final_h_vel = final_h_dir * target_speed
 	
@@ -477,7 +478,7 @@ func grapple_process(delta) -> void:
 func enter_slide() -> void:
 	var slide_dir = move_dir if move_dir != Vector3.ZERO else -transform.basis.z
 	var current_hspeed = Vector3(velocity.x, 0.0, velocity.z).length()
-	var launch_speed = current_hspeed + maxf(12.0, current_hspeed * 0.2)
+	var launch_speed = current_hspeed + maxf(12.0, current_hspeed * 0.1)
 	
 	velocity.x = slide_dir.x * launch_speed
 	velocity.z = slide_dir.z * launch_speed
@@ -503,20 +504,20 @@ func _fetch_normal() -> Dictionary:
 	if found:
 		var flat_norm = Vector3(normal.x, 0.0, normal.z).normalized()
 		
-		if _check_normal(flat_norm):
+		if _check_normal(normal):
 			return {"valid": true, "normal": flat_norm}
 	
 	return {"valid": false, "normal": Vector3.ZERO}
 
 func _check_normal(normal: Vector3) -> bool:
-	if normal == Vector3.ZERO: return false
-	
-	var flat_detected := Vector3(normal.x, 0.0, normal.z).normalized()
-	var flat_last := Vector3(last_w_normal.x, 0.0, last_w_normal.z).normalized()
-	
-	if last_w_normal != Vector3.ZERO and flat_detected.dot(flat_last) > 0.9:
-		return false
-	
+	#if normal == Vector3.ZERO: return true
+	#
+	#var flat_detected := Vector3(normal.x, 0.0, normal.z).normalized()
+	#var flat_last := Vector3(last_w_normal.x, 0.0, last_w_normal.z).normalized()
+	#
+	#if last_w_normal != Vector3.ZERO and flat_detected.dot(flat_last) > 0.9:
+		#return false
+	#
 	return true
 
 func add_impulse(impulse: float, dir: Vector3) -> void:

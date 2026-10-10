@@ -14,9 +14,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	$Label.text = "CURRENT STATE: %s\nLAST STATE: %s" % [
+	$Label.text = "CURRENT STATE: %s\nLAST STATE: %s\nVEL: %s" % [
 		player.state.keys()[player.current_state],
 		player.state.keys()[player.last_state],
+		player.velocity.round()
 	]
 	var dash_charges = player.dash_charges
 	var time_left = player.dash_cd.time_left
