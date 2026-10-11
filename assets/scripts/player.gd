@@ -451,7 +451,7 @@ func wall_process(delta) -> void:
 		
 		velocity.x = eject_h.x * launch_speed
 		velocity.z = eject_h.z * launch_speed
-		velocity.y = remap(launch_speed, 22.0, 42.0, 2.0, 20.0)
+		velocity.y = remap(launch_speed, 22.0, 42.0, 10.0, 20.0)
 		
 		change_state(state.AIRBORNE)
 		return

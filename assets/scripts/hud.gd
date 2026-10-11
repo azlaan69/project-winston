@@ -64,8 +64,8 @@ func _process(delta: float) -> void:
 	if player.crouching and player.is_on_floor(): crosshair_ypos = 550.0
 	$Crosshair.position.y = lerp($Crosshair.position.y, crosshair_ypos, 4.0 * delta)
 	
-	$Crosshair/Gun.visible = (player.current_wpn == player.wpn.GUNS)
-	$Crosshair/Sword.visible = (!$Crosshair/Gun.visible)
+	$Crosshair/Gun.visible = (player.wpn_manager.current_wpn == player.wpn_manager.wpn.PISTOL)
+	$Crosshair/Sword.visible = (player.wpn_manager.current_wpn == player.wpn_manager.wpn.SWORD)
 	
 	$Filter.visible = false
 	bob_time += delta * clamp(player.velocity.length(), 0.0, 15.0)
