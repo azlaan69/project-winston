@@ -68,7 +68,8 @@ func _physics_process(delta: float) -> void:
 func action_hat() -> void:
 	var facing = -camera.global_transform.basis.z
 	if hat.current_state == hat.state.EQUIPPED and hat.can_use:
-		hat.launch(facing, 35.0, 1.0)
+		var speed = maxf(35.0, player.velocity.length())
+		hat.launch(facing, speed, 1.0)
 		hat_buffer = 0.0
 	elif hat.current_state == hat.state.LAUNCHED or hat.current_state == hat.state.LANDED:
 		hat.rebound()
@@ -211,14 +212,14 @@ func deal_parry() -> void:
 			hat.deflect(facing)
 			trauma = 0.01
 			parry_connect(trauma)
-			
-		
 
 func parry_connect(trauma) -> void:
 	PhysUtil.ghost(ghost, ghost_mat, 0.05)
 	juice.add_trauma(trauma)
 	var hitstop_time = maxf(0.1, trauma / 2)
 	PhysUtil.hitstop(hitstop_time)
+
+
 
 func weapon_setup() -> void:
 	match current_wpn:

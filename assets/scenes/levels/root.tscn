@@ -69,7 +69,7 @@ directional_shadow_max_distance = 500.0
 environment = SubResource("Environment_vvh5c")
 
 [node name="Player" parent="." unique_id=500862226 instance=ExtResource("1_y2pyw")]
-transform = Transform3D(-0.0058691604, 0, 0.9999828, 0, 1, 0, -0.9999828, 0, -0.0058691604, 104.335594, 41.934853, 9.3533125)
+transform = Transform3D(-0.0058691604, 0, 0.9999828, 0, 1, 0, -0.9999828, 0, -0.0058691604, 10.14495, 79.93485, 317.9114)
 
 [node name="Hat" parent="." unique_id=1332287299 instance=ExtResource("2_1jmg1")]
 physics_material_override = SubResource("PhysicsMaterial_vbg00")

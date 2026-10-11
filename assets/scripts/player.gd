@@ -145,9 +145,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_F2:
 		use_new_controller = !use_new_controller
-		
+	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_F3:
 		use_debug_cam = !use_debug_cam
+	
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F4:
+		get_tree().debug_collisions_hint = not get_tree().debug_collisions_hint
 
 
 func _physics_process(delta: float) -> void:
@@ -183,8 +186,7 @@ func _physics_process(delta: float) -> void:
 				grap_stop()
 		
 		w_data = _fetch_normal()
-		var look_dot = -transform.basis.z.dot(w_data.normal)
-		near_wall = w_data.valid and !is_on_floor() and look_dot > -0.9 and look_dot < 0.6
+		near_wall = w_data.valid and !is_on_floor() and !is_on_ceiling()
 		
 		wallcheck_l.enabled = (jump_buffer <= 0.0)
 		wallcheck_r.enabled = (jump_buffer <= 0.0)
@@ -198,10 +200,10 @@ func _physics_process(delta: float) -> void:
 		match current_state:
 			state.WALKING:
 				walk_process(delta)
-			state.SLIDING:
-				slide_process(delta)
 			state.AIRBORNE:
 				air_process(delta)
+			state.SLIDING:
+				slide_process(delta)
 			state.WALL:
 				wall_process(delta)
 			state.GRAPPLING:
@@ -255,19 +257,24 @@ func change_state(new_state) -> void:
 	
 	grap_stop()
 	crouch_end()
+	floor_snap_length = 0.8
 	
 	match current_state:
 		state.WALKING:
 			last_w_normal = Vector3.ZERO
+			
 		state.SLIDING:
 			enter_slide()
+			
 		state.AIRBORNE:
 			fall_time = 0.0
+			floor_snap_length = 0.0
+			
 		state.GRAPPLING:
 			grap_start()
 
 func walk_process(delta) -> void:
-	var walk_speed = 12.0
+	var walk_speed = maxf(12.0, velocity.length())
 	var accel = 90.0
 	var friction = 50.0 if (last_state == state.SLIDING or last_state == state.AIRBORNE) else 70.0
 	
@@ -299,11 +306,15 @@ func slide_process(delta) -> void:
 	var floor_normal = get_floor_normal()
 	var slope_dot = velocity.normalized().dot(floor_normal)
 	
-	if slope_dot > 0.1:
+	var downhill_dir = Vector3.DOWN.slide(floor_normal).normalized()
+	
+	var sliding_downhill =  velocity.dot(downhill_dir) > 0.1 and floor_normal.dot(Vector3.UP) < 0.99
+	
+	if sliding_downhill:
 		velocity += velocity.normalized() * 35.0 * delta
 	else:
 		
-		var decay = 1.0
+		var decay = 1.0 if slope_dot < 0.5 else 5.0
 		var h_vel = Vector2(velocity.x, velocity.z)
 		h_vel *= exp(-decay * delta)
 		
@@ -316,14 +327,13 @@ func slide_process(delta) -> void:
 		
 		var h_vel = Vector2(velocity.x, velocity.z)
 		var h_speed = h_vel.length()
-		var speed = Vector3(velocity.x, velocity.y * 2, velocity.z).length()
 		var h_dir = h_vel / h_speed
-		var capped_speed = speed
 		
-		velocity.x = capped_speed * h_dir.x
-		velocity.z = capped_speed * h_dir.y 
+		velocity.x = h_speed * h_dir.x
+		velocity.z = h_speed * h_dir.y 
 		
-		velocity.y = remap(capped_speed, 0.0, 30.0, 2.0, 11.0)
+		var minimum = 15.0 if (velocity.dot(downhill_dir) < -0.1) else 5.0
+		velocity.y = remap(h_speed, 0.0, 50.0, minimum, 20.0)
 	
 		change_state(state.AIRBORNE)
 		return
@@ -350,9 +360,9 @@ func air_process(delta) -> void:
 	if move_dir.length_squared() > 0.0:
 		if current_hspeed > 5.0 and move_dir.dot(velocity.normalized()) > -0.9:
 			var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
-			var current_h_dir = h_vel / current_hspeed
-			var factor = 1.5
-			var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta)
+			var current_h_dir = h_vel.normalized()
+			var factor = 2.0
+			var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta).normalized()
 			h_vel = new_h_dir * current_hspeed
 				
 		elif move_dir.dot(velocity.normalized()) < -0.9:
@@ -361,7 +371,7 @@ func air_process(delta) -> void:
 		
 		else:
 			var air_accel = 40.0
-			var air_cap = maxf(velocity.length(), 12.0)
+			var air_cap = maxf(h_vel.length(), 12.0)
 			
 			var target_h_vel = Vector2(move_dir.x, move_dir.z).normalized() * air_cap
 			h_vel = h_vel.move_toward(target_h_vel, air_accel * delta)
@@ -396,6 +406,13 @@ func wall_process(delta) -> void:
 	var projected_3d = velocity.slide(w_normal)
 	var projected_h = Vector2(projected_3d.x, projected_3d.z).normalized()
 	
+	#var target_h_vel = projected_h * maxf(speed, 14.0)
+	#
+	#target_h_vel *= exp(-0.6 * delta)
+	#
+	#velocity.x = target_h_vel.x
+	#velocity.z = target_h_vel.y
+	
 	var tangent_3d = w_normal.cross(Vector3.UP).normalized()
 	var look_dir = -transform.basis.z
 	var look_h = Vector2(look_dir.x, look_dir.z)
@@ -406,7 +423,7 @@ func wall_process(delta) -> void:
 	var tangent_h = Vector2(tangent_3d.x, tangent_3d.z)
 	
 	var final_h_dir = projected_h.slerp(tangent_h, 8.0 * delta).normalized()
-	var sticky_force = -w_normal * 1.0
+	var sticky_force = -w_normal * 0.5
 	
 	var target_speed = speed
 	
@@ -420,19 +437,21 @@ func wall_process(delta) -> void:
 	velocity.x = final_h_vel.x + sticky_force.x
 	velocity.z = final_h_vel.y + sticky_force.z
 	
-	velocity.y = move_toward(velocity.y, -1.5, 4.0 * delta)
+	var target = 0.0 if velocity.y > 0.0 else -1.5
+	var factor = 18.0 if target == 0.0 else 8.0
+	velocity.y = move_toward(velocity.y, target, factor * delta)
 	
 	if jump_buffer > 0.0:
 		
 		jump_buffer = 0.0
 		last_w_normal = w_normal
 		
-		var eject_h = (w_normal * 1.3 + Vector3(look_dir.x, 0.0, look_dir.z) * 0.9).normalized()
+		var eject_h = (w_normal * 1.3 + Vector3(look_h.x, 0.0, look_h.y) * 0.9).normalized()
 		var launch_speed = clampf(speed * 1.2, 22.0, 42.0)
 		
 		velocity.x = eject_h.x * launch_speed
 		velocity.z = eject_h.z * launch_speed
-		velocity.y = launch_speed * 0.5
+		velocity.y = remap(launch_speed, 22.0, 42.0, 2.0, 20.0)
 		
 		change_state(state.AIRBORNE)
 		return
@@ -452,7 +471,7 @@ func grapple_process(delta) -> void:
 	var current_dist = to_anchor.length()
 	var rope_dir = to_anchor.normalized()
 	
-	var dist_threshold = 8.0 if !grap_node else 1.0
+	var dist_threshold = 8.0 if !grap_node else 3.0
 	
 	if current_dist < dist_threshold or not grappling:
 		change_state(state.AIRBORNE)
@@ -478,7 +497,10 @@ func grapple_process(delta) -> void:
 func enter_slide() -> void:
 	var slide_dir = move_dir if move_dir != Vector3.ZERO else -transform.basis.z
 	var current_hspeed = Vector3(velocity.x, 0.0, velocity.z).length()
-	var launch_speed = current_hspeed + maxf(12.0, current_hspeed * 0.1)
+	var increment = maxf(12.0, current_hspeed * 0.1) if current_hspeed < 40.0 else 2.0
+	var launch_speed = current_hspeed + increment
+	
+	if abs(velocity.y) > 0.0: velocity.y = 0.0
 	
 	velocity.x = slide_dir.x * launch_speed
 	velocity.z = slide_dir.z * launch_speed

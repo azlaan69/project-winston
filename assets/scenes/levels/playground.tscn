@@ -368,5 +368,5 @@ transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.965
 size = Vector3(20, 15, 2)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1080223193]
-transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, -15, -2, -33)
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, -15, 6.6933327, -35.329372)
 size = Vector3(20, 15, 2)

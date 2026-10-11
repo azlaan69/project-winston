@@ -27,6 +27,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	visible = (current_state != state.EQUIPPED)
 	if current_state != state.EQUIPPED: look_at(player.global_position)
+	else: rotation = Vector3.ZERO
 	
 	match current_state:
 		state.EQUIPPED:

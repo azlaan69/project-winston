@@ -34,9 +34,9 @@ radius = 0.25
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y2pyw"]
 render_priority = 0
 shader = ExtResource("2_omksk")
-shader_parameter/line_thickness = 2.0
-shader_parameter/normal_threshold = 0.35
-shader_parameter/depth_threshold = 0.002
+shader_parameter/line_thickness = 1.5000000475
+shader_parameter/normal_threshold = 0.20000000880148
+shader_parameter/depth_threshold = 0.05000000074506
 shader_parameter/line_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jfawc"]
@@ -908,7 +908,7 @@ stencil_flags = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "grapple_rope", "sfx", "wpn_manager") groups=["player"]]
 slide_on_ceiling = false
-wall_min_slide_angle = 0.7853982
+floor_max_angle = 1.0471976
 floor_snap_length = 0.8
 script = ExtResource("1_1jxqw")
 pistol = NodePath("Head/CameraPivot/WeaponLayer/SubViewport/Pistol")
@@ -976,7 +976,7 @@ transform = Transform3D(0.6131046, -0.33779073, 6.3329935e-08, 0.32597977, 0.591
 
 [node name="DebugCam" type="Camera3D" parent="Head/CameraPivot" unique_id=2044831973]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 1.0410056, 0.38695613, 2.171101)
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 0.6207004, 2.3164852)
 fov = 90.0
 size = 5.0
 

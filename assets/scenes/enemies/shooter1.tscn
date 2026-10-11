@@ -25,7 +25,7 @@ scale_max = 3.0
 material = ExtResource("2_satdh")
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim", "optional_ghostroot") groups=["enemy"]]
+[node name="shooter1" type="CharacterBody3D" unique_id=733271003 node_paths=PackedStringArray("armhinge", "head", "bulletpos", "anim", "hitanim", "optional_ghostroot") groups=["enemy", "grapple"]]
 script = ExtResource("1_yknt1")
 armhinge = NodePath("shooter_burst/root/pelvis/torso/arms")
 head = NodePath("shooter_burst/root/pelvis/torso/head")
@@ -41,13 +41,13 @@ transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.9868642, 0)
 script = ExtResource("1_xoxhl")
 mask_material = ExtResource("5_pe1q6")
 
-[node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 931774970) index="2" unique_id=958046270]
-transform = Transform3D(0.6642456, -0.32139173, -0.6748936, 0.4720632, 0.8803958, 0.045362916, 0.579594, -0.34872577, 0.73651713, 0.019514374, -0.37838376, 0.000906875)
+[node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 1854335590) index="2" unique_id=304160541]
+transform = Transform3D(0.66424555, -0.32139173, -0.67489356, 0.47206315, 0.8803958, 0.045362916, 0.57959396, -0.34872577, 0.7365171, 0.019514374, -0.37838376, 0.000906875)
 
-[node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1193048049) index="1" unique_id=1034599267]
+[node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1738677987) index="1" unique_id=1218810756]
 transform = Transform3D(0.9252015, -0.2716394, 0.26497868, 0.14177774, 0.89514965, 0.42261818, -0.3519953, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)
 
-[node name="thighL" parent="shooter_burst/root/pelvis/legs" parent_id_path=PackedInt32Array(907194274, 678095314) index="0" unique_id=1844497481]
+[node name="thighL" parent="shooter_burst/root/pelvis/legs" parent_id_path=PackedInt32Array(907194274, 90375253) index="0" unique_id=1336968631]
 transform = Transform3D(0.965925, -0.24999987, -0.06698728, 0.25881878, 0.93301225, 0.25000003, -2.2351722e-08, -0.25881898, 0.96592575, 0.015625, 0.029596874, 0.10013937)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=941452281]
