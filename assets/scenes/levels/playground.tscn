@@ -29,11 +29,11 @@ material_override = SubResource("StandardMaterial3D_5pvhp")
 mesh = SubResource("CapsuleMesh_nhb04")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=240317300]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219, 15, -50)
-size = Vector3(98, 30, 100)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219, 25, -25)
+size = Vector3(98, 30, 50)
 
 [node name="randomtube2" type="CSGCylinder3D" parent="." unique_id=298726472]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103, -20.75, -24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103, 16.25, -24)
 radius = 5.0
 height = 115.5
 smooth_faces = false
@@ -70,8 +70,8 @@ sides = 16
 smooth_faces = false
 
 [node name="platform1" type="CSGBox3D" parent="." unique_id=1373964088]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.907, 38, -24.911)
-size = Vector3(150, 5, 150)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 29, -25)
+size = Vector3(150, 23, 150)
 
 [node name="arena2" type="CSGCylinder3D" parent="." unique_id=1697017995]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.71121, 40.38525, -24.911)
@@ -231,40 +231,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.5, 65, -79.5)
 size = Vector3(15, 50, 15)
 
 [node name="randombigtube5" type="CSGCylinder3D" parent="." unique_id=491860728]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 177, 18.511742, -24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 177, 32.5, -24)
 radius = 14.0
-height = 39.401566
+height = 17.5
 sides = 16
 smooth_faces = false
 
 [node name="randombigtube7" type="CSGCylinder3D" parent="." unique_id=1835490750]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 112.59375, 8.000002, -24)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 110.25781, 28.000002, -24)
 radius = 10.0
-height = 156.4375
+height = 161.10938
 sides = 16
 smooth_faces = false
 
-[node name="randomsewer1cutout4" type="CSGBox3D" parent="randombigtube7" unique_id=2054308458]
-transform = Transform3D(-0.8377552, -0.54604477, 7.2866674e-06, 0.5460447, -0.8377551, 1.8775448e-06, 4.559756e-06, -4.172326e-07, 1, 3.579988, 80.98092, 0.00018310547)
+[node name="randombigtubecutout" type="CSGBox3D" parent="." unique_id=2054308458]
+transform = Transform3D(-0.54604465, 0.8377551, -1.8775452e-06, -0.8377552, -0.5460447, 7.2866674e-06, 4.559756e-06, -4.172326e-07, 1, 13.276894, 31.57999, -23.999817)
 operation = 2
 size = Vector3(27, 52, 25)
 
 [node name="randombigtube10" type="CSGCylinder3D" parent="." unique_id=394406614]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 132, 9, 78)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 132, 29, 78)
 radius = 12.0
 height = 5.0
 sides = 16
 smooth_faces = false
 
 [node name="randombigtube8" type="CSGCylinder3D" parent="." unique_id=1986950686]
-transform = Transform3D(-4.3711385e-08, 4.371139e-08, 1, 1, 0, 4.371139e-08, 0, 1, -4.371139e-08, 132, 9, 23)
+transform = Transform3D(-4.3711385e-08, 4.371139e-08, 1, 1, 0, 4.371139e-08, 0, 1, -4.371139e-08, 132, 29, 23)
 radius = 10.0
 height = 114.34375
 sides = 16
 smooth_faces = false
 
 [node name="randombigtube4" type="CSGCylinder3D" parent="." unique_id=1029252773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 177, 21.213867, -24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 177, 41.213867, -24)
 operation = 2
 radius = 12.0
 height = 40.0
@@ -272,7 +272,7 @@ sides = 16
 smooth_faces = false
 
 [node name="randombigtube9" type="CSGCylinder3D" parent="." unique_id=1666508787]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 92.66544, 8.999998, -24)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 92.66544, 28.999998, -24)
 operation = 2
 radius = 8.0
 height = 154.85884
@@ -280,7 +280,7 @@ sides = 16
 smooth_faces = false
 
 [node name="randombigtube6" type="CSGCylinder3D" parent="." unique_id=1602615218]
-transform = Transform3D(-4.3711385e-08, 4.371139e-08, 1, 1, 0, 4.371139e-08, 0, 1, -4.371139e-08, 132.086, 9.000001, 29.29826)
+transform = Transform3D(-4.3711385e-08, 4.371139e-08, 1, 1, 0, 4.371139e-08, 0, 1, -4.371139e-08, 132.086, 29, 29.29826)
 operation = 2
 radius = 8.0
 height = 106.31412
@@ -288,14 +288,14 @@ sides = 16
 smooth_faces = false
 
 [node name="randomtube4" type="CSGCylinder3D" parent="." unique_id=1655716935]
-transform = Transform3D(-4.371139e-08, -1, 0, 0.70710677, -3.090862e-08, 0.70710677, -0.70710677, 3.090862e-08, 0.70710677, -46, 16.071068, 8.928932)
+transform = Transform3D(-4.3711385e-08, -1, 0, 0.70710665, -3.0908616e-08, 0.70710677, -0.70710677, 3.090862e-08, 0.70710665, -46, 36.071068, 8.928932)
 visible = false
 radius = 1.25
 height = 106.0
 smooth_faces = false
 
 [node name="randomtube3" type="CSGCylinder3D" parent="." unique_id=818445883]
-transform = Transform3D(-4.371139e-08, -1, 0, 0.70710677, -3.090862e-08, 0.70710677, -0.70710677, 3.090862e-08, 0.70710677, -47.01689, 1.9289317, 23.071068)
+transform = Transform3D(-4.371139e-08, -1, 0, 0.70710677, -3.090862e-08, 0.70710677, -0.70710677, 3.090862e-08, 0.70710677, -47.01689, 21.928932, 23.071068)
 visible = false
 radius = 1.25
 height = 107.0
@@ -330,6 +330,11 @@ transform = Transform3D(0.75000143, -0.49999985, 0.4330145, 0.43301362, 0.866027
 operation = 2
 size = Vector3(36, 65, 50)
 
+[node name="randomsewer1cutout5" type="CSGBox3D" parent="randomsewer2" unique_id=1622794990]
+transform = Transform3D(0.5831916, 0.6956434, 0.4195091, -0.7963617, 0.5915148, 0.12621924, -0.16034096, -0.4076892, 0.8989427, -1.4243469, 79.53442, -1.210465)
+operation = 2
+size = Vector3(42.33545, 37.268066, 50)
+
 [node name="randomtube5" type="CSGCylinder3D" parent="." unique_id=1244019958]
 transform = Transform3D(-4.371139e-08, -1, 0, -0.7071068, 3.090862e-08, 0.7071067, -0.7071067, 3.090862e-08, -0.7071068, -46, 1.9289322, 8.928932)
 visible = false
@@ -345,9 +350,9 @@ height = 107.0
 smooth_faces = false
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1043787089]
-transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 4.5, 1, -13)
+transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 4.5, 21, -13)
 size = Vector3(25, 15, 2)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1080223193]
-transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, -26, 4.7614813, -34.811733)
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, -26, 24.761482, -34.811733)
 size = Vector3(25, 15, 2)

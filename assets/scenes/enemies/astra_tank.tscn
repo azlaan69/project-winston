@@ -23,6 +23,7 @@ size = Vector3(1, 1, 18)
 
 [node name="Astra" type="CharacterBody3D" unique_id=1970695531]
 script = ExtResource("1_mlpaj")
+hp = 299.999999999994
 use_nav = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
