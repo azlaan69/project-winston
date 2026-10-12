@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://xkh2maewipsq" path="res://assets/scenes/enemies/grapple_point.tscn" id="9_uum53"]
 [ext_resource type="PackedScene" uid="uid://bfhhq4f0ewqyr" path="res://assets/scenes/enemies/launch_point.tscn" id="10_ocygg"]
 [ext_resource type="PackedScene" uid="uid://bf3rgfwuswav2" path="res://assets/models/some_processed.tscn" id="11_ocygg"]
+[ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="12_phms8"]
+[ext_resource type="Script" uid="uid://dts6es7hp1gyq" path="res://assets/scripts/astra_tank.gd" id="12_sorpi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_phms8"]
 sky_top_color = Color(1, 0, 0.43137255, 1)
@@ -48,6 +50,22 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Arr
 cell_height = 0.1
 agent_radius = 1.0
 agent_max_climb = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_nhb04"]
+size = Vector3(25, 7, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pvhp"]
+next_pass = ExtResource("12_phms8")
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
+size = Vector3(25, 7, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_phms8"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sorpi"]
 
 [node name="Root" type="Node3D" unique_id=1696301327]
 
@@ -182,3 +200,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 41, -25)
 
 [node name="LaunchPoint2" parent="." unique_id=1012566716 instance=ExtResource("10_ocygg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 41, -25)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=111572365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 49, -25)
+script = ExtResource("12_sorpi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1837367223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
+mesh = SubResource("BoxMesh_nhb04")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=39590431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
+shape = SubResource("BoxShape3D_seyvw")
+debug_color = Color(0, 1, 0, 1)
+
+[node name="playerref" type="MeshInstance3D" parent="." unique_id=2098916086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 42, -16)
+material_override = SubResource("StandardMaterial3D_phms8")
+mesh = SubResource("CapsuleMesh_sorpi")
