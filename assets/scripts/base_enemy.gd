@@ -41,7 +41,7 @@ func update_nav_target() -> void:
 	if use_nav and nav and player:
 		nav.target_position = player.global_position
 
-func get_next_path_dir(delta) -> Vector3:
+func get_next_path_dir() -> Vector3:
 	if not use_nav or not nav or nav.is_navigation_finished():
 		return dir
 	var next_pos = nav.get_next_path_position()

@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			
 		state.CHASE:
 			
-			var path_dir = get_next_path_dir(delta) if (!los or dist > 8.0) else dir
+			var path_dir = get_next_path_dir() if (!los or dist > 8.0) else dir
 			var has_path = path_dir != Vector3.ZERO
 			rotate_towards(path_dir, look_speed, delta)
 			var target = -transform.basis.z * speed if has_path else Vector3.ZERO

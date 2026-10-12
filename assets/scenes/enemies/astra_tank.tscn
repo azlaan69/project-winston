@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cjmr8cndmdjkq"]
+
+[ext_resource type="Script" uid="uid://dts6es7hp1gyq" path="res://assets/scripts/astra_tank.gd" id="1_mlpaj"]
+[ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="2_gwt65"]
+[ext_resource type="Script" uid="uid://bd8sciuel6v8h" path="res://assets/scenes/enemies/astra_turret.gd" id="3_gwt65"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nhb04"]
+size = Vector3(15, 5, 25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pvhp"]
+next_pass = ExtResource("2_gwt65")
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
+size = Vector3(15, 5, 25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gwt65"]
+size = Vector3(10, 3, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mlpaj"]
+size = Vector3(1, 1, 18)
+
+[node name="Astra" type="CharacterBody3D" unique_id=1970695531]
+script = ExtResource("1_mlpaj")
+use_nav = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
+mesh = SubResource("BoxMesh_nhb04")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1305825911]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
+shape = SubResource("BoxShape3D_seyvw")
+debug_color = Color(0, 1, 0, 1)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1124178104]
+
+[node name="TurretModule" type="Node3D" parent="." unique_id=311041701 node_paths=PackedStringArray("gun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+script = ExtResource("3_gwt65")
+bullet_velocity = 119.9999999999976
+turn_speed = 2.49999999999995
+lead = 1.0
+gun = NodePath("Gun")
+max_angle_gun = 74.9999999999985
+min_angle_gun = -14.9999999999997
+turn_speed_gun = 2.49999999999995
+gun_lead = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TurretModule" unique_id=283257452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 1, -1.9936124e-09)
+mesh = SubResource("BoxMesh_gwt65")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="Gun" type="Node3D" parent="TurretModule" unique_id=505240068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TurretModule/Gun" unique_id=699570660]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0, -8.5)
+mesh = SubResource("BoxMesh_mlpaj")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="los" type="RayCast3D" parent="TurretModule/Gun" unique_id=1827019459]
+target_position = Vector3(0, -1, -100)
