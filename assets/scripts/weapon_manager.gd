@@ -151,32 +151,50 @@ func sword_process() -> void:
 
 func deal_shot() -> void:
 	shoot_buffer = 0.0
-	var cam = %Camera3D
 	
-	var offsets = [
-		Vector3.ZERO,
-		cam.global_transform.basis.x * 0.35, cam.global_transform.basis.x * -0.35,
-		cam.global_transform.basis.y * 0.35, cam.global_transform.basis.y * -0.35
-	]
-	for offset in offsets:
-		var result = PhysUtil.raycast_from_cam(%Camera3D, 1000.0, [player.get_rid()], offset)
-		if result:
+	#var offsets = [
+		#Vector3.ZERO,
+		#camera.global_transform.basis.x * 0.35, camera.global_transform.basis.x * -0.35,
+		#camera.global_transform.basis.y * 0.35, camera.global_transform.basis.y * -0.35
+	#]
+	#for offset in offsets:
+		#var result = PhysUtil.raycast_from_cam(camera, 1000.0, [player.get_rid()], offset)
+		#if result:
+			#
+			#var body = result.collider
+			#if body and body.has_method("hit"):
+				#var fx = hitfx.instantiate()
+				#body.add_child(fx)
+				#fx.global_position = result.position.lerp(body.global_position + (-body.transform.basis.z * 2), 0.2)
+				#fx.anim = "pistol"
+				#
+				#var hit_data = {
+					#"damage": 2.5,
+					#"type": "GUN",
+					#"knockback": 0.0,
+					#"dir": -camera.global_transform.basis.z
+				#}
+				#body.hit(hit_data)
+				#break
+	
+	var leniency = remap(player.velocity.length(), 0.0, 40.0, 0.25, 3.0)
+	
+	var result = PhysUtil.shapecast_from_cam(camera, 1000.0, [player.get_rid()], leniency)
+	if result:
+		var body = result["collider"]
+		if body and body.has_method("hit"):
+			var fx = hitfx.instantiate()
+			body.add_child(fx)
+			fx.global_position = result.position.lerp(body.global_position + (-body.transform.basis.z * 2), 0.2)
+			fx.anim = "pistol"
 			
-			var body = result.collider
-			if body and body.has_method("hit"):
-				var fx = hitfx.instantiate()
-				body.add_child(fx)
-				fx.global_position = result.position.lerp(body.global_position + (-body.transform.basis.z * 2), 0.2)
-				fx.anim = "pistol"
-				
-				var hit_data = {
-					"damage": 2.5,
-					"type": "GUN",
-					"knockback": 0.0,
-					"dir": -camera.global_transform.basis.z
-				}
-				body.hit(hit_data)
-				break
+			var hit_data = {
+				"damage": 2.5,
+				"type": "GUN",
+				"knockback": 0.0,
+				"dir": -camera.global_transform.basis.z
+			}
+			body.hit(hit_data)
 
 func deal_swing() -> void:
 	

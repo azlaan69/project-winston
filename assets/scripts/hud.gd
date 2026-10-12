@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 	intensity = clamp(intensity, 10, 20)
 	
 	$Wind.material.set_shader_parameter("animation_speed", intensity)
-	$Wind.visible = (speed > 15.0)
+	$Wind.visible = (speed > 20.0)
 	
 	if hit_time > 0.0: hit_time -= delta
 	

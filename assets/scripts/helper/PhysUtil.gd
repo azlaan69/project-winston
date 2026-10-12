@@ -11,6 +11,42 @@ func raycast_from_cam(cam: Camera3D, distance: float = 100.0, exclude: Array[RID
 	query.collision_mask = mask
 	return space_state.intersect_ray(query)
 
+func shapecast_from_cam(cam: Camera3D, distance: float = 100.0, exclude: Array[RID] = [], radius: float = 0.5, offset: Vector3 = Vector3.ZERO, include_areas: bool = false, mask: int = 3) -> Variant:
+	var space_state = cam.get_world_3d().direct_space_state
+	var origin = cam.global_position + offset
+	var motion_vector = (-cam.global_transform.basis.z * distance)
+	
+	var shape = CylinderShape3D.new()
+	shape.radius = radius
+	shape.height = 1.0
+	
+	var query = PhysicsShapeQueryParameters3D.new()
+	query.shape = shape
+	query.transform = cam.global_transform
+	query.transform.origin = origin
+	query.motion = motion_vector
+	query.exclude = exclude
+	query.collide_with_areas = include_areas
+	query.collision_mask = mask
+	
+	var motion_results: PackedFloat32Array = space_state.cast_motion(query)
+	if motion_results.is_empty() or motion_results[1] >= 1.0:
+		return null
+	
+	var collision_fraction = motion_results[1]
+	query.transform.origin += motion_vector * collision_fraction
+	var rest_info: Dictionary = space_state.get_rest_info(query)
+	
+	var hit_collider: Object = null
+	if rest_info.has("collider_id"):
+		hit_collider = instance_from_id(rest_info["collider_id"])
+	
+	return {
+		"collider": hit_collider,
+		"position": rest_info.get("point"),
+		"normal": rest_info.get("normal")
+	}
+
 func get_target_in_cone(from: Vector3, dir: Vector3, distance: float = 80.0, radius: float = 4.0, exclude: Array[RID] = []) -> Vector3:
 	var norm_dir = dir.normalized()
 	var space_state = Engine.get_main_loop().current_scene.get_world_3d().direct_space_state
@@ -30,7 +66,11 @@ func get_target_in_cone(from: Vector3, dir: Vector3, distance: float = 80.0, rad
 	for r in results:
 		var body = r.collider
 		if is_instance_valid(body) and body.is_in_group("enemy"):
-			return (body.global_position + Vector3(0, 0.9, 0) - from).normalized()
+			var offset = Vector3(0, 0.9, 0)
+			if body.has_node("hit_marker"):
+				var hit_marker = body.get_child("hit_marker")
+				offset = hit_marker.global_position 
+			return (body.global_position + offset - from).normalized()
 	
 	return norm_dir
 

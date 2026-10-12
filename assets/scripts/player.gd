@@ -28,7 +28,10 @@ var current_state = state.AIRBORNE
 var last_state = state.AIRBORNE
 
 var fall_time := 0.0
+var wall_time := 0.0
 var slide_add_limit := 10.0
+
+var w_jump_allowed := true
 var w_data := {"valid": false, "normal": Vector3.ZERO}
 var last_w_normal := Vector3.ZERO
 var normal_valid := false
@@ -174,6 +177,9 @@ func _physics_process(delta: float) -> void:
 	jump_buffer = maxf(0.0, jump_buffer - delta)
 	slide_buffer = maxf(0.0, slide_buffer - delta)
 	dash_buffer = maxf(0.0, dash_buffer - delta)
+	iframe_timer = maxf(0.0, iframe_timer - delta)
+	
+	if crouch_end_requested: crouch_end()
 	
 	if use_new_controller:
 		input_dir = Input.get_vector("left", "right", "forward", "back")
@@ -256,11 +262,12 @@ func change_state(new_state) -> void:
 	current_state = new_state
 	
 	grap_stop()
-	crouch_end()
+	if current_state != state.AIRBORNE: crouch_end()
 	floor_snap_length = 0.8
 	
 	match current_state:
 		state.WALKING:
+			w_jump_allowed = true
 			last_w_normal = Vector3.ZERO
 			
 		state.SLIDING:
@@ -269,14 +276,19 @@ func change_state(new_state) -> void:
 		state.AIRBORNE:
 			fall_time = 0.0
 			floor_snap_length = 0.0
-			
+		
+		state.WALL:
+			wall_time = 0.0
+		
 		state.GRAPPLING:
 			grap_start()
 
 func walk_process(delta) -> void:
-	var walk_speed = maxf(12.0, velocity.length())
+	var walk_speed = maxf(10.0, velocity.length())
 	var accel = 90.0
 	var friction = 50.0 if (last_state == state.SLIDING or last_state == state.AIRBORNE) else 70.0
+	
+	if walk_speed > 10.0: walk_speed = lerp(walk_speed, 10.0, 5.0 * delta)
 	
 	if move_dir.length_squared() > 0.0:
 		var target_vel = move_dir * walk_speed
@@ -333,7 +345,8 @@ func slide_process(delta) -> void:
 		velocity.z = h_speed * h_dir.y 
 		
 		var minimum = 15.0 if (velocity.dot(downhill_dir) < -0.1) else 5.0
-		velocity.y = remap(h_speed, 0.0, 50.0, minimum, 20.0)
+		var maximum = minimum * 2
+		velocity.y = remap(h_speed, 0.0, 50.0, minimum, maximum)
 	
 		change_state(state.AIRBORNE)
 		return
@@ -358,14 +371,14 @@ func air_process(delta) -> void:
 	var current_hspeed = h_vel.length()
 	
 	if move_dir.length_squared() > 0.0:
-		if current_hspeed > 5.0 and move_dir.dot(velocity.normalized()) > -0.9:
+		if current_hspeed > 15.0 and move_dir.dot(velocity.normalized()) > -0.9:
 			var target_h_dir = Vector2(move_dir.x, move_dir.z).normalized()
 			var current_h_dir = h_vel.normalized()
 			var factor = 2.0
 			var new_h_dir = current_h_dir.slerp(target_h_dir, factor * delta).normalized()
 			h_vel = new_h_dir * current_hspeed
 				
-		elif move_dir.dot(velocity.normalized()) < -0.9:
+		elif move_dir.dot(velocity.normalized()) < -0.3:
 			var target_speed = move_toward(current_hspeed, 0.0, 15.0 * delta)
 			h_vel = h_vel.normalized() * target_speed
 		
@@ -377,7 +390,7 @@ func air_process(delta) -> void:
 			h_vel = h_vel.move_toward(target_h_vel, air_accel * delta)
 			
 			
-	var air_drag = 0.2 if (last_state == state.SLIDING or last_state == state.GRAPPLING) else 0.05
+	var air_drag = 0.3 if (last_state == state.SLIDING or last_state == state.GRAPPLING) else 0.05
 	h_vel *= exp(-air_drag * delta)
 	velocity.x = h_vel.x
 	velocity.z = h_vel.y
@@ -393,10 +406,15 @@ func air_process(delta) -> void:
 
 func wall_process(delta) -> void:
 	
-	if not near_wall or is_on_floor():
+	if not near_wall or is_on_floor() or not w_jump_allowed:
 		last_w_normal = Vector3.ZERO
 		change_state(state.AIRBORNE)
 		return
+	
+	wall_time += delta
+	if wall_time > 2.0:
+		w_jump_allowed = false
+		change_state(state.AIRBORNE)
 	
 	var w_normal = w_data.normal
 	
@@ -427,10 +445,10 @@ func wall_process(delta) -> void:
 	
 	var target_speed = speed
 	
-	if move_dir.length_squared() == 0.0 or move_dir.dot(velocity.normalized()) < -0.3:
-		target_speed = move_toward(speed, 10.0, 10.0 * delta)
-	else:
-		target_speed *= exp(-0.1 * delta)
+	#if move_dir.length_squared() == 0.0 or move_dir.dot(velocity.normalized()) < -0.3:
+		#target_speed = move_toward(speed, 10.0, 10.0 * delta)
+	#else:
+	target_speed *= exp(-0.1 * delta)
 	
 	var final_h_vel = final_h_dir * target_speed
 	
@@ -447,11 +465,11 @@ func wall_process(delta) -> void:
 		last_w_normal = w_normal
 		
 		var eject_h = (w_normal * 1.3 + Vector3(look_h.x, 0.0, look_h.y) * 0.9).normalized()
-		var launch_speed = clampf(speed * 1.2, 22.0, 42.0)
+		var launch_speed = maxf(speed * 1.2, 22.0)
 		
 		velocity.x = eject_h.x * launch_speed
 		velocity.z = eject_h.z * launch_speed
-		velocity.y = remap(launch_speed, 22.0, 42.0, 10.0, 20.0)
+		velocity.y = remap(launch_speed, 22.0, 70.0, 10.0, 20.0)
 		
 		change_state(state.AIRBORNE)
 		return
@@ -497,8 +515,8 @@ func grapple_process(delta) -> void:
 func enter_slide() -> void:
 	var slide_dir = move_dir if move_dir != Vector3.ZERO else -transform.basis.z
 	var current_hspeed = Vector3(velocity.x, 0.0, velocity.z).length()
-	var increment = maxf(12.0, current_hspeed * 0.1) if current_hspeed < 40.0 else 2.0
-	var launch_speed = current_hspeed + increment
+	var increment = remap(current_hspeed, 10.0, 50.0, 0.7, 0.1)
+	var launch_speed = current_hspeed * (1 + increment)
 	
 	if abs(velocity.y) > 0.0: velocity.y = 0.0
 	
@@ -879,6 +897,7 @@ func hit(hit_data: Dictionary) -> void:
 	hp -= hit_data["damage"]
 	var modifier = 1.0 if is_on_floor() else 2.0
 	kb_velocity += hit_data["dir"] * hit_data["knockback"] * modifier
+	add_impulse(hit_data["knockback"] * modifier, hit_data["dir"])
 	iframe_timer = 0.15
 	
 	var trauma = hit_data["damage"] / 50.0

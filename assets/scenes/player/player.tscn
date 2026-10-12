@@ -1122,6 +1122,7 @@ ignore_time_scale = true
 [node name="audio" type="Node3D" parent="." unique_id=86999832]
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="audio" unique_id=1252968103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 1.5, -1.9936124e-09)
 stream = ExtResource("7_5v77c")
 
 [node name="WeaponManager" type="Node3D" parent="." unique_id=1819470917 node_paths=PackedStringArray("camera", "juice", "pistol", "sword", "marker_pistol", "anim_pistol", "anim_sword", "ghost", "sword_hitbox", "parry_hitbox", "combo", "pistol_timeslow_timer")]
