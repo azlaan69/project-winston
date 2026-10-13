@@ -1,3 +1,4 @@
+class_name BaseTank
 extends CharacterBody3D
 
 var player = null

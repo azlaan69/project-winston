@@ -58,8 +58,10 @@ func hit(hit_data: Dictionary) -> void:
 	if iframe_timer > 0.0: return
 	hp -= hit_data["damage"]
 	iframe_timer = 0.05
-	var flat_kb = hit_data["dir"] * hit_data["knockback"]
-	kb_velocity = Vector3(flat_kb.x, 0.0, flat_kb.z)
+	add_kb(hit_data["dir"], hit_data["knockback"])
+
+func add_kb(dir: Vector3, kb: float) -> void:
+	kb_velocity = dir * kb
 
 func check_los() -> bool: # optional
 	if not player:

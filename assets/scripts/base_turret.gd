@@ -1,15 +1,25 @@
 class_name BaseTurret
 extends Node3D
 
+
+@export_group("Firing")
 @export var bullet_velocity := 50.0
-@export_group("Turret")
+@export var bullet_scene: PackedScene
+@export var bullet_marker: Marker3D
+
+
+
+@export_group("Tracking")
+
+@export_subgroup("Turret")
 @export var max_angle := 360.0
 @export var min_angle := -360.0
 @export var turn_speed := 10.0
 
 @export_range(0.0, 1.0, 0.05) var lead := 0.5
 
-@export_group("Gun")
+
+@export_subgroup("Gun")
 @export var gun : Node3D
 @export var max_angle_gun := 360.0
 @export var min_angle_gun := 0.0
@@ -46,7 +56,7 @@ func fetch_predicted() -> Vector3:
 	return predicted_pos
 
 func fetch_predicted_gun() -> Vector3:
-	var gun_time : float = global_position.distance_to(player.global_position) / bullet_velocity
+	var gun_time : float = global_position.distance_to(player.global_position + Vector3(0.0, 2.0, 0.0)) / bullet_velocity
 	var predicted_pos_gun : Vector3 = player.global_position + (player.velocity * gun_time * gun_lead)
 	
 	return predicted_pos_gun
@@ -71,3 +81,11 @@ func track_predicted_gun(delta) -> void:
 	target_pitch = clampf(target_pitch, gun_limit_min, gun_limit_max)
 	
 	gun.global_rotation.x = lerp_angle(gun.global_rotation.x, target_pitch, turn_speed_gun * delta)
+
+func fire() -> void:
+	if !bullet_marker or !bullet_scene: return
+	var bullet = bullet_scene.instantiate()
+	get_tree().current_scene.add_child(bullet)
+	bullet.global_position = bullet_marker.global_position
+	bullet.global_transform = gun.global_transform
+	bullet.speed = bullet_velocity

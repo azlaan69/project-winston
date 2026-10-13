@@ -122,6 +122,7 @@ navigation_mesh = SubResource("NavigationMesh_seyvw")
 
 [node name="playground" parent="NavigationRegion3D" unique_id=1184370340 instance=ExtResource("5_7qu1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10313797, -0.26226234, 0.34222794)
+collision_mask = 9
 
 [node name="NavigationLink3D" type="NavigationLink3D" parent="NavigationRegion3D" unique_id=404365419]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 43, 34)

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bie4mlhnyvyrb"]
+
+[ext_resource type="Script" uid="uid://c3lndmc2vaefx" path="res://assets/scripts/base_bullet.gd" id="1_nlpn1"]
+[ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="2_sxm3p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1dlg0"]
+size = Vector3(1, 2.5, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_seyvw"]
+radius = 0.75
+height = 3.0
+
+[node name="Area3D" type="Area3D" unique_id=818761449 groups=["projectile"]]
+script = ExtResource("1_nlpn1")
+speed = 119.9999999999976
+lifetime = 9.9999999999998
+damage = 39.9999999999992
+knockback = 30
+die_on_hit = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=300792446]
+transform = Transform3D(0.70710665, 0, -0.70710677, -0.7071067, -3.090862e-08, -0.7071067, -2.1855694e-08, 0.99999994, -2.185569e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_1dlg0")
+surface_material_override/0 = ExtResource("2_sxm3p")
+
+[node name="MainHitbox" type="CollisionShape3D" parent="." unique_id=96283589]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_seyvw")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

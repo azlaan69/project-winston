@@ -200,7 +200,7 @@ func deal_swing() -> void:
 	
 	for body in sword_hitbox.get_overlapping_bodies():
 		
-		if body != self and body.has_method("hit") and not body.iframe_timer > 0.0:
+		if body != player and body.has_method("hit") and not body.iframe_timer > 0.0:
 			var fx = hitfx.instantiate()
 			body.add_child(fx)
 			fx.global_position = body.global_position + (-body.transform.basis.z * 1.0)
@@ -218,6 +218,7 @@ func deal_parry() -> void:
 	var targets = parry_hitbox.get_overlapping_areas() + parry_hitbox.get_overlapping_bodies()
 	var trauma = 0
 	for proj in targets:
+		
 		if proj.is_in_group("projectile") and proj.parriable:
 			var angle = -camera.global_transform.basis.z
 			proj.deflect(angle)
@@ -228,6 +229,7 @@ func deal_parry() -> void:
 		if proj.is_in_group("hat") and (hat.current_state == hat.state.RETURN or hat.current_state == hat.state.LAUNCHED):
 			var facing = -camera.global_transform.basis.z
 			hat.deflect(facing)
+			anim_sword.play("sheath", 0.1)
 			trauma = 0.01
 			parry_connect(trauma)
 

@@ -39,6 +39,7 @@ projectile=""
 grapple=""
 hat=""
 hitfx=""
+parryable_hitbox=""
 
 [input]
 
@@ -125,6 +126,7 @@ taunt={
 
 3d_physics/layer_2="Hat"
 3d_physics/layer_3="Grapple"
+3d_physics/layer_4="bulletproof_enemy"
 
 [physics]
 

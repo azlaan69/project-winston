@@ -5,21 +5,24 @@ var max_lifetime: float = 0.0
 var dir: Vector3 = Vector3(0, 0, 0)
 var parried: bool = false
 var init: bool = false
+var hit_data: Dictionary = {}
+var hit_effect: Callable
+
 @export var speed: float = 30.0
 @export var lifetime: float = 5.0
 @export var parriable: bool = true
 @export var damage: float = 10.0
 @export var knockback: int = 10
-var hit_data: Dictionary = {
-	"damage": damage,
-	"knockback": knockback,
-	"dir": -transform.basis.z
-}
-
-const hitfx = preload("res://assets/scenes/player/hitfx.tscn")
+@export var hitfx: PackedScene
+@export var die_on_hit: bool = true
 
 func _ready() -> void:
 	max_lifetime = lifetime
+	hit_data = {
+		"damage": damage,
+		"knockback": knockback,
+		"dir": -transform.basis.z
+	}
 
 func _physics_process(delta: float) -> void:
 	if not init:
@@ -31,29 +34,27 @@ func _physics_process(delta: float) -> void:
 	if lifetime <= 0.0: queue_free()
 	
 	global_position += dir * speed * delta
-	$MeshInstance3D.rotation.z += 45 * delta
 	
-	var fade = clamp(lifetime / max_lifetime, 0.0, 1.0)
-	$MeshInstance3D.material_override.emission_energy_multiplier = pow(fade, 5.0)
 	
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy"):
 		if !parried: return
 		else:
-			var fx = hitfx.instantiate()
-			body.add_child(fx)
-			fx.global_position = body.global_position + Vector3(0, 1.0, 0) - (body.global_transform.basis.z * 2.0)
-			fx.sprite.play("pistol")
+			if hitfx:
+				var fx = hitfx.instantiate()
+				body.add_child(fx)
+				fx.global_position = body.global_position + Vector3(0, 1.0, 0) - (body.global_transform.basis.z * 2.0)
 			
 			hit_data = {
-				"damage": 5.0,
-				"knockback": 10,
+				"damage": damage * 2,
+				"knockback": knockback * 3,
 				"dir": -transform.basis.z
 			}
 			body.hit(hit_data)
 	elif body.is_in_group("player") and not parried:
 		body.hit(hit_data)
-	queue_free()
+	if die_on_hit: queue_free()
+	if hit_effect.is_valid(): hit_effect.call()
 
 func deflect(facing: Vector3) -> void:
 	var protectionfirst: Array[RID] = [get_rid()]

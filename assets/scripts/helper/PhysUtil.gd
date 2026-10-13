@@ -74,6 +74,32 @@ func get_target_in_cone(from: Vector3, dir: Vector3, distance: float = 80.0, rad
 	
 	return norm_dir
 
+func affect_in_radius(effect: Callable, pos: Vector3, exclude: Array[RID] = [], radius: float = 10.0, force: float = 5.0, mask: int = 1) -> Dictionary:
+	var space_state = Engine.get_main_loop().current_scene.get_viewport().get_world_3d().direct_space_state
+	var origin = Transform3D(Basis(), pos)
+	var sphere = SphereShape3D.new()
+	sphere.radius = radius
+	
+	var query = PhysicsShapeQueryParameters3D.new()
+	query.exclude = exclude
+	query.shape = sphere
+	query.mask = mask
+	query.transform = origin
+	var results = space_state.intersect_shape(query, 32)
+	for result in results:
+		var collider = result.collider
+		
+		var dir = (collider.global_position - pos).normalized()
+		var dist = pos.distance_to(collider.global_position)
+		var falloff = clampf(1.0 - (dist / radius), 0.0, 1.0)
+		
+		if effect.is_valid():
+			effect.call(collider, dir, falloff)
+	
+	return results
+
+
+
 func hitstop(dur: float = 0.1) -> void:
 	Engine.time_scale = 0.0
 	await get_tree().create_timer(dur, true, false, true).timeout

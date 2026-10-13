@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dts6es7hp1gyq" path="res://assets/scripts/astra_tank.gd" id="1_mlpaj"]
 [ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="2_gwt65"]
-[ext_resource type="Script" uid="uid://bd8sciuel6v8h" path="res://assets/scenes/enemies/astra_turret.gd" id="3_gwt65"]
+[ext_resource type="Script" uid="uid://dtn8b1exubb84" path="res://assets/scripts/base_turret.gd" id="3_gwt65"]
+[ext_resource type="PackedScene" uid="uid://bie4mlhnyvyrb" path="res://assets/scenes/enemies/astra_bullet.tscn" id="4_yqj4p"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nhb04"]
 size = Vector3(15, 5, 25)
@@ -21,10 +22,11 @@ size = Vector3(10, 3, 10)
 [sub_resource type="BoxMesh" id="BoxMesh_mlpaj"]
 size = Vector3(1, 1, 18)
 
-[node name="Astra" type="CharacterBody3D" unique_id=1970695531]
+[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray")]
+collision_layer = 9
 script = ExtResource("1_mlpaj")
-hp = 299.999999999994
-use_nav = false
+turret = NodePath("TurretModule")
+los_ray = NodePath("TurretModule/Gun/los")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
@@ -38,10 +40,12 @@ debug_color = Color(0, 1, 0, 1)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1124178104]
 
-[node name="TurretModule" type="Node3D" parent="." unique_id=311041701 node_paths=PackedStringArray("gun")]
+[node name="TurretModule" type="Node3D" parent="." unique_id=311041701 node_paths=PackedStringArray("bullet_marker", "gun")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 script = ExtResource("3_gwt65")
 bullet_velocity = 119.9999999999976
+bullet_scene = ExtResource("4_yqj4p")
+bullet_marker = NodePath("Gun/Marker3D")
 turn_speed = 2.49999999999995
 lead = 1.0
 gun = NodePath("Gun")
@@ -64,4 +68,7 @@ mesh = SubResource("BoxMesh_mlpaj")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
 [node name="los" type="RayCast3D" parent="TurretModule/Gun" unique_id=1827019459]
-target_position = Vector3(0, -1, -100)
+target_position = Vector3(0, 0, -100)
+
+[node name="Marker3D" type="Marker3D" parent="TurretModule/Gun" unique_id=206638960]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
