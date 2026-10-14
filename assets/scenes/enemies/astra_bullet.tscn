@@ -8,8 +8,6 @@
 size = Vector3(1, 2.5, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_seyvw"]
-radius = 0.75
-height = 3.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nlpn1"]
 gravity = Vector3(0, 0, 0)

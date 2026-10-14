@@ -33,7 +33,6 @@ var limit_angle_max: float
 var gun_limit_min: float
 var gun_limit_max: float
 
-
 var player = null
 
 func _ready() -> void:
@@ -53,8 +52,8 @@ func fetch_predicted() -> Vector3:
 	return predicted_pos
 
 func fetch_predicted_gun() -> Vector3:
-	var gun_time : float = global_position.distance_to(player.global_position + Vector3(0.0, 2.0, 0.0)) / bullet_velocity
-	var predicted_pos_gun : Vector3 = player.global_position + (player.velocity * gun_time * gun_lead)
+	var gun_time : float = global_position.distance_to(player.global_position) / bullet_velocity
+	var predicted_pos_gun : Vector3 = (player.global_position + Vector3(0.0, 1.0, 0.0)) + (player.velocity * gun_time * gun_lead)
 	
 	return predicted_pos_gun
 	
@@ -88,10 +87,22 @@ func apply_tracking(delta) -> void:
 
 
 
-func fire() -> void:
+func fire(on_hit: Variant) -> void:
 	if !bullet_marker or !bullet_scene: return
 	var bullet = bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)
-	bullet.global_transform = gun.global_transform
-	bullet.global_position = bullet_marker.global_position
+	bullet.global_transform = bullet_marker.global_transform
 	bullet.speed = bullet_velocity
+	if on_hit.is_valid(): bullet.hit_effect = on_hit
+
+
+func fire_burst(on_shot: Callable, end_effect: Callable, count: int = 3, rest: float = 0.2) -> void:
+	if !bullet_marker or !bullet_scene: return
+	for i in count:
+		var bullet = bullet_scene.instantiate()
+		get_tree().current_scene.add_child(bullet)
+		bullet.global_transform = bullet_marker.global_transform
+		bullet.speed = bullet_velocity
+		if on_shot.is_valid(): on_shot.call()
+		await get_tree().create_timer(rest).timeout
+	if end_effect.is_valid(): end_effect.call()

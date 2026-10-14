@@ -55,6 +55,7 @@ func _on_body_entered(body: Node3D) -> void:
 		body.hit(hit_data)
 	if die_on_hit: queue_free()
 	if hit_effect.is_valid(): hit_effect.call()
+	else: queue_free()
 
 func deflect(facing: Vector3) -> void:
 	var protectionfirst: Array[RID] = [get_rid()]
