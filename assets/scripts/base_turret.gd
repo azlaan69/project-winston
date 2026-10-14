@@ -50,9 +50,6 @@ func fetch_predicted() -> Vector3:
 	
 	predicted_pos.y = global_position.y
 	
-	if predicted_pos.is_equal_approx(global_position): 
-		return Vector3.ZERO
-	
 	return predicted_pos
 
 func fetch_predicted_gun() -> Vector3:

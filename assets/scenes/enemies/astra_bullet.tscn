@@ -10,6 +10,17 @@ size = Vector3(1, 2.5, 1)
 radius = 0.75
 height = 3.0
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nlpn1"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dj55"]
+albedo_color = Color(1, 0, 0.43137255, 1)
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_sxm3p"]
+material = SubResource("StandardMaterial3D_2dj55")
+sections = 8
+section_length = 0.1
+
 [node name="Area3D" type="Area3D" unique_id=818761449 groups=["projectile"]]
 script = ExtResource("1_nlpn1")
 speed = 119.9999999999976
@@ -27,5 +38,12 @@ surface_material_override/0 = ExtResource("2_sxm3p")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_seyvw")
 debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1432051655]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -7.1054274e-15, -2)
+lifetime = 0.3
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_nlpn1")
+draw_pass_1 = SubResource("RibbonTrailMesh_sxm3p")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

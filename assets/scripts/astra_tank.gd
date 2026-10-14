@@ -10,7 +10,7 @@ var bullet_timer := 0.0
 func _physics_process(delta: float) -> void:
 	bullet_timer += delta
 	
-	los = los_ray.is_colliding()
+	los = los_ray.is_colliding() and los_ray.get_collider() == player
 	
 	if bullet_timer > 2.0 and los:
 		fire_sequence()
@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 
 func fire_sequence(time: float = 0.5) -> void:
 	tracking = false
+	player.juice.add_trauma(0.5)
 	turret.fire()
 	await get_tree().create_timer(time).timeout
 	tracking = true
