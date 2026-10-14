@@ -29,6 +29,10 @@ emission_texture = SubResource("GradientTexture2D_5pvhp")
 stencil_mode = 3
 stencil_flags = 2
 
+[sub_resource type="Curve" id="Curve_sxm3p"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.75177306, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="Gradient" id="Gradient_csyov"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 0.35686275, 0, 1)
 
@@ -50,9 +54,8 @@ diffuse_mode = 3
 specular_mode = 1
 disable_fog = true
 disable_specular_occlusion = true
-albedo_color = Color(3.2944162, 3.2944162, 3.2944162, 0.39215687)
+albedo_color = Color(1, 1, 1, 0.39215687)
 albedo_texture = SubResource("GradientTexture2D_7bfvj")
-emission_enabled = true
 emission_texture = SubResource("GradientTexture2D_hf6vc")
 stencil_mode = 3
 stencil_flags = 2
@@ -68,5 +71,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_nhb04")
 [node name="TrailRenderer" type="Node3D" parent="." unique_id=95810636]
 script = ExtResource("2_csyov")
 lifetime = 0.099999999999998
+curve = SubResource("Curve_sxm3p")
 material = SubResource("StandardMaterial3D_pya7h")
 metadata/_custom_type_script = "uid://brqh6t5d1dyrl"

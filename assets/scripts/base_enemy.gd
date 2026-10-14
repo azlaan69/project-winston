@@ -61,7 +61,8 @@ func hit(hit_data: Dictionary) -> void:
 	add_kb(hit_data["dir"], hit_data["knockback"])
 
 func add_kb(dir: Vector3, kb: float) -> void:
-	kb_velocity = dir * kb
+	var processed_dir = Vector3(dir.x, dir.y / 5, dir.z).normalized()
+	kb_velocity = processed_dir * kb
 
 func check_los() -> bool: # optional
 	if not player:

@@ -1014,7 +1014,6 @@ debug_color = Color(1, 0, 0, 0.41960785)
 [node name="SwordHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=470632088]
 unique_name_in_owner = true
 transform = Transform3D(0.99572456, 0.044782154, 0.08078913, 0, 0.8746197, -0.4848095, -0.09237059, 0.4827369, 0.87088025, 0.086, -0.58, -1.58)
-visible = false
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/SwordHitbox" unique_id=1994545392]

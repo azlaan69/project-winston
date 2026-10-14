@@ -14,6 +14,6 @@ fixed_size = true
 
 [node name="blockbench_export" unique_id=1421738015 instance=ExtResource("1_q2cil")]
 
-[node name="beveled_cuboid" parent="root" parent_id_path=PackedInt32Array(312042801) index="0" unique_id=1012305000]
+[node name="beveled_cuboid" parent="root" parent_id_path=PackedInt32Array(971816359) index="0" unique_id=138363345]
 layers = 524288
 surface_material_override/0 = SubResource("StandardMaterial3D_6frpq")

@@ -127,6 +127,7 @@ emitting = false
 amount = 32
 lifetime = 0.5
 one_shot = true
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_seyvw")
 draw_pass_1 = SubResource("BoxMesh_1dlg0")
 
@@ -138,5 +139,6 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_1dlg0")
 draw_pass_1 = SubResource("BoxMesh_1dlg0")

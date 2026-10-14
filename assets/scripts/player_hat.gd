@@ -13,6 +13,8 @@ var wpn_manager = null
 @export var ghost: Node3D
 @export var ghostmat: StandardMaterial3D
 
+@export var trailer: Node
+
 @onready var player = get_node("../Player")
 @onready var cd = $CD
 @onready var return_timer = $ReturnTimer
@@ -26,6 +28,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	visible = (current_state != state.EQUIPPED)
+	trailer.is_emitting = !freeze
 	if current_state != state.EQUIPPED: look_at(player.global_position)
 	else: rotation = Vector3.ZERO
 	

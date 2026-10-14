@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5yxlnf77w0mk" path="res://assets/scripts/player_hat.gd" id="1_ht0oc"]
 [ext_resource type="Material" uid="uid://vv1v8t1nudre" path="res://assets/models/mats/hotglowblue.tres" id="2_4ysnb"]
+[ext_resource type="Script" uid="uid://brqh6t5d1dyrl" path="res://addons/TrailRenderer/Runtime/GD/trail_renderer.gd" id="3_uaoiq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg42c"]
 cull_mode = 1
@@ -22,13 +23,27 @@ emission_energy_multiplier = 2.0
 stencil_mode = 3
 stencil_flags = 2
 
+[sub_resource type="Curve" id="Curve_uaoiq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5921986, 0.45454556), 0.0, 0.0, 0, 0, Vector2(0.83687943, 0.5810811), 0.0, 0.0, 0, 0, Vector2(0.9255319, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qepmm"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0, 0.6431373, 1, 0.47058824)
+emission_enabled = true
+emission = Color(0, 0.6431373, 1, 1)
+emission_energy_multiplier = 2.0
+stencil_mode = 3
+stencil_flags = 2
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhb04"]
 size = Vector3(1.5, 0.5722656, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(3, 3, 3)
 
-[node name="Hat" type="RigidBody3D" unique_id=1332287299 node_paths=PackedStringArray("ghost") groups=["hat"]]
+[node name="Hat" type="RigidBody3D" unique_id=1332287299 node_paths=PackedStringArray("ghost", "trailer") groups=["hat"]]
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -41,6 +56,13 @@ max_contacts_reported = 4
 script = ExtResource("1_ht0oc")
 ghost = NodePath("Node3D")
 ghostmat = SubResource("StandardMaterial3D_60jfb")
+trailer = NodePath("TrailRenderer")
+
+[node name="TrailRenderer" type="Node3D" parent="." unique_id=2019518333]
+script = ExtResource("3_uaoiq")
+curve = SubResource("Curve_uaoiq")
+material = SubResource("StandardMaterial3D_qepmm")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=572414648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18613282, 0)

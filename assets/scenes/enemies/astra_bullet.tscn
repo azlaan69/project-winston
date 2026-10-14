@@ -21,6 +21,10 @@ albedo_color = Color(1, 0, 0.43137255, 1)
 material = SubResource("StandardMaterial3D_2dj55")
 sections = 8
 
+[sub_resource type="Curve" id="Curve_uaoiq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxm3p"]
 transparency = 1
 diffuse_mode = 3
@@ -62,6 +66,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_sxm3p")
 [node name="TrailRenderer" type="Node3D" parent="." unique_id=1439761619]
 script = ExtResource("3_sxm3p")
 lifetime = 0.199999999999996
+curve = SubResource("Curve_uaoiq")
 material = SubResource("StandardMaterial3D_sxm3p")
 metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
 
