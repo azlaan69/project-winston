@@ -59,16 +59,16 @@ func fetch_predicted_gun() -> Vector3:
 	return predicted_pos_gun
 	
 
-func track_predicted(delta) -> void:
+func track_predicted(delta) -> float:
 	var predicted_pos = fetch_predicted()
 	var dir = global_position.direction_to(predicted_pos)
 	var target_yaw = atan2(-dir.x, -dir.z)
 	
 	target_yaw = clampf(target_yaw, limit_angle_min, limit_angle_max)
 	
-	global_rotation.y = lerp_angle(global_rotation.y, target_yaw, turn_speed * delta)
+	return lerp_angle(global_rotation.y, target_yaw, turn_speed * delta)
 
-func track_predicted_gun(delta) -> void:
+func track_predicted_gun(delta) -> float:
 	var predicted_pos_gun = fetch_predicted_gun()
 	var height_difference : float = predicted_pos_gun.y - gun.global_position.y
 	var flat_dist : float = Vector2(predicted_pos_gun.x, predicted_pos_gun.z).distance_to(Vector2(global_position.x, global_position.z))
@@ -77,12 +77,21 @@ func track_predicted_gun(delta) -> void:
 	
 	target_pitch = clampf(target_pitch, gun_limit_min, gun_limit_max)
 	
-	gun.global_rotation.x = lerp_angle(gun.global_rotation.x, target_pitch, turn_speed_gun * delta)
+	return lerp_angle(gun.global_rotation.x, target_pitch, turn_speed_gun * delta)
+
+func apply_tracking(delta) -> void:
+	var goal_main = track_predicted(delta)
+	var goal_gun = track_predicted_gun(delta)
+	
+	global_rotation.y = goal_main
+	gun.global_rotation.x = goal_gun
+
+
 
 func fire() -> void:
 	if !bullet_marker or !bullet_scene: return
 	var bullet = bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)
-	bullet.global_position = bullet_marker.global_position
 	bullet.global_transform = gun.global_transform
+	bullet.global_position = bullet_marker.global_position
 	bullet.speed = bullet_velocity

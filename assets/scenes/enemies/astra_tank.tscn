@@ -22,11 +22,59 @@ size = Vector3(10, 3, 10)
 [sub_resource type="BoxMesh" id="BoxMesh_mlpaj"]
 size = Vector3(1, 1, 18)
 
-[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray")]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_seyvw"]
+emission_shape = 1
+emission_sphere_radius = 3.0
+radial_velocity_min = -10.000022
+radial_velocity_max = -1.0000223
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+color = Color(1.8247963, 0, 0.8116174, 1)
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.99999994
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qll6"]
+next_pass = ExtResource("2_gwt65")
+vertex_color_use_as_albedo = true
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_1dlg0"]
+material = SubResource("StandardMaterial3D_6qll6")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_xyc4g"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1dlg0"]
+curve = SubResource("Curve_xyc4g")
+
+[sub_resource type="Curve" id="Curve_yqj4p"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6378601, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yqj4p"]
+curve = SubResource("Curve_yqj4p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1dlg0"]
+radial_velocity_min = 9.999977
+radial_velocity_max = 29.999977
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_curve = SubResource("CurveTexture_yqj4p")
+color = Color(1.8247963, 0, 0.8116174, 1)
+alpha_curve = SubResource("CurveTexture_1dlg0")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.99999994
+
+[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "charge_particles", "shoot_particles")]
 collision_layer = 9
 script = ExtResource("1_mlpaj")
 turret = NodePath("TurretModule")
 los_ray = NodePath("TurretModule/Gun/los")
+charge_particles = NodePath("TurretModule/Gun/charge_particles")
+shoot_particles = NodePath("TurretModule/Gun/shoot_particles")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
@@ -72,3 +120,23 @@ target_position = Vector3(0, 0, -100)
 
 [node name="Marker3D" type="Marker3D" parent="TurretModule/Gun" unique_id=206638960]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+
+[node name="charge_particles" type="GPUParticles3D" parent="TurretModule/Gun" unique_id=1939155135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -18.5)
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_seyvw")
+draw_pass_1 = SubResource("BoxMesh_1dlg0")
+
+[node name="shoot_particles" type="GPUParticles3D" parent="TurretModule/Gun" unique_id=892835672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0, -18.5)
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_1dlg0")
+draw_pass_1 = SubResource("BoxMesh_1dlg0")

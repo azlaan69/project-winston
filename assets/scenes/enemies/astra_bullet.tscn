@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3lndmc2vaefx" path="res://assets/scripts/base_bullet.gd" id="1_nlpn1"]
 [ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="2_sxm3p"]
+[ext_resource type="Script" uid="uid://brqh6t5d1dyrl" path="res://addons/TrailRenderer/Runtime/GD/trail_renderer.gd" id="3_sxm3p"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1dlg0"]
 size = Vector3(1, 2.5, 1)
@@ -19,7 +20,17 @@ albedo_color = Color(1, 0, 0.43137255, 1)
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_sxm3p"]
 material = SubResource("StandardMaterial3D_2dj55")
 sections = 8
-section_length = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxm3p"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0, 0.43137255, 1)
+metallic_specular = 0.0
+emission_enabled = true
+emission = Color(0.627451, 0.81960785, 0.8862745, 1)
+stencil_mode = 3
+stencil_flags = 2
 
 [node name="Area3D" type="Area3D" unique_id=818761449 groups=["projectile"]]
 script = ExtResource("1_nlpn1")
@@ -40,10 +51,18 @@ shape = SubResource("CapsuleShape3D_seyvw")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1432051655]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -7.1054274e-15, -2)
-lifetime = 0.3
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -2)
+visible = false
+amount = 64
+lifetime = 0.18000000000000002
 fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_nlpn1")
 draw_pass_1 = SubResource("RibbonTrailMesh_sxm3p")
+
+[node name="TrailRenderer" type="Node3D" parent="." unique_id=1439761619]
+script = ExtResource("3_sxm3p")
+lifetime = 0.199999999999996
+material = SubResource("StandardMaterial3D_sxm3p")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

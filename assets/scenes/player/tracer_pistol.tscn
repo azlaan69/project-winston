@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ch1hjenogu8su"]
 
 [ext_resource type="Script" uid="uid://d1ogjln7lhgg0" path="res://assets/scripts/tracer_pistol.gd" id="1_pbdut"]
+[ext_resource type="Script" uid="uid://brqh6t5d1dyrl" path="res://addons/TrailRenderer/Runtime/GD/trail_renderer.gd" id="2_csyov"]
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_seyvw"]
 size = 0.1
@@ -28,6 +29,34 @@ emission_texture = SubResource("GradientTexture2D_5pvhp")
 stencil_mode = 3
 stencil_flags = 2
 
+[sub_resource type="Gradient" id="Gradient_csyov"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.35686275, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7bfvj"]
+gradient = SubResource("Gradient_csyov")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_cdma5"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.35686275, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hf6vc"]
+gradient = SubResource("Gradient_cdma5")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pya7h"]
+transparency = 1
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(3.2944162, 3.2944162, 3.2944162, 0.39215687)
+albedo_texture = SubResource("GradientTexture2D_7bfvj")
+emission_enabled = true
+emission_texture = SubResource("GradientTexture2D_hf6vc")
+stencil_mode = 3
+stencil_flags = 2
+
 [node name="tracer_pistol" type="Node3D" unique_id=1808949074]
 script = ExtResource("1_pbdut")
 
@@ -35,3 +64,9 @@ script = ExtResource("1_pbdut")
 transform = Transform3D(1.767767, -3.2006923e-08, -1.7677671, -1.7677671, -7.727155e-08, -1.767767, -3.2006923e-08, 2.5, -7.727155e-08, -1.9936124e-09, -1.9936124e-09, -0.625)
 mesh = SubResource("RibbonTrailMesh_seyvw")
 surface_material_override/0 = SubResource("StandardMaterial3D_nhb04")
+
+[node name="TrailRenderer" type="Node3D" parent="." unique_id=95810636]
+script = ExtResource("2_csyov")
+lifetime = 0.099999999999998
+material = SubResource("StandardMaterial3D_pya7h")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
