@@ -17,7 +17,7 @@ var side: float = 1.0
 @export var bulletpos: Marker3D
 @export var anim: AnimationPlayer
 @export var hitanim: AnimationPlayer
-const BULLET = preload("res://assets/scenes/enemies/bullet1.tscn")
+@export var BULLET: PackedScene
 
 func _physics_process(delta: float) -> void:
 	super(delta)

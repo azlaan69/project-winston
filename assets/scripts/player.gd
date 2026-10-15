@@ -316,6 +316,7 @@ func walk_process(delta) -> void:
 
 func slide_process(delta) -> void:
 	var floor_normal = get_floor_normal()
+	if floor_normal.is_equal_approx(Vector3.ZERO): floor_normal = Vector3.UP
 	var slope_dot = velocity.normalized().dot(floor_normal)
 	
 	var downhill_dir = Vector3.DOWN.slide(floor_normal)
@@ -408,7 +409,7 @@ func air_process(delta) -> void:
 
 func wall_process(delta) -> void:
 	
-	if not near_wall or is_on_floor() or not w_jump_allowed:
+	if not near_wall or is_on_floor() or not w_jump_allowed or not w_data.valid:
 		last_w_normal = Vector3.ZERO
 		change_state(state.AIRBORNE)
 		return

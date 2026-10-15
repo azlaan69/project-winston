@@ -87,6 +87,7 @@ charge_particles = NodePath("TurretModule/Gun/charge_particles")
 shoot_particles = NodePath("TurretModule/Gun/shoot_particles")
 debug_label = NodePath("TurretModule/Label3D")
 tracks_parent = NodePath("TrackParent")
+update_rate = 0.49999999999999
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
@@ -104,8 +105,14 @@ debug_color = Color(0, 1, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 target_position = Vector3(0, 0, -100)
 
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="." unique_id=1393974127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3)
+remote_path = NodePath("../TurretModule")
+update_rotation = false
+
 [node name="TurretModule" type="Node3D" parent="." unique_id=311041701 node_paths=PackedStringArray("bullet_marker", "gun")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3)
+top_level = true
 script = ExtResource("3_gwt65")
 bullet_velocity = 119.9999999999976
 bullet_scene = ExtResource("4_yqj4p")
@@ -166,10 +173,11 @@ draw_pass_1 = SubResource("BoxMesh_1dlg0")
 
 [node name="TrackParent" type="Node3D" parent="." unique_id=172604054]
 
-[node name="Track_LF" type="Node3D" parent="TrackParent" unique_id=253528085 node_paths=PackedStringArray("ray")]
+[node name="Track_LF" type="Node3D" parent="TrackParent" unique_id=253528085 node_paths=PackedStringArray("ray", "mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -9)
 script = ExtResource("5_1dlg0")
 ray = NodePath("RayCast3D")
+mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LF" unique_id=160133010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.5, 0.5)
@@ -180,10 +188,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1.5, -1.9936124e-09)
 target_position = Vector3(0, -3, 0)
 
-[node name="Track_RF" type="Node3D" parent="TrackParent" unique_id=1130225780 node_paths=PackedStringArray("ray")]
+[node name="Track_RF" type="Node3D" parent="TrackParent" unique_id=1130225780 node_paths=PackedStringArray("ray", "mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -9)
 script = ExtResource("5_1dlg0")
 ray = NodePath("RayCast3D")
+mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RF" unique_id=2038431609]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 0.5)
@@ -194,10 +203,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.5, -1.9936124e-09)
 target_position = Vector3(0, -3, 0)
 
-[node name="Track_LB" type="Node3D" parent="TrackParent" unique_id=2091702715 node_paths=PackedStringArray("ray")]
+[node name="Track_LB" type="Node3D" parent="TrackParent" unique_id=2091702715 node_paths=PackedStringArray("ray", "mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 9)
 script = ExtResource("5_1dlg0")
 ray = NodePath("RayCast3D")
+mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LB" unique_id=933190133]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
@@ -208,10 +218,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.5, -1)
 target_position = Vector3(0, -3, 0)
 
-[node name="Track_RB" type="Node3D" parent="TrackParent" unique_id=452335654 node_paths=PackedStringArray("ray")]
+[node name="Track_RB" type="Node3D" parent="TrackParent" unique_id=452335654 node_paths=PackedStringArray("ray", "mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 9)
 script = ExtResource("5_1dlg0")
 ray = NodePath("RayCast3D")
+mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RB" unique_id=642465950]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.9936124e-09, -1)

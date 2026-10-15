@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://wpc7vvjgbotd"]
 
-[ext_resource type="Script" uid="uid://toacpq84dsr1" path="res://assets/scripts/helper/shaderhelper.gd" id="1_xoxhl"]
 [ext_resource type="Script" uid="uid://crtl3c135qupk" path="res://assets/scripts/shooter1.gd" id="1_yknt1"]
+[ext_resource type="PackedScene" uid="uid://b6wpnveghg6nh" path="res://assets/scenes/enemies/bullet1.tscn" id="2_pe1q6"]
 [ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="2_satdh"]
 [ext_resource type="PackedScene" uid="uid://djto08je026bj" path="res://assets/models/shooter_burst.tscn" id="2_xoxhl"]
-[ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="5_pe1q6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qok5"]
 radius = 0.75
@@ -32,17 +31,16 @@ head = NodePath("shooter_burst/root/pelvis/torso/head")
 bulletpos = NodePath("shooter_burst/root/pelvis/torso/arms/armL/fofrontmR/gun/Marker3D")
 anim = NodePath("shooter_burst/AnimationPlayer")
 hitanim = NodePath("shooter_burst/hitanim")
+BULLET = ExtResource("2_pe1q6")
 hp = 29.9999999999994
 optional_ghostmat = ExtResource("2_satdh")
 optional_ghostroot = NodePath("shooter_burst")
 
 [node name="shooter_burst" parent="." unique_id=907194274 instance=ExtResource("2_xoxhl")]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.9868642, 0)
-script = ExtResource("1_xoxhl")
-mask_material = ExtResource("5_pe1q6")
 
 [node name="forearmR" parent="shooter_burst/root/pelvis/torso/arms/armR" parent_id_path=PackedInt32Array(907194274, 1854335590) index="2" unique_id=304160541]
-transform = Transform3D(0.6642453, -0.32139173, -0.67489344, 0.472063, 0.8803958, 0.045362905, 0.5795938, -0.34872577, 0.73651695, 0.019514374, -0.37838376, 0.000906875)
+transform = Transform3D(0.66424525, -0.32139173, -0.6748934, 0.47206298, 0.8803958, 0.045362905, 0.5795937, -0.34872577, 0.7365169, 0.019514374, -0.37838376, 0.000906875)
 
 [node name="armL" parent="shooter_burst/root/pelvis/torso/arms" parent_id_path=PackedInt32Array(907194274, 1738677987) index="1" unique_id=1218810756]
 transform = Transform3D(0.9252015, -0.2716394, 0.26497868, 0.14177774, 0.89514965, 0.42261818, -0.3519953, -0.3534391, 0.86670625, -0.001046875, 0.01171875, 0.2349075)

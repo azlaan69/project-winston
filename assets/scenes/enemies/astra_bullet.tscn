@@ -43,7 +43,7 @@ knockback = 30
 die_on_hit = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=300792446]
-transform = Transform3D(0.70710665, 0, -0.70710677, -0.7071067, -3.090862e-08, -0.7071067, -2.1855694e-08, 0.99999994, -2.185569e-08, 0, 0, 0)
+transform = Transform3D(-0.7071071, -3.0908613e-08, -0.70710635, -0.70710635, 1.280279e-08, 0.7071071, -1.28027695e-08, 0.99999994, -3.090862e-08, 0, 0, 0)
 mesh = SubResource("BoxMesh_1dlg0")
 surface_material_override/0 = ExtResource("2_sxm3p")
 

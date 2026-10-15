@@ -3,8 +3,15 @@ extends BaseTank
 enum shot { SINGLE, BURST, LONGBURST }
 var queued_shot = shot.SINGLE
 
+var dir = Vector3.ZERO
+
 enum action { RAM, PUNCH, STRAFE }
-var queued_action = action.STRAFE
+var queued_action = action.STRAFE:
+	set(v):
+		match v:
+			action.RAM:
+				dir = global_position.direction_to(player.global_position)
+			
 
 
 @export var turret: Node3D
@@ -103,6 +110,10 @@ func reroll_shot() -> void:
 
 		queued_shot = shot.LONGBURST
 		bullet_cd = 3.5
+
+func reroll_move() -> void:
+	
+	var move_weight = randf()
 
 
 func do_nothing() -> void:

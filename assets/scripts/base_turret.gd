@@ -3,10 +3,10 @@ extends Node3D
 
 
 @export_group("Firing")
+
 @export var bullet_velocity := 50.0
 @export var bullet_scene: PackedScene
 @export var bullet_marker: Marker3D
-
 
 
 @export_group("Tracking")

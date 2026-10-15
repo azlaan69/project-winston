@@ -1,4 +1,4 @@
-class_name BulletBase
+class_name BaseBullet
 extends Area3D
 
 var max_lifetime: float = 0.0
@@ -13,8 +13,12 @@ var hit_effect: Callable
 @export var parriable: bool = true
 @export var damage: float = 10.0
 @export var knockback: int = 10
-@export var hitfx: PackedScene
 @export var die_on_hit: bool = true
+
+@export_group("Visual")
+@export var rotate: bool = true
+@export var rot_speed: float = 45.0
+@export var hitfx: PackedScene
 
 func _ready() -> void:
 	max_lifetime = lifetime
@@ -29,6 +33,9 @@ func _physics_process(delta: float) -> void:
 		dir = -global_transform.basis.z.normalized()
 		hit_data["dir"] = dir
 		init = true
+	
+	if rotate:
+		rotation.z += rot_speed
 	
 	lifetime -= delta
 	if lifetime <= 0.0: queue_free()
