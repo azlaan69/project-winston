@@ -25,6 +25,8 @@ var bullet_cd := 0.0
 
 func _physics_process(delta: float) -> void:
 	
+	update_chassis(delta)
+	
 	bullet_cd = maxf(0.0, bullet_cd - delta)
 	var gun_arrow = -turret.gun.global_transform.basis.z
 	var player_arrow = turret.gun.global_position.direction_to(player.global_position)
