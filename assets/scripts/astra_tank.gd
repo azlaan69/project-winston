@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 			shot.BURST:
 				fire_sequence_burst(3, 0.5)
 			shot.LONGBURST:
-				fire_sequence_burst(8, 0.25)
+				fire_sequence_burst(20, 0.2)
 	
 	if tracking:
 		turret.apply_tracking(delta)
