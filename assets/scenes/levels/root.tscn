@@ -205,4 +205,4 @@ material_override = SubResource("StandardMaterial3D_phms8")
 mesh = SubResource("CapsuleMesh_sorpi")
 
 [node name="Astra" parent="." unique_id=1970695531 instance=ExtResource("12_phms8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 41, -26)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 135, 44, -26)

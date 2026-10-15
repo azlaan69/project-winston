@@ -4,9 +4,10 @@
 [ext_resource type="Material" uid="uid://dls3o0ah604w1" path="res://assets/models/mats/outline.tres" id="2_gwt65"]
 [ext_resource type="Script" uid="uid://dtn8b1exubb84" path="res://assets/scripts/base_turret.gd" id="3_gwt65"]
 [ext_resource type="PackedScene" uid="uid://bie4mlhnyvyrb" path="res://assets/scenes/enemies/astra_bullet.tscn" id="4_yqj4p"]
+[ext_resource type="Script" uid="uid://cnyaeeyxbp42a" path="res://assets/scripts/base_track.gd" id="5_1dlg0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nhb04"]
-size = Vector3(15, 5, 25)
+size = Vector3(4, 2, 20)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pvhp"]
 next_pass = ExtResource("2_gwt65")
@@ -14,13 +15,13 @@ stencil_mode = 3
 stencil_flags = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
-size = Vector3(15, 5, 25)
+size = Vector3(4, 2, 20)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gwt65"]
-size = Vector3(10, 3, 10)
+size = Vector3(7, 3, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mlpaj"]
-size = Vector3(1, 1, 18)
+size = Vector3(1, 1, 16)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_seyvw"]
 emission_shape = 1
@@ -68,7 +69,16 @@ alpha_curve = SubResource("CurveTexture_1dlg0")
 hue_variation_min = -0.050000023
 hue_variation_max = 0.049999975
 
-[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "charge_particles", "shoot_particles", "debug_label")]
+[sub_resource type="BoxMesh" id="BoxMesh_yqj4p"]
+size = Vector3(5, 2, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6qll6"]
+size = Vector3(5, 2, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_seyvw"]
+size = Vector3(6, 3, 11)
+
+[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "charge_particles", "shoot_particles", "debug_label", "tracks_parent")]
 collision_layer = 9
 script = ExtResource("1_mlpaj")
 turret = NodePath("TurretModule")
@@ -76,25 +86,26 @@ los_ray = NodePath("los")
 charge_particles = NodePath("TurretModule/Gun/charge_particles")
 shoot_particles = NodePath("TurretModule/Gun/shoot_particles")
 debug_label = NodePath("TurretModule/Label3D")
+tracks_parent = NodePath("TrackParent")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
 mesh = SubResource("BoxMesh_nhb04")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1305825911]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
 shape = SubResource("BoxShape3D_seyvw")
 debug_color = Color(0, 1, 0, 1)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1124178104]
 
 [node name="los" type="RayCast3D" parent="." unique_id=1827019459]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 target_position = Vector3(0, 0, -100)
 
 [node name="TurretModule" type="Node3D" parent="." unique_id=311041701 node_paths=PackedStringArray("bullet_marker", "gun")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3)
 script = ExtResource("3_gwt65")
 bullet_velocity = 119.9999999999976
 bullet_scene = ExtResource("4_yqj4p")
@@ -120,18 +131,18 @@ font_size = 400
 outline_size = 80
 
 [node name="Gun" type="Node3D" parent="TurretModule" unique_id=505240068]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TurretModule/Gun" unique_id=699570660]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0, -8.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0, -7.5)
 mesh = SubResource("BoxMesh_mlpaj")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
 [node name="Marker3D" type="Marker3D" parent="TurretModule/Gun" unique_id=206638960]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 
 [node name="charge_particles" type="GPUParticles3D" parent="TurretModule/Gun" unique_id=1939155135]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -18.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -16.5)
 emitting = false
 amount = 64
 lifetime = 0.5
@@ -142,7 +153,7 @@ process_material = SubResource("ParticleProcessMaterial_seyvw")
 draw_pass_1 = SubResource("BoxMesh_1dlg0")
 
 [node name="shoot_particles" type="GPUParticles3D" parent="TurretModule/Gun" unique_id=892835672]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0, -18.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0, -16.5)
 emitting = false
 amount = 32
 lifetime = 0.5
@@ -152,3 +163,61 @@ randomness = 1.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_1dlg0")
 draw_pass_1 = SubResource("BoxMesh_1dlg0")
+
+[node name="TrackParent" type="Node3D" parent="." unique_id=172604054]
+
+[node name="Track_LF" type="Node3D" parent="TrackParent" unique_id=253528085 node_paths=PackedStringArray("ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -9)
+script = ExtResource("5_1dlg0")
+ray = NodePath("RayCast3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LF" unique_id=160133010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.5, 0.5)
+mesh = SubResource("BoxMesh_yqj4p")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_LF" unique_id=1666043878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1.5, -1.9936124e-09)
+target_position = Vector3(0, -3, 0)
+
+[node name="Track_RF" type="Node3D" parent="TrackParent" unique_id=1130225780 node_paths=PackedStringArray("ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -9)
+script = ExtResource("5_1dlg0")
+ray = NodePath("RayCast3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RF" unique_id=2038431609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 0.5)
+mesh = SubResource("BoxMesh_6qll6")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_RF" unique_id=769925294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.5, -1.9936124e-09)
+target_position = Vector3(0, -3, 0)
+
+[node name="Track_LB" type="Node3D" parent="TrackParent" unique_id=2091702715 node_paths=PackedStringArray("ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 9)
+script = ExtResource("5_1dlg0")
+ray = NodePath("RayCast3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LB" unique_id=933190133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+mesh = SubResource("BoxMesh_seyvw")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_LB" unique_id=1385028187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.5, -1)
+target_position = Vector3(0, -3, 0)
+
+[node name="Track_RB" type="Node3D" parent="TrackParent" unique_id=452335654 node_paths=PackedStringArray("ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 9)
+script = ExtResource("5_1dlg0")
+ray = NodePath("RayCast3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RB" unique_id=642465950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.9936124e-09, -1)
+mesh = SubResource("BoxMesh_seyvw")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
+
+[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_RB" unique_id=1758849314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.5, -1)
+target_position = Vector3(0, -3, 0)
