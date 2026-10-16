@@ -28,9 +28,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 42, 25)
 material_override = SubResource("StandardMaterial3D_5pvhp")
 mesh = SubResource("CapsuleMesh_nhb04")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=240317300]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219, 25, -25)
-size = Vector3(98, 30, 50)
+[node name="AstraArena1" type="CSGCylinder3D" parent="." unique_id=1965826754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 17.5, -25)
+radius = 100.0
+height = 25.0
+smooth_faces = false
+
+[node name="AstraArena1" type="CSGCylinder3D" parent="AstraArena1" unique_id=339616720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+operation = 2
+radius = 95.0
+height = 22.0
+smooth_faces = false
 
 [node name="randomtube2" type="CSGCylinder3D" parent="." unique_id=298726472]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103, 16.25, -24)

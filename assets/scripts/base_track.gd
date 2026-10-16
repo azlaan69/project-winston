@@ -5,7 +5,7 @@ extends Node3D
 
 func _physics_process(delta: float) -> void:
 	if ray.is_colliding(): 
-		mesh.position.y = to_local(ray.get_collision_point()).y + 2.0
+		mesh.position.y = to_local(ray.get_collision_point()).y + 5.0
 
 func get_ray_normal() -> Vector3:
 	return ray.get_collision_normal()

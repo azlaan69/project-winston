@@ -16,7 +16,7 @@ var hit_effect: Callable
 @export var die_on_hit: bool = true
 
 @export_group("Visual")
-@export var rotate: bool = true
+@export var use_rot: bool = true
 @export var rot_speed: float = 45.0
 @export var hitfx: PackedScene
 
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 		hit_data["dir"] = dir
 		init = true
 	
-	if rotate:
+	if use_rot:
 		rotation.z += rot_speed
 	
 	lifetime -= delta
