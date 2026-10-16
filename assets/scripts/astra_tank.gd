@@ -32,21 +32,16 @@ var _is_ram_locked := false
 var _strafe_side = -1.0
 
 func _physics_process(delta: float) -> void:
-	
-	move_timer += delta
+
 	bullet_cd = maxf(0.0, bullet_cd - delta)
-	
-	if move_timer > 5.0: 
-		move_timer = 0.0
-		reroll_move()
-	
+
 	var gun_arrow = -turret.gun.global_transform.basis.z
 	var player_arrow = turret.gun.global_position.direction_to(player.global_position)
 	player_in_cone = gun_arrow.angle_to(player_arrow) < deg_to_rad(10.0)
 	
 	shot_eligible = bullet_cd <= 0.0 and player_in_cone and !is_firing
 	
-	debug_label.text = str(dir, action.find_key(queued_action))
+	#debug_label.text = str(action.find_key(queued_action))
 	
 	if shot_eligible:
 		match queued_shot:
@@ -69,23 +64,27 @@ func _physics_process(delta: float) -> void:
 			punch_process(delta)
 	
 	update_chassis(delta, dir, speed)
+	update_chassis_visual(delta)
+	
 	move_and_slide()
 
 func ram_process(delta) -> void:
 	
 	phase_timer += delta
 	
-	if phase_timer < 0.8:
+	if phase_timer < 1.0:
 		dir = -get_rot_to_player()
 		speed = top_speed / 2.0
+		update_transform = false
+	
+	elif phase_timer < 1.5:
+		if not _is_ram_locked: enter_ram()
+		speed = top_speed * 4.0
 	
 	elif phase_timer < 2.5:
-		if not _is_ram_locked: enter_ram()
-		speed = top_speed * 2.0
-	
-	elif phase_timer < 3.5:
 		_is_ram_locked = false
 		speed = 0.0
+		update_transform = true
 	
 	else:
 		reroll_move()
@@ -94,8 +93,21 @@ func strafe_process(delta) -> void:
 	
 	phase_timer += delta
 	
-	dir = get_rot_to_player().cross(fetch_normal()) * _strafe_side
-	speed = top_speed
+	var bias = 0.15
+	var dist = global_position.distance_to(player.global_position)
+	
+	if dist > 80:
+		bias = 0.5
+	elif dist < 80 and dist > 30:
+		bias = 0.15
+	elif dist < 30:
+		bias = -0.3
+	
+	var speed_wave = sin(phase_timer * 3.0)
+	var accel_factor = remap(speed_wave, -1.0, 1.0, 0.7, 1.4)
+	
+	dir = (get_rot_to_player().cross(fetch_normal()) * _strafe_side + get_rot_to_player() * bias).normalized()
+	speed = top_speed * accel_factor
 	
 	if phase_timer > 3.0:
 		reroll_move()
@@ -109,10 +121,10 @@ func enter_ram() -> void:
 	_is_ram_locked = true
 
 func enter_strafe() -> void:
-	if randf() < 0.5:
-		_strafe_side = 1.0
+	if randf() > 0.5:
+		_strafe_side = -1.0 if randf() > 0.5 else 1.0
 	else:
-		_strafe_side = -1.0
+		_strafe_side = -_strafe_side
 
 func fire_sequence() -> void:
 
@@ -174,9 +186,10 @@ func reroll_move() -> void:
 	
 	var move_weight = randf()
 	_is_ram_locked = false
+	update_transform = true
 	phase_timer = 0.0
 	
-	if move_weight < 0.25:
+	if move_weight < 0.5:
 		queued_action = action.RAM
 	
 	#elif move_weight < 0.5:

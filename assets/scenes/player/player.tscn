@@ -907,6 +907,8 @@ stencil_mode = 3
 stencil_flags = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "grapple_rope", "sfx", "wpn_manager") groups=["player"]]
+collision_layer = 513
+collision_mask = 513
 slide_on_ceiling = false
 floor_max_angle = 1.0471976
 floor_snap_length = 0.8

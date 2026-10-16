@@ -7,18 +7,18 @@
 [ext_resource type="Script" uid="uid://cnyaeeyxbp42a" path="res://assets/scripts/base_track.gd" id="5_1dlg0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nhb04"]
-size = Vector3(4, 2, 20)
+size = Vector3(4, 2, 15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pvhp"]
 next_pass = ExtResource("2_gwt65")
 stencil_mode = 3
 stencil_flags = 2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
-size = Vector3(4, 2, 20)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1dlg0"]
+points = PackedVector3Array(2, 1, 7.499999, 2, -1, 7.499999, 2, 1, -7.5, -2, 1, 7.499999, -2, -1, 7.499999, 2, -1, -7.5, -2, 1, -7.5, -2, -1, -7.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gwt65"]
-size = Vector3(7, 3, 10)
+size = Vector3(5, 3, 7)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mlpaj"]
 size = Vector3(1, 1, 16)
@@ -76,9 +76,9 @@ size = Vector3(5, 2, 12)
 size = Vector3(5, 2, 12)
 
 [sub_resource type="BoxMesh" id="BoxMesh_seyvw"]
-size = Vector3(6, 3, 11)
+size = Vector3(6, 2, 11)
 
-[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "charge_particles", "shoot_particles", "debug_label", "tracks_parent")]
+[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "charge_particles", "shoot_particles", "debug_label", "tracks_parent", "mesh")]
 collision_layer = 9
 script = ExtResource("1_mlpaj")
 turret = NodePath("TurretModule")
@@ -87,16 +87,19 @@ charge_particles = NodePath("TurretModule/Gun/charge_particles")
 shoot_particles = NodePath("TurretModule/Gun/shoot_particles")
 debug_label = NodePath("TurretModule/Label3D")
 tracks_parent = NodePath("TrackParent")
+tracking_rate = 179.9999999999964
+top_speed = 49.999999999999
+visual_update_rate = 9.9999999999998
+mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 0.99619466, 0.08715573, 0, -0.08715573, 0.99619466, 0, 1.5, -1.5)
 mesh = SubResource("BoxMesh_nhb04")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1305825911]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
-shape = SubResource("BoxShape3D_seyvw")
-debug_color = Color(0, 1, 0, 1)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1692267402]
+transform = Transform3D(1, 0, 0, 0, 0.99619466, 0.08715573, 0, -0.08715573, 0.99619466, 0, 1.5, -1.5)
+shape = SubResource("ConvexPolygonShape3D_1dlg0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1124178104]
 
@@ -105,23 +108,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 target_position = Vector3(0, 0, -100)
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="." unique_id=1393974127]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 2)
 remote_path = NodePath("../TurretModule")
 update_rotation = false
 
 [node name="TurretModule" type="Node3D" parent="." unique_id=311041701 node_paths=PackedStringArray("bullet_marker", "gun")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 2)
 top_level = true
 script = ExtResource("3_gwt65")
 bullet_velocity = 119.9999999999976
 bullet_scene = ExtResource("4_yqj4p")
 bullet_marker = NodePath("Gun/Marker3D")
-turn_speed = 2.49999999999995
 lead = 1.0
 gun = NodePath("Gun")
 max_angle_gun = 74.9999999999985
 min_angle_gun = -14.9999999999997
-turn_speed_gun = 2.49999999999995
+turn_speed_gun = 4.9999999999999
 gun_lead = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TurretModule" unique_id=283257452]
@@ -132,12 +134,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 [node name="Label3D" type="Label3D" parent="TurretModule" unique_id=1650914096]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 billboard = 1
-text = "abc"
 font_size = 400
 outline_size = 80
 
 [node name="Gun" type="Node3D" parent="TurretModule" unique_id=505240068]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TurretModule/Gun" unique_id=699570660]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0, -7.5)
@@ -179,7 +180,7 @@ ray = NodePath("RayCast3D")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LF" unique_id=160133010]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.5, 0.5)
+transform = Transform3D(0.9659258, 0.25881904, -7.450581e-09, -0.25, 0.93301266, 0.25881904, 0.066987306, -0.24999999, 0.9659258, 1.5, -0.5, 0.5)
 mesh = SubResource("BoxMesh_yqj4p")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
@@ -194,7 +195,7 @@ ray = NodePath("RayCast3D")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RF" unique_id=2038431609]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 0.5)
+transform = Transform3D(0.9659258, -0.25881904, 7.450581e-09, 0.25, 0.93301266, 0.25881904, -0.066987306, -0.24999999, 0.9659258, -1.5, -0.5, 0.5)
 mesh = SubResource("BoxMesh_6qll6")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
@@ -209,7 +210,7 @@ ray = NodePath("RayCast3D")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LB" unique_id=933190133]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+transform = Transform3D(0.9659258, 0.25881904, 7.450581e-09, -0.25, 0.93301266, -0.25881904, -0.066987306, 0.24999999, 0.9659258, 2, 0, -1)
 mesh = SubResource("BoxMesh_seyvw")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
@@ -224,7 +225,7 @@ ray = NodePath("RayCast3D")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RB" unique_id=642465950]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.9936124e-09, -1)
+transform = Transform3D(0.9659258, -0.25881904, -7.450581e-09, 0.25, 0.93301266, -0.25881904, 0.066987306, 0.24999999, 0.9659258, -2, -1.9936124e-09, -1)
 mesh = SubResource("BoxMesh_seyvw")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
