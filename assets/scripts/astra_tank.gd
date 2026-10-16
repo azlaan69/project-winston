@@ -75,7 +75,7 @@ func ram_process(delta) -> void:
 	if phase_timer < 1.0:
 		dir = -get_rot_to_player()
 		speed = top_speed / 2.0
-		update_transform = false
+		#update_transform = false
 	
 	elif phase_timer < 1.5:
 		if not _is_ram_locked: enter_ram()
@@ -84,7 +84,7 @@ func ram_process(delta) -> void:
 	elif phase_timer < 2.5:
 		_is_ram_locked = false
 		speed = 0.0
-		update_transform = true
+		#update_transform = true
 	
 	else:
 		reroll_move()
@@ -97,10 +97,10 @@ func strafe_process(delta) -> void:
 	var dist = global_position.distance_to(player.global_position)
 	
 	if dist > 80:
+		bias = 1.0
+	elif dist < 80 and dist > 10:
 		bias = 0.5
-	elif dist < 80 and dist > 30:
-		bias = 0.15
-	elif dist < 30:
+	elif dist < 10:
 		bias = -0.3
 	
 	var speed_wave = sin(phase_timer * 3.0)

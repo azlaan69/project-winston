@@ -345,8 +345,7 @@ func slide_process(delta) -> void:
 		
 		velocity.x = h_speed * h_dir.x
 		velocity.z = h_speed * h_dir.y 
-		
-		#var minimum = 15.0 if (velocity.dot(downhill_dir) < -0.1) else 5.0
+
 		var minimum = 5.0
 		var maximum = minimum * 2
 		velocity.y = remap(h_speed, 0.0, 50.0, minimum, maximum)
@@ -409,7 +408,7 @@ func air_process(delta) -> void:
 
 func wall_process(delta) -> void:
 	
-	if not near_wall or is_on_floor() or not w_jump_allowed or not w_data.valid:
+	if not near_wall or is_on_floor() or not w_jump_allowed or not w_data.valid or not w_data.normal.length() > 0.01:
 		last_w_normal = Vector3.ZERO
 		change_state(state.AIRBORNE)
 		return
@@ -448,9 +447,6 @@ func wall_process(delta) -> void:
 	
 	var target_speed = speed
 	
-	#if move_dir.length_squared() == 0.0 or move_dir.dot(velocity.normalized()) < -0.3:
-		#target_speed = move_toward(speed, 10.0, 10.0 * delta)
-	#else:
 	target_speed *= exp(-0.1 * delta)
 	
 	var final_h_vel = final_h_dir * target_speed
