@@ -11,6 +11,7 @@ var hat_buffer := 0.0
 var switch_buffer := 0.0
 var shoot_buffer := 0.0
 
+@export_group("References")
 @onready var hat: RigidBody3D
 @onready var player = get_parent()
 
@@ -35,6 +36,9 @@ var shoot_buffer := 0.0
 
 @export var combo: Timer
 @export var pistol_timeslow_timer: Timer
+
+@export_group("Scale Curves")
+@export var katana_curve: Curve
 
 func _ready() -> void:
 	hat = get_tree().get_first_node_in_group("hat")
@@ -181,13 +185,23 @@ func deal_swing() -> void:
 			fx.global_position = body.global_position + (-body.transform.basis.z * 1.0)
 			fx.anim = "sword"
 			
+			var dmg = evaluate_damage(katana_curve, 20.0)
+			
 			var hit_data = {
-				"damage": 5.0,
+				"damage": dmg,
 				"type": "SWORD",
 				"knockback": 10.0,
 				"dir": -global_transform.basis.z
 			}
 			body.hit(hit_data)
+	
+	for area in sword_hitbox.get_overlapping_areas():
+		
+		if area.is_in_group("hitpoint"):
+			
+			var dmg = evaluate_damage(katana_curve, 20.0)
+			
+			area.get_damaged(dmg)
 
 func deal_parry() -> void:
 	var targets = parry_hitbox.get_overlapping_areas() + parry_hitbox.get_overlapping_bodies()
@@ -215,6 +229,19 @@ func parry_connect(trauma) -> void:
 	juice.add_trauma(trauma)
 	var hitstop_time = maxf(0.1, trauma / 2)
 	PhysUtil.hitstop(hitstop_time)
+
+func evaluate_damage(curve: Curve, bonus_pool: float = 15.0) -> float:
+
+	var speed = player.velocity.length()
+	
+	var speed_ratio = clampf(inverse_lerp(0.0, 100.0, speed), 0.0, 1.0)
+	
+	var multiplier = curve.sample(speed_ratio)
+	var calc_damage = 5.0 + (bonus_pool * multiplier)
+	
+	print(calc_damage)
+	return calc_damage
+
 
 
 

@@ -326,7 +326,7 @@ collision_mask = 512
 transform = Transform3D(1.0000002, -7.450581e-09, 0, -3.7252903e-09, 1, 1.4901161e-08, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_i6dp1")
 
-[node name="HitpointModule" type="Area3D" parent="." unique_id=148347356 node_paths=PackedStringArray("parent")]
+[node name="HitpointModule" type="Area3D" parent="." unique_id=148347356 node_paths=PackedStringArray("parent") groups=["hitpoint"]]
 script = ExtResource("8_0hg3p")
 parent = NodePath("..")
 

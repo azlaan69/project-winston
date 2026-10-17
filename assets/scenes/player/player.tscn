@@ -906,6 +906,10 @@ fixed_size = true
 stencil_mode = 3
 stencil_flags = 2
 
+[sub_resource type="Curve" id="Curve_hsamt"]
+_data = [Vector2(0, 0), 0.0, 2.7141674, 0, 0, Vector2(1, 1), -0.23303476, 0.0, 0, 0]
+point_count = 2
+
 [node name="Player" type="CharacterBody3D" unique_id=500862226 node_paths=PackedStringArray("pistol", "anim_funny", "anim_pistol", "marker_pistol", "grapple_rope", "sfx", "wpn_manager") groups=["player"]]
 collision_layer = 513
 collision_mask = 513
@@ -1150,6 +1154,7 @@ sword_hitbox = NodePath("../Head/CameraPivot/SwordHitbox")
 parry_hitbox = NodePath("../Head/CameraPivot/ParryHitbox")
 combo = NodePath("../timers/ComboTimer")
 pistol_timeslow_timer = NodePath("../timers/PistolSecondaryTimer")
+katana_curve = SubResource("Curve_hsamt")
 
 [connection signal="body_entered" from="Head/CameraPivot/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
 [connection signal="animation_finished" from="Head/CameraPivot/WeaponLayer/SubViewport/Hand/AnimationPlayer" to="." method="grapple_animation_finished"]
