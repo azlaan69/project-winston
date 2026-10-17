@@ -106,13 +106,29 @@ size = Vector3(9, 4, 4)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6qll6"]
 points = PackedVector3Array(4.5, 2, 2, 4.5, 2, -2, -4.5, 2, 2, 4.5, -2, 2, 4.5, -2, -2, -4.5, 2, -2, -4.5, -2, 2, -4.5, -2, -2)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0hg3p"]
+radial_velocity_min = 9.999977
+radial_velocity_max = 29.999977
+gravity = Vector3(0, -15, 0)
+scale_min = 0.25
+scale_curve = SubResource("CurveTexture_yqj4p")
+color = Color(1.8247963, 0, 0.8116174, 1)
+alpha_curve = SubResource("CurveTexture_1dlg0")
+hue_variation_min = -0.050000023
+hue_variation_max = 0.049999975
+
+[sub_resource type="BoxMesh" id="BoxMesh_iobi1"]
+material = SubResource("StandardMaterial3D_6qll6")
+size = Vector3(0.5, 0.5, 0.5)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
 size = Vector3(20, 9, 28)
 
-[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "whisker_left", "whisker_right", "ram_hitbox", "charge_particles", "shoot_particles", "debug_label", "tracks_parent", "mesh")]
+[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "hitpoint", "los_ray", "whisker_left", "whisker_right", "ram_hitbox", "charge_particles", "shoot_particles", "debug_label", "tracks_parent", "mesh")]
 collision_layer = 9
 script = ExtResource("1_mlpaj")
 turret = NodePath("TurretModule")
+hitpoint = NodePath("HitpointModule")
 los_ray = NodePath("los")
 whisker_left = NodePath("Raycasts/LeftWhisker")
 whisker_right = NodePath("Raycasts/RightWhisker")
@@ -375,6 +391,15 @@ lifetime = 0.49999999999999
 curve = SubResource("Curve_0hg3p")
 material = ExtResource("7_xyc4g")
 metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="shoot_particles" type="GPUParticles3D" parent="Visuals" unique_id=892517298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 3, 8.5)
+amount = 64
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_0hg3p")
+draw_pass_1 = SubResource("BoxMesh_iobi1")
 
 [node name="Raycasts" type="Node3D" parent="." unique_id=1761559891]
 

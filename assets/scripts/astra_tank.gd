@@ -10,19 +10,25 @@ enum action { RAM, DASH, STRAFE }
 var queued_action = action.DASH
 var last_action = action.STRAFE
 
+@export_group("Components")
 @export var turret: Node3D
+@export var hitpoint: Area3D
+
 
 @export_group("Raycasts")
 @export var los_ray: ShapeCast3D
 @export var whisker_left: RayCast3D
 @export var whisker_right: RayCast3D
 
+
 @export_group("Hitboxes")
 @export var ram_hitbox: Area3D
+
 
 @export_group("Particles")
 @export var charge_particles: GPUParticles3D
 @export var shoot_particles: GPUParticles3D
+
 
 @export_group("Debug")
 @export var debug_label: Label3D
@@ -42,6 +48,8 @@ var _strafe_side = -1.0
 
 func _ready() -> void:
 	super()
+	hitpoint.damage_taken.connect(_on_engine_damaged)
+	hitpoint.died.connect(_on_death_trigger)
 
 func _physics_process(delta: float) -> void:
 
@@ -286,3 +294,10 @@ func _on_ram_hitbox_body_entered(body: Node3D) -> void:
 		}
 		
 		player.hit(hit_data)
+
+
+func _on_engine_damaged() -> void:
+	pass
+
+func _on_death_trigger() -> void:
+	pass
