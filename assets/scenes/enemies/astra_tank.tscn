@@ -5,9 +5,12 @@
 [ext_resource type="Script" uid="uid://dtn8b1exubb84" path="res://assets/scripts/base_turret.gd" id="3_gwt65"]
 [ext_resource type="PackedScene" uid="uid://bie4mlhnyvyrb" path="res://assets/scenes/enemies/astra_bullet.tscn" id="4_yqj4p"]
 [ext_resource type="Script" uid="uid://cnyaeeyxbp42a" path="res://assets/scripts/base_track.gd" id="5_1dlg0"]
+[ext_resource type="Script" uid="uid://brqh6t5d1dyrl" path="res://addons/TrailRenderer/Runtime/GD/trail_renderer.gd" id="6_6qll6"]
+[ext_resource type="Material" uid="uid://bb56pmnl5rcbu" path="res://assets/models/mats/hotglowpink.tres" id="7_xyc4g"]
+[ext_resource type="Script" uid="uid://d1ahdj8jy7k7i" path="res://assets/scripts/hitpoint_module.gd" id="8_0hg3p"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nhb04"]
-size = Vector3(4, 2, 15)
+size = Vector3(8, 2, 15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pvhp"]
 next_pass = ExtResource("2_gwt65")
@@ -15,7 +18,9 @@ stencil_mode = 3
 stencil_flags = 2
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1dlg0"]
-points = PackedVector3Array(2, 1, 7.499999, 2, -1, 7.499999, 2, 1, -7.5, -2, 1, 7.499999, -2, -1, 7.499999, 2, -1, -7.5, -2, 1, -7.5, -2, -1, -7.5)
+points = PackedVector3Array(4, 1, 7.499999, 4, -1, 7.499999, 4, 1, -7.5, -4, 1, 7.499999, -4, -1, 7.499999, 4, -1, -7.5, -4, 1, -7.5, -4, -1, -7.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xyc4g"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_gwt65"]
 size = Vector3(5, 3, 7)
@@ -72,62 +77,94 @@ hue_variation_max = 0.049999975
 [sub_resource type="BoxMesh" id="BoxMesh_yqj4p"]
 size = Vector3(5, 2, 12)
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xyc4g"]
+points = PackedVector3Array(2.5, 1, 6, 2.5, -1, 6, 2.5, 1, -6, -2.5, 1, 6, -2.5, -1, 6, 2.5, -1, -6, -2.5, 1, -6, -2.5, -1, -6)
+
 [sub_resource type="BoxMesh" id="BoxMesh_6qll6"]
 size = Vector3(5, 2, 12)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0hg3p"]
+points = PackedVector3Array(2.5, 1, 6, 2.5, -1, 6, 2.5, 1, -6, -2.5, 1, 6, -2.5, -1, 6, 2.5, -1, -6, -2.5, 1, -6, -2.5, -1, -6)
 
 [sub_resource type="BoxMesh" id="BoxMesh_seyvw"]
 size = Vector3(6, 2, 11)
 
-[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "charge_particles", "shoot_particles", "debug_label", "tracks_parent", "mesh")]
+[sub_resource type="Curve" id="Curve_0hg3p"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.75177306, 0.6351351), 0.0, 0.0, 0, 0, Vector2(1, 0.20270264), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_iobi1"]
+points = PackedVector3Array(3, 1, 5.499999, 3, -1, 5.499999, 3, 1, -5.5, -3, 1, 5.499999, -3, -1, 5.499999, 3, -1, -5.5, -3, 1, -5.5, -3, -1, -5.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i6dp1"]
+points = PackedVector3Array(3, 1, 5.499999, 3, -1, 5.499999, 3, 1, -5.5, -3, 1, 5.499999, -3, -1, 5.499999, 3, -1, -5.5, -3, 1, -5.5, -3, -1, -5.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5pvhp"]
+material = SubResource("StandardMaterial3D_5pvhp")
+size = Vector3(9, 4, 4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6qll6"]
+points = PackedVector3Array(4.5, 2, 2, 4.5, 2, -2, -4.5, 2, 2, 4.5, -2, 2, 4.5, -2, -2, -4.5, 2, -2, -4.5, -2, 2, -4.5, -2, -2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
+size = Vector3(20, 9, 28)
+
+[node name="Astra" type="CharacterBody3D" unique_id=1970695531 node_paths=PackedStringArray("turret", "los_ray", "whisker_left", "whisker_right", "ram_hitbox", "charge_particles", "shoot_particles", "debug_label", "tracks_parent", "mesh")]
 collision_layer = 9
 script = ExtResource("1_mlpaj")
 turret = NodePath("TurretModule")
 los_ray = NodePath("los")
+whisker_left = NodePath("Raycasts/LeftWhisker")
+whisker_right = NodePath("Raycasts/RightWhisker")
+ram_hitbox = NodePath("Areas/RamHitbox")
 charge_particles = NodePath("TurretModule/Gun/charge_particles")
 shoot_particles = NodePath("TurretModule/Gun/shoot_particles")
 debug_label = NodePath("TurretModule/Label3D")
 tracks_parent = NodePath("TrackParent")
 tracking_rate = 179.9999999999964
 top_speed = 49.999999999999
+y_pulse_rate = 0.0299999999999994
 visual_update_rate = 9.9999999999998
+visual_update_modifier = 0.00249999999999995
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1187734695]
-transform = Transform3D(1, 0, 0, 0, 0.99619466, 0.08715573, 0, -0.08715573, 0.99619466, 0, 1.5, -1.5)
+transform = Transform3D(1, 0, 0, 0, 0.9876883, 0.15643446, 0, -0.15643446, 0.9876883, 0, 1.5, -2.5)
 mesh = SubResource("BoxMesh_nhb04")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1692267402]
-transform = Transform3D(1, 0, 0, 0, 0.99619466, 0.08715573, 0, -0.08715573, 0.99619466, 0, 1.5, -1.5)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1463200713]
+transform = Transform3D(1, 0, 0, 0, 0.9876883, 0.15643446, 0, -0.15643446, 0.9876883, 0, 1.5, -2.5)
 shape = SubResource("ConvexPolygonShape3D_1dlg0")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1124178104]
-
-[node name="los" type="RayCast3D" parent="." unique_id=1827019459]
+[node name="los" type="ShapeCast3D" parent="." unique_id=313688200]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("SphereShape3D_xyc4g")
 target_position = Vector3(0, 0, -100)
+collision_mask = 513
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="." unique_id=1393974127]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 2)
+[node name="TurretPos" type="RemoteTransform3D" parent="." unique_id=1393974127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 1)
 remote_path = NodePath("../TurretModule")
 update_rotation = false
 
 [node name="TurretModule" type="Node3D" parent="." unique_id=311041701 node_paths=PackedStringArray("bullet_marker", "gun")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 1)
 top_level = true
 script = ExtResource("3_gwt65")
 bullet_velocity = 119.9999999999976
 bullet_scene = ExtResource("4_yqj4p")
 bullet_marker = NodePath("Gun/Marker3D")
+turn_speed = 19.9999999999996
 lead = 1.0
 gun = NodePath("Gun")
 max_angle_gun = 74.9999999999985
-min_angle_gun = -14.9999999999997
+min_angle_gun = -29.9999999999994
 turn_speed_gun = 4.9999999999999
 gun_lead = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TurretModule" unique_id=283257452]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 1, -1.9936124e-09)
+transform = Transform3D(0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 0, 0, 0, 1, -1.9936124e-09, 1, -1.9936124e-09)
 mesh = SubResource("BoxMesh_gwt65")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
@@ -174,9 +211,9 @@ draw_pass_1 = SubResource("BoxMesh_1dlg0")
 [node name="TrackParent" type="Node3D" parent="." unique_id=172604054]
 
 [node name="Track_LF" type="Node3D" parent="TrackParent" unique_id=253528085 node_paths=PackedStringArray("ray", "mesh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9)
 script = ExtResource("5_1dlg0")
-ray = NodePath("RayCast3D")
+ray = NodePath("../../Raycasts/RayCastLFT")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LF" unique_id=160133010]
@@ -184,14 +221,19 @@ transform = Transform3D(0.9659258, 0.25881904, -7.450581e-09, -0.25, 0.93301266,
 mesh = SubResource("BoxMesh_yqj4p")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
-[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_LF" unique_id=1666043878]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1.5, -1.9936124e-09)
-target_position = Vector3(0, -3, 0)
+[node name="Area3D" type="Area3D" parent="TrackParent/Track_LF" unique_id=1984750402]
+transform = Transform3D(0.9659258, 0.25881904, -7.450581e-09, -0.25, 0.93301266, 0.25881904, 0.066987306, -0.24999999, 0.9659258, 1.5, -0.5, 0.5)
+collision_layer = 512
+collision_mask = 512
+
+[node name="TrackCollisionShape3D1" type="CollisionShape3D" parent="TrackParent/Track_LF/Area3D" unique_id=294360347]
+transform = Transform3D(1.0000002, 7.450581e-09, 0, 3.7252903e-09, 1, -1.4901161e-08, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_xyc4g")
 
 [node name="Track_RF" type="Node3D" parent="TrackParent" unique_id=1130225780 node_paths=PackedStringArray("ray", "mesh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9)
 script = ExtResource("5_1dlg0")
-ray = NodePath("RayCast3D")
+ray = NodePath("../../Raycasts/RayCastRFT")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RF" unique_id=2038431609]
@@ -199,36 +241,183 @@ transform = Transform3D(0.9659258, -0.25881904, 7.450581e-09, 0.25, 0.93301266, 
 mesh = SubResource("BoxMesh_6qll6")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
-[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_RF" unique_id=769925294]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.5, -1.9936124e-09)
-target_position = Vector3(0, -3, 0)
+[node name="Area3D" type="Area3D" parent="TrackParent/Track_RF" unique_id=432196181]
+transform = Transform3D(0.9659258, -0.25881904, 7.450581e-09, 0.25, 0.93301266, 0.25881904, -0.066987306, -0.24999999, 0.9659258, -1.5, -0.5, 0.5)
+collision_layer = 512
+collision_mask = 512
+
+[node name="TrackCollisionShape3D2" type="CollisionShape3D" parent="TrackParent/Track_RF/Area3D" unique_id=531744475]
+transform = Transform3D(1.0000002, -7.450581e-09, 0, -3.7252903e-09, 1, -1.4901161e-08, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0hg3p")
 
 [node name="Track_LB" type="Node3D" parent="TrackParent" unique_id=2091702715 node_paths=PackedStringArray("ray", "mesh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 9)
 script = ExtResource("5_1dlg0")
-ray = NodePath("RayCast3D")
+ray = NodePath("../../Raycasts/RayCastLBT")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_LB" unique_id=933190133]
-transform = Transform3D(0.9659258, 0.25881904, 7.450581e-09, -0.25, 0.93301266, -0.25881904, -0.066987306, 0.24999999, 0.9659258, 2, 0, -1)
+transform = Transform3D(0.9659258, 0.25881904, 7.450581e-09, -0.25, 0.93301266, -0.25881904, -0.066987306, 0.24999999, 0.9659258, 2, 0, 1)
 mesh = SubResource("BoxMesh_seyvw")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
-[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_LB" unique_id=1385028187]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.5, -1)
-target_position = Vector3(0, -3, 0)
+[node name="TrailRenderer" type="Node3D" parent="TrackParent/Track_LB" unique_id=239063325]
+transform = Transform3D(1.0000001, -1.9283524e-09, -2.538716e-10, -1.779369e-08, 1, 0, -4.1060977e-09, -2.9802322e-08, 1.0000001, 1, -0.99999976, 3)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="TrailRenderer2" type="Node3D" parent="TrackParent/Track_LB" unique_id=673833383]
+transform = Transform3D(1.0000001, -1.9283524e-09, -2.538716e-10, -1.779369e-08, 1, 0, -4.1060977e-09, -2.9802322e-08, 1.0000001, 3.000001, -1, 3)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="Area3D" type="Area3D" parent="TrackParent/Track_LB" unique_id=2146799207]
+transform = Transform3D(0.9659258, 0.25881904, 7.450581e-09, -0.25, 0.93301266, -0.25881904, -0.066987306, 0.24999999, 0.9659258, 2, 0, 1)
+collision_layer = 512
+collision_mask = 512
+
+[node name="TrackCollisionShape3D3" type="CollisionShape3D" parent="TrackParent/Track_LB/Area3D" unique_id=478999587]
+transform = Transform3D(1.0000002, 7.450581e-09, 0, 3.7252903e-09, 1, 1.4901161e-08, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_iobi1")
 
 [node name="Track_RB" type="Node3D" parent="TrackParent" unique_id=452335654 node_paths=PackedStringArray("ray", "mesh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 9)
 script = ExtResource("5_1dlg0")
-ray = NodePath("RayCast3D")
+ray = NodePath("../../Raycasts/RayCastRBT")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrackParent/Track_RB" unique_id=642465950]
-transform = Transform3D(0.9659258, -0.25881904, -7.450581e-09, 0.25, 0.93301266, -0.25881904, 0.066987306, 0.24999999, 0.9659258, -2, -1.9936124e-09, -1)
+transform = Transform3D(0.9659258, -0.25881904, -7.450581e-09, 0.25, 0.93301266, -0.25881904, 0.066987306, 0.24999999, 0.9659258, -2, -1.9936124e-09, 1)
 mesh = SubResource("BoxMesh_seyvw")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pvhp")
 
-[node name="RayCast3D" type="RayCast3D" parent="TrackParent/Track_RB" unique_id=1758849314]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.5, -1)
-target_position = Vector3(0, -3, 0)
+[node name="TrailRenderer" type="Node3D" parent="TrackParent/Track_RB" unique_id=937285388]
+transform = Transform3D(1, -1.2972809e-08, 2.5387203e-10, 3.269485e-08, 0.99999994, 0, 4.1060986e-09, 0, 1, -1, -0.99999976, 3)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="TrailRenderer2" type="Node3D" parent="TrackParent/Track_RB" unique_id=342031621]
+transform = Transform3D(1, -1.2972809e-08, 2.5387203e-10, 3.269485e-08, 0.99999994, 0, 4.1060986e-09, 0, 1, -3.000001, -1, 3)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="Area3D" type="Area3D" parent="TrackParent/Track_RB" unique_id=1232118211]
+transform = Transform3D(0.9659258, -0.25881904, -7.450581e-09, 0.25, 0.93301266, -0.25881904, 0.066987306, 0.24999999, 0.9659258, -2, -1.9936124e-09, 1)
+collision_layer = 512
+collision_mask = 512
+
+[node name="TrackCollisionShape3D4" type="CollisionShape3D" parent="TrackParent/Track_RB/Area3D" unique_id=151355014]
+transform = Transform3D(1.0000002, -7.450581e-09, 0, -3.7252903e-09, 1, 1.4901161e-08, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_i6dp1")
+
+[node name="HitpointModule" type="Area3D" parent="." unique_id=148347356 node_paths=PackedStringArray("parent")]
+script = ExtResource("8_0hg3p")
+parent = NodePath("..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="HitpointModule" unique_id=2121897161]
+transform = Transform3D(1, 0, 0, 0, 0.4848095, 0.87461954, 0, -0.87461954, 0.4848095, 0, 1.4736023, 8.008358)
+mesh = SubResource("BoxMesh_5pvhp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitpointModule" unique_id=1474592588]
+transform = Transform3D(1, 0, 0, 0, 0.4848095, 0.87461954, 0, -0.87461954, 0.4848095, 0, 1.4736023, 8.008358)
+shape = SubResource("ConvexPolygonShape3D_6qll6")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=1351856102]
+
+[node name="TrailRenderer" type="Node3D" parent="Visuals" unique_id=1600593522]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -3, 2, 9)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="TrailRenderer2" type="Node3D" parent="Visuals" unique_id=1469390778]
+transform = Transform3D(0.96592575, -0.258819, -7.45058e-09, 0.24999999, 0.9330126, -0.258819, 0.0669873, 0.24999997, 0.96592575, 3, 2, 9)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="TrailRenderer3" type="Node3D" parent="Visuals" unique_id=253768444]
+transform = Transform3D(1, -1.2972809e-08, -2.5387203e-10, 3.269485e-08, 0.99999994, 0, -4.1060986e-09, 0, 1, 11, 3, -2.9999995)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="TrailRenderer4" type="Node3D" parent="Visuals" unique_id=20013775]
+transform = Transform3D(1, -1.2972809e-08, -2.5387203e-10, 3.269485e-08, 0.99999994, 0, -4.1060986e-09, 0, 1, -11, 3, -2.9999995)
+visible = false
+script = ExtResource("6_6qll6")
+lifetime = 0.49999999999999
+curve = SubResource("Curve_0hg3p")
+material = ExtResource("7_xyc4g")
+metadata/_custom_type_script = "uid://brqh6t5d1dyrl"
+
+[node name="Raycasts" type="Node3D" parent="." unique_id=1761559891]
+
+[node name="RayCastLFT" type="RayCast3D" parent="Raycasts" unique_id=1666043878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -1.5, -9)
+target_position = Vector3(0, -5, 0)
+
+[node name="RayCastRFT" type="RayCast3D" parent="Raycasts" unique_id=769925294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -1.5, -9)
+target_position = Vector3(0, -5, 0)
+
+[node name="RayCastLBT" type="RayCast3D" parent="Raycasts" unique_id=1385028187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -1.5, 8)
+target_position = Vector3(0, -5, 0)
+
+[node name="RayCastRBT" type="RayCast3D" parent="Raycasts" unique_id=1758849314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1.5, 8)
+target_position = Vector3(0, -5, 0)
+
+[node name="LeftWhisker" type="RayCast3D" parent="Raycasts" unique_id=1694010282]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 0)
+target_position = Vector3(-10, 0, 0)
+hit_from_inside = true
+
+[node name="RightWhisker" type="RayCast3D" parent="Raycasts" unique_id=42646587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 0)
+target_position = Vector3(10, 0, 0)
+hit_from_inside = true
+
+[node name="Areas" type="Node3D" parent="." unique_id=970863120]
+
+[node name="RamHitbox" type="Area3D" parent="Areas" unique_id=292967343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/RamHitbox" unique_id=115995487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 9)
+shape = SubResource("BoxShape3D_seyvw")
+debug_color = Color(1, 0, 0.43137255, 1)
+
+[connection signal="body_entered" from="TrackParent/Track_LF/Area3D" to="." method="_on_track_body_entered"]
+[connection signal="body_entered" from="TrackParent/Track_RF/Area3D" to="." method="_on_track_body_entered"]
+[connection signal="body_entered" from="TrackParent/Track_LB/Area3D" to="." method="_on_track_body_entered"]
+[connection signal="body_entered" from="TrackParent/Track_RB/Area3D" to="." method="_on_track_body_entered"]
+[connection signal="area_entered" from="HitpointModule" to="HitpointModule" method="_on_area_entered"]
+[connection signal="body_entered" from="Areas/RamHitbox" to="." method="_on_ram_hitbox_body_entered"]

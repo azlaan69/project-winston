@@ -408,7 +408,7 @@ tracks/6/path = NodePath("%Sword/../../../../..")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.1, 0.3),
+"times": PackedFloat32Array(0.05, 0.35),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [true],
@@ -940,6 +940,7 @@ debug_color = Color(18.892157, 0, 18.892157, 1)
 [node name="WallChecker" type="ShapeCast3D" parent="." unique_id=1572026001]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.75, -1.9936124e-09)
+visible = false
 shape = SubResource("CylinderShape3D_seyvw")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(1, 1, 1, 1)
@@ -947,6 +948,7 @@ debug_shape_custom_color = Color(1, 1, 1, 1)
 [node name="CeilingChecker" type="ShapeCast3D" parent="." unique_id=1193824407]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 2, -1.9936124e-09)
+visible = false
 shape = SubResource("CylinderShape3D_nhb04")
 target_position = Vector3(0, -0.75, 0)
 debug_shape_custom_color = Color(0, 1, 1, 1)
@@ -954,11 +956,13 @@ debug_shape_custom_color = Color(0, 1, 1, 1)
 [node name="WallCheckLeft" type="RayCast3D" parent="." unique_id=1072597026]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+visible = false
 target_position = Vector3(-1, 0, 0)
 
 [node name="WallCheckRight" type="RayCast3D" parent="." unique_id=477660948]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+visible = false
 target_position = Vector3(1, 0, 0)
 
 [node name="Head" type="Node3D" parent="." unique_id=243913613 node_paths=PackedStringArray("player", "camera", "shake", "wpns_cam")]
@@ -1006,6 +1010,7 @@ mesh = SubResource("CylinderMesh_5pvhp")
 
 [node name="ParryHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=138266649]
 unique_name_in_owner = true
+visible = false
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/ParryHitbox" unique_id=1315296259]
@@ -1016,6 +1021,7 @@ debug_color = Color(1, 0, 0, 0.41960785)
 [node name="SwordHitbox" type="Area3D" parent="Head/CameraPivot" unique_id=470632088]
 unique_name_in_owner = true
 transform = Transform3D(0.99572456, 0.044782154, 0.08078913, 0, 0.8746197, -0.4848095, -0.09237059, 0.4827369, 0.87088025, 0.086, -0.58, -1.58)
+visible = false
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/CameraPivot/SwordHitbox" unique_id=1994545392]

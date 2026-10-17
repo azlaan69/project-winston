@@ -41,7 +41,7 @@ stencil_flags = 2
 size = Vector3(1.5, 0.5722656, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seyvw"]
-size = Vector3(3, 3, 3)
+size = Vector3(5, 5, 5)
 
 [node name="Hat" type="RigidBody3D" unique_id=1332287299 node_paths=PackedStringArray("ghost", "trailer") groups=["hat"]]
 collision_layer = 2

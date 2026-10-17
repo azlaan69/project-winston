@@ -36,12 +36,12 @@ ground_bottom_color = Color(0, 1, 1, 1)
 ground_horizon_color = Color(0, 0, 0, 1)
 ground_curve = 0.01
 
-[sub_resource type="Sky" id="Sky_ocygg"]
+[sub_resource type="Sky" id="Sky_phms8"]
 sky_material = SubResource("ProceduralSkyMaterial_phms8")
 
 [sub_resource type="Environment" id="Environment_vvh5c"]
 background_mode = 2
-sky = SubResource("Sky_ocygg")
+sky = SubResource("Sky_phms8")
 sky_rotation = Vector3(0.5061455, 0, 0.30543262)
 ambient_light_sky_contribution = 0.75
 tonemap_mode = 3
@@ -111,7 +111,7 @@ transform = Transform3D(-0.46519822, 0, -0.8852065, 0, 1, 0, 0.8852065, 0, -0.46
 [node name="Map" type="NavigationRegion3D" parent="Level1" unique_id=1325773843]
 navigation_mesh = SubResource("NavigationMesh_seyvw")
 
-[node name="playground" parent="Level1/Map" unique_id=1184370340 instance=ExtResource("5_7qu1s")]
+[node name="playground" parent="Level1/Map" unique_id=1184370340 groups=["geometry"] instance=ExtResource("5_7qu1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10313797, -0.26226234, 0.34222794)
 collision_mask = 9
 
@@ -139,7 +139,7 @@ material_override = SubResource("StandardMaterial3D_phms8")
 mesh = SubResource("CapsuleMesh_sorpi")
 
 [node name="Astra" parent="Level1" unique_id=1970695531 instance=ExtResource("12_phms8")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -250, 10, -25.999983)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -250, 11, -25.999983)
 
 [node name="Environment" type="Node3D" parent="Level1" unique_id=1658373888]
 

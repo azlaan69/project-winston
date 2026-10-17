@@ -45,6 +45,7 @@ grapple=""
 hat=""
 hitfx=""
 parryable_hitbox=""
+geometry=""
 
 [input]
 

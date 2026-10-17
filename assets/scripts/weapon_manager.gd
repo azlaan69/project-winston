@@ -152,31 +152,6 @@ func sword_process() -> void:
 func deal_shot() -> void:
 	shoot_buffer = 0.0
 	
-	#var offsets = [
-		#Vector3.ZERO,
-		#camera.global_transform.basis.x * 0.35, camera.global_transform.basis.x * -0.35,
-		#camera.global_transform.basis.y * 0.35, camera.global_transform.basis.y * -0.35
-	#]
-	#for offset in offsets:
-		#var result = PhysUtil.raycast_from_cam(camera, 1000.0, [player.get_rid()], offset)
-		#if result:
-			#
-			#var body = result.collider
-			#if body and body.has_method("hit"):
-				#var fx = hitfx.instantiate()
-				#body.add_child(fx)
-				#fx.global_position = result.position.lerp(body.global_position + (-body.transform.basis.z * 2), 0.2)
-				#fx.anim = "pistol"
-				#
-				#var hit_data = {
-					#"damage": 2.5,
-					#"type": "GUN",
-					#"knockback": 0.0,
-					#"dir": -camera.global_transform.basis.z
-				#}
-				#body.hit(hit_data)
-				#break
-	
 	var leniency = remap(player.velocity.length(), 0.0, 40.0, 0.25, 3.0)
 	
 	var result = PhysUtil.shapecast_from_cam(camera, 1000.0, [player.get_rid()], leniency)
@@ -225,6 +200,7 @@ func deal_parry() -> void:
 			anim_sword.play("sheath", 0.1)
 			trauma = proj.hit_data["damage"] / 70.0
 			parry_connect(trauma)
+			parry_state(false)
 		
 		if proj.is_in_group("hat") and (hat.current_state == hat.state.RETURN or hat.current_state == hat.state.LAUNCHED):
 			var facing = -camera.global_transform.basis.z
@@ -232,6 +208,7 @@ func deal_parry() -> void:
 			anim_sword.play("sheath", 0.1)
 			trauma = 0.01
 			parry_connect(trauma)
+			parry_state(false)
 
 func parry_connect(trauma) -> void:
 	PhysUtil.ghost(ghost, ghost_mat, 0.05)
